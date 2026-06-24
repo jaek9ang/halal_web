@@ -1,0 +1,7 @@
+﻿filename,source_type,source_id,ocr_job_id,cert_org,field,before_value,after_value,decision,parse_status_before,parse_status_after
+비타셀L600-HFFIA_2023-09-30.pdf,ocr_job,435,435,HFFIA,cert_no,,Expiry,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
+56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf,ocr_job,263,263,HFFIA,cert_no,,C-23-60400-01-01,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
+56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf,ocr_job,185,185,HFFIA,cert_no,,C-23-60400-01-01,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
+56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf,ocr_job,141,141,HFFIA,cert_no,,C-23-60400-01-01,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
+비타셀L600-HFFIA_2023-09-30.pdf,ocr_test_result,29,435,HFFIA,cert_no,,Expiry,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
+56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf,ocr_test_result,54,263,HFFIA,cert_no,,C-23-60400-01-01,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE

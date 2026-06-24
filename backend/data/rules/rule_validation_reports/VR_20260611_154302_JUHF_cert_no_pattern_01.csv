@@ -1,0 +1,3 @@
+﻿filename,source_type,source_id,ocr_job_id,cert_org,field,before_value,after_value,decision,parse_status_before,parse_status_after
+HALAL-REQ-20260504-6EF9F444__005__Halal 04 04 2028(JUHF).pdf,ocr_job,499,499,JUHF,cert_no,,534-5,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
+HALAL-REQ-20260504-6EF9F444__005__Halal 04 04 2028(JUHF).pdf,ocr_job,452,452,JUHF,cert_no,,534-5,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE

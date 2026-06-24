@@ -1,0 +1,43 @@
+{
+  "schema_version": "certificate_rule_overrides_v1",
+  "updated_at": "2026-06-05T15:00:46",
+  "rules": [
+    {
+      "enabled": true,
+      "rule_candidate_id": "HFFIA_cert_no_anchor_regex_v1",
+      "review_version": "ai_rule_review_v1",
+      "target_org": "HFFIA",
+      "target_field": "cert_no",
+      "rule_kind": "cert_no_pattern_rule",
+      "proposed_rule": {
+        "anchors": [
+          "Registration Number",
+          "Certificate No",
+          "Halal Certificate No.",
+          "Reg. No."
+        ],
+        "stop_before": [
+          "Expiry date",
+          "Valid until",
+          "After",
+          "Issued on"
+        ],
+        "date_normalizers": [],
+        "allow_filename_fallback": false,
+        "window": 650,
+        "source_field": "",
+        "cleanup_steps": [],
+        "patterns": [
+          "\\b[0-9]{4,5}\\/[A-Z0-9]+\\/[A-Z0-9]+\\/[0-9]{2,}\\b",
+          "JRSRS\\/[0-9]{5}\\/[A-Z0-9]+\\/[0-9]+",
+          "DSM[0-9]{5,}[A-Z0-9]+"
+        ],
+        "markers": []
+      },
+      "risk_level": "LOW",
+      "source": "AI_RULE_REVIEW",
+      "validation_report_id": "VR_20260605_145944_HFFIA_cert_no_anchor_regex_v1",
+      "applied_by": "user"
+    }
+  ]
+}

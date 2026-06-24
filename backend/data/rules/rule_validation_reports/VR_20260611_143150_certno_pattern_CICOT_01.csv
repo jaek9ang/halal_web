@@ -1,0 +1,5 @@
+﻿filename,source_type,source_id,ocr_job_id,cert_org,field,before_value,after_value,decision,parse_status_before,parse_status_after
+"HALAL-REQ-20260504-A4244390__001__[SMS] KREATION KE8 (Exp. Oct 14, 2026).pdf",ocr_job,500,500,CICOT,cert_no,051/1998,51/1998,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
+"HALAL-REQ-20260504-A4244390__001__[SMS] KREATION KE8 (Exp. Oct 14, 2026).pdf",ocr_job,451,451,CICOT,cert_no,051/1998,51/1998,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
+11-1. Propylene Glygol USPEP-CICOT(2023-05-01).pdf,ocr_job,433,433,CICOT,cert_no,545/2013,Propylene,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
+11-1. Propylene Glygol USPEP-CICOT(2023-05-01).pdf,ocr_test_result,34,433,CICOT,cert_no,545/2013,Propylene,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
