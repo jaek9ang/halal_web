@@ -4,10 +4,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routers import pmf, suppliers, mail, lhln, ocr
 from app.routers import cert_template
 from app.routers import ai_rule_review
+from app.routers import certificate_filing
 
 app = FastAPI(
     title="SEWOO Halal Console API",
-    version="0.1.0"
+    version="0.2.0",
 )
 
 app.add_middleware(
@@ -29,6 +30,12 @@ app.include_router(
     tags=["AI Rule Review"],
 )
 app.include_router(cert_template.router)
+app.include_router(
+    certificate_filing.router,
+    prefix="/certificate-filing",
+    tags=["Certificate Filing"],
+)
+
 
 @app.get("/health")
 def health():
