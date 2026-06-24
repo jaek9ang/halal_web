@@ -21,6 +21,7 @@ def run_pmf_sync(force: bool = True):
     함수명이 프로젝트마다 달라서 직접 import하지 않는다.
     """
     candidate_names = [
+        "sync_latest_pmf_copy",
         "sync_active_pmf",
         "sync_pmf",
         "prepare_active_pmf",
