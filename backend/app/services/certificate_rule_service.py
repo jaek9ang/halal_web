@@ -37,6 +37,7 @@ COUNTRY_WORDS = {
     "VIETNAM": "VIETNAM",
     "DENMARK": "DENMARK",
     "CHINA": "CHINA",
+    "INDIA": "INDIA",
     "HUNGARY": "HUNGARY",
 }
 
@@ -306,11 +307,6 @@ def extract_country_from_parentheses(line: str) -> str | None:
 
     return extract_country_from_text(m.group(1))
 
-def clean_company_value(value: str) -> str:
-    text = clean_ocr_text(value)
-    text = re.sub(r"^[：:ㆍ\-\s]+", "", text)
-    text = re.sub(r"\s+", " ", text).strip(" .:-")
-    return text
 
 
 def is_company_like(value: str) -> bool:
@@ -403,78 +399,6 @@ def is_admin_or_address_line(value: str) -> bool:
     return any(re.search(pattern, upper, re.I) for pattern in admin_patterns)
 
 
-def looks_like_product_noise(value: str) -> bool:
-    text = clean_ocr_text(value)
-    upper = upper_text(text)
-
-    if not upper:
-        return True
-
-    month_words = (
-        "JAN|JANUARY|JANUARI|FEB|FEBRUARY|FEBRUARI|MAR|MARCH|MARET|"
-        "APR|APRIL|MAY|MEI|JUN|JUNE|JUL|JULY|AUG|AUGUST|"
-        "SEP|SEPTEMBER|OCT|OCTOBER|OKTOBER|NOV|NOVEMBER|DEC|DECEMBER|"
-        "ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|"
-        "SEPTIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE"
-    )
-
-    noise_patterns = [
-        r"^PAGE\b",
-        r"^CERT(?:IFICATE)?\b",
-        r"^DATE\b",
-        r"^VALID\b",
-        r"^ISSUE\b",
-        r"^PRODUCT\s*(NAME|TYPE|CODE)",
-        r"^NO\.?$",
-        r"QR\s*CODE",
-        r"^NAMA\s+PRODUK",
-        r"^DAFTAR\s+PRODUK",
-        r"^DOKUMEN\b",
-        r"^THIS\s+CERTIFICATE\b",
-        r"^THIS\s+IS\s+TO\s+CERTIFY\b",
-        r"^THE\s+CENTRAL\s+ISLAMIC\b",
-        r"^THE\s+PRODUCTION\s+OF\b",
-        r"FACILITY,\s*PROCESSES,\s*AND\s*PRODUCT",
-        r"TAKING\s+PLACE\s+IN",
-        r"AX\s+DELFT",
-
-        # 051 191 03 57 같은 숫자열
-        r"^(?:\d{2,5}\s+){2,}\d{2,5}$",
-
-        # April 2026 / November 2025
-        rf"^({month_words})\s+20\d{{2}}$",
-
-        # 17 Februari 2022 / 24th January 2027
-        rf"^\d{{1,2}}(?:ST|ND|RD|TH|RH)?\s+({month_words})\s+20\d{{2}}$",
-
-        # de abril, 2027 / 10 de abril 2027
-        rf"^(?:\d{{1,2}}\s+)?DE\s+({month_words})[,]?\s+20\d{{2}}$",
-
-        # 2026-04-28 / 28.04.2026 / 28/04/2026
-        r"^20\d{2}[-./]\d{1,2}[-./]\d{1,2}$",
-        r"^\d{1,2}[-./]\d{1,2}[-./]20\d{2}$",
-
-        # BPJPH 발급일 + 아랍어 인증문구 꼬리
-        r"^(JANUARY|JANUARI|FEBRUARY|FEBRUARI|MARET|MARCH|MAC|APRIL|MEI|MAY|JUNI|JUNE|JULI|JULY|AUGUST|SEPTEMBER|OCTOBER|OKTOBER|NOVEMBER|DECEMBER)\s+20\d{2}.*[\u0600-\u06FF]",
-
-        # JAKIM Malay month 단독 연월: Mac 2026, Mac 2028
-        r"^MAC\s+20\d{2}$",
-
-        # SNI 표준명은 제품명이 아님
-        r"^\|?\s*SNI\s*\d",
-    ]
-
-    if any(re.search(pattern, upper, re.I) for pattern in noise_patterns):
-        return True
-
-    if is_admin_or_address_line(text):
-        return True
-
-    # 제품명 후보에는 최소 하나 이상의 문자 필요
-    if not re.search(r"[A-Za-z가-힣]", text):
-        return True
-
-    return False
 
 def _clean_product_candidate_name(value: str) -> str:
     """
@@ -507,58 +431,7 @@ def _clean_product_candidate_name(value: str) -> str:
     return text
 
 
-def finalize_product_candidates(products: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    cleaned: list[dict[str, Any]] = []
-    seen = set()
 
-    for item in products or []:
-        if not isinstance(item, dict):
-            continue
-
-        name = _clean_product_candidate_name(item.get("name") or "")
-
-        if not name:
-            continue
-
-        if looks_like_product_noise(name):
-            continue
-
-        if is_company_like(name):
-            continue
-
-        key = re.sub(r"\s+", " ", upper_text(name)).strip()
-
-        if not key or key in seen:
-            continue
-
-        seen.add(key)
-
-        next_item = dict(item)
-        next_item["name"] = name
-        cleaned.append(next_item)
-
-    return cleaned
-
-def is_non_certificate_document(text: str, filename: str = "") -> bool:
-    blob = upper_text("\n".join([filename or "", text or ""]))
-
-    hard_markers = [
-        "SERTIFIKAT AKREDITASI",
-        "CERTIFICATE OF ACCREDITATION",
-        "LEMBAGA HALAL LUAR NEGERI",
-        "HALAL CERTIFICATION BODIES",
-        "REG RI LH",
-        "GHS-MSDS",
-        "MATERIAL SAFETY DATA SHEET",
-        "SAFETY DATA SHEET",
-        "화학제품과 회사에 관한 정보",
-        "유해성·위험성",
-        "할랄 인증서 갱신 해당 없음",
-        "갱신 해당 없음 확인",
-        "인증서 갱신 여부에 대해 확인드립니다",
-    ]
-
-    return any(marker.upper() in blob for marker in hard_markers)
 
 
 def clean_company_value(value: str) -> str:
@@ -834,7 +707,13 @@ def normalize_date_ocr_text(value: str) -> str:
     return s
 
 def find_dates(text: str) -> list[dict[str, str]]:
-    candidates: list[dict[str, str]] = []
+    """
+    문서에 나타난 순서대로 날짜 후보를 반환한다.
+
+    기존 구현은 정규식 종류별로 후보를 append해서, 본문 앞의
+    `15 Mei 2029`보다 뒤쪽의 `16/05/2024`가 먼저 반환될 수 있었다.
+    모든 패턴의 위치를 함께 수집한 뒤 start 위치로 정렬한다.
+    """
     t = normalize_ocr_digits(clean_ocr_text(normalize_date_ocr_text(text)))
 
     patterns = [
@@ -842,26 +721,48 @@ def find_dates(text: str) -> list[dict[str, str]]:
         r"\b\d{1,2}[-./]\d{1,2}[-./]20\d{2}\b",
         r"\b[A-Za-z]+\s+\d{1,2}(?:st|nd|rd|th|rh)?\s*,?\s*20\d{2}\b",
         r"\b\d{1,2}(?:st|nd|rd|th|rh)?\s+[A-Za-z]+\s*,?\s*20\d{2}\b",
-        r"\b[A-Za-z]+\s+\d{1,2}(?:st|nd|rd|th|rh|TH)?\s*,?\s*20\d{2}\b",
-        r"\b\d{1,2}\s+[A-Za-z]+\s*,?\s*20\d{2}\b",
         r"\b\d{2}[.]\d{1,2}[.]\d{1,2}\b",
     ]
 
-    seen = set()
+    positioned: list[dict[str, Any]] = []
 
-    for pat in patterns:
-        for m in re.finditer(pat, t, re.I):
-            if is_ignored_date_context(t, m.start(), m.end()):
+    for pattern_rank, pattern in enumerate(patterns):
+        for match in re.finditer(pattern, t, re.I):
+            if is_ignored_date_context(t, match.start(), match.end()):
                 continue
 
-            raw = m.group(0)
-            iso = parse_date_text(raw)
+            raw = match.group(0)
+            parsed = parse_date_text(raw)
 
-            if iso and (iso, raw) not in seen:
-                seen.add((iso, raw))
-                candidates.append({"date": iso, "raw": raw})
+            if not parsed:
+                continue
 
-    return candidates
+            positioned.append({
+                "date": parsed,
+                "raw": raw,
+                "start": match.start(),
+                "end": match.end(),
+                "pattern_rank": pattern_rank,
+            })
+
+    positioned.sort(key=lambda item: (
+        int(item["start"]),
+        int(item["end"]),
+        int(item["pattern_rank"]),
+    ))
+
+    seen: set[tuple[str, int, int]] = set()
+    output: list[dict[str, str]] = []
+
+    for item in positioned:
+        key = (str(item["date"]), int(item["start"]), int(item["end"]))
+        if key in seen:
+            continue
+        seen.add(key)
+        output.append({"date": str(item["date"]), "raw": str(item["raw"])})
+
+    return output
+
 
 def extract_date_after(text: str, anchors: list[str], window: int = 220) -> tuple[str | None, str]:
     upper = upper_text(text)
@@ -899,6 +800,79 @@ def extract_date_after(text: str, anchors: list[str], window: int = 220) -> tupl
             start = idx + len(anchor_u)
 
     return None, ""
+
+
+def extract_latest_date_near_anchors(
+    text: str,
+    anchors: list[str],
+    *,
+    before: int = 80,
+    after: int = 650,
+) -> tuple[str | None, str]:
+    """
+    라벨 주변에 발급일과 만료일이 함께 있을 때 가장 늦은 날짜를 선택한다.
+
+    ARA처럼 `Issue Date / Expired Date / Certificate No` 라벨을 먼저 배치하고
+    실제 값은 아래에 순서대로 적는 표, MUIS처럼 날짜 뒤에 `(Date of Expiry)`가
+    인쇄되는 양식에 사용한다. 전체 문서의 최종 날짜를 고르지 않고 라벨 인접
+    구간만 사용하므로 footer/revision 날짜 오인을 줄인다.
+    """
+    src = clean_ocr_text(normalize_date_ocr_text(text))
+    upper = upper_text(src)
+    candidates: list[dict[str, str]] = []
+
+    for anchor in anchors:
+        anchor_u = str(anchor or "").upper().strip()
+        if not anchor_u:
+            continue
+
+        start = 0
+        while True:
+            idx = upper.find(anchor_u, start)
+            if idx < 0:
+                break
+
+            chunk_start = max(0, idx - max(0, int(before)))
+            chunk_end = min(len(src), idx + len(anchor_u) + max(1, int(after)))
+            chunk = src[chunk_start:chunk_end]
+            candidates.extend(find_dates(chunk))
+            start = idx + len(anchor_u)
+
+    if not candidates:
+        return None, ""
+
+    # 같은 날짜가 여러 번 잡혀도 가장 늦은 달력 날짜만 사용한다.
+    best = max(candidates, key=lambda item: item.get("date") or "")
+    return best.get("date") or None, best.get("raw") or ""
+
+
+def extract_muis_expiry_date(text: str, filename: str = "") -> tuple[str | None, str]:
+    """
+    MUIS의 만료일은 Expiry 라벨 인접 날짜와 파일명 날짜만 비교한다.
+
+    일부 구형 스캔은 `Date of Expiry:` 값이 OCR에서 빠지고 직전의 발급일만
+    남는다. 이 경우 파일명에 관리자가 기록한 만료일이 있으면 두 후보 중 더
+    늦은 날짜를 택해 발급일 오인을 방지한다.
+    """
+    candidates: list[dict[str, str]] = []
+
+    date, raw = extract_latest_date_near_anchors(
+        text,
+        ["DATE OF EXPIRY", "ATE OF EXPIRY", "EXPIRY DATE"],
+        before=120,
+        after=180,
+    )
+    if date:
+        candidates.append({"date": date, "raw": raw, "source": "LABEL"})
+
+    for item in find_dates(filename or ""):
+        candidates.append({**item, "source": "FILENAME"})
+
+    if not candidates:
+        return None, ""
+
+    best = max(candidates, key=lambda item: item.get("date") or "")
+    return best.get("date") or None, best.get("raw") or ""
 
 def extract_mui_valid_until_date(text: str) -> tuple[str | None, str]:
     """
@@ -1181,7 +1155,18 @@ def extract_cert_no(text: str, org: str) -> tuple[str, list[str]]:
         "CICOT": [r"CICOT\s*HL\s*[:：]?\s*([0-9/.-]+)", r"\b\d{3}/\d{4}\b", r"\b\d{3}\s+\d{3}\s+\d{3}\s+\d{2}\s+\d{2}\b"],
         "JAKIM": [r"JAKIM[./A-Z0-9() -]{8,}", r"NO\.\s*RUJ\.?\s*/\s*REF\s*NO\.?\s*[:：]?\s*([A-Z0-9./() -]+)"],
         "MUIS": [r"CERTIFICATE\s*NO\.?\s*[:：]?\s*([A-Z0-9/.-]+)", r"REF\s*NO\.?\s*[:：]?\s*([A-Z0-9/.-]+)"],
-        "JMA": [r"NO\.?\s*[:：]?\s*([0-9A-Z/-]{5,})"],
+        "JMA": [
+            r"\bNO\.?\s*[:：]?\s*(\d{1,6}\s*-\s*[A-Z]{2,12}\s*/\s*\d{2,4})",
+            r"CERTIFICATE\s*NO\.?\s*[:：]?\s*([0-9A-Z/ -]{5,})",
+        ],
+        "ARA": [
+            r"CERTIFICATE\s*NO[\s\S]{0,220}?(ARA-\d{6,}(?:-\d+)?)",
+            r"\bARA-\d{6,}(?:-\d+)?\b",
+        ],
+        "JUHF": [
+            r"CERTIFICATE\s*NO[\s\S]{0,120}?(JUHF-\d{3,6}-\d{3,6})",
+            r"\bJUHF-\d{3,6}-\d{3,6}\b",
+        ],
         "KMF": [
             r"\bKMFHC\d{2}-\d{2,6}(?:-\d{1,3})?\b",
             r"\bKMFHC\d{2,4}[-\s]?\d{2,6}(?:[-\s]?\d{1,3})?\b",
@@ -1201,6 +1186,18 @@ def extract_cert_no(text: str, org: str) -> tuple[str, list[str]]:
             val = re.sub(r"\s+", " ", val).strip(" .:-")
             if val and val not in candidates:
                 candidates.append(val)
+
+    if org == "JMA":
+        candidates = [re.sub(r"\s+", "", value) for value in candidates]
+
+    # ARA attachment의 Certificate No가 Ref No보다 더 구체적인 경우(-1 등)
+    # 긴 값을 우선하되 후보 전체는 유지한다.
+    if org in {"ARA", "JUHF"} and candidates:
+        candidates = sorted(
+            dict.fromkeys(candidates),
+            key=lambda value: (len(value), value.count("-")),
+            reverse=True,
+        )
 
     return (candidates[0] if candidates else "", candidates)
 
@@ -1236,6 +1233,21 @@ def extract_expiry(text: str, filename: str, org: str) -> tuple[str, list[dict[s
         if date:
             return date, [{"date": date, "raw": raw, "source": "CICOT_EXPIRED_DATE"}]
 
+    if org == "ARA":
+        date, raw = extract_latest_date_near_anchors(
+            text,
+            ["EXPIRED DATE", "EXPIRY DATE"],
+            before=40,
+            after=700,
+        )
+        if date:
+            return date, [{"date": date, "raw": raw, "source": "ARA_EXPIRED_DATE"}]
+
+    if org == "MUIS":
+        date, raw = extract_muis_expiry_date(text, filename)
+        if date:
+            return date, [{"date": date, "raw": raw, "source": "MUIS_EXPIRY"}]
+
     anchors_by_org = {
         "IFANCA": ["THIS CERTIFICATE IS VALID UNTIL", "THIS CERTIFICATE IS VALID THROUGH"],
         "MUI": ["VALID UNTIL"],
@@ -1255,6 +1267,8 @@ def extract_expiry(text: str, filename: str, org: str) -> tuple[str, list[dict[s
         "KMF": ["유효기간", "인증기간", "VALID UNTIL"],
         "TQHCC": ["CERTIFICATE VALID UNTIL", "VALID UNTIL"],
         "HFFIA": ["VALID UNTIL", "EXPIRY DATE"],
+        "ARA": ["EXPIRED DATE", "EXPIRY DATE", "VALID UNTIL"],
+        "JUHF": ["DATE OF EXPIRY", "EXPIRY DATE", "VALID UNTIL"],
     }
 
     candidates: list[dict[str, str]] = []
@@ -2305,6 +2319,348 @@ def parse_certificate_rule(raw_text: str, filename: str = "", expected_name: str
 
     return apply_certificate_rule_overrides(result, text, filename)
 
+
+
+_CONTEXT_ORG_ALIASES = {
+    "LLSISA": "ISA",
+    "LLS-ISA": "ISA",
+    "LPPOMMUI": "MUI",
+    "LPPOM-MUI": "MUI",
+}
+
+
+def _context_clean(value: Any) -> str:
+    text = clean_ocr_text(str(value or ""))
+    if text.strip().lower() in {"", "-", "none", "null", "nan"}:
+        return ""
+    return text.strip()
+
+
+def _context_norm(value: Any) -> str:
+    text = _context_clean(value).upper()
+    text = text.replace("®", "").replace("™", "")
+    text = re.sub(r"[^A-Z0-9가-힣]+", "", text)
+    return text
+
+
+def _context_org(value: Any) -> str:
+    raw = _context_clean(value).upper()
+    key = _context_norm(raw)
+    return _CONTEXT_ORG_ALIASES.get(raw) or _CONTEXT_ORG_ALIASES.get(key) or raw
+
+
+def _context_similarity(left: Any, right: Any) -> float:
+    left_key = _context_norm(left)
+    right_key = _context_norm(right)
+
+    if not left_key or not right_key:
+        return 0.0
+    if left_key == right_key:
+        return 1.0
+    if left_key in right_key or right_key in left_key:
+        shorter = min(len(left_key), len(right_key))
+        longer = max(len(left_key), len(right_key))
+        if shorter >= 4:
+            return 0.75 + 0.20 * (shorter / max(longer, 1))
+    return SequenceMatcher(None, left_key, right_key).ratio()
+
+
+def _context_text_match(raw_text: str, expected: Any) -> dict[str, Any]:
+    expected_text = _context_clean(expected)
+    expected_key = _context_norm(expected_text)
+    raw_key = _context_norm(raw_text)
+
+    if not expected_key:
+        return {"matched": False, "score": 0.0, "method": "EMPTY"}
+
+    if expected_key in raw_key:
+        return {"matched": True, "score": 1.0, "method": "NORMALIZED_SUBSTRING"}
+
+    # OCR 줄 단위로 유사도를 확인한다. 긴 전체문서와 직접 비교하지 않는다.
+    best_score = 0.0
+    best_line = ""
+
+    for line in lines_of(raw_text):
+        score = _context_similarity(expected_text, line)
+        if score > best_score:
+            best_score = score
+            best_line = line
+
+    return {
+        "matched": best_score >= 0.74,
+        "score": round(best_score, 4),
+        "method": "LINE_SIMILARITY",
+        "matched_line": best_line[:240],
+    }
+
+
+def reconcile_certificate_rule_with_context(
+    rule_result: dict[str, Any],
+    raw_text: str,
+    context: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """
+    메일 관리번호/첨부 순번/PMF에서 확정된 원료 문맥을 OCR 결과와 교차검증한다.
+
+    원칙:
+    - PMF의 기존 인증번호와 유효기간은 새 인증서 값으로 복사하지 않는다.
+    - OCR 기관과 메일 기관이 다르면 자동 확정을 차단한다.
+    - 제조사/제품명은 실제 OCR 원문에서 확인되는 경우에만 PMF 표준명으로 정규화한다.
+    - 원 OCR 값은 ocr_* 필드에 보존한다.
+    """
+    output = dict(rule_result or {})
+    context = dict(context or {})
+
+    reliability = _context_clean(context.get("reliability") or "LOW").upper()
+    selection_reason = _context_clean(context.get("selection_reason"))
+    expected_org = _context_org(context.get("org"))
+    expected_maker = _context_clean(context.get("maker"))
+    expected_country = _context_clean(context.get("maker_country")).upper()
+    expected_cert_no = _context_clean(context.get("cert_no"))
+    current_expiry = _context_clean(context.get("current_expiry"))
+    expected_names = [
+        _context_clean(context.get("english_name")),
+        _context_clean(context.get("material_name")),
+    ]
+    expected_names = list(dict.fromkeys(name for name in expected_names if name))
+
+    ocr_org = _context_org(output.get("cert_org"))
+    ocr_maker = _context_clean(output.get("manufacturer"))
+    ocr_country = _context_clean(output.get("manufacturing_country")).upper()
+    ocr_cert_no = _context_clean(output.get("cert_no"))
+    ocr_expiry = _context_clean(output.get("expiry_date"))
+
+    checks: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    conflicts: list[str] = []
+
+    output["ocr_cert_org"] = ocr_org
+    output["ocr_manufacturer"] = ocr_maker
+    output["ocr_manufacturing_country"] = ocr_country
+    output["ocr_cert_no"] = ocr_cert_no
+    output["ocr_expiry_date"] = ocr_expiry
+
+    org_match = False
+    if expected_org:
+        if ocr_org and ocr_org != "UNKNOWN":
+            org_match = ocr_org == expected_org
+            checks.append({
+                "field": "cert_org",
+                "status": "MATCH" if org_match else "CONFLICT",
+                "ocr": ocr_org,
+                "context": expected_org,
+            })
+            if not org_match:
+                conflicts.append(
+                    f"OCR 인증기관({ocr_org})과 메일/PMF 인증기관({expected_org})이 다릅니다."
+                )
+        elif reliability in {"HIGH", "MEDIUM"}:
+            output["cert_org"] = expected_org
+            output["cert_org_source"] = "MAIL_PMF_CONTEXT_FALLBACK"
+            org_match = True
+            checks.append({
+                "field": "cert_org",
+                "status": "CONTEXT_FALLBACK",
+                "ocr": ocr_org or "UNKNOWN",
+                "context": expected_org,
+            })
+        else:
+            checks.append({
+                "field": "cert_org",
+                "status": "UNRESOLVED",
+                "ocr": ocr_org or "UNKNOWN",
+                "context": expected_org,
+            })
+    else:
+        output["cert_org_source"] = output.get("cert_org_source") or "OCR_RULE"
+
+    maker_text_match = _context_text_match(raw_text, expected_maker)
+    maker_value_match = _context_similarity(ocr_maker, expected_maker)
+    maker_verified = bool(expected_maker) and (
+        maker_text_match.get("matched") or maker_value_match >= 0.72
+    )
+
+    if expected_maker:
+        checks.append({
+            "field": "manufacturer",
+            "status": "MATCH" if maker_verified else "NOT_VERIFIED",
+            "ocr": ocr_maker,
+            "context": expected_maker,
+            "value_score": round(maker_value_match, 4),
+            "text_match": maker_text_match,
+        })
+
+        if maker_verified and not conflicts:
+            output["manufacturer"] = expected_maker
+            output["manufacturer_source"] = "MAIL_PMF_CONTEXT_VERIFIED_IN_OCR"
+            if expected_country:
+                output["manufacturing_country"] = expected_country
+                output["manufacturing_country_source"] = "MAIL_PMF_CONTEXT"
+        elif not ocr_maker:
+            warnings.append("메일/PMF 제조사를 OCR 원문에서 확인하지 못했습니다.")
+        elif maker_value_match < 0.45:
+            warnings.append(
+                f"OCR 제조사({ocr_maker})와 메일/PMF 제조사({expected_maker})의 유사도가 낮습니다."
+            )
+
+    product_matches: list[dict[str, Any]] = []
+    product_candidates = output.get("product_candidates") or []
+
+    for expected_name in expected_names:
+        raw_match = _context_text_match(raw_text, expected_name)
+        best_candidate: dict[str, Any] | None = None
+        best_score = 0.0
+
+        for candidate in product_candidates:
+            score = _context_similarity(expected_name, candidate.get("name"))
+            if score > best_score:
+                best_score = score
+                best_candidate = candidate
+
+        matched = bool(raw_match.get("matched") or best_score >= 0.72)
+        product_matches.append({
+            "expected_name": expected_name,
+            "matched": matched,
+            "raw_text_match": raw_match,
+            "candidate_score": round(best_score, 4),
+            "candidate": best_candidate,
+        })
+
+    product_verified_rows = [row for row in product_matches if row.get("matched")]
+    product_verified = bool(product_verified_rows)
+
+    if expected_names:
+        checks.append({
+            "field": "product",
+            "status": "MATCH" if product_verified else "NOT_VERIFIED",
+            "matches": product_matches,
+        })
+
+        if product_verified and not conflicts:
+            best_row = max(
+                product_verified_rows,
+                key=lambda row: max(
+                    float(row.get("candidate_score") or 0.0),
+                    float((row.get("raw_text_match") or {}).get("score") or 0.0),
+                ),
+            )
+            candidate_score = float(best_row.get("candidate_score") or 0.0)
+            canonical_product = (
+                best_row.get("candidate")
+                if candidate_score >= 0.72
+                else {
+                    "name": best_row.get("expected_name"),
+                    "source": "MAIL_PMF_CONTEXT_VERIFIED_IN_OCR",
+                }
+            )
+            output["best_product_match"] = {
+                "score": max(
+                    float(best_row.get("candidate_score") or 0.0),
+                    float((best_row.get("raw_text_match") or {}).get("score") or 0.0),
+                ),
+                "product": canonical_product,
+                "source": "MAIL_PMF_CONTEXT",
+            }
+        else:
+            warnings.append("메일/PMF 제품명을 OCR 원문 또는 제품 목록에서 확인하지 못했습니다.")
+
+    cert_no_match = False
+    if expected_cert_no and ocr_cert_no:
+        cert_no_match = _context_norm(expected_cert_no) == _context_norm(ocr_cert_no)
+        checks.append({
+            "field": "cert_no",
+            "status": "MATCH" if cert_no_match else "CHANGED_OR_CONFLICT",
+            "ocr": ocr_cert_no,
+            "context_previous": expected_cert_no,
+        })
+        if not cert_no_match:
+            warnings.append(
+                "OCR 인증번호와 PMF의 기존 인증번호가 다릅니다. 갱신으로 번호가 변경된 것인지 확인해야 합니다."
+            )
+
+    date_regression = False
+    if current_expiry and ocr_expiry and re.fullmatch(r"20\d{2}-\d{2}-\d{2}", current_expiry) and re.fullmatch(r"20\d{2}-\d{2}-\d{2}", ocr_expiry):
+        date_regression = ocr_expiry < current_expiry
+        checks.append({
+            "field": "expiry_date",
+            "status": "REGRESSION" if date_regression else "NOT_OLDER",
+            "ocr": ocr_expiry,
+            "context_previous": current_expiry,
+        })
+        if date_regression:
+            warnings.append(
+                f"OCR 유효기간({ocr_expiry})이 PMF 기존 유효기간({current_expiry})보다 과거입니다."
+            )
+
+    context_score = 0
+    if org_match:
+        context_score += 35
+    if maker_verified:
+        context_score += 30
+    if product_verified:
+        context_score += 25
+    if cert_no_match:
+        context_score += 10
+
+    high_reliability = reliability == "HIGH"
+    non_bpjph_has_expiry = output.get("cert_org") == "BPJPH" or bool(ocr_expiry)
+    auto_confirm_eligible = bool(
+        high_reliability
+        and not conflicts
+        and not date_regression
+        and org_match
+        and (maker_verified or product_verified)
+        and non_bpjph_has_expiry
+    )
+
+    if conflicts:
+        output["ok"] = False
+        output["parse_status"] = "MANUAL_REVIEW"
+        output["confidence"] = "LOW"
+        context_status = "CONFLICT"
+    elif auto_confirm_eligible:
+        output["ok"] = True
+        output["parse_status"] = "RULE_MATCHED"
+        output["confidence"] = "HIGH"
+        context_status = "VERIFIED"
+    elif context_score >= 35:
+        # 문맥은 도움을 줬지만 자동확정 기준까지는 부족하다.
+        if output.get("parse_status") not in {"BPJPH_MAINTENANCE_ONLY", "NON_CERTIFICATE_DOC"}:
+            output["parse_status"] = "LOW_CONFIDENCE"
+            output["confidence"] = "MEDIUM"
+        context_status = "ASSISTED"
+    else:
+        context_status = "UNVERIFIED"
+
+    output["context_status"] = context_status
+    output["context_score"] = context_score
+    output["context_reliability"] = reliability
+    output["context_selection_reason"] = selection_reason
+    output["context_checks"] = checks
+    output["context_warnings"] = list(dict.fromkeys(warnings))
+    output["context_conflicts"] = list(dict.fromkeys(conflicts))
+    output["auto_confirm_eligible"] = auto_confirm_eligible
+    output["linked_request_id"] = _context_clean(context.get("request_id"))
+    output["linked_item_index"] = context.get("item_index")
+
+    return output
+
+
+def parse_certificate_rule_with_context(
+    raw_text: str,
+    filename: str = "",
+    context: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """기존 규칙 판독 후 메일/PMF 문맥으로 안전하게 교차검증한다."""
+    context = dict(context or {})
+    expected_name = _context_clean(context.get("english_name") or context.get("material_name"))
+    base = parse_certificate_rule(
+        raw_text=raw_text,
+        filename=filename,
+        expected_name=expected_name,
+        expected_org="",  # expected_org를 OCR 본문에 섞지 않는다.
+    )
+    return reconcile_certificate_rule_with_context(base, raw_text, context)
 
 def guess_certificate_fields(raw_text: str, filename: str = "") -> dict[str, Any]:
     parsed = parse_certificate_rule(raw_text=raw_text, filename=filename)

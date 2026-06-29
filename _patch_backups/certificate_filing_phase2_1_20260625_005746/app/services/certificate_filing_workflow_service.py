@@ -15,8 +15,6 @@ from app.services.filing_name_service import FilingNameInput, get_halal_raw_mate
 from app.services.mail_request_item_service import (
     build_pmf_candidates_for_request_context,
     get_request_context_for_ocr_job,
-    match_mail_item_to_pmf,
-    select_mail_item_for_ocr_job,
 )
 from app.services.ocr_service import get_ocr_job, list_ocr_jobs
 from app.services.pmf_filing_service import (
@@ -134,39 +132,30 @@ def get_confirmed_history_for_job(ocr_job_id: int) -> dict[str, Any] | None:
         conn.close()
 
 
-def _find_selected_pmf_match(
-    mail_item: dict[str, Any] | None,
+def _select_mail_item(
+    request_context: dict[str, Any],
     pmf_row_pos: int,
     pmf_depth: int,
-    supplier: str = "",
-) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
-    if not mail_item:
-        return None, []
+) -> dict[str, Any] | None:
+    groups = build_pmf_candidates_for_request_context(request_context, limit_per_item=10)
+    for group in groups:
+        for match in group.get("pmf_matches") or []:
+            if int(match.get("row_pos")) == int(pmf_row_pos) and int(match.get("depth")) == int(pmf_depth):
+                result = dict(group.get("mail_item") or {})
+                result["pmf_match_score"] = match.get("score", 0)
+                result["pmf_match_reasons"] = match.get("reasons", [])
+                return result
+    return None
 
-    matches = match_mail_item_to_pmf(
-        mail_item,
-        supplier=supplier,
-        limit=20,
-    )
-    for match in matches:
-        if int(match.get("row_pos")) == int(pmf_row_pos) and int(match.get("depth")) == int(pmf_depth):
-            return match, matches
-    return None, matches
 
 def _build_warnings(
     job: dict[str, Any],
     cert_values: dict[str, str],
     material: dict[str, Any],
     mail_item: dict[str, Any] | None,
-    match_validation: dict[str, Any] | None = None,
-) -> tuple[list[str], list[str], list[str]]:
+) -> tuple[list[str], list[str]]:
     warnings: list[str] = []
     blockers: list[str] = []
-    hard_blockers: list[str] = []
-
-    validation = match_validation or {}
-    warnings.extend(validation.get("warnings") or [])
-    hard_blockers.extend(validation.get("hard_blockers") or [])
 
     status = _clean(job.get("status")).upper()
     if status not in ALLOWED_OCR_STATUSES:
@@ -194,9 +183,6 @@ def _build_warnings(
     if not material.get("supplier") or material.get("supplier") == "-":
         blockers.append("PMF 공급사가 없습니다.")
 
-    if not mail_item:
-        hard_blockers.append("OCR 첨부파일과 연결된 메일 원료 항목을 확정하지 못했습니다.")
-
     cert_org = cert_values.get("cert_org")
     if cert_org != "BPJPH" and not cert_values.get("expiry_date"):
         blockers.append(f"{cert_org or '일반'} 인증서의 유효기간이 없습니다.")
@@ -210,10 +196,8 @@ def _build_warnings(
     if not cert_values.get("cert_no"):
         warnings.append("OCR 결과에 인증번호가 없습니다. PMF 기존 인증번호는 유지됩니다.")
 
-    warnings = list(dict.fromkeys(warnings))
-    hard_blockers = list(dict.fromkeys(hard_blockers))
-    blockers = list(dict.fromkeys(hard_blockers + blockers))
-    return warnings, blockers, hard_blockers
+    return warnings, blockers
+
 
 def preview_filing_workflow(
     ocr_job_id: int,
@@ -225,31 +209,9 @@ def preview_filing_workflow(
     material_snapshot = get_pmf_material_snapshot(pmf_row_pos, pmf_depth)
     material = material_snapshot.to_dict()
     request_context = get_request_context_for_ocr_job(job)
-    match_validation = select_mail_item_for_ocr_job(
-        request_context=request_context,
-        job=job,
-        cert_values=cert_values,
-    )
-    mail_item = match_validation.get("selected_mail_item")
-    supplier = _clean((request_context.get("mail_log") or {}).get("supplier"))
-    selected_pmf_match, selected_pmf_matches = _find_selected_pmf_match(
-        mail_item=mail_item,
-        pmf_row_pos=pmf_row_pos,
-        pmf_depth=pmf_depth,
-        supplier=supplier,
-    )
+    mail_item = _select_mail_item(request_context, pmf_row_pos, pmf_depth)
 
-    warnings, blockers, hard_blockers = _build_warnings(
-        job,
-        cert_values,
-        material,
-        mail_item,
-        match_validation=match_validation,
-    )
-    if mail_item and selected_pmf_match is None:
-        message = "선택한 PMF 원료가 이 첨부파일에 연결된 메일 원료 후보와 일치하지 않습니다."
-        hard_blockers.append(message)
-        blockers.append(message)
+    warnings, blockers = _build_warnings(job, cert_values, material, mail_item)
 
     pmf_expiry = cert_values.get("expiry_date", "")
     if cert_values.get("cert_org") == "BPJPH":
@@ -313,16 +275,12 @@ def preview_filing_workflow(
                 "sent_at": (request_context.get("mail_log") or {}).get("sent_at", ""),
             },
             "matched_mail_item": mail_item,
-            "match_validation": match_validation,
-            "selected_pmf_match": selected_pmf_match,
-            "selected_pmf_matches": selected_pmf_matches,
         },
         "pmf_material": material,
         "filing_preview": filing_preview,
         "pmf_update_preview": pmf_preview,
-        "warnings": list(dict.fromkeys(warnings)),
-        "blockers": list(dict.fromkeys(blockers)),
-        "hard_blockers": list(dict.fromkeys(hard_blockers)),
+        "warnings": warnings,
+        "blockers": blockers,
         "existing_history": history,
     }
 
@@ -391,9 +349,6 @@ def confirm_filing_workflow(
         pmf_row_pos=pmf_row_pos,
         pmf_depth=pmf_depth,
     )
-
-    if preview.get("hard_blockers"):
-        raise ValueError(" / ".join(preview["hard_blockers"]))
 
     if preview["blockers"] and not force:
         raise ValueError(" / ".join(preview["blockers"]))
@@ -510,39 +465,19 @@ def list_filing_candidates(limit: int = 100) -> dict[str, Any]:
 
         cert_values = resolve_cert_values(job)
         request_context = get_request_context_for_ocr_job(job)
-        match_validation = select_mail_item_for_ocr_job(
-            request_context=request_context,
-            job=job,
-            cert_values=cert_values,
-        )
-        selected_mail_item = match_validation.get("selected_mail_item")
-        supplier = _clean((request_context.get("mail_log") or {}).get("supplier"))
-
-        selected_matches = (
-            match_mail_item_to_pmf(selected_mail_item, supplier=supplier, limit=5)
-            if selected_mail_item
-            else []
-        )
-        top_match = selected_matches[0] if selected_matches else None
-
-        # 전체 후보는 수동 검토 화면용으로 유지한다. 자동판정에는 선택된 메일 항목만 사용한다.
         pmf_groups = build_pmf_candidates_for_request_context(request_context, limit_per_item=5)
+        top_match = None
+        matched_mail_item = None
 
-        auto_match_blockers = list(match_validation.get("hard_blockers") or [])
-        if cert_values.get("parse_status") in BLOCKED_PARSE_STATUSES:
-            auto_match_blockers.append(
-                f"규칙 판정 상태를 확인해야 합니다: {cert_values.get('parse_status')}"
-            )
-        if not top_match or int(top_match.get("score") or 0) < 150:
-            auto_match_blockers.append("선택된 메일 항목의 PMF 매칭 점수가 부족합니다.")
+        all_matches: list[tuple[int, dict[str, Any], dict[str, Any]]] = []
+        for group in pmf_groups:
+            mail_item = group.get("mail_item") or {}
+            for match in group.get("pmf_matches") or []:
+                all_matches.append((int(match.get("score") or 0), match, mail_item))
 
-        auto_match_blockers = list(dict.fromkeys(auto_match_blockers))
-        auto_match = bool(
-            top_match
-            and int(top_match.get("score") or 0) >= 150
-            and match_validation.get("auto_selectable")
-            and not auto_match_blockers
-        )
+        if all_matches:
+            all_matches.sort(key=lambda x: x[0], reverse=True)
+            _, top_match, matched_mail_item = all_matches[0]
 
         rows.append(
             {
@@ -554,14 +489,10 @@ def list_filing_candidates(limit: int = 100) -> dict[str, Any]:
                 "request_id": request_context.get("request_id", ""),
                 "mail_subject": (request_context.get("mail_log") or {}).get("subject", ""),
                 "mail_type": (request_context.get("mail_log") or {}).get("mail_type", ""),
-                "attachment_index": match_validation.get("attachment_index"),
-                "matched_mail_item": selected_mail_item,
-                "match_validation": match_validation,
+                "matched_mail_item": matched_mail_item,
                 "top_pmf_match": top_match,
-                "selected_pmf_matches": selected_matches,
                 "pmf_candidate_groups": pmf_groups,
-                "auto_match": auto_match,
-                "auto_match_blockers": auto_match_blockers,
+                "auto_match": bool(top_match and int(top_match.get("score") or 0) >= 150),
             }
         )
 
@@ -571,6 +502,7 @@ def list_filing_candidates(limit: int = 100) -> dict[str, Any]:
         "root_path": str(get_halal_raw_material_root()),
         "rows": rows,
     }
+
 
 def list_filing_history(limit: int = 100) -> dict[str, Any]:
     ensure_filing_tables()

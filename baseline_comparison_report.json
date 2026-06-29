@@ -1,0 +1,162 @@
+﻿{
+  "records": 517,
+  "changed_records": 13,
+  "unique_changed_documents": 5,
+  "field_change_counts": {
+    "cert_no": 7,
+    "expiry_date": 8
+  },
+  "changes": [
+    {
+      "ocr_job_id": 509,
+      "source_type": "ocr_job",
+      "filename": "HALAL-REQ-20260504-365CEC9A__001__L-글루탐산 HALAL by 28.05.17.pdf",
+      "changes": {
+        "cert_no": {
+          "before": "",
+          "after": "ARA-504254310625-1"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 502,
+      "source_type": "ocr_job",
+      "filename": "HALAL-REQ-20260504-365CEC9A__001__L-글루탐산 HALAL by 28.05.17.pdf",
+      "changes": {
+        "cert_no": {
+          "before": "",
+          "after": "ARA-504254310625-1"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 499,
+      "source_type": "ocr_job",
+      "filename": "HALAL-REQ-20260504-6EF9F444__005__Halal 04 04 2028(JUHF).pdf",
+      "changes": {
+        "cert_no": {
+          "before": "",
+          "after": "JUHF-0409-0240"
+        },
+        "expiry_date": {
+          "before": "2028-01-03",
+          "after": "2028-04-04"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 452,
+      "source_type": "ocr_job",
+      "filename": "HALAL-REQ-20260504-6EF9F444__005__Halal 04 04 2028(JUHF).pdf",
+      "changes": {
+        "cert_no": {
+          "before": "",
+          "after": "JUHF-0409-0240"
+        },
+        "expiry_date": {
+          "before": "2028-01-03",
+          "after": "2028-04-04"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 449,
+      "source_type": "ocr_job",
+      "filename": "HALAL-REQ-20260504-365CEC9A__001__L-글루탐산 HALAL by 28.05.17.pdf",
+      "changes": {
+        "cert_no": {
+          "before": "",
+          "after": "ARA-504254310625-1"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 438,
+      "source_type": "ocr_job",
+      "filename": "136_1. FATTY ACIDS(lOI)[JAKIM_2029-05-15]비.pdf",
+      "changes": {
+        "expiry_date": {
+          "before": "2024-05-16",
+          "after": "2029-05-15"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 429,
+      "source_type": "ocr_job",
+      "filename": "36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf",
+      "changes": {
+        "cert_no": {
+          "before": "WORKS",
+          "after": "284-TSRU/24"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 227,
+      "source_type": "ocr_job",
+      "filename": "167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf",
+      "changes": {
+        "expiry_date": {
+          "before": "2024-10-08",
+          "after": "2025-10-14"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 122,
+      "source_type": "ocr_job",
+      "filename": "167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf",
+      "changes": {
+        "expiry_date": {
+          "before": "2024-10-08",
+          "after": "2025-10-14"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 80,
+      "source_type": "ocr_job",
+      "filename": "167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf",
+      "changes": {
+        "expiry_date": {
+          "before": "2024-10-08",
+          "after": "2025-10-14"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 438,
+      "source_type": "ocr_test_result",
+      "filename": "136_1. FATTY ACIDS(lOI)[JAKIM_2029-05-15]비.pdf",
+      "changes": {
+        "expiry_date": {
+          "before": "2024-05-16",
+          "after": "2029-05-15"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 429,
+      "source_type": "ocr_test_result",
+      "filename": "36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf",
+      "changes": {
+        "cert_no": {
+          "before": "WORKS",
+          "after": "284-TSRU/24"
+        }
+      }
+    },
+    {
+      "ocr_job_id": 227,
+      "source_type": "ocr_test_result",
+      "filename": "167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf",
+      "changes": {
+        "expiry_date": {
+          "before": "2024-10-08",
+          "after": "2025-10-14"
+        }
+      }
+    }
+  ]
+}
