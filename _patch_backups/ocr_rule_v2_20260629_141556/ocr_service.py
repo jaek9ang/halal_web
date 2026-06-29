@@ -7,7 +7,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 from app.services.certificate_rule_service import parse_certificate_rule
-from app.services.ocr_context_service import parse_certificate_with_linked_context
 import re
 
 import fitz
@@ -483,28 +482,15 @@ def extract_image_text(path: Path, lang: str = "eng") -> dict[str, Any]:
         "page_count": 1,
     }
 
-def guess_certificate_fields(
-    raw_text: str,
-    filename: str = "",
-    source_path: str = "",
-    ocr_job_id: int | None = None,
-) -> dict[str, Any]:
+def guess_certificate_fields(raw_text: str, filename: str = "") -> dict[str, Any]:
     """
-    OCR 기본 규칙을 실행한 뒤, 메일 관리번호와 PMF 연결이 확인되는 경우에만
-    제품명·제조사 문맥으로 교차검증한다.
+    인증서 OCR 원문에서 기관/인증번호/유효기간/제조사/제품목록 후보를 규칙 기반으로 추출한다.
+    AI 전 단계의 1차 판독 결과다.
     """
-    if source_path:
-        parsed = parse_certificate_with_linked_context(
-            raw_text=raw_text,
-            filename=filename,
-            source_path=source_path,
-            ocr_job_id=ocr_job_id,
-        )
-    else:
-        parsed = parse_certificate_rule(
-            raw_text=raw_text,
-            filename=filename,
-        )
+    parsed = parse_certificate_rule(
+        raw_text=raw_text,
+        filename=filename,
+    )
 
     org = parsed.get("cert_org")
     org_candidates = []
@@ -633,12 +619,7 @@ def create_ocr_job(
             )
 
         raw_text = extracted.get("text", "")
-        field_guess = guess_certificate_fields(
-            raw_text,
-            filename=path.name,
-            source_path=str(path),
-            ocr_job_id=job_id,
-        )
+        field_guess = guess_certificate_fields(raw_text, filename=path.name)
         certificate_rule = field_guess.get("certificate_rule") or {}
 
         # 이미지 양식 DB 분류와 OCR 텍스트 규칙 결과를 병합한다.
