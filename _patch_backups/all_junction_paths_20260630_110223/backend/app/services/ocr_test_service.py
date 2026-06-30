@@ -4,7 +4,6 @@ import shutil
 import sqlite3
 from datetime import datetime
 from pathlib import Path
-from app.core.path_utils import to_backend_storage_path
 from typing import Any
 
 from fastapi import UploadFile
@@ -297,7 +296,7 @@ def save_ocr_test_uploads(files: list[UploadFile]) -> dict[str, Any]:
             rows.append(existing)
             continue
 
-        rel_path = to_backend_storage_path(temp_path)
+        rel_path = temp_path.resolve().relative_to(BACKEND_DIR.resolve()).as_posix()
         now = now_text()
 
         conn = connect_db()

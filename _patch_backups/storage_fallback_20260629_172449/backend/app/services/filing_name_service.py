@@ -5,8 +5,6 @@ import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from app.services.storage_path_service import resolve_raw_material_root
-
 DEFAULT_HALAL_RAW_MATERIAL_ROOT = (
     r"\\홍진우\공유\1) 인증심사관련\4. MUI HALAL"
     r"\2) HALAL 하부원료 서류\1)원재료"
@@ -44,7 +42,8 @@ class FilingNameResult:
         return asdict(self)
 
 def get_halal_raw_material_root() -> Path:
-    return resolve_raw_material_root()
+    configured = os.getenv("HALAL_RAW_MATERIAL_ROOT", "").strip()
+    return Path(configured or DEFAULT_HALAL_RAW_MATERIAL_ROOT)
 
 def normalize_text(value: object) -> str:
     return MULTI_SPACE_PATTERN.sub(" ", str(value or "").strip())

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from app.services.storage_path_service import resolve_raw_material_root
 from pathlib import Path
 
 

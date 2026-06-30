@@ -1,4 +1,5 @@
-from pathlib import Path
+﻿from pathlib import Path
+from app.core.path_utils import to_backend_storage_path
 from datetime import datetime
 import re
 import shutil
@@ -315,7 +316,7 @@ async def upload_ocr_manual_files(files: list[UploadFile] = File(...)):
         with save_path.open("wb") as out:
             shutil.copyfileobj(file.file, out)
 
-        rel_path = save_path.relative_to(backend_dir).as_posix()
+        rel_path = to_backend_storage_path(save_path)
 
         rows.append({
             "ok": True,
