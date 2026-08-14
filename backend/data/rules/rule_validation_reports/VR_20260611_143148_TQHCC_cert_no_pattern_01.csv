@@ -1,7 +1,0 @@
-﻿filename,source_type,source_id,ocr_job_id,cert_org,field,before_value,after_value,decision,parse_status_before,parse_status_after
-"91.Yeast Extract(OHLY),OHLY GmbH社-TQHCC(2021-10-31).pdf",ocr_job,421,421,TQHCC,cert_no,HCC1441114420-OHLY2020,27329597,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
-TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf,ocr_job,233,233,TQHCC,cert_no,,mor,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf,ocr_job,136,136,TQHCC,cert_no,,mor,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf,ocr_job,89,89,TQHCC,cert_no,,mor,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-"91.Yeast Extract(OHLY),OHLY GmbH社-TQHCC(2021-10-31).pdf",ocr_test_result,61,421,TQHCC,cert_no,HCC1441114420-OHLY2020,27329597,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
-TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf,ocr_test_result,28,233,TQHCC,cert_no,,mor,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE

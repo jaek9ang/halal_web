@@ -1,5 +1,0 @@
-﻿filename,source_type,source_id,ocr_job_id,cert_org,field,before_value,after_value,decision,parse_status_before,parse_status_after
-1-1-7. Disodium Succinate-JMA(2022-08-11).pdf,ocr_job,434,434,JMA,cert_no,,CERTIFICATE,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf,ocr_job,429,429,JMA,cert_no,WORKS,CERTIFICATE,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
-1-1-7. Disodium Succinate-JMA(2022-08-11).pdf,ocr_test_result,32,434,JMA,cert_no,,CERTIFICATE,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf,ocr_test_result,41,429,JMA,cert_no,WORKS,CERTIFICATE,CHANGED_REVIEW,LOW_CONFIDENCE,LOW_CONFIDENCE
