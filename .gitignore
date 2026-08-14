@@ -52,3 +52,6 @@ backend/tests/fixtures/*.xlsm
 project_tree*.txt
 
 .DS_Store
+
+# macOS 로컬 실행 폴더
+.local_runtime/
