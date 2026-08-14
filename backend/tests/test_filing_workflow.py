@@ -11,7 +11,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from app.services import certificate_filing_workflow_service as workflow
+from app.services.filing import confirm as confirm_module
+from app.services.filing import gate as workflow
 
 
 # --------------------------------------------------------------------------
@@ -158,19 +159,19 @@ def rollback_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         "error_history": 0,
     }
 
-    monkeypatch.setattr(workflow, "preview_filing_workflow", lambda **kw: ROLLBACK_PREVIEW)
+    monkeypatch.setattr(confirm_module, "preview_filing_workflow", lambda **kw: ROLLBACK_PREVIEW)
     monkeypatch.setattr(
-        workflow,
+        confirm_module,
         "get_ocr_job",
         lambda job_id: {"source_path": str(source_file), "file_ext": ".pdf"},
     )
-    monkeypatch.setattr(workflow, "copy_certificate_atomically", lambda **kw: copy_result)
-    monkeypatch.setattr(workflow, "update_pmf_certificate_fields", lambda **kw: pmf_result)
-    monkeypatch.setattr(workflow, "get_active_material_certificates", lambda **kw: [])
-    monkeypatch.setattr(workflow, "insert_material_certificate_history", lambda payload: 1)
-    monkeypatch.setattr(workflow, "get_halal_raw_material_root", lambda: tmp_path)
+    monkeypatch.setattr(confirm_module, "copy_certificate_atomically", lambda **kw: copy_result)
+    monkeypatch.setattr(confirm_module, "update_pmf_certificate_fields", lambda **kw: pmf_result)
+    monkeypatch.setattr(confirm_module, "get_active_material_certificates", lambda **kw: [])
+    monkeypatch.setattr(confirm_module, "insert_material_certificate_history", lambda payload: 1)
+    monkeypatch.setattr(confirm_module, "get_halal_raw_material_root", lambda: tmp_path)
     monkeypatch.setattr(
-        workflow,
+        confirm_module,
         "apply_material_certificate_history_action",
         lambda payload, action: {
             "ok": True,
@@ -201,19 +202,19 @@ def rollback_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         return 999
 
     monkeypatch.setattr(
-        workflow,
+        confirm_module,
         "rollback_material_certificate_history_action",
         fake_rollback_history,
     )
-    monkeypatch.setattr(workflow, "restore_pmf_backup", fake_restore_pmf)
-    monkeypatch.setattr(workflow, "_insert_history", fake_insert_history)
+    monkeypatch.setattr(confirm_module, "restore_pmf_backup", fake_restore_pmf)
+    monkeypatch.setattr(confirm_module, "_insert_history", fake_insert_history)
 
     return SimpleNamespace(calls=calls, target_file=target_file)
 
 
 def test_history_failure_rolls_everything_back(rollback_env):
     with pytest.raises(RuntimeError, match="FORCED_HISTORY_FAILURE"):
-        workflow.confirm_filing_workflow(
+        confirm_module.confirm_filing_workflow(
             ocr_job_id=521,
             pmf_row_pos=90,
             pmf_depth=0,

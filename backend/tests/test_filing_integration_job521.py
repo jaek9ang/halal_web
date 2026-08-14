@@ -9,6 +9,11 @@
 
 원본은 `tests/legacy/`의 세 스크립트(v1/v2/v3 + add_secondary + replace_current)였다.
 v1/v2는 v3에 흡수됐고, 세 시나리오가 공유하던 셋업을 픽스처로 합쳤다.
+
+주의: 이 모듈은 아직 실제 PMF·DB로 통과를 확인하지 못했다. 변환 작업을 macOS에서
+했고 그 환경에는 job 521 데이터가 없다. 운영 PC에서 처음 돌릴 때 단언이 실제
+데이터와 맞는지 확인이 필요하다. 원본 v3는 PMF를 다시 읽을 때 별도 프로세스를
+띄웠는데, 여기서는 같은 프로세스에서 읽는다 — 값이 갱신 전으로 보이면 그게 원인이다.
 """
 
 from __future__ import annotations
@@ -25,8 +30,29 @@ import pytest
 
 from app.services import certificate_filing_service
 from app.services import certificate_filing_workflow_service as workflow
-from app.services import filing_name_service
-from app.services import pmf_filing_service
+from app.services import filing, filing_name_service, pmf_filing_service
+from app.services.pmf_filing_service import get_pmf_material_snapshot
+
+
+def _patch_across_package(monkeypatch, name, value):
+    """`app.services.filing` 안에서 해당 이름을 들고 있는 모든 모듈을 패치한다.
+
+    각 하위 모듈이 `from ...store import get_conn` 식으로 이름을 자기 네임스페이스에
+    묶어두기 때문에, 한 모듈만 패치하면 나머지는 원본을 계속 쓴다.
+    """
+    import importlib
+    import pkgutil
+
+    patched = 0
+
+    for module_info in pkgutil.iter_modules(filing.__path__):
+        module = importlib.import_module(f"app.services.filing.{module_info.name}")
+
+        if hasattr(module, name):
+            monkeypatch.setattr(module, name, value)
+            patched += 1
+
+    assert patched, f"{name} 을(를) 가진 모듈이 없다"
 
 OCR_JOB_ID = 521
 PMF_ROW_POS = 90
@@ -96,16 +122,15 @@ def filing_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         conn.row_factory = sqlite3.Row
         return conn
 
-    monkeypatch.setattr(workflow, "get_conn", test_conn)
-    monkeypatch.setattr(workflow, "get_halal_raw_material_root", lambda: filing_root)
+    _patch_across_package(monkeypatch, "get_conn", test_conn)
+    _patch_across_package(monkeypatch, "get_halal_raw_material_root", lambda: filing_root)
 
     for module in (certificate_filing_service, filing_name_service):
         if hasattr(module, "get_halal_raw_material_root"):
             monkeypatch.setattr(module, "get_halal_raw_material_root", lambda: filing_root)
 
-    for module in (workflow, pmf_filing_service):
-        if hasattr(module, "resolve_pmf_update_path"):
-            monkeypatch.setattr(module, "resolve_pmf_update_path", lambda: test_pmf)
+    monkeypatch.setattr(pmf_filing_service, "resolve_pmf_update_path", lambda: test_pmf)
+    _patch_across_package(monkeypatch, "resolve_pmf_update_path", lambda: test_pmf)
 
     return {"pmf": test_pmf, "db": test_db, "root": filing_root}
 
@@ -138,7 +163,7 @@ def _override_preview(
 
         return result
 
-    monkeypatch.setattr(workflow, "preview_filing_workflow", patched)
+    _patch_across_package(monkeypatch, "preview_filing_workflow", patched)
 
 
 AUTHORITY_CHANGE_DECISION = {
@@ -180,12 +205,10 @@ def test_same_authority_renewal_updates_pmf_and_supersedes_previous(
     filing_env, monkeypatch: pytest.MonkeyPatch
 ):
     """같은 기관 갱신: PMF 유효기간이 갱신되고 이전 인증서는 SUPERSEDED가 된다."""
-    _override_preview(monkeypatch, certificate=None, decision=None)
-
     original_preview = workflow.preview_filing_workflow
 
     def guarded(**kwargs):
-        result = original_preview(**kwargs)
+        result = deepcopy(original_preview(**kwargs))
         decision = result.get("change_decision") or {}
 
         assert decision.get("decision_code") == "SAME_AUTHORITY_RENEWAL", (
@@ -195,9 +218,11 @@ def test_same_authority_renewal_updates_pmf_and_supersedes_previous(
             "이 테스트는 메일과 연결되지 않은 단독 OCR job을 전제로 한다"
         )
 
+        result["hard_blockers"] = []
+
         return result
 
-    monkeypatch.setattr(workflow, "preview_filing_workflow", guarded)
+    _patch_across_package(monkeypatch, "preview_filing_workflow", guarded)
 
     result = workflow.confirm_filing_workflow(
         ocr_job_id=OCR_JOB_ID,
@@ -214,7 +239,7 @@ def test_same_authority_renewal_updates_pmf_and_supersedes_previous(
     assert result["copy"]["status"] == "COPIED"
     assert Path(result["copy"]["target_path"]).exists()
 
-    material = workflow.get_pmf_material_snapshot(PMF_ROW_POS, PMF_DEPTH).to_dict()
+    material = get_pmf_material_snapshot(PMF_ROW_POS, PMF_DEPTH).to_dict()
 
     assert str(material["org"]).strip().upper() == BASE_ORG
     assert str(material["cert_no"]).strip() == BASE_CERT_NO
@@ -269,7 +294,7 @@ def test_add_secondary_keeps_primary_and_leaves_pmf_untouched(
     assert result["copy"]["status"] == "COPIED"
     assert Path(result["copy"]["target_path"]).exists()
 
-    material = workflow.get_pmf_material_snapshot(PMF_ROW_POS, PMF_DEPTH).to_dict()
+    material = get_pmf_material_snapshot(PMF_ROW_POS, PMF_DEPTH).to_dict()
 
     assert str(material["org"]).strip().upper() == BASE_ORG
     assert str(material["cert_no"]).strip() == BASE_CERT_NO
@@ -321,7 +346,7 @@ def test_replace_current_promotes_new_certificate(
     assert result["copy"]["status"] == "COPIED"
     assert Path(result["copy"]["target_path"]).exists()
 
-    material = workflow.get_pmf_material_snapshot(PMF_ROW_POS, PMF_DEPTH).to_dict()
+    material = get_pmf_material_snapshot(PMF_ROW_POS, PMF_DEPTH).to_dict()
 
     assert str(material["org"]).strip().upper() == "HCA"
     assert str(material["cert_no"]).strip() == "HCA-PRIMARY-2029"

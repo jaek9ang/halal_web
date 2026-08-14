@@ -35,6 +35,17 @@
 
 `routers/` (HTTP) → `services/` (업무 로직) → SQLite / 엑셀 / 파일시스템.
 
+큰 서비스 넷은 패키지로 나뉘어 있고, 각 패키지 안의 의존 방향은 한 방향이다.
+
+| 패키지 | 계층 순서 |
+|---|---|
+| `services/rules/` | text → dates → organizations → companies → products → overrides → core → context |
+| `services/filing/` | store → helpers → history → gate → preview → confirm |
+| `services/ocr/` | engines → store → paths → templates → jobs → failures |
+| `services/mail_inbox/` | text → parsing → store → matching → sync → queries → ocr_targets |
+
+옛 모듈명(`certificate_rule_service.py` 등)은 re-export shim으로 남아 있다.
+
 DI 계층이나 리포지토리 패턴은 없다. 서비스는 모듈 함수의 모음이고, 필요한 DB 연결을
 각자 연다. `core/config.py`가 경로·상수를 제공한다.
 

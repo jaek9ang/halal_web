@@ -25,16 +25,35 @@
 | 하려는 일 | 파일 |
 |---|---|
 | API 엔드포인트 추가·수정 | `backend/app/routers/` — 얇게 유지. 로직은 서비스로 |
-| 기관별 OCR 판독 규칙 (JAKIM, MUIS, CICOT, ARA, JUHF, JMA, BPJPH) | `backend/app/services/certificate_rule_service.py` |
-| 인증서 자동분류·확정·롤백 흐름 | `backend/app/services/certificate_filing_workflow_service.py` |
-| OCR 잡 실행 (tesseract / rapidocr) | `backend/app/services/ocr_service.py` |
-| 메일 수신·첨부 다운로드·관리번호 매칭 | `backend/app/services/mail_inbox_service.py` |
+| 유효기간·발급일 인식 규칙 | `backend/app/services/rules/dates.py` |
+| 발급기관 판별, 기관 별칭 (JAKIM, MUIS, CICOT, ARA, JUHF, JMA, BPJPH …) | `backend/app/services/rules/organizations.py` |
+| 인증번호 추출, 판독 진입점 | `backend/app/services/rules/core.py` |
+| 제조사명 / 제품명 추출 | `backend/app/services/rules/companies.py`, `rules/products.py` |
+| 메일·PMF 교차검증, 자동확정 안전 원칙 | `backend/app/services/rules/context.py` |
+| 확정 게이트 (사람이 자동 판정을 뒤집지 못하게) | `backend/app/services/filing/gate.py` |
+| 확정 실행·롤백 | `backend/app/services/filing/confirm.py` |
+| 인증서 이력 (주/부 승격·강등) | `backend/app/services/filing/history.py` |
+| OCR 엔진 호출 (tesseract / rapidocr) | `backend/app/services/ocr/engines.py` |
+| OCR job 생성·조회 | `backend/app/services/ocr/jobs.py` |
+| 메일 수신·첨부 다운로드 | `backend/app/services/mail_inbox/sync.py` |
+| 관리번호 매칭 | `backend/app/services/mail_inbox/matching.py` |
 | 메일 발송·본문 템플릿 | `backend/app/services/mail_service.py` |
 | PMF 엑셀 읽기 | `backend/app/services/pmf_service.py` |
 | PMF 엑셀 쓰기 (`keep_vba`) | `backend/app/services/pmf_filing_service.py` |
 | 경로·DB·상수 설정 | `backend/app/core/config.py` |
+| SQLite 연결 | `backend/app/core/db.py` |
+| 메일 계정 환경변수 | `backend/app/core/mail_credentials.py` |
 | 공유폴더 ↔ 로컬 폴더 대체 판정 | `backend/app/services/storage_path_service.py` |
-| 화면 | `frontend/src/` |
+| 화면 | `frontend/src/pages/` (화면별), `frontend/src/components/` |
+| 프론트 API 호출 | `frontend/src/api/` (백엔드 라우터별) |
+
+`certificate_rule_service.py`, `certificate_filing_workflow_service.py`,
+`ocr_service.py`, `mail_inbox_service.py`는 각각 위 패키지로 옮겨졌고, 기존 경로는
+re-export shim만 남아 있다. 새 코드는 패키지에서 직접 가져온다.
+
+**모듈 전역을 monkeypatch할 때 주의**: 하위 모듈이 `from .store import get_conn`처럼
+이름을 자기 네임스페이스에 묶으므로, 한 모듈만 패치하면 나머지는 원본을 계속 쓴다.
+`tests/test_filing_integration_job521.py`의 `_patch_across_package` 참고.
 
 ## 검증
 
