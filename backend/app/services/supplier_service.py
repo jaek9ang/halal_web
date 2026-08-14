@@ -9,6 +9,7 @@ import pandas as pd
 
 from app.core.config import PMF_APP_DB_PATH
 from app.services.pmf_service import read_pmf_bundle
+from app.core.db import connect as db_connect
 
 
 EMAIL_PATTERN = re.compile(
@@ -21,10 +22,7 @@ def ensure_db_dir() -> None:
 
 
 def get_conn():
-    ensure_db_dir()
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 def init_supplier_email_db() -> None:

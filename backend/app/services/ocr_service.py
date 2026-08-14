@@ -18,6 +18,7 @@ from app.core.config import (
     PMF_APP_DB_PATH,
     HALAL_DOC_ROOT,
 )
+from app.core.db import connect as db_connect
 
 TESSERACT_DEFAULT_CMD = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 TESSDATA_DEFAULT_DIR = r"C:\Program Files\Tesseract-OCR\tessdata"
@@ -115,10 +116,9 @@ def is_tesseract_error_text(value: str) -> bool:
     )
 
 def ensure_ocr_db() -> None:
-    PMF_APP_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     OCR_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
+    conn = db_connect(PMF_APP_DB_PATH)
     cur = conn.cursor()
 
     cur.execute("""
@@ -142,9 +142,7 @@ def ensure_ocr_db() -> None:
 
 def get_ocr_conn():
     ensure_ocr_db()
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 IMAGE_TEMPLATE_DECISIONS = {"AUTO_IMAGE", "REVIEW", "MANUAL_REVIEW", "NO_REFERENCE", "ERROR"}

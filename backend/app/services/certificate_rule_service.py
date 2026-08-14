@@ -5,6 +5,7 @@ from datetime import datetime
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
+from app.core.db import connect as db_connect
 
 MONTHS = {
     "JAN": 1, "JANUARY": 1,
@@ -142,8 +143,7 @@ def _safe_lhln_country_lookup(org: str) -> str | None:
         return None
 
     try:
-        conn = sqlite3.connect(LHLN_DB_PATH)
-        conn.row_factory = sqlite3.Row
+        conn = db_connect(LHLN_DB_PATH)
         cur = conn.cursor()
 
         tables = [r[0] for r in cur.execute(
@@ -2671,7 +2671,7 @@ def reconcile_certificate_rule_with_context(
 
     if profile_blocking_flags:
         warnings.append(
-            "??? OCR ?? ?? ??: "
+            "기관 규칙 품질 검사에서 자동확정 차단 사유가 발견되었습니다: "
             + ", ".join(profile_blocking_flags)
         )
 

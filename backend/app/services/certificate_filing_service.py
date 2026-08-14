@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from app.core.config import FILING_HISTORY_PATH
 from app.services.filing_name_service import FilingNameInput, build_target_path, get_halal_raw_material_root
 
 @dataclass(frozen=True)
@@ -71,7 +72,7 @@ def preview_certificate_filing(source_path: str | Path, naming_input: FilingName
     )
 
 def append_filing_history(payload: dict[str, Any], history_path: Path | None = None) -> None:
-    history_path = history_path or (Path(__file__).resolve().parents[2] / "data" / "filing" / "certificate_filing_history.jsonl")
+    history_path = history_path or FILING_HISTORY_PATH
     history_path.parent.mkdir(parents=True, exist_ok=True)
     with history_path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(payload, ensure_ascii=False) + "\n")

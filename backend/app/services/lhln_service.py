@@ -17,6 +17,7 @@ from app.core.config import (
     LHLN_OUTPUT_DIR,
     LHLN_GUIDE_PDF_PATH,
 )
+from app.core.db import connect as db_connect
 
 
 def normalize_text(value: Any) -> str:
@@ -46,11 +47,7 @@ def split_lhln_name(raw_name: str):
 
 
 def get_lhln_conn():
-    LHLN_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-    conn = sqlite3.connect(LHLN_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(LHLN_DB_PATH)
 
 
 def init_lhln_db() -> None:

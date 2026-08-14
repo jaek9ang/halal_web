@@ -1,4 +1,4 @@
-﻿"""Certificate institution classification package."""
+"""Certificate institution classification package."""
 
 from .config import (
     get_current_dataset_root,

@@ -16,6 +16,7 @@ from app.core.config import (
     MAIL_RECEIVE_OUTPUT_DIR,
     PMF_APP_DB_PATH,
 )
+from app.core.db import connect as db_connect
 
 
 REQUEST_ID_PATTERN = re.compile(
@@ -69,9 +70,7 @@ class DownloadedAttachmentRow:
 
 
 def ensure_receive_db() -> None:
-    PMF_APP_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
+    conn = db_connect(PMF_APP_DB_PATH)
     cur = conn.cursor()
 
     cur.execute("""
@@ -98,9 +97,7 @@ def ensure_receive_db() -> None:
 
 def get_receive_conn():
     ensure_receive_db()
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 def decode_mime_text(value: Any) -> str:

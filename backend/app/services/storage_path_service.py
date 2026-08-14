@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sys
 import uuid
 from dataclasses import asdict, dataclass
 from functools import lru_cache
@@ -11,7 +12,16 @@ DEFAULT_SHARED_RAW_MATERIAL_ROOT = (
     r"\\홍진우\공유\1) 인증심사관련\4. MUI HALAL"
     r"\2) HALAL 하부원료 서류\1)원재료"
 )
-DEFAULT_LOCAL_RAW_MATERIAL_ROOT = r"D:\halal_web_runtime\원재료"
+
+# 운영 PC(Windows)는 D 드라이브를 대체 저장소로 쓴다. 다른 OS에서는 그 경로가
+# 존재할 수 없으므로 저장소 루트 판정이 항상 실패한다 — 저장소 아래에 만든다.
+# HALAL_LOCAL_RAW_MATERIAL_ROOT로 언제든 덮어쓸 수 있다.
+if sys.platform == "win32":
+    DEFAULT_LOCAL_RAW_MATERIAL_ROOT = r"D:\halal_web_runtime\원재료"
+else:
+    DEFAULT_LOCAL_RAW_MATERIAL_ROOT = str(
+        Path(__file__).resolve().parents[3] / ".local_runtime" / "원재료"
+    )
 
 
 @dataclass(frozen=True)

@@ -12,6 +12,7 @@ from app.services.mail_service import (
     hide_mail_send_logs,
 )
 
+from app.core.mail_credentials import resolve_mail_credential
 from app.services.mail_receive_service import (
     test_daum_imap_login,
     fetch_recent_messages,
@@ -129,70 +130,8 @@ class SaveOcrCandidateRequest(BaseModel):
     ocr_candidates: list[dict] = Field(default_factory=list)
     message: str = ""
 
-class AutoSelectExactOcrRequest(BaseModel):
-    mail_id: Optional[int] = None
 
 
-class SaveOcrCandidateRequest(BaseModel):
-    attachment_id: int
-    ocr_job_id: Optional[int] = None
-    status: str = ""
-    filename: str = ""
-    best_expiry: str = ""
-    expiry_candidates: list[dict] = Field(default_factory=list)
-    message: str = ""
-
-class AutoSelectExactOcrRequest(BaseModel):
-    mail_id: int | None = None
-
-def resolve_mail_credential(req_email: str = "", req_password: str = ""):
-    email_candidates = [
-        req_email,
-        os.getenv("DAUM_IMAP_EMAIL", ""),
-        os.getenv("DAUM_MAIL_EMAIL", ""),
-        os.getenv("DAUM_EMAIL", ""),
-        os.getenv("DAUM_SMTP_EMAIL", ""),
-        os.getenv("MAIL_SENDER", ""),
-        os.getenv("MAIL_EMAIL", ""),
-        os.getenv("SMTP_USER", ""),
-        os.getenv("SENDER_EMAIL", ""),
-    ]
-
-    password_candidates = [
-        req_password,
-        os.getenv("DAUM_IMAP_PASSWORD", ""),
-        os.getenv("DAUM_IMAP_PW", ""),
-        os.getenv("DAUM_MAIL_PASSWORD", ""),
-        os.getenv("DAUM_MAIL_PW", ""),
-        os.getenv("DAUM_APP_PASSWORD", ""),
-        os.getenv("DAUM_APP_PW", ""),
-        os.getenv("DAUM_SMTP_PASSWORD", ""),
-        os.getenv("DAUM_SMTP_PW", ""),
-        os.getenv("DAUM_PASSWORD", ""),
-        os.getenv("MAIL_PASSWORD", ""),
-        os.getenv("MAIL_PW", ""),
-        os.getenv("MAIL_APP_PASSWORD", ""),
-        os.getenv("SMTP_PASSWORD", ""),
-        os.getenv("SMTP_PW", ""),
-        os.getenv("SENDER_PASSWORD", ""),
-    ]
-
-    user_email = ""
-    app_password = ""
-
-    for value in email_candidates:
-        value = str(value or "").strip()
-        if value and value.lower() != "string":
-            user_email = value
-            break
-
-    for value in password_candidates:
-        value = str(value or "").strip()
-        if value and value.lower() != "string":
-            app_password = value
-            break
-
-    return user_email, app_password
 
 
 @router.get("/targets")

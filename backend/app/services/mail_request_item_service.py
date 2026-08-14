@@ -11,6 +11,7 @@ from typing import Any
 from app.core.config import PMF_APP_DB_PATH
 from app.services.pmf_service import read_pmf_bundle
 from app.services.supplier_service import clean, get_full_row_data, nfkc_text
+from app.core.db import connect as db_connect
 
 
 TAG_PATTERN = re.compile(r"<[^>]+>")
@@ -59,9 +60,7 @@ class MailRequestItem:
 
 
 def get_conn() -> sqlite3.Connection:
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 def table_exists(conn: sqlite3.Connection, table_name: str) -> bool:

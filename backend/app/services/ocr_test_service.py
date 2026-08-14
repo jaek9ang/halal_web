@@ -10,6 +10,7 @@ from typing import Any
 from fastapi import UploadFile
 
 from app.services.ocr_service import create_ocr_job, get_ocr_job
+from app.core.db import connect as db_connect
 
 # backend 폴더 기준 경로
 BACKEND_DIR = Path(__file__).resolve().parents[2]
@@ -94,9 +95,7 @@ def now_text() -> str:
 
 
 def connect_db():
-    conn = sqlite3.connect(OCR_TEST_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(OCR_TEST_DB_PATH)
 
 
 def init_ocr_test_db():

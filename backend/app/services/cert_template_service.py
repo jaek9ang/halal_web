@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Certificate template DB service: pHash + ORB based org candidates."""
 from __future__ import annotations
+from app.core.config import CERT_TEMPLATE_DB_PATH
+from app.core.db import WAL_PRAGMAS, connect as db_connect
 
 import hashlib, io, json, sqlite3, time, traceback, threading
 from dataclasses import dataclass
@@ -19,7 +21,7 @@ OUTPUT_DIR = BACKEND_DIR / "output"
 STORE_DIR = OUTPUT_DIR / "cert_template"
 FEATURE_DIR = STORE_DIR / "features"
 IMAGE_DIR = STORE_DIR / "images"
-DB_PATH = DB_DIR / "cert_template_features.db"
+DB_PATH = CERT_TEMPLATE_DB_PATH
 DB_WRITE_LOCK = threading.RLock()
 
 SUPPORTED_EXTS = {".pdf", ".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp"}
@@ -74,13 +76,12 @@ def now_text() -> str:
 
 def get_conn() -> sqlite3.Connection:
     ensure_dirs()
-    conn = sqlite3.connect(str(DB_PATH), timeout=60, check_same_thread=False)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA busy_timeout = 60000")
-    conn.execute("PRAGMA journal_mode = WAL")
-    conn.execute("PRAGMA synchronous = NORMAL")
-    conn.execute("PRAGMA temp_store = MEMORY")
-    return conn
+    return db_connect(
+        DB_PATH,
+        timeout=60,
+        check_same_thread=False,
+        pragmas=WAL_PRAGMAS,
+    )
 
 def ensure_table_columns(conn: sqlite3.Connection, table_name: str, columns: Dict[str, str]) -> None:
     existing = {row["name"] for row in conn.execute(f"PRAGMA table_info({table_name})").fetchall()}

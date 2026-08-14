@@ -28,6 +28,7 @@ from app.services.pmf_filing_service import (
     update_pmf_certificate_fields,
 )
 from app.services.certificate_change_service import classify_certificate_change
+from app.core.db import connect as db_connect
 
 
 ALLOWED_OCR_STATUSES = {"DONE"}
@@ -42,10 +43,7 @@ BLOCKED_PARSE_STATUSES = {
 
 
 def get_conn() -> sqlite3.Connection:
-    PMF_APP_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 def _ensure_filing_history_unique_index(conn) -> None:

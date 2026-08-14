@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from app.core.config import PMF_APP_DB_PATH, MAIL_INBOX_DOWNLOAD_DIR
+from app.core.db import connect as db_connect
 
 
 REQUEST_ID_PATTERN = re.compile(
@@ -714,13 +715,7 @@ def is_bounce_mail(subject: str = "", sender: str = "", body_text: str = "", msg
     return False
 
 def get_db_conn():
-    db_path = Path(PMF_APP_DB_PATH)
-    db_path.parent.mkdir(parents=True, exist_ok=True)
-
-    conn = sqlite3.connect(str(db_path))
-    conn.row_factory = sqlite3.Row
-
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 def init_inbox_tables():
@@ -955,18 +950,6 @@ def insert_inbound_mail(meta: dict[str, Any]) -> tuple[int, bool]:
 
     return mail_id, True
 
-def is_exact_pdf_ocr_candidate(filename: str = "", ext: str = "") -> bool:
-    """
-    EXACT 매칭 메일의 PDF 첨부는 자동 OCR 대상.
-    이미지/엑셀/워드는 수동 선택 또는 OCR 제외.
-    """
-    name = str(filename or "").strip().lower()
-    suffix = str(ext or "").strip().lower()
-
-    if not suffix and "." in name:
-        suffix = "." + name.rsplit(".", 1)[-1].lower()
-
-    return suffix == ".pdf"
 
 
 def insert_attachment(
@@ -1767,85 +1750,6 @@ def is_ocr_candidate_attachment(
     return True
 
 
-def auto_select_exact_inbound_ocr_targets(mail_id: int | None = None) -> dict[str, Any]:
-    """
-    관리번호 exact 매칭 메일의 첨부파일 중 OCR 가능한 파일을 자동 OCR 대상으로 지정한다.
-    """
-    init_inbox_tables()
-
-    conn = get_db_conn()
-    cur = conn.cursor()
-
-    params = []
-
-    sql = """
-        SELECT
-            a.id,
-            a.mail_id,
-            a.original_filename,
-            a.saved_filename,
-            a.ext,
-            a.file_size,
-            COALESCE(a.ocr_selected, 0) AS ocr_selected,
-            m.match_status,
-            COALESCE(m.is_excluded, 0) AS is_excluded
-        FROM inbound_attachment a
-        LEFT JOIN inbound_mail m ON a.mail_id = m.id
-        WHERE m.match_status = 'exact'
-          AND COALESCE(m.is_excluded, 0) = 0
-    """
-
-    if mail_id is not None:
-        sql += " AND m.id = ?"
-        params.append(int(mail_id))
-
-    cur.execute(sql, params)
-    rows = [dict(x) for x in cur.fetchall()]
-
-    selected_ids = []
-    skipped = []
-
-    for row in rows:
-        filename = row.get("saved_filename") or row.get("original_filename") or ""
-        ext = row.get("ext") or ""
-        file_size = row.get("file_size") or 0
-
-        if is_ocr_candidate_attachment(filename=filename, ext=ext, file_size=file_size):
-            selected_ids.append(int(row["id"]))
-        else:
-            skipped.append({
-                "id": int(row["id"]),
-                "filename": filename,
-                "reason": "OCR 제외 확장자 또는 서명/로고 이미지",
-            })
-
-    updated = 0
-
-    if selected_ids:
-        placeholders = ",".join(["?"] * len(selected_ids))
-        cur.execute(
-            f"""
-            UPDATE inbound_attachment
-            SET ocr_selected = 1
-            WHERE id IN ({placeholders})
-            """,
-            selected_ids,
-        )
-        updated = cur.rowcount
-
-    conn.commit()
-    conn.close()
-
-    return {
-        "ok": True,
-        "mail_id": mail_id,
-        "checked": len(rows),
-        "selected": len(selected_ids),
-        "updated": updated,
-        "skipped": len(skipped),
-        "selected_ids": selected_ids,
-        "skipped_rows": skipped[:30],
-    }
 
 def is_exact_pdf_ocr_candidate(filename: str = "", ext: str = "") -> bool:
     """
@@ -1861,148 +1765,8 @@ def is_exact_pdf_ocr_candidate(filename: str = "", ext: str = "") -> bool:
     return suffix == ".pdf"
 
 
-def auto_select_exact_inbound_ocr_targets(mail_id: int | None = None) -> dict[str, Any]:
-    """
-    관리번호 exact 매칭 메일의 PDF 첨부파일을 자동 OCR 대상으로 지정한다.
-    """
-    init_inbox_tables()
-
-    conn = get_db_conn()
-    cur = conn.cursor()
-
-    params = []
-
-    sql = """
-        SELECT
-            a.id,
-            a.mail_id,
-            a.original_filename,
-            a.saved_filename,
-            a.ext,
-            a.file_size,
-            COALESCE(a.ocr_selected, 0) AS ocr_selected,
-            m.match_status,
-            COALESCE(m.is_excluded, 0) AS is_excluded
-        FROM inbound_attachment a
-        LEFT JOIN inbound_mail m ON a.mail_id = m.id
-        WHERE m.match_status = 'exact'
-          AND COALESCE(m.is_excluded, 0) = 0
-    """
-
-    if mail_id is not None:
-        sql += " AND m.id = ?"
-        params.append(int(mail_id))
-
-    cur.execute(sql, params)
-    rows = [dict(x) for x in cur.fetchall()]
-
-    selected_ids = []
-    skipped_rows = []
-
-    for row in rows:
-        filename = row.get("saved_filename") or row.get("original_filename") or ""
-        ext = row.get("ext") or ""
-
-        if is_exact_pdf_ocr_candidate(filename=filename, ext=ext):
-            selected_ids.append(int(row["id"]))
-        else:
-            skipped_rows.append({
-                "id": int(row["id"]),
-                "filename": filename,
-                "reason": "EXACT 메일이지만 PDF가 아니므로 자동 OCR 제외",
-            })
-
-    updated = 0
-
-    if selected_ids:
-        placeholders = ",".join(["?"] * len(selected_ids))
-
-        cur.execute(
-            f"""
-            UPDATE inbound_attachment
-            SET ocr_selected = 1
-            WHERE id IN ({placeholders})
-            """,
-            selected_ids,
-        )
-
-        updated = cur.rowcount
-
-    conn.commit()
-    conn.close()
-
-    return {
-        "ok": True,
-        "mail_id": mail_id,
-        "checked": len(rows),
-        "selected": len(selected_ids),
-        "updated": updated,
-        "skipped": len(skipped_rows),
-        "selected_ids": selected_ids,
-        "skipped_rows": skipped_rows[:30],
-    }
 
 
-def list_selected_inbound_ocr_targets(
-    limit: int = 500,
-    only_pending: bool = True,
-) -> dict[str, Any]:
-    """
-    OCR 대상으로 저장된 첨부파일 목록을 조회한다.
-    일괄 OCR 실행용.
-    """
-    init_inbox_tables()
-
-    conn = get_db_conn()
-    cur = conn.cursor()
-
-    params = []
-
-    sql = """
-        SELECT
-            a.id,
-            a.mail_id,
-            a.request_id,
-            a.original_filename,
-            a.saved_filename,
-            a.saved_path,
-            a.ext,
-            a.file_size,
-            COALESCE(a.ocr_status, 'pending') AS ocr_status,
-            COALESCE(a.ocr_selected, 0) AS ocr_selected,
-            a.created_at,
-            m.subject,
-            m.sender,
-            m.received_at,
-            m.match_status,
-            m.mailbox,
-            m.body_text,
-            m.body_preview,
-            COALESCE(m.is_excluded, 0) AS is_excluded
-        FROM inbound_attachment a
-        LEFT JOIN inbound_mail m ON a.mail_id = m.id
-        WHERE COALESCE(a.ocr_selected, 0) = 1
-          AND COALESCE(m.is_excluded, 0) = 0
-    """
-
-    if only_pending:
-        sql += """
-          AND COALESCE(a.ocr_status, 'pending') IN ('pending', 'error', 'not_run', '')
-        """
-
-    sql += " ORDER BY a.id DESC LIMIT ?"
-    params.append(int(limit))
-
-    cur.execute(sql, params)
-    rows = [dict(x) for x in cur.fetchall()]
-
-    conn.close()
-
-    return {
-        "ok": True,
-        "rows": rows,
-        "count": len(rows),
-    }
 
 
 def init_inbound_ocr_candidate_table():
@@ -2039,105 +1803,6 @@ def init_inbound_ocr_candidate_table():
     conn.close()
 
 
-def save_inbound_ocr_candidate_result(
-    attachment_id: int,
-    ocr_job_id: int | None = None,
-    status: str = "",
-    filename: str = "",
-    best_expiry: str = "",
-    expiry_candidates: list[dict[str, Any]] | None = None,
-    message: str = "",
-) -> dict[str, Any]:
-    """
-    OCR 실행 후 유효기간 후보를 저장한다.
-    """
-    init_inbox_tables()
-    init_inbound_ocr_candidate_table()
-
-    expiry_candidates = expiry_candidates or []
-
-    conn = get_db_conn()
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT
-            a.id,
-            a.mail_id,
-            a.request_id,
-            a.saved_filename,
-            a.original_filename
-        FROM inbound_attachment a
-        WHERE a.id = ?
-    """, (int(attachment_id),))
-
-    row = cur.fetchone()
-
-    if not row:
-        conn.close()
-        return {
-            "ok": False,
-            "message": "attachment_id를 찾지 못했습니다.",
-            "attachment_id": attachment_id,
-        }
-
-    data = dict(row)
-
-    final_filename = (
-        filename
-        or data.get("saved_filename")
-        or data.get("original_filename")
-        or ""
-    )
-
-    cur.execute("""
-        INSERT INTO inbound_ocr_candidate (
-            attachment_id,
-            mail_id,
-            request_id,
-            ocr_job_id,
-            filename,
-            status,
-            best_expiry,
-            expiry_candidates_json,
-            message,
-            created_at
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (
-        int(attachment_id),
-        data.get("mail_id"),
-        data.get("request_id") or "",
-        ocr_job_id,
-        final_filename,
-        status,
-        best_expiry,
-        json.dumps(expiry_candidates, ensure_ascii=False),
-        message,
-        now_text(),
-    ))
-
-    next_status = "done" if status and status.upper() not in {"ERROR", "FAILED"} else "error"
-
-    cur.execute("""
-        UPDATE inbound_attachment
-        SET ocr_status = ?
-        WHERE id = ?
-    """, (
-        next_status,
-        int(attachment_id),
-    ))
-
-    conn.commit()
-    conn.close()
-
-    return {
-        "ok": True,
-        "attachment_id": int(attachment_id),
-        "ocr_job_id": ocr_job_id,
-        "best_expiry": best_expiry,
-        "candidate_count": len(expiry_candidates),
-        "ocr_status": next_status,
-    }
 
 def auto_select_exact_inbound_ocr_targets(mail_id: int | None = None) -> dict[str, Any]:
     """

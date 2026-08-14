@@ -23,6 +23,7 @@ from app.services.supplier_service import (
     load_supplier_email_overrides,
     resolve_supplier_email,
 )
+from app.core.db import connect as db_connect
 
 def parse_date(value: Any):
     text = clean(value)
@@ -380,9 +381,7 @@ def get_mail_targets(test_mode: bool = True, test_receiver: str = "jaek_ing@nave
     }
 
 def ensure_mail_log_db() -> None:
-    PMF_APP_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
+    conn = db_connect(PMF_APP_DB_PATH)
     cur = conn.cursor()
 
     cur.execute("""
@@ -419,9 +418,7 @@ def ensure_mail_log_db() -> None:
 
 def get_mail_log_conn():
     ensure_mail_log_db()
-    conn = sqlite3.connect(PMF_APP_DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(PMF_APP_DB_PATH)
 
 
 def split_email_recipients(value: str) -> list[str]:
