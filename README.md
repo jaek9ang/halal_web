@@ -42,9 +42,13 @@ halal_web/
 ├─ backend/          FastAPI. 라우터 → 서비스 → SQLite/엑셀
 │  ├─ app/
 │  │  ├─ main.py     앱 조립, 라우터 마운트, CORS
-│  │  ├─ core/       설정·경로 유틸
+│  │  ├─ core/       설정, DB 연결, 자격증명
 │  │  ├─ routers/    HTTP 계층 (8개)
-│  │  ├─ services/   업무 로직 (25개)
+│  │  ├─ services/   업무 로직
+│  │  │  ├─ rules/       인증서 판독 규칙 (기관별)
+│  │  │  ├─ filing/      자동분류 미리보기·확정·이력·롤백
+│  │  │  ├─ ocr/         OCR 엔진·job·실패 집계
+│  │  │  └─ mail_inbox/  수신메일 동기화·매칭
 │  │  └─ ml/         인증서 분류·필드추출 실험 (런타임 미연결)
 │  ├─ scripts/       ML 학습·데이터 스크립트, 수동 점검 도구
 │  ├─ tests/         pytest
@@ -137,4 +141,5 @@ UPDATE_CERTIFICATE_RULE_GOLDEN=1 ../.venv/bin/python -m pytest tests/test_certif
 - [docs/LOCAL_DEVELOPMENT.md](docs/LOCAL_DEVELOPMENT.md) — 로컬 개발환경 구성
 - [docs/ocr-rule-v2.md](docs/ocr-rule-v2.md) — OCR 규칙 V2 내용과 회귀 기준
 - [CHANGELOG.md](CHANGELOG.md)
-- [CLAUDE.md](CLAUDE.md) — 이 저장소에서 작업할 때의 규칙
+- [CLAUDE.md](CLAUDE.md) — 이 저장소에서 작업할 때의 규칙 (Claude Code가 자동으로 읽는다)
+- [docs/claude-code-guide.md](docs/claude-code-guide.md) — Claude Code로 이 프로젝트를 개발하는 방법

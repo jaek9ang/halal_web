@@ -2,6 +2,7 @@
 
 할랄 인증 관리 자동화 웹앱. 프로젝트 개요·도메인 용어·실행법은 [README.md](README.md),
 데이터 흐름은 [docs/architecture.md](docs/architecture.md).
+사람이 읽을 작업 가이드는 [docs/claude-code-guide.md](docs/claude-code-guide.md).
 
 **응답은 항상 한국어.**
 
