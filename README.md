@@ -112,7 +112,23 @@ cd frontend && npm run dev        # http://127.0.0.1:5173
 ## 테스트
 
 ```bash
-cd backend && ../.venv/bin/python -m pytest -q
+.venv/bin/pip install -r backend/requirements-dev.txt   # 최초 1회
+cd backend && ../.venv/bin/python -m pytest
+```
+
+공유폴더나 실제 PMF 없이도 전부 돈다. 실제 PMF·DB로 확정 흐름 통합 테스트까지
+돌리려면 경로를 지정한다.
+
+```bash
+HALAL_TEST_PMF=<PMF .xlsm 경로> HALAL_TEST_DB=<pmf_app.db 경로> \
+  ../.venv/bin/python -m pytest
+```
+
+`tests/test_certificate_rules.py`는 판독 결과를 골든 파일로 고정한다. 규칙을 고쳐
+이게 깨지면 판독 동작이 바뀐 것이다 — 의도한 변경이면 골든을 다시 만든다.
+
+```bash
+UPDATE_CERTIFICATE_RULE_GOLDEN=1 ../.venv/bin/python -m pytest tests/test_certificate_rules.py
 ```
 
 ## 문서

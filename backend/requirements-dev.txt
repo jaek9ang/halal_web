@@ -1,0 +1,4 @@
+# 테스트 전용 의존성. 운영 설치에는 필요 없다.
+-r requirements.txt
+pytest==9.1.1
+httpx==0.28.1

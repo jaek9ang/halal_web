@@ -423,57 +423,6 @@ def save_inbox_ocr_candidate(req: SaveOcrCandidateRequest):
         message=req.message,
     )
 
-@router.post("/inbox/attachments/auto-select-exact")
-def auto_select_exact_ocr_targets(req: AutoSelectExactOcrRequest):
-    """
-    관리번호 exact 매칭 메일의 PDF 첨부파일을 자동 OCR 대상으로 지정한다.
-    mail_id가 있으면 해당 메일만, 없으면 exact 전체 대상.
-    """
-    return auto_select_exact_inbound_ocr_targets(
-        mail_id=req.mail_id,
-    )
-
-
-@router.get("/inbox/attachments/ocr-targets")
-def get_selected_inbox_ocr_targets(
-    limit: int = 500,
-    only_pending: bool = True,
-):
-    """
-    OCR 대상으로 저장된 수신 첨부파일 목록.
-    일괄 판독용.
-    """
-    return list_selected_inbound_ocr_targets(
-        limit=limit,
-        only_pending=only_pending,
-    )
-
-
-@router.post("/inbox/ocr-results/save-candidate")
-def save_inbox_ocr_candidate(req: SaveOcrCandidateRequest):
-    """
-    OCR 실행 후 유효기간 후보를 저장한다.
-    """
-    return save_inbound_ocr_candidate_result(
-        attachment_id=req.attachment_id,
-        ocr_job_id=req.ocr_job_id,
-        status=req.status,
-        filename=req.filename,
-        best_expiry=req.best_expiry,
-        expiry_candidates=req.expiry_candidates,
-        message=req.message,
-    )
-
-@router.post("/inbox/attachments/auto-select-exact")
-def auto_select_exact_ocr_targets(req: AutoSelectExactOcrRequest):
-    """
-    관리번호 exact 매칭 수신메일의 첨부파일을 자동 OCR 대상으로 지정한다.
-    mail_id가 있으면 해당 메일만, 없으면 exact 전체 대상.
-    """
-    return auto_select_exact_inbound_ocr_targets(
-        mail_id=req.mail_id,
-    )
-
 
 @router.get("/inbox/mailboxes")
 def get_inbox_mailboxes():

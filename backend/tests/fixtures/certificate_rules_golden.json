@@ -1,0 +1,660 @@
+{
+  "ara_china": {
+    "auto_confirm_eligible": false,
+    "base_source_rule": "ARA_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "body_org": "ARA",
+    "body_org_scores": {
+      "ARA": 140
+    },
+    "cert_country": "CHINA",
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "ARA",
+    "confidence": "LOW",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2027-02-09",
+        "raw": "2027-02-09",
+        "source": "VALID UNTIL"
+      }
+    ],
+    "expiry_date": "2027-02-09",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "VALID UNTIL",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "ARA",
+    "filename_org_conflict": false,
+    "manufacturer": "SAMPLE CHINA FOOD CO., LTD",
+    "manufacturing_country": "CHINA",
+    "ok": true,
+    "org_hits": [
+      "ARA HALAL CERTIFICATION SERVICES CENTRE",
+      "ARA HALAL CERTIFICATION",
+      "ARA-"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "source_rule": "ARA_RULE"
+  },
+  "bpjph_indonesia": {
+    "base_source_rule": "BPJPH_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "BPJPH",
+    "body_org_scores": {
+      "BPJPH": 150
+    },
+    "cert_country": "INDONESIA",
+    "cert_no": "ID12345678901234567",
+    "cert_no_candidates": [
+      "ID12345678901234567"
+    ],
+    "cert_org": "BPJPH",
+    "confidence": "MEDIUM",
+    "country_match_status": "일치",
+    "expiry_candidates": [],
+    "expiry_date": "",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "BASE",
+      "manufacturer": "BASE",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "BPJPH",
+    "filename_org_conflict": false,
+    "manufacturer": "PT SAMPLE INDONESIA",
+    "manufacturing_country": "INDONESIA",
+    "ok": true,
+    "org_hits": [
+      "BPJPH",
+      "BADAN PENYELENGGARA JAMINAN PRODUK HALAL",
+      "REPUBLIK INDONESIA",
+      "SERTIFIKAT HALAL"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "BPJPH_MAINTENANCE_ONLY",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "BPJPH_RULE"
+  },
+  "cicot_thailand": {
+    "auto_confirm_eligible": false,
+    "base_source_rule": "CICOT_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "body_org": "CICOT",
+    "body_org_scores": {
+      "CICOT": 260,
+      "HALAL CONTROL": 20
+    },
+    "cert_country": "THAILAND",
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "CICOT",
+    "confidence": "LOW",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2027-01-14",
+        "raw": "14 January 2027",
+        "source": "CICOT_EXPIRED_DATE"
+      }
+    ],
+    "expiry_date": "2027-01-14",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "CICOT_EXPIRED_DATE",
+      "manufacturer": "BASE",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "CICOT",
+    "filename_org_conflict": false,
+    "manufacturer": "SAMPLE THAI FOODS CO., LTD",
+    "manufacturing_country": "THAILAND",
+    "ok": true,
+    "org_hits": [
+      "THE CENTRAL ISLAMIC COUNCIL OF THAILAND",
+      "CICOT",
+      "SHEIKHUL ISLAM OF THAILAND"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "source_rule": "CICOT_RULE"
+  },
+  "empty_text": {
+    "auto_confirm_eligible": false,
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "cert_country": null,
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "UNKNOWN",
+    "confidence": "LOW",
+    "country_match_status": "확인필요",
+    "expiry_candidates": [],
+    "expiry_date": "",
+    "manufacturer": "",
+    "manufacturing_country": null,
+    "ok": false,
+    "org_hits": [],
+    "parse_status": "SCANNED_NEED_OCR",
+    "product_candidates": [],
+    "products_count": 0,
+    "quality_flags": [],
+    "source_rule": "UNKNOWN_RULE"
+  },
+  "hfce_europe": {
+    "auto_confirm_eligible": false,
+    "base_source_rule": "HFCE_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "body_org": "HFCE",
+    "body_org_scores": {
+      "HFCE": 270
+    },
+    "cert_country": null,
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "HFCE",
+    "confidence": "LOW",
+    "country_match_status": "확인필요",
+    "expiry_candidates": [
+      {
+        "date": "2027-04-30",
+        "raw": "2027-04-30",
+        "source": "DATE_FALLBACK"
+      }
+    ],
+    "expiry_date": "2027-04-30",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "DATE_FALLBACK",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "HFCE",
+    "filename_org_conflict": false,
+    "manufacturer": "Producer: SAMPLE EUROPE GMBH",
+    "manufacturing_country": null,
+    "ok": true,
+    "org_hits": [
+      "HALAL FOOD COUNCIL OF EUROPE",
+      "HFCE",
+      "WWW.HFCE.EU"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "source_rule": "HFCE_RULE"
+  },
+  "hffia_netherlands": {
+    "base_source_rule": "HFFIA_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "HFFIA",
+    "body_org_scores": {
+      "HFFIA": 410
+    },
+    "cert_country": "NETHERLANDS",
+    "cert_no": "JRSRS/22012/H00249/080",
+    "cert_no_candidates": [
+      "JRSRS/22012/H00249/080"
+    ],
+    "cert_org": "HFFIA",
+    "confidence": "MEDIUM",
+    "country_match_status": "확인필요",
+    "expiry_candidates": [
+      {
+        "date": "2027-09-30",
+        "raw": "30-09-2027",
+        "source": "VALID UNTIL"
+      }
+    ],
+    "expiry_date": "2027-09-30",
+    "field_sources": {
+      "cert_no": "HFFIA_REGISTRATION",
+      "expiry_date": "VALID UNTIL",
+      "manufacturer": "BASE",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "HFFIA",
+    "filename_org_conflict": false,
+    "manufacturer": "SAMPLE B.V",
+    "manufacturing_country": null,
+    "ok": true,
+    "org_hits": [
+      "HALAL FEED AND FOOD INSPECTION AUTHORITY",
+      "HALAL VOEDING EN VOEDSEL",
+      "HALAL.NL",
+      "HFFIA"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "HFFIA_RULE"
+  },
+  "ifanca_usa": {
+    "auto_confirm_eligible": false,
+    "base_source_rule": "IFANCA_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "body_org": "IFANCA",
+    "body_org_scores": {
+      "IFANCA": 200
+    },
+    "cert_country": "USA",
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "IFANCA",
+    "confidence": "LOW",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2026-12-31",
+        "raw": "December 31, 2026",
+        "source": "DATE_FALLBACK"
+      }
+    ],
+    "expiry_date": "2026-12-31",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "DATE_FALLBACK",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "IFANCA",
+    "filename_org_conflict": false,
+    "manufacturer": "Company: SAMPLE USA INC",
+    "manufacturing_country": "USA",
+    "ok": true,
+    "org_hits": [
+      "IFANCA",
+      "ISLAMIC FOOD AND NUTRITION COUNCIL OF AMERICA"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [
+      "CERT_NO_MISSING"
+    ],
+    "source_rule": "IFANCA_RULE"
+  },
+  "jakim_malaysia": {
+    "base_source_rule": "JAKIM_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "JAKIM",
+    "body_org_scores": {
+      "JAKIM": 175
+    },
+    "cert_country": "MALAYSIA",
+    "cert_no": "JAKIM/(S)/(14.00)/599/2/1-12345",
+    "cert_no_candidates": [
+      "JAKIM/(S)/(14.00)/599/2/1-12345"
+    ],
+    "cert_org": "JAKIM",
+    "confidence": "MEDIUM",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2027-02-28",
+        "raw": "28 February 2027",
+        "source": "LAST_DATE_FALLBACK"
+      }
+    ],
+    "expiry_date": "2027-02-28",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "LAST_DATE_FALLBACK",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "JAKIM",
+    "filename_org_conflict": false,
+    "manufacturer": "Company: SAMPLE FOOD SDN BHD",
+    "manufacturing_country": "MALAYSIA",
+    "ok": true,
+    "org_hits": [
+      "JAKIM",
+      "JABATAN KEMAJUAN ISLAM MALAYSIA",
+      "MALAYSIAN HALAL STANDARD"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "JAKIM_RULE"
+  },
+  "jma_japan": {
+    "base_source_rule": "JMA_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "JMA",
+    "body_org_scores": {
+      "JMA": 140
+    },
+    "cert_country": "JAPAN",
+    "cert_no": "284-TSRU/24",
+    "cert_no_candidates": [
+      "284-TSRU/24"
+    ],
+    "cert_org": "JMA",
+    "confidence": "MEDIUM",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2027-03-31",
+        "raw": "2027-03-31",
+        "source": "DATE_FALLBACK"
+      }
+    ],
+    "expiry_date": "2027-03-31",
+    "field_sources": {
+      "cert_no": "JMA_OCR_TOLERANT",
+      "expiry_date": "DATE_FALLBACK",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "JMA",
+    "filename_org_conflict": false,
+    "manufacturer": "SAMPLE JAPAN CO., LTD",
+    "manufacturing_country": "JAPAN",
+    "ok": true,
+    "org_hits": [
+      "JAPAN MUSLIM ASSOCIATION",
+      "JMA"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "JMA_RULE"
+  },
+  "juhf_india": {
+    "base_source_rule": "JUHF_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "JUHF",
+    "body_org_scores": {
+      "JUHF": 320
+    },
+    "cert_country": "INDIA",
+    "cert_no": "JUHF-0409-0240",
+    "cert_no_candidates": [
+      "JUHF-0409-0240"
+    ],
+    "cert_org": "JUHF",
+    "confidence": "MEDIUM",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2027-06-11",
+        "raw": "11/06/2027",
+        "source": "DATE OF EXPIRY"
+      }
+    ],
+    "expiry_date": "2027-06-11",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "DATE OF EXPIRY",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "JUHF",
+    "filename_org_conflict": false,
+    "manufacturer": "Firm: SAMPLE INDIA PRIVATE LIMITED",
+    "manufacturing_country": "INDIA",
+    "ok": true,
+    "org_hits": [
+      "JUHF CERTIFICATION",
+      "JUHF-",
+      "HALALHIND"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "JUHF_RULE"
+  },
+  "kmf_korea": {
+    "base_source_rule": "KMF_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "KMF",
+    "body_org_scores": {
+      "KMF": 260
+    },
+    "cert_country": "KOREA",
+    "cert_no": "KMF-2025-0123",
+    "cert_no_candidates": [
+      "KMF-2025-0123"
+    ],
+    "cert_org": "KMF",
+    "confidence": "MEDIUM",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2027-06-30",
+        "raw": "2027-06-30",
+        "source": "유효기간"
+      }
+    ],
+    "expiry_date": "2027-06-30",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "유효기간",
+      "manufacturer": "BASE",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "KMF",
+    "filename_org_conflict": false,
+    "manufacturer": "샘플식품(주)",
+    "manufacturing_country": "KOREA",
+    "ok": true,
+    "org_hits": [
+      "KMF",
+      "KOREA MUSLIM FEDERATION",
+      "한국이슬람"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "KMF_RULE"
+  },
+  "muis_singapore": {
+    "base_source_rule": "MUIS_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [],
+    "body_org": "MUIS",
+    "body_org_scores": {
+      "MUIS": 340
+    },
+    "cert_country": "SINGAPORE",
+    "cert_no": "PRN22020011873",
+    "cert_no_candidates": [
+      "PRN22020011873"
+    ],
+    "cert_org": "MUIS",
+    "confidence": "MEDIUM",
+    "country_match_status": "일치",
+    "expiry_candidates": [
+      {
+        "date": "2026-05-31",
+        "raw": "31 May 2026",
+        "source": "VALID UNTIL"
+      }
+    ],
+    "expiry_date": "2026-05-31",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "VALID UNTIL",
+      "manufacturer": "REPAIRED",
+      "org": "TEXT_STRONG"
+    },
+    "filename_org": "MUIS",
+    "filename_org_conflict": false,
+    "manufacturer": "Name of Establishment: SAMPLE ASIA PACIFIC PTE LTD",
+    "manufacturing_country": "SINGAPORE",
+    "ok": true,
+    "org_hits": [
+      "MUIS",
+      "MAJLIS UGAMA ISLAM SINGAPURA",
+      "ISLAMIC RELIGIOUS COUNCIL OF SINGAPORE"
+    ],
+    "org_source": "TEXT_STRONG",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [],
+    "source_rule": "MUIS_RULE"
+  },
+  "tesseract_error": {
+    "best_product_match": {},
+    "cert_country": "",
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "UNKNOWN",
+    "confidence": "LOW",
+    "country_match_status": "",
+    "expiry_candidates": [],
+    "expiry_date": "",
+    "manufacturer": "",
+    "manufacturing_country": "",
+    "message": "Tesseract OCR 엔진이 설치되어 있지 않거나 PATH에 등록되어 있지 않습니다.",
+    "ok": false,
+    "org_hits": [],
+    "parse_status": "TESSERACT_ERROR",
+    "product_candidates": [],
+    "products_count": 0,
+    "source_rule": "TESSERACT_ERROR_RULE"
+  },
+  "unknown_org": {
+    "auto_confirm_eligible": false,
+    "base_source_rule": "UNKNOWN_RULE",
+    "best_product_match": {
+      "product": null,
+      "score": 0.0
+    },
+    "blocking_quality_flags": [
+      "CERT_NO_MISSING",
+      "EXPIRY_MISSING",
+      "MANUFACTURER_UNRELIABLE"
+    ],
+    "body_org": "UNKNOWN",
+    "body_org_scores": {},
+    "cert_country": null,
+    "cert_no": "",
+    "cert_no_candidates": [],
+    "cert_org": "UNKNOWN",
+    "confidence": "LOW",
+    "country_match_status": "확인필요",
+    "expiry_candidates": [],
+    "expiry_date": "",
+    "field_sources": {
+      "cert_no": "BASE",
+      "expiry_date": "BASE",
+      "manufacturer": "UNRESOLVED",
+      "org": "BASE_RULE"
+    },
+    "filename_org": "UNKNOWN",
+    "filename_org_conflict": false,
+    "manufacturer": "",
+    "manufacturing_country": null,
+    "ok": false,
+    "org_hits": [],
+    "org_source": "BASE_RULE",
+    "parse_status": "LOW_CONFIDENCE",
+    "product_candidates": [],
+    "products_count": 0,
+    "profile_version": "certificate_rule_profile_v1",
+    "quality_flags": [
+      "CERT_NO_MISSING",
+      "EXPIRY_MISSING",
+      "MANUFACTURER_UNRELIABLE"
+    ],
+    "source_rule": "UNKNOWN_RULE"
+  }
+}

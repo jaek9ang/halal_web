@@ -41,13 +41,17 @@
 코드를 고쳤으면 실행해서 확인한다. 눈으로 읽고 통과시키지 않는다.
 
 ```bash
-cd backend && ../.venv/bin/python -m pytest -q     # 백엔드
+cd backend && ../.venv/bin/python -m pytest        # 백엔드
 cd frontend && npm run build && npm run lint       # 프론트
 ```
 
-`backend/tests/test_certificate_rules.py`는 실제 인증서 케이스(`backend/data/rules/
-rule_candidates.jsonl`)로 판독 결과를 스냅샷 고정한다. 규칙 코드를 건드렸는데 이게 깨지면
-판독 동작이 바뀐 것이다 — 의도한 변경인지 반드시 확인한다.
+`backend/tests/test_certificate_rules.py`는 기관별 인증서 샘플(`tests/fixtures/
+certificate_samples.py`)에 대한 판독 결과를 골든 파일로 고정한다. 규칙 코드를 건드렸는데
+이게 깨지면 판독 동작이 바뀐 것이다 — 의도한 변경인지 반드시 확인하고, 맞다면
+`UPDATE_CERTIFICATE_RULE_GOLDEN=1`로 골든을 다시 만든 뒤 diff를 눈으로 본다.
+
+`tests/test_filing_integration_job521.py`는 실제 PMF·DB가 있어야 돌아간다. 없으면 skip된다.
+`HALAL_TEST_PMF` / `HALAL_TEST_DB`로 경로를 준다.
 
 ## 조심할 지점
 
