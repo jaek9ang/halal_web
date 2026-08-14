@@ -16,6 +16,7 @@ from app.services.ocr_service import (
     normalize_ocr_result_for_response,
     reconcile_template_classification_with_rule,
 )
+from app.core.db import connect as db_connect
 
 EXPORT_VERSION = "ocr_rule_review_v1"
 OCR_EXPORT_DIR = BACKEND_DIR / "data" / "ocr_exports"
@@ -49,7 +50,7 @@ def _table_exists(db_path: Path, table_name: str) -> bool:
     if not db_path.exists():
         return False
 
-    conn = sqlite3.connect(db_path)
+    conn = db_connect(db_path)
     try:
         row = conn.execute(
             """
@@ -67,9 +68,7 @@ def _table_exists(db_path: Path, table_name: str) -> bool:
 
 
 def _connect(db_path: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return db_connect(db_path)
 
 
 def _infer_source_category(source_path: str) -> str:

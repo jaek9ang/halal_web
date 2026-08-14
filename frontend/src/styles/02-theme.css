@@ -1,0 +1,1634 @@
+/* =========================================================
+   V2 Visual Refinement — SEWOO Product Console
+   기존 기능 유지 / 홈 + 타이포 + surface 질감 개선
+========================================================= */
+
+:root {
+  --v2-bg: #f2eee6;
+  --v2-paper: rgba(255, 253, 248, 0.76);
+  --v2-paper-solid: #fffdf8;
+  --v2-ink: #171717;
+  --v2-ink-soft: #2f3137;
+  --v2-muted: #736d65;
+  --v2-red: #e60012;
+  --v2-line: rgba(23, 23, 23, 0.105);
+  --v2-blue: #1d4ed8;
+  --v2-green: #166534;
+  --v2-shadow: 0 28px 90px rgba(36, 31, 25, 0.105);
+}
+
+/* 전체 글자 크기와 밀도 재조정 */
+body {
+  font-size: 14px;
+  letter-spacing: -0.018em;
+}
+
+.content {
+  padding-top: 30px;
+}
+
+/* 사이드바를 더 얇고 고급스럽게 */
+.sidebar {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.84), rgba(250, 246, 237, 0.68));
+  border-right: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.brand-title {
+  font-size: 15px;
+  letter-spacing: -0.045em;
+}
+
+.brand-subtitle {
+  font-size: 10.5px;
+}
+
+.nav-button {
+  min-height: 42px;
+  font-size: 13px;
+  border-radius: 14px;
+}
+
+.nav-button.active {
+  background: linear-gradient(135deg, #171717, #262626);
+}
+
+/* 내부 페이지 타이틀 과대함 완화 */
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: clamp(24px, 2.2vw, 34px);
+  letter-spacing: -0.065em;
+}
+
+.page-header p {
+  font-size: 13px;
+  max-width: 720px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+
+/* =========================================================
+   New Home
+========================================================= */
+
+.home-hero,
+.launcher-grid {
+  display: none;
+}
+
+.studio-hero {
+  position: relative;
+  min-height: 430px;
+  border-radius: 38px;
+  padding: 46px 50px;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 253, 248, 0.92), rgba(246, 239, 227, 0.72)),
+    radial-gradient(circle at 84% 12%, rgba(230, 0, 18, 0.10), transparent 24%),
+    radial-gradient(circle at 16% 84%, rgba(29, 78, 216, 0.08), transparent 28%);
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: var(--v2-shadow);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  gap: 40px;
+  isolation: isolate;
+}
+
+.studio-hero::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(23, 23, 23, 0.055);
+  border-radius: 30px;
+  pointer-events: none;
+}
+
+.studio-hero::after {
+  content: "";
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  right: -250px;
+  top: -240px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 34% 35%, rgba(255, 255, 255, 0.95), transparent 11%),
+    radial-gradient(circle, rgba(230, 0, 18, 0.16), transparent 58%);
+  z-index: -1;
+}
+
+.studio-hero-copy {
+  align-self: center;
+  position: relative;
+  z-index: 2;
+}
+
+.studio-brandline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  color: var(--v2-muted);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+}
+
+.studio-logo-mark {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--v2-red);
+  box-shadow: 0 12px 24px rgba(230, 0, 18, 0.18);
+}
+
+.studio-logo-mark::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 17px;
+  border-radius: 999px;
+  background: #fffdf8;
+  top: 5px;
+  left: 8px;
+}
+
+.studio-hero h1 {
+  margin: 0;
+  font-size: clamp(52px, 6.5vw, 96px);
+  line-height: 0.88;
+  letter-spacing: -0.095em;
+  font-weight: 980;
+  color: var(--v2-ink);
+}
+
+.studio-hero p {
+  margin: 28px 0 0;
+  max-width: 610px;
+  color: var(--v2-muted);
+  font-size: 15px;
+  line-height: 1.78;
+  font-weight: 560;
+}
+
+.studio-visual {
+  position: relative;
+  min-height: 340px;
+  align-self: center;
+}
+
+.visual-card {
+  position: absolute;
+  border-radius: 28px;
+  background: rgba(255, 253, 248, 0.72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(23, 23, 23, 0.085);
+  box-shadow: 0 24px 70px rgba(36, 31, 25, 0.105);
+}
+
+.visual-card span {
+  display: block;
+  color: var(--v2-muted);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+}
+
+.visual-card strong {
+  display: block;
+  color: var(--v2-ink);
+  font-size: 54px;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  margin-top: 12px;
+}
+
+.visual-card em {
+  display: block;
+  margin-top: 10px;
+  color: var(--v2-muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.visual-card-main {
+  left: 42px;
+  top: 30px;
+  width: 245px;
+  min-height: 205px;
+  padding: 28px;
+}
+
+.visual-card-sub {
+  width: 170px;
+  min-height: 145px;
+  padding: 22px;
+}
+
+.visual-card-sub strong {
+  font-size: 38px;
+}
+
+.visual-card-sub.one {
+  right: 28px;
+  top: 76px;
+}
+
+.visual-card-sub.two {
+  left: 138px;
+  bottom: 12px;
+}
+
+.visual-line {
+  position: absolute;
+  height: 1px;
+  background: rgba(23, 23, 23, 0.15);
+  transform-origin: left center;
+}
+
+.visual-line.line-a {
+  width: 170px;
+  left: 250px;
+  top: 116px;
+  transform: rotate(16deg);
+}
+
+.visual-line.line-b {
+  width: 160px;
+  left: 170px;
+  bottom: 118px;
+  transform: rotate(-25deg);
+}
+
+.visual-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--v2-red);
+  box-shadow: 0 0 0 8px rgba(230, 0, 18, 0.08);
+}
+
+.visual-dot.dot-a {
+  right: 215px;
+  top: 132px;
+}
+
+.visual-dot.dot-b {
+  left: 118px;
+  bottom: 98px;
+}
+
+/* 섹션 헤더 */
+.studio-section-head {
+  margin: 34px 2px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+}
+
+.studio-section-head span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--v2-red);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+}
+
+.studio-section-head h2 {
+  margin: 0;
+  color: var(--v2-ink);
+  font-size: 24px;
+  letter-spacing: -0.065em;
+}
+
+.studio-section-head p {
+  margin: 0;
+  color: var(--v2-muted);
+  font-size: 13px;
+}
+
+/* 앱 카드 */
+.studio-module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.studio-module-card {
+  position: relative;
+  min-height: 210px;
+  padding: 22px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.88), rgba(248, 243, 233, 0.72));
+  box-shadow: 0 14px 42px rgba(36, 31, 25, 0.065);
+  text-align: left;
+  overflow: hidden;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.studio-module-card::before {
+  content: "";
+  position: absolute;
+  right: -58px;
+  top: -58px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: rgba(230, 0, 18, 0.045);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.studio-module-card::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 62px;
+  height: 1px;
+  background: rgba(23, 23, 23, 0.07);
+}
+
+.studio-module-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(230, 0, 18, 0.24);
+  box-shadow: 0 24px 70px rgba(36, 31, 25, 0.11);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(250, 245, 235, 0.86));
+}
+
+.studio-module-card:hover::before {
+  transform: scale(1.25);
+  opacity: 1;
+}
+
+.module-top,
+.module-copy,
+.module-action {
+  position: relative;
+  z-index: 1;
+}
+
+.module-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+.module-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #171717;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  box-shadow: 0 14px 26px rgba(20, 20, 20, 0.14);
+}
+
+.module-top span {
+  color: var(--v2-muted);
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.module-copy h2 {
+  margin: 0;
+  color: var(--v2-ink);
+  font-size: 20px;
+  line-height: 1.18;
+  letter-spacing: -0.065em;
+  font-weight: 960;
+}
+
+.module-copy p {
+  margin: 10px 0 0;
+  color: var(--v2-muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+  min-height: 40px;
+}
+
+.module-action {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--v2-red);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.module-action b {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(230, 0, 18, 0.08);
+}
+
+/* =========================================================
+   Internal pages: 더 고급스러운 표/패널 질감
+========================================================= */
+
+.surface,
+.list-surface,
+.detail-surface,
+.mail-log-list-surface,
+.mail-log-preview-surface {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.82), rgba(249, 244, 234, 0.66));
+  border-color: rgba(23, 23, 23, 0.08);
+  box-shadow: 0 18px 54px rgba(36, 31, 25, 0.07);
+}
+
+.stat-line {
+  margin-top: 16px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+}
+
+.stat-cell {
+  padding: 18px 20px;
+}
+
+.stat-cell strong {
+  font-size: 27px;
+}
+
+.stat-cell span {
+  font-size: 11.5px;
+}
+
+/* 표 행 높이와 글자 가독성 */
+.mail-log-row,
+.receive-row,
+.receive-download-row,
+.lhln-table-row,
+.ocr-file-row,
+.ocr-job-row {
+  min-height: 46px;
+  font-size: 12.5px;
+}
+
+.mail-log-table-head,
+.receive-table-head,
+.receive-download-head,
+.lhln-table-head,
+.ocr-file-head,
+.ocr-job-head {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  background: rgba(23, 23, 23, 0.025);
+  border-radius: 14px 14px 0 0;
+}
+
+/* 입력창과 버튼을 더 얇고 정제되게 */
+input,
+select {
+  min-height: 41px;
+  font-size: 13px;
+}
+
+.primary-button,
+.ghost-action,
+.filter-button,
+.danger-action,
+.back-button {
+  min-height: 40px;
+  font-size: 12.5px;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #171717, #292929);
+}
+
+/* 메일 본문 프리뷰를 더 읽기 좋게 */
+.mail-preview,
+.mail-preview-body,
+.ocr-text-box {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 13.2px;
+  line-height: 1.72;
+}
+
+/* 선택행 색감 약화 */
+.mail-log-row.active,
+.receive-row.active,
+.lhln-table-row.active,
+.ocr-file-row.active,
+.ocr-job-row.active {
+  background: rgba(230, 0, 18, 0.055);
+}
+
+/* 좌우 분할 화면도 덜 답답하게 */
+.split-layout {
+  gap: 16px;
+}
+
+.detail-top h2,
+.mail-log-preview-head h2 {
+  font-size: 21px;
+}
+
+/* 작은 배지 정리 */
+.mini-badge {
+  min-width: auto;
+  padding: 0 10px;
+  height: 24px;
+  font-size: 10px;
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media (max-width: 1320px) {
+  .studio-module-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .studio-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-visual {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 900px) {
+  .studio-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .studio-hero {
+    padding: 34px;
+  }
+
+  .studio-hero h1 {
+    font-size: 52px;
+  }
+
+  .studio-visual {
+    display: none;
+  }
+
+  .studio-section-head {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 620px) {
+  .studio-module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-hero h1 {
+    font-size: 42px;
+  }
+}
+
+/* =========================================================
+   SEWOO UI PATCH 03
+   - green/sage accent
+   - calmer home hero
+   - grouped sidebar
+   - compact mail supplier rows
+   - simplified LHLN table
+========================================================= */
+
+:root {
+  --sewoo-red: #e60012;
+  --sewoo-green: #315f45;
+  --sewoo-green-2: #6f8a73;
+  --sewoo-sage: #dfe7d8;
+  --sewoo-sage-soft: rgba(111, 138, 115, 0.12);
+  --sewoo-cream: #f4efe5;
+  --sewoo-paper: rgba(255, 253, 247, 0.82);
+  --sewoo-ink: #171717;
+  --sewoo-muted: #766f65;
+}
+
+/* red text 제거: 로고 외 포인트는 green */
+.eyebrow,
+.studio-section-head span,
+.module-action,
+.launcher-card span,
+.sewoo-module-action,
+.sewoo-module-head span {
+  color: var(--sewoo-green) !important;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #18251d, #315f45) !important;
+}
+
+.nav-button.active {
+  background: linear-gradient(135deg, #171717, #26352b) !important;
+}
+
+/* logo mark 보정 */
+.brand-symbol,
+.studio-logo-mark,
+.sewoo-mark-small {
+  background: var(--sewoo-red) !important;
+  border-radius: 999px;
+  box-shadow: 0 12px 24px rgba(230, 0, 18, 0.18);
+}
+
+.brand-symbol {
+  width: 34px;
+  height: 34px;
+}
+
+.brand-symbol::after,
+.studio-logo-mark::after,
+.sewoo-mark-small::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: #fffdf8;
+}
+
+.brand-symbol::after {
+  width: 14px;
+  height: 22px;
+  top: 6px;
+  left: 10px;
+}
+
+/* sidebar group */
+.nav-list {
+  gap: 14px;
+}
+
+.nav-group {
+  display: grid;
+  gap: 5px;
+}
+
+.nav-group-title {
+  margin: 10px 11px 4px;
+  color: rgba(23, 23, 23, 0.42);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+}
+
+.nav-button {
+  min-height: 40px;
+  font-size: 12.5px;
+}
+
+.nav-icon {
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+}
+
+.nav-button.active .nav-icon {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* 기존 홈 숨김 */
+.home-hero,
+.launcher-grid,
+.studio-hero,
+.studio-section-head,
+.studio-module-grid {
+  display: none !important;
+}
+
+/* 새 홈 */
+.sewoo-home-hero {
+  position: relative;
+  min-height: 330px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 34px;
+  padding: 42px 46px;
+  border-radius: 34px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(49, 95, 69, 0.15), transparent 28%),
+    linear-gradient(135deg, rgba(255, 253, 247, 0.92), rgba(238, 232, 219, 0.74));
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 28px 90px rgba(35, 30, 24, 0.1);
+}
+
+.sewoo-home-hero::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(23, 23, 23, 0.055);
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+.sewoo-hero-copy {
+  align-self: center;
+  position: relative;
+  z-index: 2;
+}
+
+.sewoo-hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  color: var(--sewoo-green);
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.17em;
+}
+
+.sewoo-mark-small {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+}
+
+.sewoo-mark-small::after {
+  width: 10px;
+  height: 17px;
+  top: 5px;
+  left: 8px;
+}
+
+.sewoo-home-hero h1 {
+  margin: 0;
+  max-width: 660px;
+  color: var(--sewoo-ink);
+  font-size: clamp(42px, 4.8vw, 68px);
+  line-height: 0.92;
+  letter-spacing: -0.085em;
+  font-weight: 980;
+}
+
+.sewoo-home-hero p {
+  margin: 24px 0 0;
+  max-width: 620px;
+  color: var(--sewoo-muted);
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.sewoo-hero-summary {
+  align-self: center;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+}
+
+.sewoo-hero-summary div {
+  padding: 17px 18px;
+  border-radius: 20px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.075);
+  box-shadow: 0 12px 34px rgba(35, 30, 24, 0.055);
+}
+
+.sewoo-hero-summary span {
+  display: block;
+  color: var(--sewoo-muted);
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sewoo-hero-summary strong {
+  display: block;
+  margin-top: 7px;
+  color: var(--sewoo-ink);
+  font-size: 24px;
+  letter-spacing: -0.055em;
+}
+
+.sewoo-module-head {
+  margin: 32px 2px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 18px;
+}
+
+.sewoo-module-head span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--sewoo-green);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+}
+
+.sewoo-module-head h2 {
+  margin: 0;
+  color: var(--sewoo-ink);
+  font-size: 23px;
+  letter-spacing: -0.06em;
+}
+
+.sewoo-module-head p {
+  margin: 0;
+  color: var(--sewoo-muted);
+  font-size: 12.5px;
+}
+
+.sewoo-module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sewoo-module-card {
+  position: relative;
+  min-height: 184px;
+  padding: 21px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.90), rgba(248, 244, 235, 0.76));
+  box-shadow: 0 14px 42px rgba(35, 30, 24, 0.065);
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.sewoo-module-card::before {
+  content: "";
+  position: absolute;
+  right: -56px;
+  top: -56px;
+  width: 142px;
+  height: 142px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.sewoo-module-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(49, 95, 69, 0.28);
+  box-shadow: 0 24px 70px rgba(35, 30, 24, 0.11);
+}
+
+.sewoo-module-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 23px;
+}
+
+.sewoo-module-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: #172119;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.sewoo-module-top span {
+  color: var(--sewoo-muted);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.sewoo-module-card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--sewoo-ink);
+  font-size: 18px;
+  letter-spacing: -0.06em;
+  font-weight: 950;
+}
+
+.sewoo-module-card p {
+  position: relative;
+  z-index: 1;
+  margin: 9px 0 0;
+  color: var(--sewoo-muted);
+  font-size: 12.2px;
+  line-height: 1.55;
+  min-height: 38px;
+}
+
+.sewoo-module-action {
+  position: absolute;
+  left: 21px;
+  right: 21px;
+  bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--sewoo-green) !important;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.sewoo-module-action b {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.1);
+}
+
+/* 메일주소 업체 목록 compact */
+.mail-supplier-row {
+  width: 100%;
+  min-height: 43px;
+  border: 0;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+  background: transparent;
+  color: var(--sewoo-ink);
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) 150px 96px;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  border-radius: 14px;
+}
+
+.mail-supplier-row:hover {
+  background: rgba(49, 95, 69, 0.045);
+}
+
+.mail-supplier-row.active {
+  background: #172119;
+  color: #fff;
+}
+
+.mail-supplier-name strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mail-supplier-name span {
+  display: block;
+  margin-top: 2px;
+  color: inherit;
+  opacity: 0.55;
+  font-size: 10.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mail-supplier-orgs {
+  color: inherit;
+  opacity: 0.72;
+  font-size: 11.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mail-supplier-row em {
+  font-style: normal;
+  color: inherit;
+  opacity: 0.72;
+  font-size: 11px;
+  font-weight: 850;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* LHLN 표 단순화 */
+.lhln-simple-surface {
+  padding: 18px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.86), rgba(248, 244, 235, 0.70));
+  box-shadow: 0 18px 54px rgba(35, 30, 24, 0.07);
+}
+
+.lhln-simple-head,
+.lhln-simple-row {
+  display: grid;
+  grid-template-columns: 110px minmax(260px, 1.7fr) 90px 145px 130px;
+  gap: 12px;
+  align-items: center;
+}
+
+.lhln-simple-head {
+  padding: 11px 13px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+  color: var(--sewoo-muted);
+  font-size: 11px;
+  font-weight: 920;
+  background: rgba(49, 95, 69, 0.035);
+  border-radius: 16px 16px 0 0;
+}
+
+.lhln-simple-body {
+  max-height: 470px;
+  overflow: auto;
+}
+
+.lhln-simple-row {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.055);
+  background: transparent;
+  color: var(--sewoo-ink);
+  padding: 11px 13px;
+  text-align: left;
+  font-size: 12.4px;
+}
+
+.lhln-simple-row:hover {
+  background: rgba(49, 95, 69, 0.045);
+}
+
+.lhln-simple-row.active {
+  background: rgba(49, 95, 69, 0.09);
+}
+
+.lhln-simple-name {
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.lhln-pdf-note {
+  margin-top: 14px;
+  padding: 13px 15px;
+  border-radius: 18px;
+  background: rgba(49, 95, 69, 0.06);
+  border: 1px solid rgba(49, 95, 69, 0.12);
+}
+
+.lhln-pdf-note span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--sewoo-muted);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.lhln-pdf-note strong {
+  display: block;
+  color: var(--sewoo-ink);
+  font-size: 12px;
+  word-break: break-all;
+}
+
+/* 내부 페이지 제목 크기 한 번 더 낮춤 */
+.page-header h1 {
+  font-size: clamp(23px, 2vw, 31px) !important;
+}
+
+.page-header p {
+  font-size: 12.8px !important;
+}
+
+/* 테이블 폰트 밀도 개선 */
+.mail-log-row,
+.receive-row,
+.receive-download-row,
+.ocr-file-row,
+.ocr-job-row {
+  font-size: 12.2px;
+}
+
+/* 반응형 */
+@media (max-width: 1320px) {
+  .sewoo-module-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sewoo-home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .sewoo-hero-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .sewoo-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sewoo-hero-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .lhln-simple-head {
+    display: none;
+  }
+
+  .lhln-simple-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .mail-supplier-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .sewoo-module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sewoo-home-hero {
+    padding: 30px;
+  }
+
+  .sewoo-home-hero h1 {
+    font-size: 40px;
+  }
+}
+
+/* =========================================================
+   SEWOO UI PATCH 04
+   layout fix + nested nav + compact mail/log UI
+========================================================= */
+
+/* Vite 기본 #root 폭 제한 제거: 현재 세로형/핸드폰형으로 보이는 주범 */
+#root {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 전체 앱을 브라우저 왼쪽부터 시작 */
+.app-shell {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  grid-template-columns: 260px minmax(0, 1fr) !important;
+}
+
+.content {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 28px 44px 70px !important;
+}
+
+.content > * {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 사이드바 로고 */
+.brand-logo-button {
+  border: 0;
+  background: transparent;
+  width: 100%;
+  padding: 4px 8px 24px !important;
+  justify-content: flex-start;
+}
+
+.brand-logo-img {
+  width: 138px;
+  max-height: 52px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
+
+/* 기존 CSS 로고 원형 숨김 */
+.brand-symbol,
+.brand-title,
+.brand-subtitle {
+  display: none !important;
+}
+
+/* nested nav */
+.nav-list {
+  gap: 8px !important;
+}
+
+.nav-folder {
+  display: grid;
+  gap: 5px;
+}
+
+.nav-folder-button {
+  width: 100%;
+  min-height: 42px;
+  border: 0;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: transparent;
+  color: var(--sewoo-muted, #766f65);
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 20px;
+  gap: 9px;
+  align-items: center;
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 850;
+}
+
+.nav-folder-button:hover {
+  background: rgba(49, 95, 69, 0.055);
+}
+
+.nav-folder.active > .nav-folder-button {
+  color: #172119;
+  background: rgba(49, 95, 69, 0.075);
+}
+
+.nav-folder-button b {
+  font-size: 15px;
+  font-weight: 900;
+  text-align: center;
+  color: rgba(23, 23, 23, 0.45);
+}
+
+.nav-child-list {
+  display: grid;
+  gap: 3px;
+  margin-left: 33px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(49, 95, 69, 0.16);
+}
+
+.nav-child {
+  border: 0;
+  background: transparent;
+  border-radius: 12px;
+  min-height: 34px;
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 7px;
+  align-items: center;
+  text-align: left;
+  color: rgba(23, 23, 23, 0.62);
+}
+
+.nav-child span {
+  font-size: 11px;
+  color: #315f45;
+}
+
+.nav-child em {
+  font-style: normal;
+  font-size: 11.8px;
+  font-weight: 800;
+}
+
+.nav-child:hover {
+  background: rgba(49, 95, 69, 0.055);
+}
+
+.nav-child.active {
+  background: #172119;
+  color: #fff;
+}
+
+.nav-child.active span {
+  color: #fff;
+}
+
+/* 홈 히어로 축소/정돈 */
+.sewoo-home-hero {
+  max-width: 1180px !important;
+  min-height: 295px !important;
+  grid-template-columns: minmax(0, 1fr) 250px !important;
+  padding: 36px 42px !important;
+}
+
+.sewoo-home-hero h1 {
+  max-width: 560px;
+  font-size: clamp(34px, 3.8vw, 54px) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.075em !important;
+}
+
+.sewoo-home-hero p {
+  max-width: 560px;
+  font-size: 13.2px !important;
+  line-height: 1.68 !important;
+}
+
+.sewoo-hero-summary {
+  gap: 9px !important;
+}
+
+.sewoo-hero-summary div {
+  padding: 14px 16px !important;
+  border-radius: 18px !important;
+}
+
+.sewoo-hero-summary strong {
+  font-size: 19px !important;
+}
+
+/* 홈 모듈: 기본은 타이틀 중심, hover 시 설명 부각 */
+.sewoo-module-grid {
+  max-width: 1180px !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.sewoo-module-card {
+  min-height: 152px !important;
+  padding: 19px !important;
+}
+
+.sewoo-module-icon {
+  width: 38px !important;
+  height: 38px !important;
+  font-size: 14px !important;
+}
+
+.sewoo-module-top {
+  margin-bottom: 18px !important;
+}
+
+.sewoo-module-card h2 {
+  font-size: 17px !important;
+  word-break: keep-all;
+}
+
+.sewoo-module-card p {
+  opacity: 0;
+  max-height: 0;
+  margin: 0 !important;
+  overflow: hidden;
+  transition: opacity 0.18s ease, max-height 0.18s ease, margin 0.18s ease;
+}
+
+.sewoo-module-card:hover p {
+  opacity: 1;
+  max-height: 48px;
+  margin-top: 8px !important;
+}
+
+.sewoo-module-action {
+  bottom: 16px !important;
+}
+
+/* 메일주소 정리 업체 행 압축 */
+.mail-supplier-row {
+  min-height: 35px !important;
+  padding: 7px 10px !important;
+  grid-template-columns: minmax(150px, 1fr) 150px 88px !important;
+  border-radius: 10px !important;
+}
+
+.mail-supplier-name strong {
+  font-size: 12px !important;
+}
+
+.mail-supplier-name span {
+  display: none !important;
+}
+
+.mail-supplier-orgs {
+  font-size: 11px !important;
+}
+
+.mail-supplier-row em {
+  font-size: 10.5px !important;
+}
+
+/* 발송관리 화면 폭/여백 정리 */
+.send-config {
+  max-width: 1180px;
+  grid-template-columns: 140px 240px minmax(220px, 1fr) minmax(220px, 1fr) 170px !important;
+}
+
+.split-layout {
+  max-width: 1180px !important;
+  grid-template-columns: 0.72fr 1.28fr !important;
+  gap: 18px !important;
+}
+
+.detail-surface {
+  padding: 22px !important;
+}
+
+.send-preview-strip {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 0.8fr 0.55fr;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+
+.send-preview-strip div,
+.send-subject-line {
+  padding: 10px 12px;
+  border-radius: 15px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  background: rgba(255, 253, 247, 0.64);
+}
+
+.send-preview-strip span,
+.send-subject-line span {
+  display: block;
+  margin-bottom: 3px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.send-preview-strip strong,
+.send-subject-line strong {
+  display: block;
+  color: #171717;
+  font-size: 11.5px;
+  word-break: break-all;
+}
+
+.send-subject-line {
+  margin-bottom: 12px;
+}
+
+.mail-preview {
+  max-height: 610px !important;
+}
+
+/* 발송로그 표 깨짐 방지 */
+.mail-log-list-surface {
+  overflow: hidden;
+}
+
+.mail-log-table-head,
+.mail-log-row {
+  grid-template-columns: 30px 64px 125px 94px minmax(220px, 1fr) 118px 70px !important;
+  gap: 7px !important;
+}
+
+.mail-log-table-head {
+  padding: 9px 10px !important;
+}
+
+.mail-log-row {
+  min-height: 39px !important;
+  padding: 8px 10px !important;
+  font-size: 11.2px !important;
+}
+
+.mail-log-row input[type="checkbox"],
+.col-check input[type="checkbox"] {
+  width: 14px !important;
+  height: 14px !important;
+  padding: 0 !important;
+  border-radius: 3px !important;
+}
+
+.mail-log-table-body {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.mail-log-row > *,
+.mail-log-table-head > * {
+  min-width: 0;
+}
+
+.col-supplier strong,
+.col-mailtype,
+.col-date,
+.col-result {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subject-cell {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* 발송로그 상세를 메일미리보기처럼 압축 */
+.mail-log-preview-surface .mail-preview-meta-block {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.mail-log-preview-surface .mail-preview-meta-row {
+  padding: 9px 11px !important;
+  border-radius: 14px !important;
+}
+
+.mail-log-preview-surface .meta-label {
+  font-size: 10px !important;
+  margin-bottom: 2px !important;
+}
+
+.mail-log-preview-surface .meta-value {
+  font-size: 11px !important;
+}
+
+.mail-log-preview-head {
+  margin-bottom: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.mail-log-preview-head h2 {
+  font-size: 18px !important;
+  line-height: 1.25 !important;
+}
+
+/* LHLN 표 단순화 유지 */
+.lhln-simple-head,
+.lhln-simple-row {
+  grid-template-columns: 110px minmax(260px, 1.8fr) 90px 140px 125px !important;
+}
+
+.lhln-simple-row {
+  min-height: 40px !important;
+  padding: 9px 12px !important;
+  font-size: 11.8px !important;
+}
+
+/* 넓은 화면에서 더 자연스럽게 */
+@media (min-width: 1500px) {
+  .content > * {
+    max-width: 1320px;
+  }
+
+  .sewoo-home-hero,
+  .sewoo-module-grid,
+  .split-layout,
+  .send-config {
+    max-width: 1320px !important;
+  }
+}
+
+/* 좁은 화면 대응 */
+@media (max-width: 1180px) {
+  .app-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    position: relative !important;
+    height: auto !important;
+  }
+
+  .content {
+    padding: 24px 20px 60px !important;
+  }
+
+  .sewoo-home-hero,
+  .split-layout,
+  .send-config {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sewoo-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .send-preview-strip,
+  .mail-log-preview-surface .mail-preview-meta-block {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}

@@ -12,6 +12,7 @@ from app.services.mail_service import (
     hide_mail_send_logs,
 )
 
+from app.core.mail_credentials import resolve_mail_credential
 from app.services.mail_receive_service import (
     test_daum_imap_login,
     fetch_recent_messages,
@@ -129,70 +130,8 @@ class SaveOcrCandidateRequest(BaseModel):
     ocr_candidates: list[dict] = Field(default_factory=list)
     message: str = ""
 
-class AutoSelectExactOcrRequest(BaseModel):
-    mail_id: Optional[int] = None
 
 
-class SaveOcrCandidateRequest(BaseModel):
-    attachment_id: int
-    ocr_job_id: Optional[int] = None
-    status: str = ""
-    filename: str = ""
-    best_expiry: str = ""
-    expiry_candidates: list[dict] = Field(default_factory=list)
-    message: str = ""
-
-class AutoSelectExactOcrRequest(BaseModel):
-    mail_id: int | None = None
-
-def resolve_mail_credential(req_email: str = "", req_password: str = ""):
-    email_candidates = [
-        req_email,
-        os.getenv("DAUM_IMAP_EMAIL", ""),
-        os.getenv("DAUM_MAIL_EMAIL", ""),
-        os.getenv("DAUM_EMAIL", ""),
-        os.getenv("DAUM_SMTP_EMAIL", ""),
-        os.getenv("MAIL_SENDER", ""),
-        os.getenv("MAIL_EMAIL", ""),
-        os.getenv("SMTP_USER", ""),
-        os.getenv("SENDER_EMAIL", ""),
-    ]
-
-    password_candidates = [
-        req_password,
-        os.getenv("DAUM_IMAP_PASSWORD", ""),
-        os.getenv("DAUM_IMAP_PW", ""),
-        os.getenv("DAUM_MAIL_PASSWORD", ""),
-        os.getenv("DAUM_MAIL_PW", ""),
-        os.getenv("DAUM_APP_PASSWORD", ""),
-        os.getenv("DAUM_APP_PW", ""),
-        os.getenv("DAUM_SMTP_PASSWORD", ""),
-        os.getenv("DAUM_SMTP_PW", ""),
-        os.getenv("DAUM_PASSWORD", ""),
-        os.getenv("MAIL_PASSWORD", ""),
-        os.getenv("MAIL_PW", ""),
-        os.getenv("MAIL_APP_PASSWORD", ""),
-        os.getenv("SMTP_PASSWORD", ""),
-        os.getenv("SMTP_PW", ""),
-        os.getenv("SENDER_PASSWORD", ""),
-    ]
-
-    user_email = ""
-    app_password = ""
-
-    for value in email_candidates:
-        value = str(value or "").strip()
-        if value and value.lower() != "string":
-            user_email = value
-            break
-
-    for value in password_candidates:
-        value = str(value or "").strip()
-        if value and value.lower() != "string":
-            app_password = value
-            break
-
-    return user_email, app_password
 
 
 @router.get("/targets")
@@ -421,57 +360,6 @@ def save_inbox_ocr_candidate(req: SaveOcrCandidateRequest):
         mail_candidates=req.mail_candidates,
         ocr_candidates=req.ocr_candidates,
         message=req.message,
-    )
-
-@router.post("/inbox/attachments/auto-select-exact")
-def auto_select_exact_ocr_targets(req: AutoSelectExactOcrRequest):
-    """
-    관리번호 exact 매칭 메일의 PDF 첨부파일을 자동 OCR 대상으로 지정한다.
-    mail_id가 있으면 해당 메일만, 없으면 exact 전체 대상.
-    """
-    return auto_select_exact_inbound_ocr_targets(
-        mail_id=req.mail_id,
-    )
-
-
-@router.get("/inbox/attachments/ocr-targets")
-def get_selected_inbox_ocr_targets(
-    limit: int = 500,
-    only_pending: bool = True,
-):
-    """
-    OCR 대상으로 저장된 수신 첨부파일 목록.
-    일괄 판독용.
-    """
-    return list_selected_inbound_ocr_targets(
-        limit=limit,
-        only_pending=only_pending,
-    )
-
-
-@router.post("/inbox/ocr-results/save-candidate")
-def save_inbox_ocr_candidate(req: SaveOcrCandidateRequest):
-    """
-    OCR 실행 후 유효기간 후보를 저장한다.
-    """
-    return save_inbound_ocr_candidate_result(
-        attachment_id=req.attachment_id,
-        ocr_job_id=req.ocr_job_id,
-        status=req.status,
-        filename=req.filename,
-        best_expiry=req.best_expiry,
-        expiry_candidates=req.expiry_candidates,
-        message=req.message,
-    )
-
-@router.post("/inbox/attachments/auto-select-exact")
-def auto_select_exact_ocr_targets(req: AutoSelectExactOcrRequest):
-    """
-    관리번호 exact 매칭 수신메일의 첨부파일을 자동 OCR 대상으로 지정한다.
-    mail_id가 있으면 해당 메일만, 없으면 exact 전체 대상.
-    """
-    return auto_select_exact_inbound_ocr_targets(
-        mail_id=req.mail_id,
     )
 
 

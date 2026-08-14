@@ -1,9 +1,0 @@
-﻿filename,source_type,source_id,ocr_job_id,cert_org,field,before_value,after_value,decision,parse_status_before,parse_status_after
-비타셀L600-HFFIA_2023-09-30.pdf,ocr_job,435,435,HFFIA,cert_no,,Expiry,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-37. Maxarome Select Powder-HFFIA(2023-06-30).pdf,ocr_job,428,428,HFFIA,cert_no,,DSM,IMPROVED,FILENAME_ONLY,FILENAME_ONLY
-"37.Maxarome Select Powder,DSM FOOD SPECIALTIES CO., LTD社-HFFIA(2021-06-30).pdf",ocr_job,427,427,HFFIA,cert_no,,DSM,IMPROVED,FILENAME_ONLY,FILENAME_ONLY
-56. VITACEL Powdered  Cellulose DV type(J.Retten)[HFFIA_2025-09-30]농.pdf,ocr_job,419,419,HFFIA,cert_no,,J,IMPROVED,FILENAME_ONLY,FILENAME_ONLY
-비타셀L600-HFFIA_2023-09-30.pdf,ocr_test_result,29,435,HFFIA,cert_no,,Expiry,IMPROVED,LOW_CONFIDENCE,LOW_CONFIDENCE
-37. Maxarome Select Powder-HFFIA(2023-06-30).pdf,ocr_test_result,42,428,HFFIA,cert_no,,DSM,IMPROVED,FILENAME_ONLY,FILENAME_ONLY
-"37.Maxarome Select Powder,DSM FOOD SPECIALTIES CO., LTD社-HFFIA(2021-06-30).pdf",ocr_test_result,43,427,HFFIA,cert_no,,DSM,IMPROVED,FILENAME_ONLY,FILENAME_ONLY
-56. VITACEL Powdered  Cellulose DV type(J.Retten)[HFFIA_2025-09-30]농.pdf,ocr_test_result,55,419,HFFIA,cert_no,,J,IMPROVED,FILENAME_ONLY,FILENAME_ONLY

@@ -1,0 +1,1829 @@
+/* =========================================================
+   RECEIVE MAIL / INBOX PAGE
+========================================================= */
+
+.inbox-control-panel,
+.inbox-mail-list,
+.inbox-attachment-panel {
+  border-radius: 24px;
+  background: rgba(255, 253, 247, 0.78);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+  box-shadow: 0 18px 50px rgba(20, 24, 20, 0.055);
+}
+
+.inbox-control-panel {
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.inbox-control-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.inbox-control-head span,
+.inbox-sync-result span {
+  display: block;
+  margin-bottom: 4px;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.inbox-control-head h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.04em;
+  color: #171717;
+}
+
+.inbox-sync-options {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px 130px;
+  gap: 10px;
+}
+
+.inbox-option-box {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.inbox-option-box > span {
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.inbox-option-box input,
+.inbox-filter-row select {
+  width: 100%;
+  border: 0;
+  outline: none;
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: rgba(255, 253, 247, 0.88);
+  color: #171717;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.inbox-mailbox-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.inbox-mailbox-chips button,
+.inbox-filter-row button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.inbox-mailbox-chips button.active,
+.inbox-filter-row button.active {
+  background: #172119;
+  color: #fff;
+}
+
+.inbox-sync-result {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(49, 95, 69, 0.06);
+  border: 1px solid rgba(49, 95, 69, 0.09);
+}
+
+.inbox-sync-result strong {
+  color: #171717;
+  font-size: 12px;
+}
+
+.inbox-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.inbox-filter-row select {
+  width: 180px;
+  margin-left: auto;
+}
+
+.inbox-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.86fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.inbox-mail-list,
+.inbox-attachment-panel {
+  padding: 18px;
+}
+
+.inbox-mail-scroll {
+  display: grid;
+  gap: 8px;
+  max-height: 620px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.inbox-mail-row {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  border-radius: 16px;
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.58);
+  cursor: pointer;
+  display: grid;
+  gap: 7px;
+}
+
+.inbox-mail-row.active {
+  background: #172119;
+  border-color: #172119;
+}
+
+.inbox-mail-row.active strong,
+.inbox-mail-row.active span {
+  color: #fff;
+}
+
+.inbox-mail-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.inbox-mail-top strong {
+  color: #171717;
+  font-size: 12.5px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.match-badge {
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.match-badge.exact {
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+}
+
+.match-badge.unmatched {
+  background: rgba(160, 96, 49, 0.11);
+  color: #8a552f;
+}
+
+.inbox-mail-row.active .match-badge {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.inbox-mail-meta,
+.inbox-mail-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #766f65;
+  font-size: 10.7px;
+  font-weight: 750;
+}
+
+.inbox-selected-mail {
+  display: grid;
+  gap: 5px;
+  padding: 13px;
+  border-radius: 17px;
+  background: rgba(49, 95, 69, 0.06);
+  border: 1px solid rgba(49, 95, 69, 0.08);
+  margin-bottom: 12px;
+}
+
+.inbox-selected-mail span {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.inbox-selected-mail strong {
+  color: #171717;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.inbox-selected-mail p {
+  margin: 0;
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.inbox-attachment-list {
+  display: grid;
+  gap: 10px;
+  max-height: 620px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.inbox-attachment-row {
+  display: grid;
+  gap: 8px;
+  padding: 13px;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.inbox-attachment-main,
+.inbox-attachment-sub {
+  display: grid;
+  gap: 3px;
+}
+
+.inbox-attachment-main span,
+.inbox-attachment-sub span {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.inbox-attachment-main strong {
+  color: #171717;
+  font-size: 12.5px;
+  font-weight: 950;
+  word-break: break-word;
+}
+
+.inbox-attachment-sub strong {
+  color: #171717;
+  font-size: 11px;
+  font-weight: 850;
+  word-break: break-all;
+}
+
+.inbox-attachment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inbox-attachment-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.inbox-attachment-actions button:hover {
+  background: rgba(49, 95, 69, 0.17);
+}
+
+@media (max-width: 1100px) {
+  .inbox-sync-options,
+  .inbox-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .inbox-filter-row {
+    flex-wrap: wrap;
+  }
+
+  .inbox-filter-row select {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   INBOX ATTACHMENT COMPACT LIST
+========================================================= */
+
+.inbox-selected-mail.compact {
+  padding: 13px 16px;
+}
+
+.inbox-selected-mail.compact p {
+  display: none;
+}
+
+.inbox-attachment-row.compact {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+}
+
+.inbox-attachment-label {
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.inbox-attachment-filename {
+  color: #171717;
+  font-size: 12.8px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-attachment-actions.compact {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.inbox-attachment-actions.compact button {
+  white-space: nowrap;
+}
+
+.inbox-selected-mail-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.inbox-selected-mail-row button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.inbox-selected-mail-row button:hover {
+  background: rgba(49, 95, 69, 0.18);
+}
+
+/* =========================================================
+   INBOX REVIEW / EXCLUDE / OCR SELECT
+========================================================= */
+
+.inbox-mail-checkline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.inbox-mail-checkline input {
+  width: 15px;
+  height: 15px;
+  accent-color: #315f45;
+}
+
+.inbox-mail-reason {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 750;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-mail-row.active .inbox-mail-reason {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.inbox-mail-body-panel {
+  display: grid;
+  gap: 8px;
+  padding: 13px;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  margin-bottom: 12px;
+}
+
+.inbox-mail-body-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inbox-mail-body-head span {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.inbox-mail-body-head strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.inbox-mail-body-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.inbox-mail-body-text {
+  max-height: 230px;
+  overflow: auto;
+  white-space: pre-wrap;
+  color: #171717;
+  font-size: 11.5px;
+  line-height: 1.55;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.05);
+}
+
+.inbox-attachment-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.inbox-attachment-toolbar span {
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.inbox-attachment-toolbar button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.inbox-attachment-toolbar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.inbox-attachment-row.compact {
+  grid-template-columns: 58px 58px minmax(0, 1fr) auto;
+}
+
+.ocr-check-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.ocr-check-mini input {
+  width: 15px;
+  height: 15px;
+  accent-color: #315f45;
+}
+
+.check-pill.compact {
+  padding: 8px 11px;
+}
+
+.danger-action {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(160, 64, 49, 0.1);
+  color: #9b3f2e;
+  font-size: 11px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.danger-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.keyboard-hint {
+  margin: 4px 0 10px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.compact-sync-panel {
+  margin-bottom: 18px;
+}
+
+.halal-only-options {
+  grid-template-columns: minmax(0, 1fr) 130px 130px;
+}
+
+.inbox-mailbox-chips button:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.inbox-filter-row-fixed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.inbox-filter-left,
+.inbox-filter-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.compact-mail-scroll {
+  outline: none;
+}
+
+.inbox-mail-row.compact {
+  display: grid;
+  gap: 7px;
+  min-height: 86px;
+  padding: 10px 12px;
+}
+
+.inbox-mail-line-main {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.inbox-mail-line-main input {
+  width: 15px;
+  height: 15px;
+  accent-color: #315f45;
+}
+
+.inbox-mail-line-main strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #171717;
+  font-size: 12.5px;
+  font-weight: 950;
+}
+
+.inbox-mail-line-meta,
+.inbox-mail-line-info {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  overflow: hidden;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.inbox-mail-line-meta span,
+.inbox-mail-line-info span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-mail-line-info em {
+  margin-left: auto;
+  color: #315f45;
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.inbox-mail-row.active .inbox-mail-line-main strong,
+.inbox-mail-row.active .inbox-mail-line-meta,
+.inbox-mail-row.active .inbox-mail-line-info,
+.inbox-mail-row.active .inbox-mail-line-info em {
+  color: #fff;
+}
+
+.readable-mail-body-panel {
+  margin-bottom: 12px;
+}
+
+.readable-mail-body-text {
+  display: block;
+  max-height: 280px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.58;
+  font-size: 11.5px;
+  color: #171717;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.05);
+}
+
+.inbox-attachment-row.compact {
+  grid-template-columns: 58px 52px minmax(0, 1fr) auto;
+  padding: 10px 12px;
+}
+
+.send-control-bar {
+  flex-wrap: wrap;
+}
+
+.send-target-list {
+  outline: none;
+}
+
+.send-target-row {
+  display: grid !important;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.62);
+  text-align: left;
+  cursor: pointer;
+}
+
+.send-target-row.active {
+  background: #172119;
+  border-color: #172119;
+}
+
+.send-target-row input {
+  width: 15px;
+  height: 15px;
+  accent-color: #315f45;
+}
+
+.send-target-main {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.send-target-main strong,
+.send-target-main span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.send-target-main strong {
+  color: #171717;
+  font-size: 12.5px;
+  font-weight: 950;
+}
+
+.send-target-main span {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.send-target-row.active .send-target-main strong,
+.send-target-row.active .send-target-main span {
+  color: #fff;
+}
+
+.send-target-meta {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.send-target-meta span {
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.send-target-row.active .send-target-meta span {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+/* =========================================================
+   Layout refinement v3 - Send / Receive panels and action buttons
+   위치: frontend/src/App.css 맨 아래에 추가
+========================================================= */
+
+/* 공통: 패널 헤더 오른쪽 액션 버튼 */
+.panel-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-title-row .surface-title {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.panel-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.soft-chip-action {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(49, 95, 69, 0.12);
+  color: #244b35;
+  font-size: 10.5px;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(49, 95, 69, 0.06);
+}
+
+.soft-chip-action:hover:not(:disabled) {
+  background: rgba(49, 95, 69, 0.2);
+}
+
+.soft-chip-action.danger {
+  background: #183725;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(24, 55, 37, 0.14);
+}
+
+.soft-chip-action.danger:hover:not(:disabled) {
+  background: #10281a;
+}
+
+.soft-chip-action:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 발송관리: 상단 액션을 한 줄로 정리 */
+.send-control-bar {
+  display: grid !important;
+  grid-template-columns: auto minmax(260px, 1fr) minmax(170px, 0.5fr) auto;
+  align-items: center;
+  gap: 10px;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.send-control-bar .check-pill {
+  min-height: 44px;
+  justify-content: center;
+}
+
+.send-control-bar input {
+  min-width: 0;
+}
+
+.send-control-bar .ghost-action {
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+.send-submit-button {
+  min-height: 44px;
+  white-space: nowrap;
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+}
+
+.send-layout-balanced {
+  grid-template-columns: minmax(390px, 0.62fr) minmax(620px, 1fr) !important;
+  align-items: stretch;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.send-list-surface,
+.send-layout-balanced .detail-surface {
+  min-height: 620px;
+}
+
+.send-panel-title-row {
+  padding: 0 2px;
+}
+
+.send-target-list {
+  max-height: 560px;
+}
+
+.send-target-row {
+  min-height: 70px;
+  padding: 10px 12px !important;
+}
+
+.send-target-meta span {
+  background: rgba(49, 95, 69, 0.12) !important;
+}
+
+/* 수신메일: 필터와 본문 패널 폭 정렬 */
+.inbox-filter-row-fixed,
+.inbox-layout-balanced,
+.compact-sync-panel,
+.receive-mail-page .stat-line {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inbox-filter-row-fixed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+
+.inbox-filter-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: nowrap;
+}
+
+.inbox-filter-left button,
+.inbox-filter-right .check-pill {
+  min-height: 38px;
+}
+
+.inbox-filter-right {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.inbox-layout-balanced {
+  grid-template-columns: minmax(520px, 1fr) minmax(520px, 1fr) !important;
+  align-items: start;
+}
+
+.inbox-mail-list,
+.inbox-attachment-panel {
+  min-height: 660px;
+}
+
+.inbox-panel-title-row {
+  padding: 0 2px;
+}
+
+.compact-mail-scroll {
+  max-height: 575px;
+}
+
+.inbox-mail-row.compact {
+  min-height: 76px !important;
+  padding: 9px 12px !important;
+  border-radius: 15px !important;
+}
+
+.inbox-mail-line-main {
+  grid-template-columns: 18px minmax(0, 1fr) auto !important;
+  gap: 8px;
+}
+
+.inbox-mail-line-main strong {
+  font-size: 12.3px !important;
+}
+
+.inbox-mail-line-meta,
+.inbox-mail-line-info {
+  font-size: 10.2px !important;
+  gap: 8px !important;
+}
+
+.inbox-mail-line-info em {
+  margin-left: auto;
+  max-width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.readable-mail-body-text {
+  max-height: 310px !important;
+}
+
+/* 좁은 화면 보호 */
+@media (max-width: 1180px) {
+  .send-control-bar,
+  .send-layout-balanced,
+  .inbox-layout-balanced {
+    grid-template-columns: 1fr !important;
+  }
+
+  .inbox-filter-row-fixed {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .inbox-filter-left,
+  .inbox-filter-right,
+  .panel-actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================================
+   INBOX OCR ACTIONS / RESULT
+========================================================= */
+
+.inbox-attachment-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.inbox-attachment-toolbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.inbox-attachment-toolbar-actions button,
+.primary-mini-action {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.inbox-attachment-toolbar-actions button:hover {
+  background: rgba(49, 95, 69, 0.18);
+}
+
+.inbox-attachment-toolbar-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.inbox-attachment-toolbar-actions .primary-mini-action {
+  background: #173826;
+  color: #fff;
+}
+
+.inbox-ocr-result-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.78);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.inbox-ocr-result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inbox-ocr-result-head span {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.inbox-ocr-result-head strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.inbox-ocr-result-list {
+  display: grid;
+  gap: 8px;
+}
+
+.inbox-ocr-result-row {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.inbox-ocr-result-file {
+  display: grid;
+  gap: 3px;
+}
+
+.inbox-ocr-result-file strong {
+  color: #171717;
+  font-size: 11.8px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-ocr-result-file span {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 850;
+}
+
+.inbox-ocr-expiry-best {
+  display: grid;
+  grid-template-columns: 74px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.inbox-ocr-expiry-best span,
+.inbox-ocr-expiry-best em {
+  color: #315f45;
+  font-size: 10.3px;
+  font-weight: 850;
+  font-style: normal;
+}
+
+.inbox-ocr-expiry-best strong {
+  color: #171717;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.inbox-ocr-expiry-empty {
+  color: #8a552f;
+  font-size: 11px;
+  font-weight: 850;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(160, 96, 49, 0.09);
+}
+
+.inbox-ocr-expiry-candidates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inbox-ocr-expiry-candidates span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.05);
+  color: #555;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   INBOX BATCH OCR RESULT
+========================================================= */
+
+.inbox-ocr-result-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.78);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.inbox-ocr-result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inbox-ocr-result-head span {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.inbox-ocr-result-head strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.inbox-ocr-result-list {
+  display: grid;
+  gap: 8px;
+}
+
+.inbox-ocr-result-row {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.inbox-ocr-result-file {
+  display: grid;
+  gap: 3px;
+}
+
+.inbox-ocr-result-file strong {
+  color: #171717;
+  font-size: 11.8px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-ocr-result-file span {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 850;
+}
+
+.inbox-ocr-expiry-best {
+  display: grid;
+  grid-template-columns: 74px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.inbox-ocr-expiry-best span,
+.inbox-ocr-expiry-best em {
+  color: #315f45;
+  font-size: 10.3px;
+  font-weight: 850;
+  font-style: normal;
+}
+
+.inbox-ocr-expiry-best strong {
+  color: #171717;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.inbox-ocr-expiry-empty {
+  color: #8a552f;
+  font-size: 11px;
+  font-weight: 850;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(160, 96, 49, 0.09);
+}
+
+.inbox-ocr-expiry-candidates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inbox-ocr-expiry-candidates span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.05);
+  color: #555;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   INBOX BATCH OCR RESULT
+========================================================= */
+
+.inbox-ocr-result-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.78);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.inbox-ocr-result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inbox-ocr-result-head span {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.inbox-ocr-result-head strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.inbox-ocr-result-list {
+  display: grid;
+  gap: 8px;
+}
+
+.inbox-ocr-result-row {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.inbox-ocr-result-file {
+  display: grid;
+  gap: 3px;
+}
+
+.inbox-ocr-result-file strong {
+  color: #171717;
+  font-size: 11.8px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-ocr-result-file span {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 850;
+}
+
+.inbox-ocr-expiry-best {
+  display: grid;
+  grid-template-columns: 74px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.inbox-ocr-expiry-best span,
+.inbox-ocr-expiry-best em {
+  color: #315f45;
+  font-size: 10.3px;
+  font-weight: 850;
+  font-style: normal;
+}
+
+.inbox-ocr-expiry-best strong {
+  color: #171717;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.inbox-ocr-expiry-empty {
+  color: #8a552f;
+  font-size: 11px;
+  font-weight: 850;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(160, 96, 49, 0.09);
+}
+
+.inbox-ocr-expiry-candidates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inbox-ocr-expiry-candidates span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.05);
+  color: #555;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   ReceiveMailPage layout fix + checkbox fix + alignment fix
+========================================================= */
+
+/* 상단 필터 줄: 패널 시작선과 맞춤 */
+.aligned-filter-row {
+  max-width: 1280px;
+  margin: 18px auto 14px;
+  padding: 0 2px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.aligned-filter-row .filter-button-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-self: start;
+}
+
+.aligned-filter-row .check-pill.compact {
+  justify-self: end;
+  margin-left: auto;
+}
+
+/* 수신메일 2패널 폭 정렬 */
+.balanced-inbox-layout {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: start;
+}
+
+/* 수신메일 목록 패널 상단 타이틀 + 버튼 정렬 */
+.inbox-panel-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.inbox-panel-title-row .panel-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* 메일 목록 스크롤 */
+.compact-inbox-scroll {
+  max-height: 620px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* 메일 카드 */
+.inbox-mail-row.compact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 92px;
+  padding: 12px 14px !important;
+  border-radius: 18px !important;
+}
+
+/* 1줄: 체크박스 + 제목 + 배지 */
+.inbox-mail-line-one {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.inbox-mail-line-one strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* 2줄 */
+.inbox-mail-line-two {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  opacity: 0.92;
+}
+
+/* 3줄 */
+.inbox-mail-line-three {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  opacity: 0.95;
+}
+
+.inbox-mail-line-three span:last-child {
+  margin-left: auto;
+}
+
+/* 체크박스 강제 정상화: 이거 때문에 큰 흰 사각형 문제 잡음 */
+.inbox-mail-line-one input[type="checkbox"],
+.check-pill input[type="checkbox"],
+.ocr-check-mini input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 16px !important;
+  appearance: auto !important;
+  accent-color: #224732;
+  transform: none !important;
+  box-sizing: border-box;
+}
+
+/* 우측 패널 */
+.compact-attachment-panel {
+  min-height: 680px;
+}
+
+.readable-mail-body-panel {
+  margin-bottom: 16px;
+}
+
+.readable-mail-body-text {
+  white-space: pre-wrap;
+  line-height: 1.55;
+  max-height: 320px;
+  overflow: auto;
+}
+
+/* OCR 결과 패널 */
+.inbox-ocr-result-panel {
+  margin-top: 18px;
+  border-radius: 22px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: inset 0 0 0 1px rgba(36, 75, 53, 0.08);
+}
+
+.inbox-ocr-result-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.inbox-ocr-result-head span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #446b53;
+}
+
+.inbox-ocr-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inbox-ocr-result-row {
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(36, 75, 53, 0.08);
+}
+
+.inbox-ocr-result-file {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.inbox-ocr-expiry-best {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.inbox-ocr-expiry-best strong {
+  font-size: 18px;
+  color: #183725;
+}
+
+.inbox-ocr-expiry-best em,
+.inbox-ocr-expiry-empty {
+  font-size: 12px;
+  color: #5b6f63;
+}
+
+.inbox-ocr-expiry-candidates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inbox-ocr-expiry-candidates span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.10);
+  font-size: 11px;
+  font-weight: 700;
+  color: #2b4f3a;
+}
+
+/* 반응형 */
+@media (max-width: 1180px) {
+  .aligned-filter-row {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  .aligned-filter-row .check-pill.compact {
+    justify-self: start;
+    margin-left: 0;
+  }
+
+  .balanced-inbox-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================================================
+   ReceiveMailPage final layout override
+   - 동기화 패널 compact
+   - 필터 패널 정렬
+   - 우측 본문 패널 확대
+========================================================= */
+
+.content .compact-inbox-control {
+  max-width: 1360px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 28px 30px 24px !important;
+  border-radius: 28px !important;
+}
+
+.content .inbox-control-head-inline {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  margin-bottom: 18px !important;
+}
+
+.content .inbox-main-actions {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+}
+
+.content .inbox-main-actions button {
+  min-height: 48px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  white-space: nowrap !important;
+}
+
+.content .compact-sync-options {
+  display: grid !important;
+  grid-template-columns: minmax(460px, 1.35fr) minmax(240px, 0.65fr) minmax(240px, 0.65fr) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+
+.content .compact-sync-options .inbox-option-box {
+  min-height: 112px !important;
+  border-radius: 18px !important;
+  padding: 18px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+.content .compact-sync-options .inbox-option-box.small {
+  min-width: 0 !important;
+}
+
+.content .compact-sync-options input {
+  width: 100% !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  text-align: center !important;
+  font-weight: 900 !important;
+}
+
+.content .inbox-mailbox-fixed {
+  display: inline-flex !important;
+  width: fit-content !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 42px !important;
+  padding: 0 18px !important;
+  border-radius: 999px !important;
+  background: #10281a !important;
+  color: #fff !important;
+  font-weight: 950 !important;
+}
+
+/* 필터 줄: 아래 패널 시작선과 맞춤 */
+.content .aligned-filter-row {
+  max-width: 1360px !important;
+  margin: 20px auto 14px !important;
+  padding: 0 !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.content .aligned-filter-row .filter-button-group {
+  justify-self: start !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.content .aligned-filter-row .check-pill.compact {
+  justify-self: end !important;
+  margin-left: auto !important;
+}
+
+/* 좌우 패널: 오른쪽 본문/첨부 쪽 더 넓게 */
+.content .balanced-inbox-layout {
+  max-width: 1360px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(430px, 0.88fr) minmax(640px, 1.12fr) !important;
+  gap: 24px !important;
+  align-items: start !important;
+}
+
+.content .compact-mail-list,
+.content .compact-attachment-panel {
+  min-height: 720px !important;
+  border-radius: 26px !important;
+}
+
+.content .compact-inbox-scroll {
+  max-height: 640px !important;
+  overflow-y: auto !important;
+  padding-right: 6px !important;
+}
+
+/* 메일 row 높이 살짝 축소 */
+.content .inbox-mail-row.compact {
+  min-height: 92px !important;
+  padding: 13px 16px !important;
+  border-radius: 18px !important;
+}
+
+.content .inbox-mail-line-one {
+  display: grid !important;
+  grid-template-columns: 17px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 9px !important;
+}
+
+.content .inbox-mail-line-one strong {
+  font-size: 13.5px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.content .inbox-mail-line-two,
+.content .inbox-mail-line-three {
+  font-size: 10.8px !important;
+}
+
+/* 체크박스 크기 고정 */
+.content .inbox-mail-line-one input[type="checkbox"],
+.content .check-pill input[type="checkbox"],
+.content .ocr-check-mini input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 16px !important;
+  appearance: auto !important;
+  accent-color: #224732 !important;
+  transform: none !important;
+}
+
+/* 오른쪽 본문 가독성 */
+.content .readable-mail-body-panel {
+  margin-bottom: 16px !important;
+}
+
+.content .readable-mail-body-text {
+  max-height: 390px !important;
+  min-height: 260px !important;
+  overflow: auto !important;
+  white-space: pre-wrap !important;
+  line-height: 1.58 !important;
+  font-size: 12.2px !important;
+}
+
+/* 첨부파일 줄이 너무 퍼지지 않게 */
+.content .inbox-attachment-row.compact {
+  grid-template-columns: 58px 54px minmax(0, 1fr) auto auto auto !important;
+  gap: 8px !important;
+}
+
+/* 좁은 화면 대응 */
+@media (max-width: 1180px) {
+  .content .compact-sync-options,
+  .content .balanced-inbox-layout,
+  .content .aligned-filter-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .content .aligned-filter-row .check-pill.compact {
+    justify-self: start !important;
+    margin-left: 0 !important;
+  }
+
+  .content .inbox-control-head-inline {
+    flex-direction: column !important;
+  }
+
+  .content .inbox-main-actions {
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+  }
+}

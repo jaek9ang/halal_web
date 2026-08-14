@@ -1,7 +1,6 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
-from app.services.storage_path_service import resolve_raw_material_root
 from pathlib import Path
 
 
@@ -75,8 +74,14 @@ HALAL_DOC_ROOT = _env_path(
 OCR_TEST_UPLOAD_DIR = BACKEND_DIR / 'data' / 'ocr_test_uploads'
 OCR_TEST_DB_PATH = DB_DIR / 'ocr_test.db'
 
-# 실행 중 필요한 로컬 폴더 생성
-for directory in (
+# 인증서 자동분류 이력 (JSONL)
+FILING_DATA_DIR = BACKEND_DIR / 'data' / 'filing'
+FILING_HISTORY_PATH = FILING_DATA_DIR / 'certificate_filing_history.jsonl'
+
+# 인증서 양식 특징 DB
+CERT_TEMPLATE_DB_PATH = DB_DIR / 'cert_template_features.db'
+
+RUNTIME_DIRS = (
     CACHE_DIR,
     PMF_CACHE_DIR,
     OUTPUT_DIR,
@@ -84,5 +89,15 @@ for directory in (
     MAIL_INBOX_DOWNLOAD_DIR,
     OCR_OUTPUT_DIR,
     OCR_TEST_UPLOAD_DIR,
-):
-    directory.mkdir(parents=True, exist_ok=True)
+)
+
+
+def ensure_runtime_dirs() -> None:
+    """런타임 폴더를 만든다.
+
+    예전에는 이 모듈을 import하는 것만으로 폴더가 생겼다. 테스트나 스크립트가
+    설정값 하나 읽으려고 import해도 디스크에 폴더가 생기는 부작용이 있어서
+    앱 기동(`main.py`의 lifespan)에서 명시적으로 부르도록 분리했다.
+    """
+    for directory in RUNTIME_DIRS:
+        directory.mkdir(parents=True, exist_ok=True)

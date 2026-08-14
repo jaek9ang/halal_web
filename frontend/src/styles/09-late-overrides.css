@@ -1,0 +1,57 @@
+/* =========================================================
+   OCR 작업 이력 검색 툴바 좌측 잘림 보정 2026-07-01
+   - 기존 max-width/가로 스크롤 제거
+   - 검색창을 패널 안쪽에서 유동 폭으로 배치
+========================================================= */
+.ocr-history-wide-surface.ocr-history-main-panel
+  .ocr-history-toolbar.one-line {
+  display: flex !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 0 12px !important;
+  padding: 0 2px 2px !important;
+  overflow: visible !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 8px !important;
+}
+
+.ocr-history-wide-surface.ocr-history-main-panel
+  .ocr-history-toolbar.one-line > input {
+  flex: 1 1 220px !important;
+  width: auto !important;
+  min-width: 180px !important;
+  margin: 0 !important;
+}
+
+.ocr-history-wide-surface.ocr-history-main-panel
+  .ocr-history-toolbar.one-line > select {
+  flex: 0 1 126px !important;
+  width: 126px !important;
+  min-width: 108px !important;
+  margin: 0 !important;
+}
+
+.ocr-history-wide-surface.ocr-history-main-panel
+  .ocr-history-toolbar.one-line > button {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 1120px) {
+  .ocr-history-wide-surface.ocr-history-main-panel
+    .ocr-history-toolbar.one-line {
+    flex-wrap: wrap !important;
+  }
+
+  .ocr-history-wide-surface.ocr-history-main-panel
+    .ocr-history-toolbar.one-line > input {
+    flex-basis: 100% !important;
+    width: 100% !important;
+  }
+}

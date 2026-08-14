@@ -578,9 +578,6 @@ def call_openai_for_rule_candidates(
     data.setdefault("candidates", [])
 
     return data
-def is_wildcard_org(value: str) -> bool:
-    org = str(value or "").upper().strip()
-    return org in {"", "ALL", "ANY", "*"}
 
 
 def is_invalid_ai_rule_candidate(candidate: dict[str, Any]) -> bool:
@@ -602,19 +599,6 @@ def is_invalid_ai_rule_candidate(candidate: dict[str, Any]) -> bool:
     return True
 
 
-def sanitize_ai_rule_candidates(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    cleaned: list[dict[str, Any]] = []
-
-    for candidate in candidates or []:
-        if not isinstance(candidate, dict):
-            continue
-
-        if is_invalid_ai_rule_candidate(candidate):
-            continue
-
-        cleaned.append(candidate)
-
-    return cleaned
 
 
 def is_wildcard_org(value: str) -> bool:

@@ -1,0 +1,10 @@
+# 패키징용이 아니라 pytest 설정만을 위한 파일이다.
+# backend/ 에서 `pytest` 를 실행하면 app 패키지가 import 경로에 잡힌다.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]

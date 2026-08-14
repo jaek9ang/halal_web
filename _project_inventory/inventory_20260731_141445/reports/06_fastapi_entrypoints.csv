@@ -1,4 +1,0 @@
-﻿"file","full_path","line_number","app_variable","line_text","module_from_project_root","module_from_backend_root"
-"backend\app\main.py","C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\app\main.py","9","app","app = FastAPI(","backend.app.main.:app","app.main.:app"
-"_ml_integration_review\backend\app\main.py","C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_ml_integration_review\backend\app\main.py","9","app","app = FastAPI(","_ml_integration_review.backend.app.main.:app","_ml_integration_review.backend.app.main.:app"
-"_patch_backups\certificate_filing_phase2_20260625_000608\app\main.py","C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_backups\certificate_filing_phase2_20260625_000608\app\main.py","9","app","app = FastAPI(","_patch_backups.certificate_filing_phase2_20260625_000608.app.main.:app","_patch_backups.certificate_filing_phase2_20260625_000608.app.main.:app"

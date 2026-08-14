@@ -1,1 +1,1 @@
-﻿"""Machine-learning modules for the Halal management backend."""
+"""Machine-learning modules for the Halal management backend."""
