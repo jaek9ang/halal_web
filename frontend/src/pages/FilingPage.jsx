@@ -4,7 +4,7 @@ import {
   getFilingStatus,
   previewCertificateFiling,
   confirmCertificateFiling,
-} from "./api";
+} from "../api";
 import "./FilingPage.css";
 
 function normalizeCandidate(row) {

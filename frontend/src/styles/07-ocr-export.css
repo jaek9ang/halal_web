@@ -1,0 +1,285 @@
+/* =========================================================
+   OCR DATA EXPORT PAGE
+========================================================= */
+
+.ocr-export-layout {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(560px, 1.1fr) minmax(420px, 0.9fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.ocr-export-card {
+  min-height: 420px;
+}
+
+.ocr-export-desc {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(49, 95, 69, 0.06);
+  border: 1px solid rgba(49, 95, 69, 0.1);
+}
+
+.ocr-export-desc strong {
+  color: #173823;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.ocr-export-desc p {
+  margin: 0;
+  color: #766f65;
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 750;
+}
+
+.ocr-export-form {
+  margin-bottom: 16px;
+}
+
+.ocr-export-file-list,
+.ocr-export-scope-list {
+  display: grid;
+  gap: 10px;
+}
+
+.ocr-export-file-list div,
+.ocr-export-scope-list div,
+.ocr-export-result {
+  display: grid;
+  gap: 5px;
+  padding: 13px 14px;
+  border-radius: 16px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.ocr-export-file-list span,
+.ocr-export-scope-list span,
+.ocr-export-result span {
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.ocr-export-file-list strong,
+.ocr-export-scope-list strong,
+.ocr-export-result strong {
+  color: #171717;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+.ocr-export-result {
+  margin-top: 14px;
+  background: rgba(49, 95, 69, 0.07);
+}
+
+.ocr-export-result p {
+  margin: 0;
+  color: #766f65;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+@media (max-width: 1180px) {
+  .ocr-export-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   OCR FAILURE MONITOR
+========================================================= */
+
+.ocr-failure-monitor {
+  max-width: 1360px;
+  margin: 22px auto 0;
+}
+
+.ocr-failure-card {
+  min-height: 420px;
+}
+
+.ocr-failure-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+
+.ocr-failure-stat-grid div {
+  min-width: 0;
+  padding: 14px 15px;
+  border-radius: 16px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.ocr-failure-stat-grid span {
+  display: block;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.ocr-failure-stat-grid strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 24px;
+  font-weight: 950;
+  letter-spacing: -0.05em;
+}
+
+.ocr-failure-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.ocr-failure-toolbar input {
+  flex: 1 1 auto;
+  min-width: 280px;
+}
+
+.ocr-failure-toolbar button,
+.ocr-failure-toolbar .ghost-action {
+  flex: 0 0 auto;
+  width: auto;
+  white-space: nowrap;
+}
+
+.ocr-failure-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.9fr) minmax(520px, 1.1fr);
+  gap: 14px;
+}
+
+.ocr-failure-list {
+  max-height: 520px;
+  overflow: auto;
+  display: grid;
+  gap: 7px;
+  padding-right: 4px;
+}
+
+.ocr-failure-row {
+  width: 100%;
+  border: 1px solid rgba(23, 23, 23, 0.07);
+  background: rgba(255, 253, 247, 0.62);
+  color: #171717;
+  border-radius: 16px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: 7px 10px;
+  text-align: left;
+  align-items: center;
+}
+
+.ocr-failure-row.active {
+  border-color: rgba(230, 0, 18, 0.26);
+  background: rgba(230, 0, 18, 0.055);
+}
+
+.ocr-failure-row strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12.5px;
+}
+
+.ocr-failure-row em {
+  grid-column: 2;
+  color: #766f65;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.ocr-failure-status {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 950;
+  background: rgba(23, 23, 23, 0.06);
+}
+
+.ocr-failure-status.TESSERACT_ERROR,
+.ocr-failure-status.ERROR,
+.ocr-failure-status.PDF_RENDER_ERROR,
+.ocr-failure-status.IMAGE_READ_ERROR {
+  background: rgba(230, 0, 18, 0.08);
+  color: #e60012;
+}
+
+.ocr-failure-status.SCANNED_NEED_OCR,
+.ocr-failure-status.NO_TEXT {
+  background: rgba(217, 119, 6, 0.09);
+  color: #b45309;
+}
+
+.ocr-failure-detail {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
+  .ocr-failure-stat-grid,
+  .ocr-failure-toolbar,
+  .ocr-failure-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ghost-action.active {
+  border-color: rgba(11, 92, 58, 0.28);
+  background: rgba(11, 92, 58, 0.08);
+  color: #0b5c3a;
+}
+
+.ghost-action.danger {
+  border-color: rgba(230, 0, 18, 0.24);
+  color: #c40012;
+}
+
+.ghost-action.danger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ocr-failure-status.STALE_TESSERACT_HISTORY {
+  background: rgba(96, 91, 84, 0.1);
+  color: #605b54;
+}
+
+@media (max-width: 1280px) {
+  .ocr-failure-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ocr-failure-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .ocr-failure-toolbar input {
+    min-width: 100%;
+  }
+}

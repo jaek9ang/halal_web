@@ -1,0 +1,1275 @@
+/* =========================================================
+   PMF MATERIAL DETAIL RESTORE
+========================================================= */
+
+.pmf-search-bar {
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px 130px;
+  gap: 10px;
+  margin: 0 auto 18px;
+}
+
+.pmf-material-layout {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  gap: 18px;
+}
+
+.pmf-material-list,
+.pmf-material-detail {
+  padding: 18px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.86), rgba(248, 244, 235, 0.70));
+  box-shadow: 0 18px 54px rgba(35, 30, 24, 0.07);
+}
+
+.pmf-material-list-head,
+.pmf-material-row {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 88px 54px;
+  gap: 10px;
+  align-items: center;
+}
+
+.pmf-material-list-head {
+  padding: 10px 12px;
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 920;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+  background: rgba(49, 95, 69, 0.035);
+  border-radius: 15px 15px 0 0;
+}
+
+.pmf-material-list-body {
+  max-height: 620px;
+  overflow: auto;
+}
+
+.pmf-material-row {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.055);
+  background: transparent;
+  color: #171717;
+  text-align: left;
+  font-size: 12px;
+}
+
+.pmf-material-row:hover {
+  background: rgba(49, 95, 69, 0.045);
+}
+
+.pmf-material-row.active {
+  background: #172119;
+  color: #fff;
+}
+
+.pmf-material-row strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pmf-material-row span {
+  display: block;
+  margin-top: 2px;
+  opacity: 0.62;
+  font-size: 10.8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pmf-chain-box {
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(49, 95, 69, 0.12);
+  background: rgba(49, 95, 69, 0.06);
+}
+
+.pmf-chain-box span {
+  display: block;
+  margin-bottom: 5px;
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-chain-box strong {
+  display: block;
+  color: #171717;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.pmf-level-stack {
+  display: grid;
+  gap: 12px;
+  max-height: 620px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.pmf-level-card {
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  background: rgba(255, 253, 247, 0.72);
+}
+
+.pmf-level-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-level-top span {
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.pmf-level-top h3 {
+  margin: 4px 0 0;
+  color: #171717;
+  font-size: 18px;
+  letter-spacing: -0.05em;
+}
+
+.pmf-level-top em {
+  align-self: start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-level-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.pmf-level-grid div {
+  padding: 10px 11px;
+  border-radius: 14px;
+  background: rgba(23, 23, 23, 0.025);
+  border: 1px solid rgba(23, 23, 23, 0.055);
+}
+
+.pmf-level-grid span {
+  display: block;
+  margin-bottom: 3px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.pmf-level-grid strong {
+  display: block;
+  color: #171717;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+@media (max-width: 1180px) {
+  .pmf-search-bar,
+  .pmf-material-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pmf-material-list-head {
+    display: none;
+  }
+
+  .pmf-material-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pmf-level-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   PMF RELATED FILE / OCR LINK PANEL
+========================================================= */
+
+.pmf-related-panel {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.pmf-related-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.pmf-related-head span {
+  display: block;
+  margin-bottom: 4px;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.pmf-related-head h3 {
+  margin: 0;
+  color: #171717;
+  font-size: 17px;
+  letter-spacing: -0.05em;
+}
+
+.pmf-related-head em {
+  font-style: normal;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-related-empty {
+  padding: 24px 12px;
+  color: #766f65;
+  text-align: center;
+  font-size: 12px;
+}
+
+.pmf-related-list {
+  display: grid;
+  gap: 9px;
+  max-height: 330px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.pmf-related-row {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 253, 247, 0.68);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-related-main {
+  display: grid;
+  gap: 3px;
+}
+
+.pmf-related-main strong {
+  color: #171717;
+  font-size: 12.5px;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pmf-related-main span {
+  color: #766f65;
+  font-size: 10.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pmf-related-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pmf-related-meta span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.pmf-related-reasons {
+  margin-top: 8px;
+  color: #766f65;
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   PMF SEARCH RESULT TABLE
+========================================================= */
+
+.pmf-search-table-shell {
+  margin-top: 14px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 253, 247, 0.82);
+  overflow: hidden;
+}
+
+.pmf-search-table-scroll {
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pmf-search-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.pmf-search-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f4f1e9;
+  color: #6e665b;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-align: center;
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.pmf-search-table thead th.is-left {
+  text-align: left;
+}
+
+.pmf-search-table tbody tr {
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pmf-search-table tbody td {
+  padding: 14px 14px;
+  vertical-align: middle;
+  text-align: center;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+  color: #171717;
+  font-size: 13px;
+}
+
+.pmf-search-table tbody td.is-left {
+  text-align: left;
+}
+
+.pmf-search-table tbody tr:hover {
+  background: rgba(49, 95, 69, 0.05);
+}
+
+.pmf-search-table tbody tr.is-selected {
+  background: linear-gradient(135deg, #132419 0%, #22432f 100%);
+}
+
+.pmf-search-table tbody tr.is-selected td,
+.pmf-search-table tbody tr.is-selected strong,
+.pmf-search-table tbody tr.is-selected span {
+  color: #ffffff;
+}
+
+.pmf-search-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pmf-cell-material {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pmf-cell-material strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.28;
+  color: #171717;
+  word-break: keep-all;
+}
+
+.pmf-cell-material span {
+  display: block;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: #8b8275;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.pmf-depth-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-search-table tbody tr.is-selected .pmf-depth-badge {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.pmf-search-empty {
+  padding: 40px 16px !important;
+  color: #8b8275 !important;
+  text-align: center !important;
+  font-size: 12px !important;
+}
+
+/* =========================================================
+   PMF TABLE WIDTH / ALIGN PATCH
+========================================================= */
+
+/* PMF 화면은 데이터 표가 많으므로 다른 화면보다 넓게 사용 */
+.pmf-search-bar,
+.pmf-material-layout {
+  max-width: 1460px !important;
+}
+
+/* 좌측 검색표 영역을 조금 더 넓힘 */
+.pmf-material-layout {
+  grid-template-columns: 1.05fr 1.25fr !important;
+}
+
+/* 표 안쪽 여백과 열 안정화 */
+.pmf-search-table-shell {
+  border-radius: 22px !important;
+}
+
+.pmf-search-table-scroll {
+  max-height: 620px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* 컬럼 헤더 줄바꿈 방지 */
+.pmf-search-table thead th {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  font-size: 11.5px !important;
+  padding: 13px 10px !important;
+}
+
+/* 본문 셀도 과도한 줄바꿈 방지 */
+.pmf-search-table tbody td {
+  padding: 13px 10px !important;
+  font-size: 12.2px !important;
+}
+
+/* 공급사는 너무 길면 말줄임 */
+.pmf-search-table tbody td:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 원료명은 좌측 정렬 유지 */
+.pmf-cell-material strong {
+  text-align: left !important;
+  font-size: 13.2px !important;
+  line-height: 1.32 !important;
+  word-break: keep-all !important;
+  overflow-wrap: anywhere;
+}
+
+.pmf-cell-material span {
+  text-align: left !important;
+  font-size: 10.8px !important;
+}
+
+/* 구분 배지는 좀 작게 */
+.pmf-depth-badge {
+  min-width: 68px !important;
+  padding: 5px 8px !important;
+  font-size: 10px !important;
+}
+
+/* 오른쪽 상세 패널도 약간 넓어진 폭에 맞춤 */
+.pmf-material-detail,
+.pmf-material-list {
+  padding: 18px !important;
+}
+
+/* PMF list/detail width balance */
+.pmf-search-bar,
+.pmf-material-layout {
+  max-width: 1540px !important;
+}
+
+.pmf-material-layout {
+  grid-template-columns: 1.12fr 1.28fr !important;
+}
+
+.pmf-search-table thead th {
+  white-space: nowrap !important;
+}
+
+.pmf-search-table tbody td {
+  font-size: 12.4px !important;
+}
+
+.pmf-search-table tbody td:first-child {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pmf-cell-material strong {
+  text-align: left !important;
+}
+
+.pmf-cell-material span {
+  text-align: left !important;
+}
+
+/* PMF table: main/sub material split */
+.pmf-search-table thead th:nth-child(4) {
+  text-align: left !important;
+}
+
+.pmf-search-table tbody td:nth-child(4) {
+  text-align: left !important;
+}
+
+.pmf-search-table tbody td:nth-child(5) {
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.pmf-depth-badge {
+  min-width: 72px !important;
+}
+
+/* =========================================================
+   PMF OCR PREVIEW PANEL
+========================================================= */
+
+.pmf-related-row {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.pmf-related-row:hover {
+  background: rgba(49, 95, 69, 0.055);
+  border-color: rgba(49, 95, 69, 0.16);
+  transform: translateY(-1px);
+}
+
+.pmf-related-row.active {
+  background: #172119;
+  border-color: #172119;
+}
+
+.pmf-related-row.active .pmf-related-main strong,
+.pmf-related-row.active .pmf-related-main span,
+.pmf-related-row.active .pmf-related-reasons {
+  color: #fff;
+}
+
+.pmf-related-row.active .pmf-related-meta span {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+.pmf-ocr-panel {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.pmf-ocr-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.pmf-ocr-panel-head span {
+  display: block;
+  margin-bottom: 4px;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.pmf-ocr-panel-head h3 {
+  margin: 0;
+  color: #171717;
+  font-size: 17px;
+  letter-spacing: -0.05em;
+}
+
+.pmf-ocr-panel-head em {
+  font-style: normal;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-ocr-attachment-box,
+.pmf-ocr-result-box {
+  display: grid;
+  gap: 12px;
+}
+
+.pmf-ocr-file-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.pmf-ocr-file-meta div {
+  padding: 10px 11px;
+  border-radius: 14px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-ocr-file-meta span {
+  display: block;
+  margin-bottom: 3px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.pmf-ocr-file-meta strong {
+  display: block;
+  color: #171717;
+  font-size: 11.5px;
+  word-break: break-all;
+}
+
+.pmf-ocr-text-preview {
+  max-height: 360px;
+  overflow: auto;
+  white-space: pre-wrap;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  color: #171717;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11.5px;
+  line-height: 1.62;
+}
+
+/* =========================================================
+   PMF HALAL DOCUMENT FOLDER / FILE PANEL
+========================================================= */
+
+.pmf-doc-panel {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.pmf-doc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.pmf-doc-head span {
+  display: block;
+  margin-bottom: 4px;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.pmf-doc-head h3 {
+  margin: 0;
+  color: #171717;
+  font-size: 17px;
+  letter-spacing: -0.05em;
+}
+
+.pmf-doc-head em {
+  font-style: normal;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-doc-list {
+  display: grid;
+  gap: 10px;
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.pmf-doc-row {
+  padding: 13px;
+  border-radius: 17px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-doc-main {
+  display: grid;
+  gap: 4px;
+}
+
+.pmf-doc-main strong {
+  color: #171717;
+  font-size: 12.6px;
+  font-weight: 950;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.pmf-doc-main span {
+  color: #766f65;
+  font-size: 10.5px;
+  word-break: break-all;
+}
+
+.pmf-doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pmf-doc-meta span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.pmf-doc-reasons {
+  margin-top: 8px;
+  color: #766f65;
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+.pmf-doc-actions {
+  margin-top: 9px;
+}
+
+.pmf-doc-actions a,
+.pmf-doc-child-files a {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #172119;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.pmf-doc-child-files {
+  display: grid;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.pmf-doc-child-files a {
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  border: 1px solid rgba(49, 95, 69, 0.13);
+  border-radius: 12px;
+  justify-content: flex-start;
+  word-break: break-all;
+}
+
+/* =========================================================
+   PMF FAST HALAL FOLDER PANEL
+========================================================= */
+
+.pmf-folder-panel {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.pmf-folder-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.pmf-folder-head span {
+  display: block;
+  margin-bottom: 4px;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.pmf-folder-head h3 {
+  margin: 0;
+  color: #171717;
+  font-size: 17px;
+  letter-spacing: -0.05em;
+}
+
+.pmf-folder-head em {
+  font-style: normal;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.pmf-folder-card,
+.pmf-folder-empty {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+  display: grid;
+  gap: 10px;
+}
+
+.pmf-folder-main {
+  display: grid;
+  gap: 4px;
+}
+
+.pmf-folder-main strong {
+  color: #171717;
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.pmf-folder-main span {
+  color: #766f65;
+  font-size: 10.8px;
+  word-break: break-all;
+}
+
+.pmf-folder-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pmf-folder-meta span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.pmf-folder-empty span {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.pmf-folder-empty strong {
+  color: #171717;
+  font-size: 12.5px;
+}
+
+.pmf-folder-empty p {
+  margin: 0;
+  color: #766f65;
+  font-size: 10.8px;
+  word-break: break-all;
+}
+
+/* PMF folder/file name display + copy buttons */
+
+.pmf-folder-field {
+  display: grid;
+  gap: 5px;
+  padding: 11px 12px;
+  border-radius: 15px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-folder-field > span {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.pmf-folder-field > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.pmf-folder-field strong {
+  color: #171717;
+  font-size: 12.2px;
+  font-weight: 900;
+  word-break: break-all;
+}
+
+.mini-copy-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 9px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.mini-copy-button:hover {
+  background: rgba(49, 95, 69, 0.18);
+}
+
+.pmf-folder-file-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-folder-file-title {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.pmf-folder-file-row {
+  display: grid;
+  gap: 8px;
+  padding: 11px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.pmf-folder-file-main {
+  display: grid;
+  gap: 3px;
+}
+
+.pmf-folder-file-main strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 900;
+  word-break: break-word;
+}
+
+.pmf-folder-file-main span {
+  color: #766f65;
+  font-size: 10.5px;
+  word-break: break-all;
+}
+
+.pmf-folder-file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pmf-folder-file-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 9px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.pmf-folder-file-actions button:hover {
+  background: rgba(49, 95, 69, 0.16);
+}
+
+/* =========================================================
+   PMF FOLDER COMPACT ROW VIEW
+========================================================= */
+
+.pmf-folder-compact-card {
+  gap: 8px !important;
+}
+
+.pmf-folder-line-row {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 15px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-folder-line-row.file-row {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.pmf-folder-line-label {
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.pmf-folder-line-value {
+  color: #171717;
+  font-size: 12.4px;
+  font-weight: 900;
+  line-height: 1.35;
+  word-break: break-all;
+}
+
+.pmf-folder-line-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pmf-folder-line-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pmf-folder-line-actions button:hover {
+  background: rgba(49, 95, 69, 0.18);
+}
+
+.pmf-folder-file-list.compact {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-folder-file-list.compact .pmf-folder-file-title {
+  margin-bottom: 2px;
+}
+
+/* 기존 파일 카드 스타일이 남아 있어도 화면을 덜 차지하게 방어 */
+.pmf-folder-file-row {
+  padding: 10px 12px !important;
+}
+
+/* =========================================================
+   PMF FOLDER COMPACT ROW VIEW + CERT NOTICE
+========================================================= */
+
+.pmf-folder-compact-card {
+  gap: 8px !important;
+}
+
+.pmf-folder-line-row {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 15px;
+  background: rgba(255, 253, 247, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-folder-line-row.file-row {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.pmf-folder-line-label {
+  color: #766f65;
+  font-size: 11px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.pmf-folder-line-value {
+  color: #171717;
+  font-size: 12.4px;
+  font-weight: 900;
+  line-height: 1.35;
+  word-break: break-all;
+}
+
+.pmf-folder-line-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pmf-folder-line-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pmf-folder-line-actions button:hover {
+  background: rgba(49, 95, 69, 0.18);
+}
+
+.pmf-folder-file-list.compact {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(23, 23, 23, 0.07);
+}
+
+.pmf-folder-file-title {
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.pmf-folder-cert-notice {
+  display: grid;
+  gap: 5px;
+  padding: 12px 14px;
+  border-radius: 15px;
+  background: rgba(116, 104, 86, 0.055);
+  border: 1px dashed rgba(23, 23, 23, 0.14);
+}
+
+.pmf-folder-cert-notice strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.pmf-folder-cert-notice span {
+  color: #766f65;
+  font-size: 11.2px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   PMF LEVEL CARD COLLAPSE
+========================================================= */
+
+.pmf-level-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pmf-level-actions em {
+  font-style: normal;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 11px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.pmf-level-toggle {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.09);
+  color: #315f45;
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+
+.pmf-level-toggle:hover {
+  background: rgba(49, 95, 69, 0.18);
+  transform: translateY(-1px);
+}
+
+.pmf-level-card.collapsed {
+  padding-bottom: 16px;
+}
+
+.pmf-level-card.collapsed .pmf-level-top {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.pmf-level-card.collapsed h3 {
+  margin-bottom: 0;
+}

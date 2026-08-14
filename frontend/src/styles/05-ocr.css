@@ -1,0 +1,3488 @@
+/* =========================================================
+   OCR PAGE REFINED
+========================================================= */
+
+.ocr-control-bar-refined {
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ocr-layout-refined {
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: minmax(520px, 1fr) minmax(520px, 1fr);
+  align-items: start;
+}
+
+.ocr-list-surface-refined {
+  min-height: 520px;
+}
+
+.ocr-target-table-head,
+.ocr-job-table-head {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 16px 16px 0 0;
+  background: rgba(23, 23, 23, 0.035);
+  color: #6d665c;
+  font-size: 11px;
+  font-weight: 900;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.ocr-target-table-head {
+  grid-template-columns: minmax(0, 2.1fr) 1.25fr 0.7fr 0.7fr 0.7fr;
+}
+
+.ocr-job-table-head {
+  grid-template-columns: 0.45fr minmax(0, 2.2fr) 0.75fr 0.6fr 1.05fr;
+}
+
+.ocr-list-body-refined {
+  max-height: 420px;
+  overflow-y: auto;
+  border-radius: 0 0 18px 18px;
+}
+
+.ocr-target-row,
+.ocr-job-row.refined {
+  width: 100%;
+  border: 0;
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.62);
+  border-bottom: 1px solid rgba(23, 23, 23, 0.055);
+  cursor: pointer;
+  text-align: left;
+  color: #171717;
+  font-weight: 800;
+}
+
+.ocr-target-row {
+  grid-template-columns: minmax(0, 2.1fr) 1.25fr 0.7fr 0.7fr 0.7fr;
+}
+
+.ocr-job-row.refined {
+  grid-template-columns: 0.45fr minmax(0, 2.2fr) 0.75fr 0.6fr 1.05fr;
+}
+
+.ocr-target-row:hover,
+.ocr-job-row.refined:hover {
+  background: rgba(49, 95, 69, 0.075);
+}
+
+.ocr-target-row.active,
+.ocr-job-row.refined.active {
+  background: #10281a;
+  color: #fff;
+}
+
+.ocr-target-row.active .mini-badge,
+.ocr-job-row.refined.active .mini-badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.ocr-target-row .subject-cell,
+.ocr-job-row.refined .subject-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-preview-refined {
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ocr-meta-grid-refined {
+  display: grid;
+  grid-template-columns: minmax(0, 2.8fr) 0.78fr 0.78fr 0.78fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ocr-meta-card {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+  min-height: 86px;
+}
+
+.ocr-meta-card span {
+  color: #6d665c;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ocr-meta-card strong {
+  color: #171717;
+  font-size: 12px;
+  font-weight: 900;
+  word-break: break-all;
+  line-height: 1.45;
+}
+
+.ocr-meta-card.small strong {
+  text-align: center;
+  word-break: keep-all;
+}
+
+.ocr-compare-section {
+  margin-top: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  padding: 16px;
+}
+
+.ocr-compare-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ocr-compare-head span {
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+}
+
+.ocr-compare-head strong {
+  color: #171717;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.ocr-compare-table {
+  display: grid;
+  gap: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.ocr-compare-table-head,
+.ocr-compare-row {
+  display: grid;
+  grid-template-columns: 0.55fr 1.35fr 1.35fr 0.9fr 1fr 0.95fr 0.8fr;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+}
+
+.ocr-compare-table-head {
+  background: rgba(23, 23, 23, 0.035);
+  color: #6d665c;
+  font-size: 10.8px;
+  font-weight: 950;
+}
+
+.ocr-compare-row {
+  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid rgba(23, 23, 23, 0.055);
+  color: #171717;
+  font-size: 11.5px;
+  font-weight: 850;
+}
+
+.ocr-compare-row.read {
+  background: rgba(49, 95, 69, 0.055);
+}
+
+.ocr-decision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.35fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.ocr-decision-card {
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  padding: 14px;
+  display: grid;
+  gap: 7px;
+}
+
+.ocr-decision-card span {
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.ocr-decision-card strong {
+  color: #171717;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.ocr-decision-card em {
+  color: #6d665c;
+  font-size: 11px;
+  line-height: 1.45;
+  font-style: normal;
+}
+
+.ocr-decision-card.skip {
+  background: rgba(49, 95, 69, 0.075);
+}
+
+.ocr-decision-card.check {
+  background: rgba(210, 164, 85, 0.11);
+}
+
+.ocr-decision-card.unknown {
+  background: rgba(150, 150, 150, 0.08);
+}
+
+.ocr-date-candidate-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.ocr-date-candidate-strip span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.10);
+  color: #315f45;
+  font-size: 10.8px;
+  font-weight: 900;
+}
+
+.ocr-text-box.refined {
+  margin-top: 16px;
+  max-height: 460px;
+  overflow: auto;
+  white-space: pre-wrap;
+  line-height: 1.55;
+}
+
+@media (max-width: 1180px) {
+  .ocr-layout-refined,
+  .ocr-meta-grid-refined,
+  .ocr-decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ocr-compare-table {
+    overflow-x: auto;
+  }
+
+  .ocr-compare-table-head,
+  .ocr-compare-row {
+    min-width: 980px;
+  }
+}
+
+/* =========================================================
+   OCR HISTORY WIDE LIST OVERRIDE
+========================================================= */
+
+.ocr-history-wide-surface {
+  max-width: 1360px;
+  margin: 0 auto 22px;
+  padding: 22px;
+  border-radius: 26px;
+  background: rgba(255, 253, 247, 0.76);
+  box-shadow: 0 24px 70px rgba(29, 24, 16, 0.08);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.ocr-history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ocr-history-head p {
+  margin: 5px 0 0;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ocr-history-table-head,
+.ocr-history-row {
+  display: grid;
+  grid-template-columns: 0.42fr 1.1fr 1.4fr 0.95fr 0.9fr 0.7fr 1.8fr 1.05fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-history-table-head {
+  padding: 12px 14px;
+  border-radius: 16px 16px 0 0;
+  background: rgba(23, 23, 23, 0.035);
+  color: #6d665c;
+  font-size: 10.8px;
+  font-weight: 950;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.ocr-history-table-body {
+  max-height: 540px;
+  overflow-y: auto;
+  border-radius: 0 0 18px 18px;
+}
+
+.ocr-history-row {
+  width: 100%;
+  border: 0;
+  padding: 13px 14px;
+  background: rgba(255, 255, 255, 0.68);
+  border-bottom: 1px solid rgba(23, 23, 23, 0.055);
+  text-align: left;
+  color: #171717;
+  font-size: 11.5px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.ocr-history-row:hover {
+  background: rgba(49, 95, 69, 0.075);
+}
+
+.ocr-history-row.active {
+  background: #10281a;
+  color: #fff;
+}
+
+.ocr-history-row.active .mini-badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.ocr-history-row .subject-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* OCR 결과 파일경로 박스: 경로 글자 bold 제거 + 경로 박스 확대 */
+.ocr-meta-grid-refined {
+  grid-template-columns: minmax(0, 4fr) 0.62fr 0.62fr 0.82fr !important;
+}
+
+.ocr-meta-card.path {
+  min-height: 112px !important;
+}
+
+.ocr-meta-card.path strong {
+  font-weight: 650 !important;
+  font-size: 11.2px !important;
+  line-height: 1.55 !important;
+  color: #3d3a35 !important;
+}
+
+/* 작은 박스는 더 compact */
+.ocr-meta-card.small {
+  min-height: 96px !important;
+  padding: 12px !important;
+}
+
+.ocr-meta-card.small strong {
+  font-size: 12px !important;
+}
+
+/* LHLN 후보 미니 리스트 */
+.lhln-match-mini-list {
+  display: grid;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.lhln-match-mini-list p {
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 850;
+}
+
+/* 날짜 strip 숨김: 혹시 기존 코드가 남아도 안 보이게 */
+.ocr-date-candidate-strip {
+  display: none !important;
+}
+
+@media (max-width: 1180px) {
+  .ocr-history-table-head,
+  .ocr-history-row {
+    min-width: 1080px;
+  }
+
+  .ocr-history-wide-surface {
+    overflow-x: auto;
+  }
+}
+
+/* =========================================================
+   OCR HISTORY ALIGNMENT / STICKY HEADER
+========================================================= */
+
+.ocr-history-table-head,
+.ocr-history-row {
+  grid-template-columns:
+    0.42fr
+    1.1fr
+    1.4fr
+    0.95fr
+    0.9fr
+    0.7fr
+    1.8fr
+    1.05fr !important;
+}
+
+.ocr-history-wide-surface {
+  overflow: hidden !important;
+}
+
+.ocr-history-table-head {
+  padding-right: 24px !important;
+}
+
+.ocr-history-table-body {
+  max-height: 540px !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable !important;
+}
+
+.ocr-history-row {
+  min-height: 48px !important;
+}
+
+.ocr-history-row > div {
+  min-width: 0;
+}
+
+.ocr-history-row .subject-cell {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* 선택 row가 키보드 이동 시 잘 보이도록 */
+.ocr-history-row.active,
+.inbox-mail-row.active,
+.pmf-search-table tr.is-selected,
+.pmf-material-row.active {
+  scroll-margin-top: 12px;
+  scroll-margin-bottom: 12px;
+}
+
+/* LHLN 후보는 1건만 간결하게 */
+.lhln-match-mini-list {
+  margin-top: 8px;
+}
+
+.lhln-match-mini-list p {
+  margin: 0;
+  padding: 7px 9px;
+  border-radius: 10px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 850;
+}
+
+/* OCR 비교표 긴 텍스트 대응 */
+.ocr-compare-row > div,
+.ocr-compare-table-head > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}/* =========================================================
+   V6 targeted patch — keep existing visual design, do not reset
+========================================================= */
+
+/* Send target mail type filter */
+.send-type-filter-select {
+  width: auto !important;
+  min-width: 150px;
+  height: 34px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  background: rgba(255, 253, 248, 0.84) !important;
+}
+
+/* PMF/LHLN keyboard focus surfaces */
+.pmf-search-table-scroll:focus,
+.lhln-simple-body:focus,
+.mail-log-table-body:focus,
+.supplier-list:focus,
+.ocr-history-table-body:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(49, 95, 69, 0.08);
+}
+
+.pmf-search-table tbody tr.is-selected,
+.lhln-simple-row.active,
+.mail-log-row.active,
+.send-target-row.active,
+.mail-supplier-row.active,
+.ocr-history-row.active {
+  scroll-margin-top: 14px;
+  scroll-margin-bottom: 14px;
+}
+
+/* Mail log toolbar search */
+.mail-log-search-input {
+  width: min(420px, 100%) !important;
+  min-width: 260px;
+  height: 42px !important;
+  padding: 0 15px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+/* Mail log list compact rows */
+.mail-log-table-body.compact {
+  max-height: 420px !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable !important;
+}
+
+.mail-log-table-body.compact .mail-log-row {
+  min-height: 42px !important;
+  padding: 7px 12px !important;
+  font-size: 11.4px !important;
+}
+
+.mail-log-table-body.compact .mini-badge {
+  min-width: 52px !important;
+  height: 22px !important;
+  font-size: 9.6px !important;
+}
+
+/* Mail detail: keep boxes, reduce height to single-line info chips */
+.mail-log-preview-surface .mail-preview-meta-block {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  margin-bottom: 14px !important;
+}
+
+.mail-log-preview-surface .mail-preview-meta-row {
+  min-height: 38px !important;
+  padding: 8px 11px !important;
+  border-radius: 13px !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.mail-log-preview-surface .mail-preview-meta-row .meta-label {
+  margin: 0 !important;
+  color: #315f45 !important;
+  font-size: 10.5px !important;
+  font-weight: 950 !important;
+  white-space: nowrap !important;
+}
+
+.mail-log-preview-surface .mail-preview-meta-row .meta-label::after {
+  content: "ㅣ";
+  margin-left: 8px;
+  color: rgba(49, 95, 69, 0.35);
+}
+
+.mail-log-preview-surface .mail-preview-meta-row .meta-value {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: 11.5px !important;
+  font-weight: 850 !important;
+}
+
+/* LHLN list keyboard-friendly scroll */
+.lhln-simple-body {
+  max-height: 590px !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable !important;
+}
+
+/* OCR compare table now has 제조사 column */
+.ocr-compare-table-head,
+.ocr-compare-row {
+  grid-template-columns: 0.5fr 1.25fr 1.25fr 1.15fr 0.85fr 0.95fr 0.9fr 0.75fr !important;
+}
+
+.ocr-compare-row > div,
+.ocr-compare-table-head > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* OCR history row alignment and stable scrollbar */
+.ocr-history-table-body {
+  scrollbar-gutter: stable !important;
+}
+
+.ocr-history-table-head {
+  padding-right: 24px !important;
+}
+
+/* OCR path text: not bold, allow longer box */
+.ocr-meta-grid-refined {
+  grid-template-columns: minmax(0, 4fr) 0.62fr 0.62fr 0.82fr !important;
+}
+
+.ocr-meta-card.path strong {
+  font-weight: 650 !important;
+  line-height: 1.55 !important;
+  color: #3d3a35 !important;
+}
+
+@media (max-width: 1180px) {
+  .mail-log-preview-surface .mail-preview-meta-block {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .ocr-compare-table-head,
+  .ocr-compare-row {
+    min-width: 1080px;
+  }
+}
+
+/* =========================================================
+   V7 targeted patch
+   - Mail address keyboard list
+   - Mail log compact detail
+   - Mail log row height
+========================================================= */
+
+/* 메일주소정리 업체목록: 키보드 포커스 시 외곽선 제거 */
+.supplier-list:focus {
+  outline: none;
+}
+
+/* 선택 row가 화살표 이동 시 화면 안으로 따라오도록 */
+.mail-supplier-row.active,
+.mail-log-row.active,
+.lhln-table-row.active,
+.pmf-search-table tr.is-selected,
+.ocr-history-row.active {
+  scroll-margin-top: 10px;
+  scroll-margin-bottom: 10px;
+}
+
+/* 발송로그 검색창이 너무 커지지 않게 */
+.mail-log-search-input {
+  min-width: 280px;
+  max-width: 420px;
+}
+
+/* 발송로그 행 높이 절반 수준으로 축소 */
+.mail-log-table-body.compact {
+  max-height: 430px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.mail-log-row {
+  min-height: 38px !important;
+  padding: 6px 10px !important;
+  gap: 8px !important;
+  font-size: 11px !important;
+}
+
+.mail-log-row .mini-badge {
+  min-width: 48px !important;
+  height: 21px !important;
+  font-size: 9.5px !important;
+  padding: 0 7px !important;
+}
+
+.mail-log-row input[type="checkbox"] {
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+}
+
+.mail-log-row strong {
+  font-size: 11px !important;
+}
+
+.mail-log-row .subject-cell {
+  font-size: 11px !important;
+}
+
+/* 발송로그 상세: 박스는 유지하되 한줄형 compact */
+.mail-log-meta-compact {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.mail-log-meta-line {
+  display: grid;
+  gap: 8px;
+}
+
+.mail-log-meta-line.top {
+  grid-template-columns: 1.05fr 1.55fr 1.05fr 0.55fr;
+}
+
+.mail-log-meta-line.bottom {
+  grid-template-columns: 65fr 35fr;
+}
+
+.mail-log-meta-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(23, 23, 23, 0.085);
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.62);
+}
+
+.mail-log-meta-item span {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.mail-log-meta-item span::after {
+  content: "ㅣ";
+  margin-left: 7px;
+  color: rgba(23, 23, 23, 0.25);
+}
+
+.mail-log-meta-item strong {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 850;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mail-log-meta-item.scrollable strong {
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-overflow: unset;
+  white-space: nowrap;
+  cursor: grab;
+  padding-bottom: 2px;
+}
+
+.mail-log-meta-item.scrollable strong::-webkit-scrollbar {
+  height: 4px;
+}
+
+.mail-log-meta-item.scrollable strong::-webkit-scrollbar-thumb {
+  background: rgba(23, 23, 23, 0.22);
+  border-radius: 999px;
+}
+
+/* 메일 상세 제목도 살짝 축소 */
+.mail-log-preview-head h2 {
+  font-size: 20px !important;
+  line-height: 1.25 !important;
+}
+
+/* 반응형에서는 1열 */
+@media (max-width: 1180px) {
+  .mail-log-meta-line.top,
+  .mail-log-meta-line.bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   V7.1 targeted patch: fixed panel title, OCR rules UI, OCR test
+   Append to existing App.css. Do not replace the whole CSS file.
+========================================================= */
+
+/* Panel title must not move when subject/file name is long */
+.mail-log-preview-head,
+.mail-log-preview-head.fixed-title-head {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: start !important;
+  gap: 14px !important;
+}
+
+.mail-log-preview-head > div:first-child,
+.mail-log-preview-head.fixed-title-head > div:first-child {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 8px !important;
+}
+
+.mail-log-preview-head .surface-title,
+.fixed-panel-label {
+  width: fit-content !important;
+  min-width: 74px !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  line-height: 1.1 !important;
+}
+
+.mail-log-preview-head h2 {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.ocr-file-title-soft {
+  width: fit-content;
+  max-width: min(880px, 100%);
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #173823;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* OCR compare table: new columns */
+.ocr-compare-table-head,
+.ocr-compare-row {
+  grid-template-columns:
+    0.48fr
+    1.18fr
+    1.22fr
+    1.08fr
+    0.72fr
+    0.9fr
+    0.82fr
+    0.72fr
+    0.72fr
+    0.82fr !important;
+}
+
+.ocr-decision-card.ok strong,
+.ocr-decision-card.check strong,
+.ocr-decision-card.skip strong {
+  color: #245637 !important;
+  font-size: 15px !important;
+  font-weight: 950 !important;
+}
+
+.ocr-decision-card.ok em,
+.ocr-decision-card.check em,
+.ocr-decision-card.skip em {
+  color: #315f45 !important;
+  font-weight: 800 !important;
+}
+
+/* Keep file path readable but not too heavy */
+.ocr-meta-card.path strong {
+  font-weight: 650 !important;
+  font-size: 11.3px !important;
+  line-height: 1.55 !important;
+  color: #37342f !important;
+}
+
+/* OCR test page */
+.ocr-test-layout {
+  max-width: 1360px;
+  margin: 0 auto 26px;
+  display: grid;
+  grid-template-columns: minmax(430px, 0.86fr) minmax(620px, 1.14fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.ocr-test-list-panel,
+.ocr-test-result-panel {
+  border-radius: 26px;
+  padding: 22px;
+  background: rgba(255, 253, 247, 0.76);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  box-shadow: 0 24px 70px rgba(29, 24, 16, 0.08);
+}
+
+.ocr-test-dropzone {
+  min-height: 150px;
+  border: 1.5px dashed rgba(49, 95, 69, 0.35);
+  border-radius: 22px;
+  background: rgba(49, 95, 69, 0.055);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.ocr-test-dropzone strong {
+  color: #10281a;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.ocr-test-dropzone span {
+  color: #6d665c;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ocr-test-dropzone label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #10281a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.ocr-test-dropzone input {
+  display: none;
+}
+
+.ocr-test-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.ocr-test-table-head,
+.ocr-test-row {
+  display: grid !important;
+  grid-template-columns: 0.75fr minmax(0, 2.5fr) 0.78fr 0.58fr !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-test-table-body {
+  max-height: 440px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.ocr-test-row {
+  width: 100%;
+  border: 0;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.68);
+  border-bottom: 1px solid rgba(23, 23, 23, 0.055);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ocr-test-row:hover {
+  background: rgba(49, 95, 69, 0.075);
+}
+
+.ocr-test-row.active {
+  background: #10281a;
+  color: #fff;
+}
+
+.ocr-test-row.active .mini-badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.ocr-test-meta-line {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.ocr-test-meta-line span {
+  min-width: 0;
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  color: #6d665c;
+  font-size: 11px;
+  font-weight: 850;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-test-meta-line b {
+  color: #171717;
+}
+
+.ocr-text-box.test-only {
+  min-height: 620px;
+  max-height: 760px;
+}
+
+@media (max-width: 1180px) {
+  .ocr-test-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ocr-compare-table-head,
+  .ocr-compare-row {
+    min-width: 1180px;
+  }
+}
+
+
+/* =========================================================
+   OCR TEST LOADING UX
+========================================================= */
+
+.ocr-test-surface {
+  position: relative;
+  overflow: hidden;
+}
+
+.ocr-panel-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: rgba(244, 240, 231, 0.52);
+  backdrop-filter: blur(12px);
+}
+
+.ocr-panel-busy-card {
+  width: min(390px, calc(100% - 40px));
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 22px;
+  border-radius: 26px;
+  background: rgba(255, 253, 248, 0.88);
+  border: 1px solid rgba(49, 95, 69, 0.14);
+  box-shadow: 0 24px 70px rgba(29, 24, 16, 0.12);
+}
+
+.ocr-orbit-loader {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.ocr-orbit-loader span {
+  position: absolute;
+  inset: 5px;
+  border-radius: 999px;
+  border: 3px solid rgba(49, 95, 69, 0.14);
+  border-top-color: #315f45;
+  animation: ocrSpin 0.95s linear infinite;
+}
+
+.ocr-orbit-loader b {
+  color: #315f45;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.ocr-panel-busy-text {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.ocr-panel-busy-text strong {
+  color: #171717;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.ocr-panel-busy-text p {
+  margin: 0;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ocr-panel-busy-text em {
+  color: #315f45;
+  font-size: 11.5px;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.ocr-panel-busy-text small {
+  color: #766f65;
+  font-size: 10.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-thin-progress {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.08);
+}
+
+.ocr-thin-progress i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #315f45, #4c7b5d);
+  transition: width 0.24s ease;
+}
+
+.ocr-reading-panel,
+.ocr-test-idle-panel,
+.ocr-test-error-panel {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 14px;
+  padding: 34px;
+  border-radius: 24px;
+  background: rgba(255, 253, 248, 0.72);
+  border: 1px solid rgba(23, 23, 23, 0.07);
+  text-align: center;
+}
+
+.ocr-reading-ring {
+  position: relative;
+  width: 74px;
+  height: 74px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.ocr-reading-ring span {
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  border: 3px solid rgba(49, 95, 69, 0.12);
+  border-top-color: #315f45;
+  animation: ocrSpin 1s linear infinite;
+}
+
+.ocr-bouncy-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #224732;
+  font-size: 18px;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+}
+
+.ocr-bouncy-text span {
+  display: inline-block;
+  animation: ocrBounce 1.25s ease-in-out infinite;
+  animation-delay: calc(var(--bounce-index) * 0.045s);
+}
+
+.ocr-reading-panel p,
+.ocr-test-idle-panel p {
+  max-width: 520px;
+  margin: 0;
+  color: #766f65;
+  font-size: 12.5px;
+  line-height: 1.65;
+  font-weight: 750;
+}
+
+.ocr-reading-file {
+  width: min(560px, 100%);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+}
+
+.ocr-reading-file span {
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+}
+
+.ocr-reading-file strong {
+  min-width: 0;
+  color: #171717;
+  font-size: 11.5px;
+  font-weight: 850;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-reading-progress {
+  width: min(520px, 100%);
+  display: grid;
+  gap: 8px;
+}
+
+.ocr-reading-progress div:first-child {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  align-items: baseline;
+}
+
+.ocr-reading-progress strong {
+  color: #171717;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.ocr-reading-progress span {
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ocr-test-error-panel {
+  background: rgba(230, 0, 18, 0.055);
+  border-color: rgba(230, 0, 18, 0.16);
+}
+
+.ocr-test-error-panel strong {
+  color: #e60012;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.ocr-test-error-panel p,
+.ocr-test-error-panel em {
+  max-width: 640px;
+  margin: 0;
+  color: #8a2f2f;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.55;
+  word-break: break-all;
+}
+
+.ocr-test-idle-panel strong {
+  color: #171717;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.ocr-progress-dock {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 80;
+  width: min(420px, calc(100vw - 48px));
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255, 253, 248, 0.88);
+  border: 1px solid rgba(49, 95, 69, 0.16);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 28px 80px rgba(29, 24, 16, 0.18);
+}
+
+.ocr-progress-dock-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.ocr-progress-dock-head span {
+  display: block;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.13em;
+}
+
+.ocr-progress-dock-head strong {
+  display: block;
+  margin-top: 4px;
+  color: #171717;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.ocr-progress-dock-head button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.06);
+  color: #171717;
+  font-weight: 950;
+}
+
+.ocr-progress-current {
+  color: #766f65;
+  font-size: 11.5px;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-progress-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ocr-progress-counts span {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.ocr-progress-dock.done {
+  border-color: rgba(21, 128, 61, 0.18);
+}
+
+@keyframes ocrSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ocrBounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.78;
+  }
+
+  30% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   OCR TEST selected batch patch
+========================================================= */
+
+.ocr-test-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ocr-test-table-head,
+.ocr-test-row {
+  grid-template-columns: 52px 86px minmax(0, 1fr) 90px 70px !important;
+}
+
+.ocr-test-row input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  accent-color: #224732;
+}
+
+.ocr-test-row > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* OCR TEST result stage wrapper */
+.ocr-test-result-stage {
+  min-height: 420px;
+}
+
+/* PMF lazy folder button */
+.pmf-folder-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pmf-folder-head .soft-chip-action {
+  white-space: nowrap;
+}
+
+/* OCR 테스트 결과 헤더 복사 버튼 */
+.ocr-test-result-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ocr-test-result-head .soft-chip-action {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+}
+
+.ocr-test-result-head .soft-chip-action:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ocr-test-error-panel.tesseract {
+  background: rgba(135, 77, 0, 0.065);
+  border-color: rgba(135, 77, 0, 0.2);
+}
+
+.ocr-test-error-panel.tesseract strong {
+  color: #874d00;
+}
+
+.ocr-test-status-select {
+  height: 36px;
+  min-width: 150px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(23, 23, 23, 0.09);
+  background: rgba(255, 253, 248, 0.86);
+  color: #171717;
+  font-size: 11.5px;
+  font-weight: 900;
+}
+
+.ocr-test-error-panel.tesseract {
+  background: rgba(135, 77, 0, 0.065);
+  border-color: rgba(135, 77, 0, 0.2);
+}
+
+.ocr-test-error-panel.tesseract strong {
+  color: #874d00;
+}
+
+/* =========================================================
+   OCR CERTIFICATE RULE RESULT
+========================================================= */
+
+.ocr-rule-card {
+  margin: 14px 0;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(255, 253, 248, 0.78);
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 18px 50px rgba(29, 24, 16, 0.06);
+}
+
+.ocr-rule-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.ocr-rule-head span {
+  display: block;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.13em;
+}
+
+.ocr-rule-head strong {
+  display: block;
+  margin-top: 4px;
+  color: #171717;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.ocr-rule-status {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.1);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 950;
+  font-style: normal;
+}
+
+.ocr-rule-status.LOW_CONFIDENCE,
+.ocr-rule-status.FILENAME_ONLY,
+.ocr-rule-status.MANUAL_REVIEW,
+.ocr-rule-status.SCANNED_NEED_OCR {
+  background: rgba(135, 77, 0, 0.08);
+  color: #874d00;
+}
+
+.ocr-rule-status.TESSERACT_ERROR,
+.ocr-rule-status.RULE_ERROR {
+  background: rgba(230, 0, 18, 0.08);
+  color: #b42318;
+}
+
+.ocr-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ocr-rule-grid > div {
+  min-width: 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(23, 23, 23, 0.035);
+  border: 1px solid rgba(23, 23, 23, 0.055);
+}
+
+.ocr-rule-grid span,
+.ocr-rule-product span {
+  display: block;
+  margin-bottom: 6px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.ocr-rule-grid strong,
+.ocr-rule-product strong {
+  display: block;
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-rule-product {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(49, 95, 69, 0.07);
+  border: 1px solid rgba(49, 95, 69, 0.09);
+}
+
+.ocr-rule-product em {
+  display: block;
+  margin-top: 4px;
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.ocr-rule-candidates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.ocr-rule-candidates span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+@media (max-width: 1180px) {
+  .ocr-rule-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ocr-history-filter-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ocr-history-filter-row input,
+.ocr-history-filter-row select {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(23, 23, 23, 0.09);
+  background: rgba(255, 253, 248, 0.88);
+  color: #171717;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.ocr-history-filter-row input {
+  width: 260px;
+}
+
+.ocr-history-table-head > *,
+.ocr-history-row > * {
+  text-align: center;
+}
+
+.ocr-history-table-head .is-left,
+.ocr-history-row .is-left {
+  text-align: left;
+}
+
+.ocr-history-row .history-file-name,
+.ocr-history-row .history-material-name {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   OCR PATCH - candidate selection, compact cards, highlights
+========================================================= */
+
+.ocr-candidate-file-surface {
+  padding: 18px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 253, 248, 0.72);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-sm);
+}
+
+.ocr-file-head.with-check,
+.ocr-file-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1.6fr) 84px 104px 154px 92px;
+  gap: 10px;
+  align-items: center;
+}
+
+.ocr-candidate-file-body {
+  max-height: 240px;
+  overflow: auto;
+}
+
+.ocr-file-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ocr-file-check input {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+}
+
+.ocr-history-head.compact {
+  margin-bottom: 8px;
+}
+
+.ocr-history-title-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ocr-history-title-inline .surface-title {
+  margin-bottom: 0;
+  flex: 0 0 auto;
+}
+
+.ocr-history-title-inline p {
+  margin: 0;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-history-filter-row.full {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  margin-bottom: 12px;
+}
+
+.ocr-history-filter-row.full input,
+.ocr-history-filter-row.full select {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(23, 23, 23, 0.09);
+  background: rgba(255, 253, 248, 0.88);
+  color: #171717;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.ocr-history-filter-row.full input {
+  flex: 1 1 360px;
+  min-width: 260px;
+}
+
+.ocr-history-filter-row.full select {
+  flex: 0 0 156px;
+}
+
+.ocr-lhln-mini-card {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-lhln-mini-card div {
+  min-width: 0;
+}
+
+.ocr-lhln-mini-card span {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ocr-lhln-mini-card strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-rule-compact {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ocr-rule-line {
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(23, 23, 23, 0.035);
+  border: 1px solid rgba(23, 23, 23, 0.055);
+}
+
+.ocr-rule-line.wide {
+  grid-column: span 2;
+}
+
+.ocr-rule-line span,
+.ocr-test-rule-row span {
+  display: block;
+  margin-bottom: 4px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.ocr-rule-line strong,
+.ocr-test-rule-row strong {
+  display: block;
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-highlight-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 8px;
+}
+
+.ocr-highlight-legend span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 950;
+}
+
+.ocr-text-box.highlighted {
+  white-space: pre-wrap;
+  line-height: 1.75;
+}
+
+.ocr-highlight {
+  padding: 1px 4px;
+  border-radius: 6px;
+  font-weight: 950;
+}
+
+.hl-product {
+  background: rgba(47, 105, 255, 0.12);
+  color: #244fbd;
+}
+
+.hl-maker {
+  background: rgba(147, 83, 255, 0.13);
+  color: #6d36bd;
+}
+
+.hl-org {
+  background: rgba(49, 95, 69, 0.14);
+  color: #315f45;
+}
+
+.hl-cert {
+  background: rgba(255, 173, 51, 0.18);
+  color: #8a5200;
+}
+
+.hl-expiry {
+  background: rgba(230, 0, 18, 0.1);
+  color: #b42318;
+}
+
+.hl-country {
+  background: rgba(0, 130, 120, 0.12);
+  color: #006f68;
+}
+
+.ocr-test-rule-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ocr-test-rule-row {
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(23, 23, 23, 0.035);
+  border: 1px solid rgba(23, 23, 23, 0.055);
+}
+
+@media (max-width: 1180px) {
+  .ocr-rule-compact,
+  .ocr-test-rule-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ocr-history-filter-row.full {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =========================================================
+   OCR TEST RULE SUMMARY + HIGHLIGHT
+========================================================= */
+
+.ocr-test-rule-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ocr-test-rule-row {
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(23, 23, 23, 0.035);
+  border: 1px solid rgba(23, 23, 23, 0.055);
+}
+
+.ocr-test-rule-row span {
+  display: block;
+  margin-bottom: 4px;
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.ocr-test-rule-row strong {
+  display: block;
+  color: #171717;
+  font-size: 12px;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-highlight-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 8px;
+}
+
+.ocr-highlight-legend span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 950;
+}
+
+.ocr-test-result-text.highlighted {
+  white-space: pre-wrap;
+  line-height: 1.75;
+}
+
+.ocr-highlight {
+  padding: 1px 4px;
+  border-radius: 6px;
+  font-weight: 950;
+}
+
+.hl-product {
+  background: rgba(47, 105, 255, 0.12);
+  color: #244fbd;
+}
+
+.hl-maker {
+  background: rgba(147, 83, 255, 0.13);
+  color: #6d36bd;
+}
+
+.hl-org {
+  background: rgba(49, 95, 69, 0.14);
+  color: #315f45;
+}
+
+.hl-cert {
+  background: rgba(255, 173, 51, 0.18);
+  color: #8a5200;
+}
+
+.hl-expiry {
+  background: rgba(230, 0, 18, 0.1);
+  color: #b42318;
+}
+
+.hl-country {
+  background: rgba(0, 130, 120, 0.12);
+  color: #006f68;
+}
+
+@media (max-width: 1180px) {
+  .ocr-test-rule-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ocr-test-scan-panel {
+  min-height: 260px;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(135, 77, 0, 0.065);
+  border: 1px solid rgba(135, 77, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ocr-test-scan-panel strong {
+  color: #874d00;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.ocr-test-scan-panel p {
+  margin: 0;
+  color: #171717;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ocr-test-scan-panel em {
+  color: #766f65;
+  font-size: 12px;
+  line-height: 1.6;
+  font-style: normal;
+}
+
+.mini-badge.warn {
+  background: rgba(135, 77, 0, 0.1);
+  color: #874d00;
+}
+
+.app-crash-panel {
+  width: min(720px, calc(100vw - 48px));
+  margin: 120px auto;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(255, 253, 248, 0.94);
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+}
+
+.app-crash-panel strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 950;
+  color: #171717;
+}
+
+.app-crash-panel p {
+  margin: 0 0 14px;
+  color: #766f65;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.6;
+}
+
+.app-crash-panel pre {
+  max-height: 180px;
+  overflow: auto;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(23, 23, 23, 0.05);
+  color: #b42318;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.app-crash-panel button {
+  margin-top: 12px;
+  height: 38px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #13251b;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hl-mfg-country {
+  background: rgba(0, 130, 120, 0.12) !important;
+  color: #006f68 !important;
+}
+
+.hl-cert-country {
+  background: rgba(120, 53, 15, 0.13) !important;
+  color: #78350f !important;
+}
+
+.hl-product {
+  background: rgba(47, 105, 255, 0.12) !important;
+  color: #244fbd !important;
+}
+
+.rule-field-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 0 auto 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.hl-mfg-country {
+  background: rgba(0, 130, 120, 0.12) !important;
+  color: #006f68 !important;
+}
+
+.hl-cert-country {
+  background: rgba(120, 53, 15, 0.13) !important;
+  color: #78350f !important;
+}
+
+/* Sidebar collapse */
+.sidebar-collapse-toggle {
+  position: fixed;
+  left: 226px;
+  top: 20px;
+  z-index: 80;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(19, 37, 27, 0.92);
+  color: #fff;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.app-shell.sidebar-collapsed .sidebar {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border-right: 0;
+}
+
+.app-shell.sidebar-collapsed .content {
+  margin-left: 0;
+}
+
+.app-shell.sidebar-collapsed .sidebar-collapse-toggle {
+  left: 18px;
+}
+
+/* OCR manual uploader */
+.ocr-manual-upload-mini {
+  margin: 18px 0;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255, 253, 248, 0.88);
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.045);
+}
+
+.ocr-manual-upload-head,
+.ocr-manual-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ocr-manual-upload-head span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  color: #315f45;
+}
+
+.ocr-manual-upload-head strong {
+  font-size: 16px;
+  font-weight: 950;
+  color: #171717;
+}
+
+.ocr-manual-upload-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-manual-upload-actions select {
+  height: 38px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 0 12px;
+  font-weight: 850;
+}
+
+.ocr-manual-dropzone {
+  margin-top: 14px;
+  min-height: 86px;
+  border-radius: 22px;
+  border: 1px dashed rgba(49, 95, 69, 0.32);
+  background: rgba(49, 95, 69, 0.045);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.ocr-manual-dropzone.active {
+  background: rgba(49, 95, 69, 0.12);
+  transform: translateY(-1px);
+}
+
+.ocr-manual-dropzone strong {
+  font-size: 14px;
+  font-weight: 950;
+  color: #13251b;
+}
+
+.ocr-manual-dropzone span {
+  font-size: 12px;
+  font-weight: 750;
+  color: #766f65;
+}
+
+.ocr-manual-file-strip {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.ocr-manual-file-strip button {
+  flex: 0 0 auto;
+  max-width: 280px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 9px 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ocr-manual-file-strip strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 900;
+  color: #171717;
+}
+
+.ocr-manual-file-strip span {
+  font-size: 11px;
+  font-weight: 800;
+  color: #766f65;
+}
+
+.ocr-manual-bottom {
+  margin-top: 12px;
+}
+
+.ocr-manual-bottom > span {
+  font-size: 12px;
+  font-weight: 850;
+  color: #766f65;
+}
+
+/* OCR history as main panel */
+.ocr-history-head-main {
+  align-items: flex-start;
+}
+
+.ocr-history-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 980px;
+}
+
+.ocr-history-toolbar input {
+  width: 260px;
+  height: 38px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 0 14px;
+  font-weight: 850;
+}
+
+.ocr-history-toolbar select {
+  height: 38px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 0 12px;
+  font-weight: 850;
+}
+
+.ghost-action.danger {
+  background: rgba(180, 35, 24, 0.08);
+  color: #b42318;
+}
+
+.ocr-history-table-head.with-check,
+.ocr-history-row.with-check {
+  grid-template-columns: 54px 70px 1.1fr 1.4fr 0.8fr 0.9fr 0.7fr 1.7fr 1fr;
+}
+
+.ocr-row-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ocr-row-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: #13251b;
+}
+
+/* responsive sidebar */
+@media (max-width: 960px) {
+  .sidebar-collapse-toggle {
+    left: 18px;
+    top: 16px;
+  }
+
+  .app-shell .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 70;
+    transform: translateX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar {
+    width: 230px;
+    min-width: 230px;
+    padding: 28px 16px;
+    transform: translateX(-106%);
+  }
+
+  .app-shell .content {
+    margin-left: 0;
+    padding-top: 58px;
+  }
+
+  .ocr-history-toolbar {
+    justify-content: flex-start;
+  }
+
+  .ocr-history-toolbar input {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   OCR 판독 메뉴 - 현재 App.jsx 기준 보정
+========================================================= */
+
+.content > .ocr-manual-upload-mini,
+.content > .ocr-history-wide-surface,
+.content > .mail-log-preview-surface.ocr-preview {
+  width: min(100%, 1320px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 혹시 이전 후보파일 패널 class가 남아도 강제 숨김 */
+.ocr-candidate-file-surface {
+  display: none !important;
+}
+
+/* 수동 파일 추가 패널 정렬 */
+.ocr-manual-upload-head {
+  display: grid !important;
+  grid-template-columns: minmax(180px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.ocr-manual-upload-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-manual-dropzone {
+  width: 100%;
+}
+
+/* OCR 작업이력 제목 한 줄 */
+.ocr-history-head.single-line {
+  margin-bottom: 10px !important;
+}
+
+.ocr-history-title-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ocr-history-title-inline .surface-title {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ocr-history-title-inline p {
+  margin: 0;
+  min-width: 0;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 760;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* OCR 작업이력 툴바 한 줄 */
+.ocr-history-toolbar.one-line {
+  display: grid !important;
+  grid-template-columns:
+    minmax(260px, 1fr)
+    132px
+    132px
+    70px
+    88px
+    88px
+    88px
+    92px
+    112px;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.ocr-history-toolbar.one-line input,
+.ocr-history-toolbar.one-line select {
+  width: 100% !important;
+  min-width: 0;
+  height: 38px;
+  font-size: 11px;
+}
+
+.ocr-history-toolbar.one-line button {
+  height: 38px;
+  padding: 0 12px;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.ghost-action.danger {
+  background: rgba(180, 35, 24, 0.08);
+  color: #b42318;
+}
+
+/* OCR 작업이력 테이블 compact */
+.ocr-history-wide-surface.ocr-history-main-panel {
+  overflow-x: auto !important;
+}
+
+.ocr-history-table-head.with-check.compact,
+.ocr-history-row.with-check.compact {
+  display: grid;
+  grid-template-columns:
+    46px
+    minmax(120px, 0.9fr)
+    minmax(260px, 2fr)
+    minmax(100px, 0.75fr)
+    minmax(112px, 0.85fr)
+    minmax(86px, 0.65fr)
+    minmax(280px, 2fr)
+    minmax(118px, 0.8fr) !important;
+  gap: 8px;
+  min-width: 1180px;
+  align-items: center;
+}
+
+.ocr-history-table-head.with-check.compact {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding-right: 18px !important;
+}
+
+.ocr-history-row.with-check.compact {
+  min-height: 38px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.ocr-history-row.with-check.compact > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-history-cell-center,
+.history-material-name,
+.history-file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-history-cell-center {
+  text-align: center;
+}
+
+.history-material-name {
+  font-weight: 850;
+}
+
+.history-file-name {
+  color: #766f65;
+  font-size: 11px;
+}
+
+.ocr-row-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ocr-row-check input {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  accent-color: #13251b;
+}
+
+/* PMF/OCR 비교표 ellipsis + title tooltip */
+.ocr-compare-row > div,
+.ocr-compare-table-head > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-compare-row > div[title] {
+  cursor: help;
+}
+
+/* 기관후보 / 유효기간 / LHLN 카드 비율 */
+.ocr-decision-grid.compact-ratio {
+  display: grid !important;
+  grid-template-columns: 1.35fr 1.55fr minmax(0, 6.8fr);
+  gap: 10px;
+}
+
+.ocr-decision-card.compact {
+  min-height: 74px;
+  padding: 14px 16px;
+}
+
+.ocr-decision-card.compact strong,
+.ocr-lhln-mini-card.wide strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-lhln-mini-card.wide {
+  min-height: 74px;
+  display: grid;
+  grid-template-columns: 1.4fr minmax(0, 2.4fr);
+  gap: 12px;
+  align-items: center;
+}
+
+/* 세로형 화면 */
+@media (max-width: 900px) {
+  .content,
+  .app-shell.sidebar-collapsed .content {
+    padding-top: 66px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .ocr-manual-upload-head {
+    grid-template-columns: 1fr;
+  }
+
+  .ocr-manual-upload-actions {
+    justify-self: start;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .ocr-history-toolbar.one-line {
+    grid-template-columns:
+      minmax(240px, 1.4fr)
+      120px
+      120px
+      66px
+      82px
+      82px
+      82px
+      90px
+      108px;
+  }
+
+  .ocr-decision-grid.compact-ratio {
+    grid-template-columns: 1fr;
+  }
+
+  .ocr-lhln-mini-card.wide {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   FINAL FIX - sidebar collapse + OCR history scroll sync
+   latest App.jsx 기준
+========================================================= */
+
+/* -------------------------
+   1) Desktop sidebar collapse
+   - 사이드바 숨김 시 본문을 실제로 왼쪽으로 당김
+------------------------- */
+@media (min-width: 1181px) {
+  .app-shell {
+    display: grid !important;
+    grid-template-columns: 232px minmax(0, 1fr) !important;
+    transition: grid-template-columns 0.22s ease !important;
+  }
+
+  .app-shell.sidebar-collapsed {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-right: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .app-shell.sidebar-collapsed .content {
+    padding-left: 18px !important;
+    padding-right: 42px !important;
+  }
+
+  .sidebar-collapse-toggle {
+    position: fixed !important;
+    left: 220px !important;
+    top: 18px !important;
+    z-index: 300 !important;
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid rgba(23, 23, 23, 0.08) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 253, 248, 0.96) !important;
+    color: #13251b !important;
+    font-weight: 950 !important;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar-collapse-toggle {
+    left: 12px !important;
+  }
+}
+
+/* -------------------------
+   2) Top sidebar mode
+   - 좁은 화면에서는 왼쪽으로 사라지지 않고 위로 접힘
+   - 접히면 본문이 위로 올라옴
+------------------------- */
+@media (max-width: 1180px) {
+  .app-shell,
+  .app-shell.sidebar-collapsed {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+
+  .sidebar {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 620px !important;
+    transform: translateY(0) !important;
+    overflow: hidden !important;
+    transition:
+      max-height 0.22s ease,
+      padding 0.22s ease,
+      opacity 0.18s ease,
+      transform 0.22s ease !important;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar {
+    width: 100% !important;
+    max-height: 0 !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom: 0 !important;
+    opacity: 0 !important;
+    transform: translateY(-18px) !important;
+    pointer-events: none !important;
+  }
+
+  .sidebar-collapse-toggle,
+  .app-shell.sidebar-collapsed .sidebar-collapse-toggle {
+    position: fixed !important;
+    left: 14px !important;
+    top: 12px !important;
+    z-index: 300 !important;
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid rgba(23, 23, 23, 0.08) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 253, 248, 0.96) !important;
+    color: #13251b !important;
+    font-weight: 950 !important;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .content {
+    padding-top: 24px !important;
+  }
+
+  .app-shell.sidebar-collapsed .content {
+    padding-top: 56px !important;
+  }
+}
+
+/* -------------------------
+   3) OCR 작업이력 표
+   - 머리글과 내용이 같은 가로스크롤을 쓰게 함
+   - 현재 App.jsx는 8컬럼임: 선택/업체/제품/기관/기간/상태/파일명/처리일
+------------------------- */
+.ocr-history-wide-surface.ocr-history-main-panel,
+.ocr-history-wide-surface {
+  overflow: hidden !important;
+}
+
+.ocr-history-table-scroll {
+  width: 100% !important;
+  max-height: 540px !important;
+  overflow: auto !important;
+  scrollbar-gutter: stable both-edges !important;
+  border-radius: 18px !important;
+  background: rgba(255, 253, 248, 0.48) !important;
+}
+
+.ocr-history-table-head.with-check.compact,
+.ocr-history-row.with-check.compact {
+  display: grid !important;
+  grid-template-columns:
+    46px
+    minmax(120px, 0.9fr)
+    minmax(260px, 2fr)
+    minmax(100px, 0.75fr)
+    minmax(112px, 0.85fr)
+    minmax(86px, 0.65fr)
+    minmax(280px, 2fr)
+    minmax(118px, 0.8fr) !important;
+  gap: 8px !important;
+  min-width: 1180px !important;
+  align-items: center !important;
+}
+
+.ocr-history-table-head.with-check.compact {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  padding-right: 0 !important;
+  background: #f4f1e9 !important;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08) !important;
+}
+
+.ocr-history-table-body.compact {
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-gutter: auto !important;
+}
+
+.ocr-history-row.with-check.compact {
+  min-height: 38px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.ocr-history-row.with-check.compact > div,
+.ocr-history-table-head.with-check.compact > div {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.ocr-history-cell-center {
+  text-align: center !important;
+}
+
+.history-material-name,
+.history-file-name {
+  text-align: left !important;
+}
+
+.ocr-row-check {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ocr-row-check input {
+  width: 15px !important;
+  height: 15px !important;
+  padding: 0 !important;
+  accent-color: #13251b !important;
+}
+
+/* =========================================================
+   FINAL OCR PAGE PATCH
+   - latest App.jsx 기준
+   - sidebar collapse
+   - manual upload alignment
+   - OCR history scroll sync
+   - OCR result compact layout
+========================================================= */
+
+/* 공통 폭 정렬 */
+.content > .ocr-manual-upload-mini,
+.content > .ocr-history-wide-surface,
+.content > .mail-log-preview-surface.ocr-preview {
+  width: min(100%, 1320px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 혹시 남아 있는 후보파일 패널/실행바는 운영 화면에서 숨김 */
+.ocr-candidate-file-surface,
+.ocr-control-bar.ocr-control-bar-refined {
+  display: none !important;
+}
+
+/* =========================
+   Sidebar collapse
+========================= */
+
+@media (min-width: 1181px) {
+  .app-shell {
+    display: grid !important;
+    grid-template-columns: 232px minmax(0, 1fr) !important;
+    transition: grid-template-columns 0.22s ease !important;
+  }
+
+  .app-shell.sidebar-collapsed {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-right: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .app-shell.sidebar-collapsed .content {
+    padding-left: 18px !important;
+    padding-right: 42px !important;
+  }
+
+  .sidebar-collapse-toggle {
+    position: fixed !important;
+    left: 220px !important;
+    top: 18px !important;
+    z-index: 300 !important;
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid rgba(23, 23, 23, 0.08) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 253, 248, 0.96) !important;
+    color: #13251b !important;
+    font-weight: 950 !important;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar-collapse-toggle {
+    left: 12px !important;
+  }
+}
+
+/* 좁은 화면: 사이드바는 위로 접힘 */
+@media (max-width: 1180px) {
+  .app-shell,
+  .app-shell.sidebar-collapsed {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+
+  .sidebar {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 620px !important;
+    transform: translateY(0) !important;
+    overflow: hidden !important;
+    transition:
+      max-height 0.22s ease,
+      padding 0.22s ease,
+      opacity 0.18s ease,
+      transform 0.22s ease !important;
+  }
+
+  .app-shell.sidebar-collapsed .sidebar {
+    width: 100% !important;
+    max-height: 0 !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom: 0 !important;
+    opacity: 0 !important;
+    transform: translateY(-18px) !important;
+    pointer-events: none !important;
+  }
+
+  .sidebar-collapse-toggle,
+  .app-shell.sidebar-collapsed .sidebar-collapse-toggle {
+    position: fixed !important;
+    left: 14px !important;
+    top: 12px !important;
+    z-index: 300 !important;
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid rgba(23, 23, 23, 0.08) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 253, 248, 0.96) !important;
+    color: #13251b !important;
+    font-weight: 950 !important;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .content {
+    padding-top: 24px !important;
+  }
+
+  .app-shell.sidebar-collapsed .content {
+    padding-top: 56px !important;
+  }
+}
+
+/* =========================
+   수동 파일 추가 패널
+========================= */
+
+.ocr-manual-upload-mini {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.ocr-manual-upload-head {
+  display: grid !important;
+  grid-template-columns: minmax(180px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.ocr-manual-upload-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-manual-dropzone {
+  width: 100%;
+  min-height: 78px !important;
+}
+
+/* =========================
+   OCR 작업 이력
+========================= */
+
+.ocr-history-wide-surface.ocr-history-main-panel,
+.ocr-history-wide-surface {
+  overflow: hidden !important;
+}
+
+.ocr-history-head.single-line {
+  margin-bottom: 10px !important;
+}
+
+.ocr-history-title-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ocr-history-title-inline .surface-title {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ocr-history-title-inline p {
+  margin: 0;
+  min-width: 0;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 760;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-history-toolbar.one-line {
+  display: grid !important;
+  grid-template-columns:
+    minmax(260px, 1fr)
+    132px
+    132px
+    70px
+    88px
+    88px
+    88px
+    92px
+    112px;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.ocr-history-toolbar.one-line input,
+.ocr-history-toolbar.one-line select {
+  width: 100% !important;
+  min-width: 0;
+  height: 38px;
+  font-size: 11px;
+}
+
+.ocr-history-toolbar.one-line button {
+  height: 38px;
+  padding: 0 12px;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.ghost-action.danger {
+  background: rgba(180, 35, 24, 0.08);
+  color: #b42318;
+}
+
+/* 머리글과 본문을 같은 가로 스크롤에 묶음 */
+.ocr-history-table-scroll {
+  width: 100% !important;
+  max-height: 540px !important;
+  overflow: auto !important;
+  scrollbar-gutter: stable both-edges !important;
+  border-radius: 18px !important;
+  background: rgba(255, 253, 248, 0.48) !important;
+}
+
+.ocr-history-table-head.with-check.compact,
+.ocr-history-row.with-check.compact {
+  display: grid !important;
+  grid-template-columns:
+    46px
+    minmax(120px, 0.9fr)
+    minmax(260px, 2.1fr)
+    minmax(100px, 0.8fr)
+    minmax(100px, 0.8fr)
+    minmax(90px, 0.75fr)
+    minmax(130px, 1fr)
+    minmax(110px, 0.85fr)
+    minmax(280px, 2fr)
+    minmax(120px, 0.9fr) !important;
+  gap: 8px !important;
+  min-width: 1400px !important;
+  align-items: center !important;
+}
+
+.ocr-history-table-head.with-check.compact {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  padding-right: 0 !important;
+  background: #f4f1e9 !important;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08) !important;
+}
+
+.ocr-history-table-body.compact {
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-gutter: auto !important;
+}
+
+.ocr-history-row.with-check.compact {
+  min-height: 38px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.ocr-history-row.with-check.compact > div,
+.ocr-history-table-head.with-check.compact > div {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.ocr-history-cell-center {
+  text-align: center !important;
+}
+
+.history-material-name,
+.history-file-name {
+  text-align: left !important;
+}
+
+.ocr-row-check {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ocr-row-check input {
+  width: 15px !important;
+  height: 15px !important;
+  padding: 0 !important;
+  accent-color: #13251b !important;
+}
+
+/* =========================
+   OCR 결과 패널
+========================= */
+
+.ocr-compare-row > div,
+.ocr-compare-table-head > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-compare-row > div[title] {
+  cursor: help;
+}
+
+.ocr-decision-grid.compact-ratio {
+  display: grid !important;
+  grid-template-columns: 1.35fr 1.55fr minmax(0, 6.8fr);
+  gap: 10px;
+}
+
+.ocr-decision-card.compact {
+  min-height: 74px;
+  padding: 14px 16px;
+}
+
+.ocr-decision-card.compact strong,
+.ocr-lhln-mini-card.wide strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-lhln-mini-card.wide {
+  min-height: 74px;
+  display: grid;
+  grid-template-columns: 1.4fr minmax(0, 2.4fr);
+  gap: 12px;
+  align-items: center;
+}
+
+/* 세로형 */
+@media (max-width: 900px) {
+  .content,
+  .app-shell.sidebar-collapsed .content {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .ocr-manual-upload-head {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ocr-manual-upload-actions {
+    justify-self: start;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .ocr-history-toolbar.one-line {
+    grid-template-columns:
+      minmax(240px, 1.4fr)
+      120px
+      120px
+      66px
+      82px
+      82px
+      82px
+      90px
+      108px;
+  }
+
+  .ocr-decision-grid.compact-ratio {
+    grid-template-columns: 1fr;
+  }
+
+  .ocr-lhln-mini-card.wide {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   OCR TEST - Rule validation table
+========================================================= */
+
+.ocr-rule-validation-surface {
+  width: min(100%, 1320px);
+  margin: 18px auto 0;
+  padding: 22px;
+  border-radius: 28px;
+  background: rgba(255, 253, 248, 0.88);
+  border: 1px solid rgba(23, 23, 23, 0.075);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.045);
+}
+
+.ocr-rule-validation-headbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.ocr-rule-validation-headbar span {
+  display: block;
+  margin-bottom: 5px;
+  color: #315f45;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.ocr-rule-validation-headbar strong {
+  display: block;
+  color: #171717;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.ocr-rule-validation-headbar p {
+  margin: 6px 0 0;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.ocr-rule-validation-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ocr-rule-validation-counts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ocr-rule-validation-counts span {
+  margin: 0;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(49, 95, 69, 0.08);
+  color: #315f45;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.ocr-rule-validation-actions select {
+  height: 38px;
+  min-width: 160px;
+  border: 1px solid rgba(23, 23, 23, 0.09);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 0 12px;
+  color: #171717;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ocr-rule-validation-scroll {
+  width: 100%;
+  max-height: 360px;
+  overflow: auto;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.45);
+  scrollbar-gutter: stable both-edges;
+}
+
+.ocr-rule-validation-table-head,
+.ocr-rule-validation-row {
+  display: grid;
+  grid-template-columns:
+    minmax(240px, 1.9fr)
+    100px
+    100px
+    minmax(190px, 1.4fr)
+    minmax(220px, 1.7fr)
+    140px
+    120px
+    100px
+    110px
+    110px;
+  gap: 8px;
+  min-width: 1440px;
+  align-items: center;
+}
+
+.ocr-rule-validation-table-head {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 12px 14px;
+  background: #f4f1e9;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.ocr-rule-validation-table-head > div {
+  color: #766f65;
+  font-size: 10.5px;
+  font-weight: 950;
+  text-align: center;
+}
+
+.ocr-rule-validation-table-body {
+  display: grid;
+}
+
+.ocr-rule-validation-row {
+  width: 100%;
+  min-height: 38px;
+  padding: 6px 14px;
+  border: 0;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.055);
+  background: transparent;
+  cursor: pointer;
+  color: #171717;
+  font-size: 11px;
+  font-weight: 850;
+  text-align: center;
+}
+
+.ocr-rule-validation-row:hover {
+  background: rgba(49, 95, 69, 0.045);
+}
+
+.ocr-rule-validation-row.ok {
+  background: rgba(49, 95, 69, 0.018);
+}
+
+.ocr-rule-validation-row.warn {
+  background: rgba(255, 173, 51, 0.025);
+}
+
+.ocr-rule-validation-row > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ocr-rule-validation-row .is-left,
+.ocr-rule-validation-table-head .is-left {
+  text-align: left;
+}
+
+.rule-check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.rule-check-badge.ok {
+  background: rgba(49, 95, 69, 0.12);
+  color: #315f45;
+}
+
+.rule-check-badge.warn {
+  background: rgba(180, 83, 9, 0.12);
+  color: #92400e;
+}
+
+.ocr-rule-validation-empty {
+  min-width: 100%;
+  padding: 34px 16px;
+  color: #766f65;
+  font-size: 12px;
+  font-weight: 850;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .ocr-rule-validation-surface {
+    padding: 16px;
+  }
+
+  .ocr-rule-validation-headbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ocr-rule-validation-actions {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ocr-rule-validation-actions select {
+    width: 100%;
+  }
+}
