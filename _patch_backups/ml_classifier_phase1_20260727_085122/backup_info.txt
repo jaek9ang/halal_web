@@ -1,0 +1,10 @@
+﻿백업 생성일시: 2026-07-27 08:51:25
+프로젝트: C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web
+
+이번 단계 변경 대상:
+- backend\requirements.txt
+- backend\app\ml
+- backend\scripts\ml_certificate_classifier
+- scripts\run_ml_dataset_audit.ps1
+
+기존 OCR 서비스, FastAPI 라우터, React 화면은 수정하지 않음

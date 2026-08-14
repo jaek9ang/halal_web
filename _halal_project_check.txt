@@ -1,0 +1,1174 @@
+﻿
+============================================================
+1. 프로젝트 기본 정보
+============================================================
+검사일시: 2026-07-24 17:02:23
+프로젝트 경로: C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web
+현재 PowerShell 경로: C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web
+대용량 런타임 경로 존재 여부: True
+
+============================================================
+2. 현재 터미널에서 잡히는 Python
+============================================================
+Get-Command python: C:\Users\user\AppData\Local\Programs\Python\Python312\python.exe
+Python 버전: Python 3.12.10
+pip 정보: pip 25.0.1 from C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\site-packages\pip (python 3.12)
+
+where.exe python 결과:
+C:\Users\user\AppData\Local\Programs\Python\Python312\python.exe
+C:\Users\user\AppData\Local\Microsoft\WindowsApps\python.exe
+
+============================================================
+3. 프로젝트 내부 .venv
+============================================================
+.venv 폴더 존재: True
+.venv Python 존재: True
+.venv 활성화 스크립트 존재: True
+pyvenv.cfg 존재: True
+
+[pyvenv.cfg]
+home = C:\Users\user\AppData\Local\Programs\Python\Python312
+include-system-site-packages = false
+version = 3.12.10
+executable = C:\Users\user\AppData\Local\Programs\Python\Python312\python.exe
+command = C:\Users\user\AppData\Local\Programs\Python\Python312\python.exe -m venv C:\Users\user\OneDrive\諛뷀깢 ?붾㈃\?쒖옱愿??뚯궗SW\DT以?꾨Ц媛援먯쑁\DLAB\SW Project\halal_web\.venv
+
+.venv Python 버전: Python 3.12.10
+.venv Python 실행파일: C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\.venv\Scripts\python.exe
+.venv pip 정보: pip 26.1.2 from C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\.venv\Lib\site-packages\pip (python 3.12)
+
+============================================================
+4. 프로젝트 최상위 구조
+============================================================
+
+Mode   Name                                     Length LastWriteTime         
+----   ----                                     ------ -------------         
+darh-l .git                                            2026-06-30 오전 11:18:57
+dar--l .tmp_confirm_integration_test                   2026-06-30 오후 5:41:07 
+dar--l .venv                                           2026-06-24 오후 11:07:06
+dar--l .vscode                                         2026-06-24 오후 10:26:16
+dar--l backend                                         2026-06-29 오후 5:03:51 
+dar--l docs                                            2026-06-24 오후 10:26:16
+dar--l frontend                                        2026-07-01 오후 6:21:39 
+dar--l scripts                                         2026-06-29 오전 10:23:12
+dar--l _patch_backups                                  2026-06-30 오전 11:02:23
+dar--l __pycache__                                     2026-07-01 오후 6:17:12 
+-a---l .gitattributes                           158    2026-06-24 오후 10:06:11
+-a---l .gitignore                               370    2026-06-24 오후 11:38:06
+-a---l apply_ocr_rule_v2.ps1                    3229   2026-06-29 오전 11:39:53
+-a---l apply_phase2.ps1                         3045   2026-06-24 오후 11:44:21
+-a---l baseline_comparison_report.json          3936   2026-06-29 오전 11:39:10
+-a---l bpjph_expiry_flow.txt                    22392  2026-07-01 오후 6:04:18 
+-a---l CHANGELOG.md                             708    2026-06-24 오후 10:06:11
+-a---l conda_list.txt                           9765   2026-06-02 오전 11:27:25
+-a---l current_conda_packages.txt               3032   2026-07-24 오후 4:54:32 
+-a---l environment_from_history.yml             253    2026-06-02 오전 11:27:24
+-a---l environment_full.yml                     4326   2026-06-02 오전 11:27:22
+-a---l filing_performance_functions.txt         9509   2026-07-01 오후 5:19:07 
+-a---l filing_wiring_locations.txt              120871 2026-07-01 오후 4:37:16 
+-a---l ocr_rule_v2_test_report.json             1830   2026-06-29 오전 11:40:15
+-a---l patch_confirm_history_connection.py      18707  2026-06-30 오후 5:37:39 
+-a---l pip_freeze.txt                           3895   2026-06-02 오전 11:30:17
+-a---l project_tree.txt                         287745 2026-06-02 오전 11:14:16
+-a---l project_tree_full.txt                    287854 2026-06-02 오전 11:30:21
+-a---l README.md                                1919   2026-06-29 오전 11:39:53
+-a---l README_PHASE2.md                         2165   2026-06-24 오후 11:44:21
+-a---l REVIEW_RESULT.md                         1443   2026-06-29 오전 11:39:53
+-a---l test_add_secondary_job521.py             5848   2026-07-01 오전 9:37:24 
+-a---l test_confirm_history_gate.py             1766   2026-06-30 오후 5:37:48 
+-a---l test_confirm_integration_job521.py       6592   2026-06-30 오후 5:40:13 
+-a---l test_confirm_integration_job521_v2.py    9319   2026-06-30 오후 5:45:38 
+-a---l test_confirm_integration_job521_v3.py    9436   2026-06-30 오후 5:48:37 
+-a---l test_output.txt                          1909   2026-06-29 오전 11:38:45
+-a---l test_replace_current_job521.py           6258   2026-07-01 오전 9:45:32 
+-a---l test_rollback_job521.py                  4406   2026-07-01 오전 11:11:58
+-a---l _audit_ocr_rules.py                      13087  2026-07-01 오후 4:32:26 
+-a---l _extract_bpjph_expiry_flow.py            2168   2026-07-01 오후 6:04:18 
+-a---l _extract_filing_performance_functions.py 2507   2026-07-01 오후 5:19:07 
+-a---l _find_filing_wiring.py                   3404   2026-07-01 오후 4:37:14 
+-a---- _halal_project_check.txt                 2293   2026-07-24 오후 5:02:25 
+-a---- _halal_venv_packages.txt                 846    2026-07-24 오후 5:02:25 
+-a---l _patch_bpjph_effective_expiry.py         2888   2026-07-01 오후 6:06:17 
+-a---l _patch_change_display_cleanup.py         4122   2026-07-01 오후 6:11:20 
+-a---l _patch_filing_demo_page.py               36882  2026-07-01 오후 6:17:12 
+-a---l _patch_filing_performance.py             9255   2026-07-01 오후 5:23:48 
+-a---l _patch_manufacturer_match.py             5139   2026-07-01 오후 6:01:21 
+-a---l _profile_filing_candidates.py            2924   2026-07-01 오후 5:16:23 
+
+
+
+
+============================================================
+5. 주요 프로젝트 파일
+============================================================
+.vscode\settings.json
+_audit_ocr_rules.py
+_extract_bpjph_expiry_flow.py
+_extract_filing_performance_functions.py
+_find_filing_wiring.py
+_halal_project_check.txt
+_halal_venv_packages.txt
+_patch_backups\all_junction_paths_20260630_110223\backend\app\core\path_utils.py
+_patch_backups\all_junction_paths_20260630_110223\backend\app\services\ocr_test_service.py
+_patch_backups\certificate_filing_phase2_1_20260625_005746\app\services\certificate_filing_workflow_service.py
+_patch_backups\certificate_filing_phase2_1_20260625_005746\app\services\mail_request_item_service.py
+_patch_backups\certificate_filing_phase2_20260625_000608\app\main.py
+_patch_backups\certificate_filing_phase2_20260625_000608\app\routers\certificate_filing.py
+_patch_backups\certificate_filing_phase2_20260625_000608\app\services\certificate_filing_workflow_service.py
+_patch_backups\certificate_filing_phase2_20260625_000608\app\services\mail_request_item_service.py
+_patch_backups\certificate_filing_phase2_20260625_000608\app\services\pmf_filing_service.py
+_patch_backups\certificate_filing_phase2_20260625_000608\scripts\test_certificate_filing_phase2.py
+_patch_backups\ocr_rule_v2_20260629_141556\certificate_rule_service.py
+_patch_backups\ocr_rule_v2_20260629_141556\ocr_context_service.py
+_patch_backups\ocr_rule_v2_20260629_141556\ocr_service.py
+_patch_backups\storage_fallback_20260629_172449\backend\app\core\config.py
+_patch_backups\storage_fallback_20260629_172449\backend\app\services\filing_name_service.py
+_patch_backups\storage_fallback_20260629_172457\backend\app\core\config.py
+_patch_backups\storage_fallback_20260629_172457\backend\app\services\filing_name_service.py
+_patch_backups\storage_fallback_20260629_172457\backend\app\services\storage_path_service.py
+_patch_backups\storage_fallback_20260629_172457\backend\scripts\audit_storage_paths.ps1
+_patch_backups\storage_fallback_20260629_172457\backend\scripts\start_demo_backend.ps1
+_patch_backups\storage_fallback_20260629_172457\backend\scripts\test_filing_storage.py
+_patch_backups\storage_fallback_20260629_172457\backend\scripts\test_ocr_api.py
+_patch_backups\storage_fallback_20260629_172547\backend\app\core\config.py
+_patch_backups\storage_fallback_20260629_172547\backend\app\services\filing_name_service.py
+_patch_backups\storage_fallback_20260629_172547\backend\app\services\storage_path_service.py
+_patch_backups\storage_fallback_20260629_172547\backend\scripts\audit_storage_paths.ps1
+_patch_backups\storage_fallback_20260629_172547\backend\scripts\start_demo_backend.ps1
+_patch_backups\storage_fallback_20260629_172547\backend\scripts\test_filing_storage.py
+_patch_backups\storage_fallback_20260629_172547\backend\scripts\test_ocr_api.py
+_patch_backups\storage_fallback_20260629_172604\backend\app\core\config.py
+_patch_backups\storage_fallback_20260629_172604\backend\app\services\filing_name_service.py
+_patch_backups\storage_fallback_20260629_172604\backend\app\services\storage_path_service.py
+_patch_backups\storage_fallback_20260629_172604\backend\scripts\audit_storage_paths.ps1
+_patch_backups\storage_fallback_20260629_172604\backend\scripts\start_demo_backend.ps1
+_patch_backups\storage_fallback_20260629_172604\backend\scripts\test_filing_storage.py
+_patch_backups\storage_fallback_20260629_172604\backend\scripts\test_ocr_api.py
+_patch_backups\storage_fallback_20260629_172618\backend\app\core\config.py
+_patch_backups\storage_fallback_20260629_172618\backend\app\services\filing_name_service.py
+_patch_backups\storage_fallback_20260629_172618\backend\app\services\storage_path_service.py
+_patch_backups\storage_fallback_20260629_172618\backend\scripts\audit_storage_paths.ps1
+_patch_backups\storage_fallback_20260629_172618\backend\scripts\start_demo_backend.ps1
+_patch_backups\storage_fallback_20260629_172618\backend\scripts\test_filing_storage.py
+_patch_backups\storage_fallback_20260629_172618\backend\scripts\test_ocr_api.py
+_patch_bpjph_effective_expiry.py
+_patch_change_display_cleanup.py
+_patch_filing_demo_page.py
+_patch_filing_performance.py
+_patch_manufacturer_match.py
+_profile_filing_candidates.py
+apply_ocr_rule_v2.ps1
+apply_phase2.ps1
+backend\app\core\__init__.py
+backend\app\core\config.py
+backend\app\core\path_utils.py
+backend\app\main.py
+backend\app\routers\__init__.py
+backend\app\routers\ai_rule_review.py
+backend\app\routers\cert_template.py
+backend\app\routers\certificate_filing.py
+backend\app\routers\certificate_filing_backup_20260630_170903_415657.py
+backend\app\routers\certificate_filing_backup_20260701_112456_081677.py
+backend\app\routers\lhln.py
+backend\app\routers\mail.py
+backend\app\routers\ocr.py
+backend\app\routers\ocr_backup_20260701_152442_725388.py
+backend\app\routers\pmf.py
+backend\app\routers\suppliers.py
+backend\app\services\__init__.py
+backend\app\services\ai_rule_review_service.py
+backend\app\services\cert_template_service.py
+backend\app\services\certificate_change_service.py
+backend\app\services\certificate_change_service_backup_20260630_163235.py
+backend\app\services\certificate_filing_service.py
+backend\app\services\certificate_filing_workflow_service.py
+backend\app\services\certificate_filing_workflow_service_backup_20260630_161149.py
+backend\app\services\certificate_filing_workflow_service_backup_20260630_163235.py
+backend\app\services\certificate_filing_workflow_service_backup_20260630_170903_415657.py
+backend\app\services\certificate_filing_workflow_service_backup_20260630_172235_239488.py
+backend\app\services\certificate_filing_workflow_service_backup_20260630_173152_053434.py
+backend\app\services\certificate_filing_workflow_service_backup_20260630_173825_551383.py
+backend\app\services\certificate_filing_workflow_service_backup_20260701_100916_077000.py
+backend\app\services\certificate_filing_workflow_service_backup_20260701_104558_642867.py
+backend\app\services\certificate_filing_workflow_service_broken_20260630_161327.py
+backend\app\services\certificate_rule_profile_service.py
+backend\app\services\certificate_rule_service.py
+backend\app\services\certificate_rule_service_backup_20260701_144029_184472.py
+backend\app\services\filing_name_service.py
+backend\app\services\halal_doc_service.py
+backend\app\services\lhln_service.py
+backend\app\services\mail_inbox_service.py
+backend\app\services\mail_receive_service.py
+backend\app\services\mail_request_item_service.py
+backend\app\services\mail_request_item_service_backup_20260702_180941.py
+backend\app\services\mail_service.py
+backend\app\services\material_link_service.py
+backend\app\services\ocr_context_service.py
+backend\app\services\ocr_exporter.py
+backend\app\services\ocr_service.py
+backend\app\services\ocr_service_backup_20260701_155912_790134.py
+backend\app\services\ocr_test_service.py
+backend\app\services\pmf_filing_service.py
+backend\app\services\pmf_filing_service_backup_20260701_092937_601029.py
+backend\app\services\pmf_service.py
+backend\app\services\rule_apply_service.py
+backend\app\services\rule_candidate_service.py
+backend\app\services\rule_validation_service.py
+backend\app\services\storage_path_service.py
+backend\app\services\supplier_service.py
+backend\dump_schema.py
+backend\requirements.txt
+backend\run_filing_phase1_test.ps1
+backend\scripts\__init__.py
+backend\scripts\audit_storage_paths.ps1
+backend\scripts\diagnose_and_fix_hash_mismatch.ps1
+backend\scripts\diagnose_ocr_500.ps1
+backend\scripts\export_ocr_rule_review_bundle.py
+backend\scripts\migrate_old_mail_logs.py
+backend\scripts\migrate_runtime_to_d.ps1
+backend\scripts\migrate_runtime_to_d_v2.ps1
+backend\scripts\patch_ocr_service_v2.py
+backend\scripts\remove_onedrive_runtime_backups.ps1
+backend\scripts\rollback_runtime_from_d.ps1
+backend\scripts\start_demo_backend.ps1
+backend\scripts\test_certificate_change_service.py
+backend\scripts\test_certificate_filing_phase2.py
+backend\scripts\test_certificate_filing_preview_api.py
+backend\scripts\test_filing_copy.py
+backend\scripts\test_filing_preview.py
+backend\scripts\test_filing_storage.py
+backend\scripts\test_ocr_api.py
+backend\scripts\test_ocr_rule_v2.py
+backend\scripts\test_phase2_1_matching.py
+backend\scripts\verify_and_remove_onedrive_backups.ps1
+backend\scripts\verify_and_remove_onedrive_backups_v2.ps1
+backend\scripts\verify_long_path_backups.py
+backend\scripts\verify_runtime.py
+backend\scripts\verify_runtime_on_d.ps1
+backend\scripts\verify_runtime_on_d_v2.ps1
+backend\test_filing_copy.py
+baseline_comparison_report.json
+bpjph_expiry_flow.txt
+CHANGELOG.md
+conda_list.txt
+current_conda_packages.txt
+docs\LOCAL_DEVELOPMENT.md
+environment_from_history.yml
+environment_full.yml
+filing_performance_functions.txt
+filing_wiring_locations.txt
+frontend\api_ai_rule_review_append.js
+frontend\eslint.config.js
+frontend\package.json
+frontend\package-lock.json
+frontend\README.md
+frontend\src\api.js
+frontend\src\App.jsx
+frontend\src\FilingPage.jsx
+frontend\src\main.jsx
+frontend\vite.config.js
+ocr_rule_v2_test_report.json
+patch_confirm_history_connection.py
+pip_freeze.txt
+project_tree.txt
+project_tree_full.txt
+README.md
+README_PHASE2.md
+REVIEW_RESULT.md
+scripts\git_checkpoint.ps1
+scripts\git_log.ps1
+scripts\init_local_git.ps1
+scripts\local_env.ps1
+scripts\refresh_latest_pmf_copy.ps1
+scripts\run_backend.ps1
+scripts\setup_venv.ps1
+scripts\setup_venv_v2.ps1
+scripts\test_certificate_filing_preview_api.py
+test_add_secondary_job521.py
+test_confirm_history_gate.py
+test_confirm_integration_job521.py
+test_confirm_integration_job521_v2.py
+test_confirm_integration_job521_v3.py
+test_output.txt
+test_replace_current_job521.py
+test_rollback_job521.py
+
+============================================================
+6. 의존성 및 실행 설정
+============================================================
+
+---------- .vscode\settings.json ----------
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}\\backend"
+  ],
+  "files.encoding": "utf8",
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}
+
+---------- backend\requirements.txt ----------
+fastapi==0.136.1
+uvicorn==0.46.0
+pydantic==2.13.3
+python-multipart==0.0.27
+pandas==2.3.3
+openpyxl==3.1.5
+requests==2.33.1
+PyMuPDF==1.27.2.2
+Pillow==12.2.0
+pytesseract==0.3.13
+numpy==2.2.6
+opencv-python==4.13.0.92
+openai==2.32.0
+
+---------- frontend\package.json ----------
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "vite": "^8.0.10"
+  }
+}
+
+============================================================
+7. 환경변수 파일 이름
+============================================================
+frontend\.env
+
+============================================================
+8. 주요 코드 참조
+============================================================
+
+Path                                                                             
+----                                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\baseline
+_comparison_report.json                                                          
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\ocr_rule
+_v2_test_report.json                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\patch_co
+nfirm_history_connection.py                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_add
+_secondary_job521.py                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_add
+_secondary_job521.py                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_add
+_secondary_job521.py                                                             
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521.py                                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521.py                                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521.py                                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521.py                                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521.py                                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521.py                                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v2.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v2.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v2.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v2.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v2.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v2.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v3.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v3.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v3.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v3.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v3.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_con
+firm_integration_job521_v3.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_rep
+lace_current_job521.py                                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_rep
+lace_current_job521.py                                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_rep
+lace_current_job521.py                                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_rol
+lback_job521.py                                                                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\test_rol
+lback_job521.py                                                                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_audit_o
+cr_rules.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_patch_f
+iling_demo_page.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_profile
+_filing_candidates.py                                                            
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+dump_schema.py                                                                   
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+dump_schema.py                                                                   
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\main.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\main.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\main.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\main.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\main.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\main.py                                                                      
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\core\config.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ai_rule_review.py                                                    
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing.py                                                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260630_170903_415657.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260630_170903_415657.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260630_170903_415657.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260630_170903_415657.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260701_112456_081677.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260701_112456_081677.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260701_112456_081677.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\certificate_filing_backup_20260701_112456_081677.py                  
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\cert_template.py                                                     
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\cert_template.py                                                     
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\lhln.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\mail.py                                                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\ocr_backup_20260701_152442_725388.py                                 
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\pmf.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\pmf.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\pmf.py                                                               
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\routers\suppliers.py                                                         
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\ai_rule_review_service.py                                           
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_change_service.py                                       
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_change_service_backup_20260630_163235.py                
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\backend\
+app\services\certificate_filing_workflow_service.py                              
+
+
+
+
+============================================================
+9. 점검 완료
+============================================================
+환경 보고서: C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_halal_project_check.txt
+기존 .venv 패키지 목록: C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web\_halal_venv_packages.txt

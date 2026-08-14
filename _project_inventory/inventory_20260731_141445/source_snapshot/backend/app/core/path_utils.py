@@ -1,0 +1,36 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+
+
+def to_backend_storage_path(path: str | Path) -> str:
+    """
+    backend/data, output, cache, db? D???? Junction???
+    DB?? data/... ??? ?? ????? ????.
+    """
+    candidate = Path(path)
+
+    if not candidate.is_absolute():
+        candidate = BACKEND_DIR / candidate
+
+    resolved = candidate.resolve()
+    backend_resolved = BACKEND_DIR.resolve()
+
+    try:
+        return resolved.relative_to(backend_resolved).as_posix()
+    except ValueError:
+        pass
+
+    for folder_name in ("data", "output", "cache", "db"):
+        physical_root = (BACKEND_DIR / folder_name).resolve()
+
+        try:
+            relative = resolved.relative_to(physical_root)
+            return (Path(folder_name) / relative).as_posix()
+        except ValueError:
+            continue
+
+    return resolved.as_posix()

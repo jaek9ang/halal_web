@@ -1,0 +1,614 @@
+FILE: backend\app\services\certificate_filing_workflow_service.py
+
+====================================================================================================
+BLOCK 1: LINES 8-60
+====================================================================================================
+    8: from pathlib import Path
+    9: from typing import Any
+   10: 
+   11: from app.core.config import PMF_APP_DB_PATH
+   12: from app.services.certificate_filing_service import (
+   13:     copy_certificate_atomically,
+   14:     preview_certificate_filing,
+   15: )
+   16: from app.services.filing_name_service import FilingNameInput, get_halal_raw_material_root
+   17: from app.services.mail_request_item_service import (
+   18:     build_pmf_candidates_for_request_context,
+   19:     get_request_context_for_ocr_job,
+   20:     match_mail_item_to_pmf,
+   21:     select_mail_item_for_ocr_job,
+   22: )
+   23: from app.services.ocr_service import get_ocr_job, list_ocr_jobs
+   24: from app.services.pmf_filing_service import (
+   25:     get_pmf_material_snapshot,
+   26:     preview_pmf_update,
+   27:     restore_pmf_backup,
+   28:     update_pmf_certificate_fields,
+   29: )
+   30: from app.services.certificate_change_service import classify_certificate_change
+   31: 
+   32: 
+   33: ALLOWED_OCR_STATUSES = {"DONE"}
+   34: BLOCKED_PARSE_STATUSES = {
+   35:     "LOW_CONFIDENCE",
+   36:     "MANUAL_REVIEW",
+   37:     "TESSERACT_ERROR",
+   38:     "SCANNED_NEED_OCR",
+   39:     "NO_TEXT",
+   40:     "ERROR",
+   41: }
+   42: 
+   43: 
+   44: def get_conn() -> sqlite3.Connection:
+   45:     PMF_APP_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+   46:     conn = sqlite3.connect(PMF_APP_DB_PATH)
+   47:     conn.row_factory = sqlite3.Row
+   48:     return conn
+   49: 
+   50: 
+   51: def _ensure_filing_history_unique_index(conn) -> None:
+   52:     final_statuses = (
+   53:         "CONFIRMED",
+   54:         "REPLACED",
+   55:         "SECONDARY_ADDED",
+   56:         "DUPLICATE_SKIPPED",
+   57:     )
+   58: 
+   59:     placeholders = ", ".join(
+   60:         "?" for _ in final_statuses
+
+====================================================================================================
+BLOCK 2: LINES 400-575
+====================================================================================================
+  400:         "cert_no": material.get("cert_no", ""),
+  401:         "expiry_date": material.get("expiry_date", ""),
+  402:         "manufacturer": material.get("maker", ""),
+  403:     }
+  404: 
+  405:     incoming_certificate = {
+  406:         "cert_org": cert_values.get("cert_org", ""),
+  407:         "cert_no": cert_values.get("cert_no", ""),
+  408:         "expiry_date": cert_values.get("expiry_date", ""),
+  409:         "manufacturer": incoming_manufacturer,
+  410:     }
+  411: 
+  412:     product_match_for_change = (
+  413:         bool(selected_pmf_match)
+  414:         if mail_item
+  415:         else True
+  416:     )
+  417: 
+  418:     change_decision = classify_certificate_change(
+  419:         current=current_certificate,
+  420:         incoming=incoming_certificate,
+  421:         product_match=product_match_for_change,
+  422:         manufacturer_match=None,
+  423:         current_active=True,
+  424:     )
+  425:     # CERTIFICATE_CHANGE_DECISION_END
+  426: 
+  427:     warnings, blockers, hard_blockers = _build_warnings(
+  428:         job,
+  429:         cert_values,
+  430:         material,
+  431:         mail_item,
+  432:         match_validation=match_validation,
+  433:     )
+  434: 
+  435:     # CERTIFICATE_CHANGE_BLOCKER_START
+  436:     decision_code = change_decision.get(
+  437:         "decision_code",
+  438:         "",
+  439:     )
+  440: 
+  441:     if change_decision.get("blocked"):
+  442:         message = (
+  443:             "???? ?? ??? ?? ?? ??? "
+  444:             f"???????: {decision_code}"
+  445:         )
+  446: 
+  447:         if message not in blockers:
+  448:             blockers.append(message)
+  449: 
+  450:         if message not in hard_blockers:
+  451:             hard_blockers.append(message)
+  452: 
+  453:     elif change_decision.get("requires_review"):
+  454:         message = (
+  455:             "???? ?? ??? ?????: "
+  456:             f"{decision_code}"
+  457:         )
+  458: 
+  459:         if message not in blockers:
+  460:             blockers.append(message)
+  461: 
+  462:     for reason in change_decision.get("reasons") or []:
+  463:         message = f"?? ??: {reason}"
+  464: 
+  465:         if message not in warnings:
+  466:             warnings.append(message)
+  467:     # CERTIFICATE_CHANGE_BLOCKER_END
+  468:     if mail_item and selected_pmf_match is None:
+  469:         message = "선택한 PMF 원료가 이 첨부파일에 연결된 메일 원료 후보와 일치하지 않습니다."
+  470:         hard_blockers.append(message)
+  471:         blockers.append(message)
+  472: 
+  473:     pmf_expiry = cert_values.get("expiry_date", "")
+  474:     if cert_values.get("cert_org") == "BPJPH":
+  475:         pmf_expiry = _clean((mail_item or {}).get("planned_expiry"))
+  476: 
+  477:     source_path = Path(str(job.get("source_path") or ""))
+  478:     naming_input = FilingNameInput(
+  479:         material_no=material["material_no"],
+  480:         material_name_en=material["english_name"],
+  481:         manufacturer=material["maker"],
+  482:         supplier=material["supplier"],
+  483:         cert_org=cert_values.get("cert_org", ""),
+  484:         expiry_date=cert_values.get("expiry_date", ""),
+  485:         source_extension=source_path.suffix or job.get("file_ext") or ".pdf",
+  486:     )
+  487: 
+  488:     filing_preview = preview_certificate_filing(
+  489:         source_path=source_path,
+  490:         naming_input=naming_input,
+  491:         root=get_halal_raw_material_root(),
+  492:     ).to_dict()
+  493: 
+  494:     # 원본 부재와 같은 치명 경고는 workflow blocker에 이미 반영한다.
+  495:     for warning in filing_preview.get("warnings") or []:
+  496:         if warning not in warnings and "원본" not in warning:
+  497:             warnings.append(warning)
+  498: 
+  499:     pmf_preview = preview_pmf_update(
+  500:         row_pos=pmf_row_pos,
+  501:         depth=pmf_depth,
+  502:         cert_org=cert_values.get("cert_org", ""),
+  503:         cert_no=cert_values.get("cert_no", ""),
+  504:         expiry_date=pmf_expiry,
+  505:     )
+  506:     for warning in pmf_preview.get("warnings") or []:
+  507:         if warning not in warnings:
+  508:             warnings.append(warning)
+  509: 
+  510:     history = get_confirmed_history_for_job(ocr_job_id)
+  511:     if history:
+  512:         blockers.append("이미 확정판정된 OCR Job입니다.")
+  513: 
+  514:     return {
+  515:         "ok": len(blockers) == 0,
+  516:         "ocr_job_id": int(ocr_job_id),
+  517:         "job": {
+  518:             "id": job.get("id"),
+  519:             "filename": job.get("filename"),
+  520:             "source_path": job.get("source_path"),
+  521:             "status": job.get("status"),
+  522:             "created_at": job.get("created_at"),
+  523:         },
+  524:         "certificate": cert_values,
+  525:         "request_context": {
+  526:             "request_id": request_context.get("request_id", ""),
+  527:             "attachment": request_context.get("attachment") or {},
+  528:             "mail_log": {
+  529:                 "supplier": (request_context.get("mail_log") or {}).get("supplier", ""),
+  530:                 "mail_type": (request_context.get("mail_log") or {}).get("mail_type", ""),
+  531:                 "subject": (request_context.get("mail_log") or {}).get("subject", ""),
+  532:                 "sent_at": (request_context.get("mail_log") or {}).get("sent_at", ""),
+  533:             },
+  534:             "matched_mail_item": mail_item,
+  535:             "match_validation": match_validation,
+  536:             "selected_pmf_match": selected_pmf_match,
+  537:             "selected_pmf_matches": selected_pmf_matches,
+  538:         },
+  539:         "pmf_material": material,
+  540:         "filing_preview": filing_preview,
+  541:         "pmf_update_preview": pmf_preview,
+  542:         "warnings": list(dict.fromkeys(warnings)),
+  543:         "blockers": list(dict.fromkeys(blockers)),
+  544:         "hard_blockers": list(dict.fromkeys(hard_blockers)),
+  545:         "change_decision": change_decision,
+  546:         "existing_history": history,
+  547:     }
+  548: 
+  549: 
+  550: def _insert_history(payload: dict[str, Any]) -> int:
+  551:     ensure_filing_tables()
+  552:     now = datetime.now().isoformat(timespec="seconds")
+  553:     conn = get_conn()
+  554:     try:
+  555:         cur = conn.execute(
+  556:             """
+  557:             INSERT INTO certificate_filing_history (
+  558:                 ocr_job_id,
+  559:                 request_id,
+  560:                 pmf_row_pos,
+  561:                 pmf_depth,
+  562:                 source_path,
+  563:                 target_path,
+  564:                 cert_org,
+  565:                 cert_no,
+  566:                 expiry_date,
+  567:                 status,
+  568:                 copy_status,
+  569:                 pmf_update_json,
+  570:                 warning_json,
+  571:                 error_message,
+  572:                 created_at,
+  573:                 updated_at
+  574:             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  575:             """,
+
+====================================================================================================
+BLOCK 3: LINES 779-831
+====================================================================================================
+  779:                 id DESC
+  780:             """,
+  781:             (
+  782:                 int(pmf_row_pos),
+  783:                 int(pmf_depth),
+  784:             ),
+  785:         ).fetchall()
+  786: 
+  787:     finally:
+  788:         conn.close()
+  789: 
+  790:     return [
+  791:         dict(row)
+  792:         for row in rows
+  793:     ]
+  794: 
+  795: 
+  796: 
+  797: def validate_change_decision_for_confirm(
+  798:     preview: dict[str, Any],
+  799:     change_action: str = "",
+  800: ) -> dict[str, str]:
+  801:     decision = preview.get("change_decision") or {}
+  802:     decision_code = _clean(
+  803:         decision.get("decision_code")
+  804:     ).upper()
+  805: 
+  806:     requested_action = _clean(
+  807:         change_action
+  808:     ).upper()
+  809: 
+  810:     aliases = {
+  811:         "APPROVE_RENEWAL": "UPDATE_CURRENT",
+  812:         "REGISTER_AS_PRIMARY": "UPDATE_CURRENT",
+  813:     }
+  814: 
+  815:     requested_action = aliases.get(
+  816:         requested_action,
+  817:         requested_action,
+  818:     )
+  819: 
+  820:     if decision.get("blocked"):
+  821:         raise ValueError(
+  822:             "Change decision blocks confirmation: "
+  823:             + decision_code
+  824:         )
+  825: 
+  826:     if decision.get("requires_review"):
+  827:         review_options = {
+  828:             aliases.get(value, value)
+  829:             for value in (
+  830:                 _clean(item).upper()
+  831:                 for item in (
+
+====================================================================================================
+BLOCK 4: LINES 1271-1373
+====================================================================================================
+ 1271:     force: bool = False,
+ 1272:     allow_date_regression: bool = False,
+ 1273:     change_action: str = "",
+ 1274: ) -> dict[str, Any]:
+ 1275:     preview = preview_filing_workflow(
+ 1276:         ocr_job_id=ocr_job_id,
+ 1277:         pmf_row_pos=pmf_row_pos,
+ 1278:         pmf_depth=pmf_depth,
+ 1279:     )
+ 1280: 
+ 1281:     if preview.get("hard_blockers"):
+ 1282:         raise ValueError(
+ 1283:             " / ".join(
+ 1284:                 preview["hard_blockers"]
+ 1285:             )
+ 1286:         )
+ 1287: 
+ 1288:     change_gate = (
+ 1289:         validate_change_decision_for_confirm(
+ 1290:             preview=preview,
+ 1291:             change_action=change_action,
+ 1292:         )
+ 1293:     )
+ 1294: 
+ 1295:     if (
+ 1296:         preview.get("blockers")
+ 1297:         and not force
+ 1298:     ):
+ 1299:         raise ValueError(
+ 1300:             " / ".join(
+ 1301:                 preview["blockers"]
+ 1302:             )
+ 1303:         )
+ 1304: 
+ 1305:     job = get_ocr_job(
+ 1306:         int(ocr_job_id)
+ 1307:     )
+ 1308: 
+ 1309:     material = preview[
+ 1310:         "pmf_material"
+ 1311:     ]
+ 1312: 
+ 1313:     certificate = preview[
+ 1314:         "certificate"
+ 1315:     ]
+ 1316: 
+ 1317:     request_context = (
+ 1318:         preview.get("request_context")
+ 1319:         or {}
+ 1320:     )
+ 1321: 
+ 1322:     mail_item = (
+ 1323:         request_context.get(
+ 1324:             "matched_mail_item"
+ 1325:         )
+ 1326:         or {}
+ 1327:     )
+ 1328: 
+ 1329:     request_id = request_context.get(
+ 1330:         "request_id",
+ 1331:         "",
+ 1332:     )
+ 1333: 
+ 1334:     pmf_expiry = certificate.get(
+ 1335:         "expiry_date",
+ 1336:         "",
+ 1337:     )
+ 1338: 
+ 1339:     if (
+ 1340:         certificate.get("cert_org")
+ 1341:         == "BPJPH"
+ 1342:     ):
+ 1343:         pmf_expiry = _clean(
+ 1344:             mail_item.get(
+ 1345:                 "planned_expiry"
+ 1346:             )
+ 1347:         )
+ 1348: 
+ 1349:     source_path = Path(
+ 1350:         str(
+ 1351:             job.get("source_path")
+ 1352:             or ""
+ 1353:         )
+ 1354:     )
+ 1355: 
+ 1356:     naming_input = FilingNameInput(
+ 1357:         material_no=material[
+ 1358:             "material_no"
+ 1359:         ],
+ 1360:         material_name_en=material[
+ 1361:             "english_name"
+ 1362:         ],
+ 1363:         manufacturer=material[
+ 1364:             "maker"
+ 1365:         ],
+ 1366:         supplier=material[
+ 1367:             "supplier"
+ 1368:         ],
+ 1369:         cert_org=certificate.get(
+ 1370:             "cert_org",
+ 1371:             "",
+ 1372:         ),
+ 1373:         expiry_date=certificate.get(
+
+====================================================================================================
+BLOCK 5: LINES 1403-1451
+====================================================================================================
+ 1403:         ]
+ 1404: 
+ 1405:         if (
+ 1406:             resolved_action
+ 1407:             != "ADD_SECONDARY"
+ 1408:         ):
+ 1409:             pmf_result = (
+ 1410:                 update_pmf_certificate_fields(
+ 1411:                     row_pos=pmf_row_pos,
+ 1412:                     depth=pmf_depth,
+ 1413:                     cert_org=certificate.get(
+ 1414:                         "cert_org",
+ 1415:                         "",
+ 1416:                     ),
+ 1417:                     cert_no=certificate.get(
+ 1418:                         "cert_no",
+ 1419:                         "",
+ 1420:                     ),
+ 1421:                     expiry_date=pmf_expiry,
+ 1422:                     allow_date_regression=(
+ 1423:                         allow_date_regression
+ 1424:                     ),
+ 1425:                 )
+ 1426:             )
+ 1427: 
+ 1428:         active_certificates = (
+ 1429:             get_active_material_certificates(
+ 1430:                 pmf_row_pos=pmf_row_pos,
+ 1431:                 pmf_depth=pmf_depth,
+ 1432:             )
+ 1433:         )
+ 1434: 
+ 1435:         has_active_primary = any(
+ 1436:             int(
+ 1437:                 item.get(
+ 1438:                     "is_primary"
+ 1439:                 )
+ 1440:                 or 0
+ 1441:             )
+ 1442:             == 1
+ 1443:             for item in active_certificates
+ 1444:         )
+ 1445: 
+ 1446:         current_org = _clean(
+ 1447:             material.get("org")
+ 1448:         ).upper()
+ 1449: 
+ 1450:         current_cert_no = _clean(
+ 1451:             material.get("cert_no")
+
+====================================================================================================
+BLOCK 6: LINES 1520-1568
+====================================================================================================
+ 1520:                         pmf_row_pos
+ 1521:                     ),
+ 1522:                     "pmf_depth": (
+ 1523:                         pmf_depth
+ 1524:                     ),
+ 1525:                     "cert_org": (
+ 1526:                         certificate.get(
+ 1527:                             "cert_org",
+ 1528:                             "",
+ 1529:                         )
+ 1530:                     ),
+ 1531:                     "cert_no": (
+ 1532:                         certificate.get(
+ 1533:                             "cert_no",
+ 1534:                             "",
+ 1535:                         )
+ 1536:                     ),
+ 1537:                     "expiry_date": (
+ 1538:                         pmf_expiry
+ 1539:                     ),
+ 1540:                     "manufacturer": (
+ 1541:                         certificate.get(
+ 1542:                             "manufacturer"
+ 1543:                         )
+ 1544:                         or material.get(
+ 1545:                             "maker",
+ 1546:                             "",
+ 1547:                         )
+ 1548:                     ),
+ 1549:                     "source_path": (
+ 1550:                         str(source_path)
+ 1551:                     ),
+ 1552:                     "target_path": (
+ 1553:                         copy_result.target_path
+ 1554:                     ),
+ 1555:                 },
+ 1556:                 resolved_action,
+ 1557:             )
+ 1558:         )
+ 1559: 
+ 1560:         status = resolve_filing_status(
+ 1561:             copy_status=copy_result.status,
+ 1562:             change_action=resolved_action,
+ 1563:         )
+ 1564: 
+ 1565:         pmf_update_payload = (
+ 1566:             pmf_result.to_dict()
+ 1567:             if pmf_result
+ 1568:             else {
+
+====================================================================================================
+BLOCK 7: LINES 1591-1639
+====================================================================================================
+ 1591:                     str(source_path)
+ 1592:                 ),
+ 1593:                 "target_path": (
+ 1594:                     copy_result.target_path
+ 1595:                 ),
+ 1596:                 "cert_org": (
+ 1597:                     certificate.get(
+ 1598:                         "cert_org",
+ 1599:                         "",
+ 1600:                     )
+ 1601:                 ),
+ 1602:                 "cert_no": (
+ 1603:                     certificate.get(
+ 1604:                         "cert_no",
+ 1605:                         "",
+ 1606:                     )
+ 1607:                 ),
+ 1608:                 "expiry_date": (
+ 1609:                     pmf_expiry
+ 1610:                 ),
+ 1611:                 "status": status,
+ 1612:                 "copy_status": (
+ 1613:                     copy_result.status
+ 1614:                 ),
+ 1615:                 "pmf_update": (
+ 1616:                     pmf_update_payload
+ 1617:                 ),
+ 1618:                 "warnings": (
+ 1619:                     preview.get(
+ 1620:                         "warnings"
+ 1621:                     )
+ 1622:                     or []
+ 1623:                 ),
+ 1624:             }
+ 1625:         )
+ 1626: 
+ 1627:         return {
+ 1628:             "ok": True,
+ 1629:             "history_id": history_id,
+ 1630:             "status": status,
+ 1631:             "change_gate": (
+ 1632:                 change_gate
+ 1633:             ),
+ 1634:             "copy": (
+ 1635:                 copy_result.to_dict()
+ 1636:             ),
+ 1637:             "pmf_update": (
+ 1638:                 pmf_update_payload
+ 1639:             ),
+
+====================================================================================================
+BLOCK 8: LINES 1697-1745
+====================================================================================================
+ 1697:                 "target_path": (
+ 1698:                     copy_result.target_path
+ 1699:                     if copy_result
+ 1700:                     else ""
+ 1701:                 ),
+ 1702:                 "cert_org": (
+ 1703:                     certificate.get(
+ 1704:                         "cert_org",
+ 1705:                         "",
+ 1706:                     )
+ 1707:                 ),
+ 1708:                 "cert_no": (
+ 1709:                     certificate.get(
+ 1710:                         "cert_no",
+ 1711:                         "",
+ 1712:                     )
+ 1713:                 ),
+ 1714:                 "expiry_date": (
+ 1715:                     pmf_expiry
+ 1716:                 ),
+ 1717:                 "status": "ERROR",
+ 1718:                 "copy_status": (
+ 1719:                     copy_result.status
+ 1720:                     if copy_result
+ 1721:                     else ""
+ 1722:                 ),
+ 1723:                 "pmf_update": (
+ 1724:                     pmf_result.to_dict()
+ 1725:                     if pmf_result
+ 1726:                     else {}
+ 1727:                 ),
+ 1728:                 "warnings": (
+ 1729:                     preview.get(
+ 1730:                         "warnings"
+ 1731:                     )
+ 1732:                     or []
+ 1733:                 ),
+ 1734:                 "error_message": (
+ 1735:                     str(exc)
+ 1736:                 ),
+ 1737:             }
+ 1738:         )
+ 1739: 
+ 1740:         raise
+ 1741: 
+ 1742: 
+ 1743: 
+ 1744: 
+ 1745: def list_filing_candidates(limit: int = 100) -> dict[str, Any]:

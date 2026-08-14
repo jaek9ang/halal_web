@@ -1,0 +1,237 @@
+====================================================================================================
+FILE: backend\app\services\pmf_service.py
+====================================================================================================
+
+--- FUNCTION: get_excel_file (lines 109-111) ---
+def get_excel_file() -> pd.ExcelFile:
+    ensure_active_pmf_exists()
+    return pd.ExcelFile(PMF_ACTIVE_PATH, engine="openpyxl")
+
+--- FUNCTION: read_pmf_bundle (lines 130-183) ---
+def read_pmf_bundle() -> dict[str, Any]:
+    """
+    active_pmf.xlsm에서 필요한 시트를 읽는다.
+    """
+    ensure_active_pmf_exists()
+
+    xls = get_excel_file()
+    sheet_names = xls.sheet_names
+
+    raw_sheet = find_sheet_name(sheet_names, RAW_MATERIAL_SHEET)
+    email_sheet = find_sheet_name(sheet_names, EMAIL_SHEET)
+
+    mail_contents_sheet = None
+    try:
+        mail_contents_sheet = find_sheet_name(sheet_names, MAIL_CONTENTS_SHEET)
+    except Exception:
+        mail_contents_sheet = None
+
+    df_raw = pd.read_excel(
+        PMF_ACTIVE_PATH,
+        sheet_name=raw_sheet,
+        header=None,
+        engine="openpyxl",
+    )
+
+    df_email = pd.read_excel(
+        PMF_ACTIVE_PATH,
+        sheet_name=email_sheet,
+        header=None,
+        engine="openpyxl",
+    )
+
+    df_mail_contents = pd.DataFrame()
+    if mail_contents_sheet:
+        df_mail_contents = pd.read_excel(
+            PMF_ACTIVE_PATH,
+            sheet_name=mail_contents_sheet,
+            header=None,
+            engine="openpyxl",
+        )
+
+    return {
+        "meta": load_pmf_meta(),
+        "sheet_names": sheet_names,
+        "raw_sheet": raw_sheet,
+        "email_sheet": email_sheet,
+        "mail_contents_sheet": mail_contents_sheet,
+        "raw_rows": int(len(df_raw)),
+        "email_rows": int(len(df_email)),
+        "mail_contents_rows": int(len(df_mail_contents)),
+        "df_raw": df_raw,
+        "df_email": df_email,
+        "df_mail_contents": df_mail_contents,
+    }
+
+====================================================================================================
+FILE: backend\app\services\mail_request_item_service.py
+====================================================================================================
+
+--- FUNCTION: match_mail_item_to_pmf (lines 559-628) ---
+def match_mail_item_to_pmf(
+    mail_item: dict[str, Any],
+    supplier: str = "",
+    limit: int = 5,
+) -> list[dict[str, Any]]:
+    bundle = read_pmf_bundle()
+    df_raw = bundle["df_raw"]
+    supplier_expected = normalize_text(supplier or mail_item.get("supplier"))
+
+    candidates: list[dict[str, Any]] = []
+    for row_pos, (_, row) in enumerate(df_raw.iterrows()):
+        row_supplier = clean(row.iloc[6]) if len(row) > 6 else ""
+
+        for depth in range(5):
+            data = get_full_row_data(row, depth)
+            if not data:
+                continue
+
+            material_name = clean(data.get("n"))
+            if material_name in {"", "-"}:
+                continue
+
+            score = 0
+            reasons: list[str] = []
+
+            fields = [
+                ("cert_no", mail_item.get("cert_no"), data.get("i"), 120),
+                ("material_name", mail_item.get("material_name"), material_name, 90),
+                ("english_name", mail_item.get("english_name"), data.get("e"), 90),
+                ("maker", mail_item.get("maker"), data.get("m"), 60),
+                ("org", mail_item.get("org"), data.get("h"), 35),
+                ("current_expiry", mail_item.get("current_expiry"), data.get("v"), 25),
+                ("supplier", supplier_expected, row_supplier, 35),
+            ]
+
+            for kind, expected, actual, weight in fields:
+                similarity = _similarity_score(
+                    normalize_date(expected) if kind.endswith("expiry") else expected,
+                    normalize_date(actual) if kind.endswith("expiry") else actual,
+                )
+                if similarity >= 100:
+                    score += weight
+                    reasons.append(f"{kind}:exact")
+                elif similarity >= 75:
+                    score += int(weight * 0.65)
+                    reasons.append(f"{kind}:partial")
+
+            if score <= 0:
+                continue
+
+            candidates.append(
+                {
+                    "row_pos": row_pos,
+                    "depth": depth,
+                    "material_no": clean(get_full_row_data(row, 0).get("id")),
+                    "supplier": clean(row_supplier),
+                    "material_name": material_name,
+                    "english_name": clean(data.get("e")),
+                    "maker": clean(data.get("m")),
+                    "maker_country": clean(data.get("o")),
+                    "org": clean(data.get("h")),
+                    "cert_no": clean(data.get("i")),
+                    "expiry_date": normalize_date(data.get("v")),
+                    "score": score,
+                    "reasons": reasons,
+                }
+            )
+
+    candidates.sort(key=lambda item: (item["score"], -item["depth"]), reverse=True)
+    return candidates[: max(1, int(limit))]
+
+--- FUNCTION: build_pmf_candidates_for_request_context (lines 631-646) ---
+def build_pmf_candidates_for_request_context(
+    request_context: dict[str, Any],
+    limit_per_item: int = 5,
+) -> list[dict[str, Any]]:
+    supplier = normalize_text((request_context.get("mail_log") or {}).get("supplier"))
+    rows: list[dict[str, Any]] = []
+
+    for item in request_context.get("mail_items") or []:
+        matches = match_mail_item_to_pmf(item, supplier=supplier, limit=limit_per_item)
+        rows.append({
+            "mail_item": item,
+            "pmf_matches": matches,
+            "top_match": matches[0] if matches else None,
+        })
+
+    return rows
+
+====================================================================================================
+FILE: backend\app\services\certificate_filing_workflow_service.py
+====================================================================================================
+
+--- FUNCTION: list_filing_candidates (lines 1743-1815) ---
+def list_filing_candidates(limit: int = 100) -> dict[str, Any]:
+    ensure_filing_tables()
+    jobs = list_ocr_jobs(limit=max(1, min(int(limit), 500)), status="DONE", include_test=False)
+    rows: list[dict[str, Any]] = []
+
+    for job in jobs.get("rows") or []:
+        history = get_confirmed_history_for_job(int(job.get("id")))
+        if history:
+            continue
+
+        cert_values = resolve_cert_values(job)
+        request_context = get_request_context_for_ocr_job(job)
+        match_validation = select_mail_item_for_ocr_job(
+            request_context=request_context,
+            job=job,
+            cert_values=cert_values,
+        )
+        selected_mail_item = match_validation.get("selected_mail_item")
+        supplier = _clean((request_context.get("mail_log") or {}).get("supplier"))
+
+        selected_matches = (
+            match_mail_item_to_pmf(selected_mail_item, supplier=supplier, limit=5)
+            if selected_mail_item
+            else []
+        )
+        top_match = selected_matches[0] if selected_matches else None
+
+        # 전체 후보는 수동 검토 화면용으로 유지한다. 자동판정에는 선택된 메일 항목만 사용한다.
+        pmf_groups = build_pmf_candidates_for_request_context(request_context, limit_per_item=5)
+
+        auto_match_blockers = list(match_validation.get("hard_blockers") or [])
+        if cert_values.get("parse_status") in BLOCKED_PARSE_STATUSES:
+            auto_match_blockers.append(
+                f"규칙 판정 상태를 확인해야 합니다: {cert_values.get('parse_status')}"
+            )
+        if not top_match or int(top_match.get("score") or 0) < 150:
+            auto_match_blockers.append("선택된 메일 항목의 PMF 매칭 점수가 부족합니다.")
+
+        auto_match_blockers = list(dict.fromkeys(auto_match_blockers))
+        auto_match = bool(
+            top_match
+            and int(top_match.get("score") or 0) >= 150
+            and match_validation.get("auto_selectable")
+            and not auto_match_blockers
+        )
+
+        rows.append(
+            {
+                "ocr_job_id": job.get("id"),
+                "filename": job.get("filename"),
+                "source_path": job.get("source_path"),
+                "status": job.get("status"),
+                "certificate": cert_values,
+                "request_id": request_context.get("request_id", ""),
+                "mail_subject": (request_context.get("mail_log") or {}).get("subject", ""),
+                "mail_type": (request_context.get("mail_log") or {}).get("mail_type", ""),
+                "attachment_index": match_validation.get("attachment_index"),
+                "matched_mail_item": selected_mail_item,
+                "match_validation": match_validation,
+                "top_pmf_match": top_match,
+                "selected_pmf_matches": selected_matches,
+                "pmf_candidate_groups": pmf_groups,
+                "auto_match": auto_match,
+                "auto_match_blockers": auto_match_blockers,
+            }
+        )
+
+    return {
+        "ok": True,
+        "count": len(rows),
+        "root_path": str(get_halal_raw_material_root()),
+        "rows": rows,
+    }

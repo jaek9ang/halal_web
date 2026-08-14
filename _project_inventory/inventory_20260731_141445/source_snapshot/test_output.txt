@@ -1,0 +1,80 @@
+{
+  "ok": true,
+  "records_tested": 517,
+  "unique_documents": 144,
+  "runtime_errors": 0,
+  "duplicate_function_definitions": {},
+  "status_counts": {
+    "LOW_CONFIDENCE": 283,
+    "BPJPH_MAINTENANCE_ONLY": 56,
+    "NON_CERTIFICATE_DOC": 24,
+    "FILENAME_ONLY": 10,
+    "RULE_MATCHED": 62,
+    "SCANNED_NEED_OCR": 18,
+    "TESSERACT_ERROR": 64
+  },
+  "targeted_regressions": [
+    {
+      "ocr_job_id": 509,
+      "filename": "HALAL-REQ-20260504-365CEC9A__001__L-글루탐산 HALAL by 28.05.17.pdf",
+      "passed": true,
+      "checked": {
+        "cert_no": "ARA-504254310625-1",
+        "expiry_date": "2028-05-17"
+      }
+    },
+    {
+      "ocr_job_id": 499,
+      "filename": "HALAL-REQ-20260504-6EF9F444__005__Halal 04 04 2028(JUHF).pdf",
+      "passed": true,
+      "checked": {
+        "cert_no": "JUHF-0409-0240",
+        "expiry_date": "2028-04-04"
+      }
+    },
+    {
+      "ocr_job_id": 438,
+      "filename": "136_1. FATTY ACIDS(lOI)[JAKIM_2029-05-15]비.pdf",
+      "passed": true,
+      "checked": {
+        "expiry_date": "2029-05-15"
+      }
+    },
+    {
+      "ocr_job_id": 429,
+      "filename": "36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf",
+      "passed": true,
+      "checked": {
+        "cert_no": "284-TSRU/24"
+      }
+    },
+    {
+      "ocr_job_id": 227,
+      "filename": "167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf",
+      "passed": true,
+      "checked": {
+        "expiry_date": "2025-10-14"
+      }
+    }
+  ],
+  "context_tests": [
+    {
+      "case": "verified_mail_pmf_context",
+      "passed": true
+    },
+    {
+      "case": "org_conflict_blocks_and_preserves_ocr",
+      "passed": true
+    },
+    {
+      "case": "canonical_maker_with_date_regression_block",
+      "passed": true
+    },
+    {
+      "case": "context_reliability_high",
+      "passed": true
+    }
+  ]
+}
+
+테스트 보고서: /mnt/data/ocr_rule_v2_package/ocr_rule_v2_test_report.json

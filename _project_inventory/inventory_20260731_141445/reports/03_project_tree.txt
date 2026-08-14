@@ -1,0 +1,2138 @@
+﻿C:\Users\user\OneDrive\바탕 화면\한재광\회사SW\DT준전문가교육\DLAB\SW Project\halal_web
+[D] .git
+    ... 제외 폴더
+[D] .runtime
+    [F] run_backend.ps1
+    [F] run_backend.ps1.bak_20260731_135415
+    [F] run_backend.ps1.bak_20260731_135833
+    [F] run_backend.ps1.bak_20260731_135847
+    [F] run_backend.ps1.bak_20260731_140008
+    [F] run_backend.ps1.bak_20260731_140046
+    [F] run_backend.ps1.bak_20260731_140251
+    [F] run_frontend.ps1
+    [F] run_frontend.ps1.bak_20260731_135415
+[D] .tmp_confirm_integration_test
+    [D] pmf_backups
+    [D] raw_material
+        [D] 62. NAT SHALLOT FLAVOR(962539)(SYMRISE)_ⓗ주
+    [F] active_pmf_test_copy.xlsm
+    [F] pmf_app_test.db
+[D] .venv
+    ... 제외 폴더
+[D] .vscode
+    [F] settings.json
+[D] __pycache__
+    ... 제외 폴더
+[D] _ml_integration_review
+    [D] backend
+        [D] app
+            [D] core
+                [F] config.py
+            [D] routers
+                [F] ocr.py
+            [D] services
+                [F] certificate_rule_service.py
+                [F] material_link_service.py
+                [F] ocr_context_service.py
+                [F] ocr_service.py
+            [F] main.py
+        [F] requirements.txt
+    [D] frontend
+        [D] src
+            [F] api.js
+            [F] App.jsx
+[D] _patch_backups
+    [D] all_junction_paths_20260630_110223
+        [D] backend
+            [D] app
+                [D] core
+                    [F] path_utils.py
+                [D] services
+                    [F] ocr_test_service.py
+    [D] certificate_filing_phase2_1_20260625_005746
+        [D] app
+            [D] services
+                [F] certificate_filing_workflow_service.py
+                [F] mail_request_item_service.py
+    [D] certificate_filing_phase2_20260625_000608
+        [D] app
+            [D] routers
+                [F] certificate_filing.py
+            [D] services
+                [F] certificate_filing_workflow_service.py
+                [F] mail_request_item_service.py
+                [F] pmf_filing_service.py
+            [F] main.py
+        [D] scripts
+            [F] test_certificate_filing_phase2.py
+    [D] css_line_clamp_20260727_085914
+        [D] frontend
+            [D] src
+                [F] App.css
+    [D] ml_classifier_phase1_20260727_085122
+        [D] backend
+            [F] requirements.txt
+        [F] backup_info.txt
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_after.txt
+        [F] pip_freeze_before.txt
+    [D] ml_classifier_phase2_ocr_20260727_091505
+        [D] backend
+            [F] requirements.txt
+        [D] frontend
+            [D] src
+                [F] App.css
+        [F] backup_info.txt
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_after.txt
+        [F] pip_freeze_before.txt
+    [D] ml_classifier_phase3_20260727_111751
+        [D] backend
+            [F] requirements.txt
+        [F] backup_info.txt
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_after.txt
+        [F] pip_freeze_before.txt
+    [D] ml_classifier_phase3b_label_fix_20260727_114115
+        [D] backend
+            [D] scripts
+                [D] ml_certificate_classifier
+                    [F] 02_train_classifier.py
+        [D] runtime
+            [F] current_dataset_before.txt
+            [F] current_model_before.txt
+            [F] latest_model_training_before.txt
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_before.txt
+    [D] ml_field_labels_phase4a_20260727_174321
+        [F] git_status_before.txt
+        [F] pip_freeze.txt
+    [D] ml_field_labels_phase4a_20260727_175411
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze.txt
+    [D] ml_field_labels_phase4a2_20260728_135717
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_before.txt
+    [D] ml_field_rankers_phase4b_20260728_142316
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_before.txt
+    [D] ml_field_span_rankers_phase4b2_20260728_144231
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_before.txt
+    [D] ml_product_items_phase4c_20260728_150520
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_before.txt
+    [D] ml_product_ocr_bias_phase4c1_20260728_161110
+        [F] git_diff_before.patch
+        [F] git_status_before.txt
+        [F] pip_freeze_before.txt
+    [D] ocr_rule_v2_20260629_141556
+        [F] certificate_rule_service.py
+        [F] ocr_context_service.py
+        [F] ocr_service.py
+    [D] storage_fallback_20260629_172449
+        [D] backend
+            [D] app
+                [D] core
+                    [F] config.py
+                [D] services
+                    [F] filing_name_service.py
+    [D] storage_fallback_20260629_172457
+        [D] backend
+            [D] app
+                [D] core
+                    [F] config.py
+                [D] services
+                    [F] filing_name_service.py
+                    [F] storage_path_service.py
+            [D] scripts
+                [F] audit_storage_paths.ps1
+                [F] start_demo_backend.ps1
+                [F] test_filing_storage.py
+                [F] test_ocr_api.py
+    [D] storage_fallback_20260629_172547
+        [D] backend
+            [D] app
+                [D] core
+                    [F] config.py
+                [D] services
+                    [F] filing_name_service.py
+                    [F] storage_path_service.py
+            [D] scripts
+                [F] audit_storage_paths.ps1
+                [F] start_demo_backend.ps1
+                [F] test_filing_storage.py
+                [F] test_ocr_api.py
+    [D] storage_fallback_20260629_172604
+        [D] backend
+            [D] app
+                [D] core
+                    [F] config.py
+                [D] services
+                    [F] filing_name_service.py
+                    [F] storage_path_service.py
+            [D] scripts
+                [F] audit_storage_paths.ps1
+                [F] start_demo_backend.ps1
+                [F] test_filing_storage.py
+                [F] test_ocr_api.py
+    [D] storage_fallback_20260629_172618
+        [D] backend
+            [D] app
+                [D] core
+                    [F] config.py
+                [D] services
+                    [F] filing_name_service.py
+                    [F] storage_path_service.py
+            [D] scripts
+                [F] audit_storage_paths.ps1
+                [F] start_demo_backend.ps1
+                [F] test_filing_storage.py
+                [F] test_ocr_api.py
+    [D] synthetic_scan_core_field_eval_20260729_095029
+    [D] synthetic_scan_generator_20260728_172715
+    [D] synthetic_scan_generator_20260728_172920
+        [D] backend
+            [D] scripts
+                [D] ml_data_augmentation
+                    [F] 01_make_synthetic_scan_pdfs.py
+    [D] synthetic_scan_ocr_evaluation_20260729_075914
+    [D] synthetic_training_pack_20260729_113500
+[D] _project_inventory
+    ... 제외 폴더
+[D] backend
+    [D] app
+        [D] __pycache__
+            ... 제외 폴더
+        [D] core
+            [D] __pycache__
+                ... 제외 폴더
+            [F] __init__.py
+            [F] config.py
+            [F] path_utils.py
+            [F] path_utils.py.bad_20260630_101955
+            [F] path_utils.py.bad_20260630_102217
+        [D] db
+        [D] ml
+            [D] __pycache__
+                ... 제외 폴더
+            [D] certificate_classifier
+                [D] __pycache__
+                    ... 제외 폴더
+                [F] __init__.py
+                [F] config.py
+                [F] predictor.py
+                [F] text_extractor.py
+            [D] field_extraction
+                [D] __pycache__
+                    ... 제외 폴더
+                [F] __init__.py
+                [F] predictor.py
+                [F] span_predictor.py
+            [F] __init__.py
+        [D] routers
+            [D] __pycache__
+                ... 제외 폴더
+            [F] __init__.py
+            [F] ai_rule_review.py
+            [F] cert_template.py
+            [F] certificate_filing.py
+            [F] certificate_filing.py.backup_20260701_181712
+            [F] certificate_filing_backup_20260630_170903_415657.py
+            [F] certificate_filing_backup_20260701_112456_081677.py
+            [F] lhln.py
+            [F] mail.py
+            [F] ocr.py
+            [F] ocr_backup_20260701_152442_725388.py
+            [F] pmf.py
+            [F] suppliers.py
+        [D] services
+            [D] __pycache__
+                ... 제외 폴더
+            [F] __init__.py
+            [F] ai_rule_review_service.py
+            [F] cert_template_service.py
+            [F] certificate_change_service.py
+            [F] certificate_change_service.py.backup_20260701_180121
+            [F] certificate_change_service.py.backup_20260701_181120
+            [F] certificate_change_service_backup_20260630_163235.py
+            [F] certificate_filing_service.py
+            [F] certificate_filing_workflow_service.py
+            [F] certificate_filing_workflow_service.py.backup_20260701_172348
+            [F] certificate_filing_workflow_service.py.backup_20260701_180617
+            [F] certificate_filing_workflow_service.py.backup_20260701_181120
+            [F] certificate_filing_workflow_service_backup_20260630_161149.py
+            [F] certificate_filing_workflow_service_backup_20260630_163235.py
+            [F] certificate_filing_workflow_service_backup_20260630_170903_415657.py
+            [F] certificate_filing_workflow_service_backup_20260630_172235_239488.py
+            [F] certificate_filing_workflow_service_backup_20260630_173152_053434.py
+            [F] certificate_filing_workflow_service_backup_20260630_173825_551383.py
+            [F] certificate_filing_workflow_service_backup_20260701_100916_077000.py
+            [F] certificate_filing_workflow_service_backup_20260701_104558_642867.py
+            [F] certificate_filing_workflow_service_broken_20260630_161327.py
+            [F] certificate_rule_profile_service.py
+            [F] certificate_rule_service.py
+            [F] certificate_rule_service.py.bak
+            [F] certificate_rule_service.py.bak_20260630_112826
+            [F] certificate_rule_service.py.bak_20260630_112843
+            [F] certificate_rule_service.py.bak_20260630_130239
+            [F] certificate_rule_service.py.bak_20260630_130254
+            [F] certificate_rule_service.py.bak_20260630_130423
+            [F] certificate_rule_service.py.bak_final_delta
+            [F] certificate_rule_service.py.bak_isa_delta
+            [F] certificate_rule_service.py.bak_rule_ara_juhf_bpjph_mu
+            [F] certificate_rule_service.py.bak_rule_fix_20260604_2
+            [F] certificate_rule_service_backup_20260701_144029_184472.py
+            [F] filing_name_service.py
+            [F] halal_doc_service.py
+            [F] lhln_service.py
+            [F] mail_inbox_service.py
+            [F] mail_receive_service.py
+            [F] mail_request_item_service.py
+            [F] mail_request_item_service.py.backup_20260701_172348
+            [F] mail_request_item_service_backup_20260702_180941.py
+            [F] mail_service.py
+            [F] material_link_service.py
+            [F] ocr_context_service.py
+            [F] ocr_exporter.py
+            [F] ocr_exporter.py.bak
+            [F] ocr_service.py
+            [F] ocr_service.py.bak_ocr_rule_v2_20260629_141556
+            [F] ocr_service_backup_20260701_155912_790134.py
+            [F] ocr_test_service.py
+            [F] pmf_filing_service.py
+            [F] pmf_filing_service_backup_20260701_092937_601029.py
+            [F] pmf_service.py
+            [F] pmf_service.py.backup_20260701_172348
+            [F] rule_apply_service.py
+            [F] rule_candidate_service.py
+            [F] rule_validation_service.py
+            [F] storage_path_service.py
+            [F] supplier_service.py
+        [F] main.py
+    [D] cache
+        [D] source_pmf
+            [D] pmf_backups
+                [F] active_pmf_20260701_231426_219486.xlsm
+                [F] active_pmf_20260701_231730_842053.xlsm
+                [F] active_pmf_20260701_232252_145241.xlsm
+            [F] active_pmf.xlsm
+            [F] active_pmf_meta.json
+    [D] data
+        [D] filing
+            [F] certificate_filing_history.jsonl
+        [D] mail_downloads
+            [D] _unmatched
+                [D] 2026-04-13
+                    [D] MAIL-20260413_144703-413890
+                        [D] attachments
+                            ... 깊이 제한
+                        [F] body.txt
+                        [F] mail_meta.json
+                [D] 2026-04-14
+                    [D] MAIL-20260414_165905-831399
+                        [D] attachments
+                            ... 깊이 제한
+                        [F] body.txt
+                        [F] mail_meta.json
+                [D] 2026-04-16
+                    [D] MAIL-20260416_140659-647051
+                        [D] attachments
+                            ... 깊이 제한
+                        [F] body.txt
+                        [F] mail_meta.json
+                [D] 20260430_082649_yeojin.jang@sajo.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__image001.png
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260430_083431_ko113202@nate.com
+                    [D] attachments
+                        [F] UNMATCHED__001__양지뜰 양조 간장.jpg
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260430_111956_yeojin.jang@sajo.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__image001.png
+                        [F] UNMATCHED__002__제품 원산지 증명서_말토덱스트린.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260430_140702_jhsong1@dynesoze.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__견적서(세우)260430.pdf
+                        [F] UNMATCHED__002__api+20+a.pdf
+                        [F] UNMATCHED__003__견적서2(세우)260430.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260430_154912_ko113202@nate.com
+                    [D] attachments
+                        [F] UNMATCHED__001__양지뜰진간장.jpg
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260430_163919_yhkim@seoulfnf.com
+                    [D] attachments
+                        [F] UNMATCHED__001__간장향_NS-40500_원료확인서.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-05-04
+                    [D] MAIL-20260504_084328-104187
+                        [D] attachments
+                            ... 깊이 제한
+                [D] 20260504_084328_hyunseung.yoo@lotte.net
+                    [D] attachments
+                        [F] UNMATCHED__001__NG대두유(네덜란드,러시아,태국) NG Certi.zip
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260504_094828_hwalim@kewi.re.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__EU-260106.pdf
+                        [F] UNMATCHED__002__EU-260106-E.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260504_100838_parkhs@honeybee.or.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__바지락살(국산) 원산지증명서.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260505_150219_whaaodm02@dongbangfood.com
+                    [D] attachments
+                        [F] UNMATCHED__001__카놀라탈검유_수입필증,확인증.pdf
+                        [F] UNMATCHED__002__대두_수입신고필증_2026 미국 브라질.pdf
+                        [F] UNMATCHED__003__대두_수입신고필증_2026 (파라과이 25년) (1).pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-05-06
+                    [D] MAIL-20260506_090722-010950
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260506_140621-047916
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260506_151959-047916
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260506_153918-409427
+                        [D] attachments
+                            ... 깊이 제한
+                [D] 20260506_090722_ug.lee@lotte.net
+                    [D] attachments
+                        [F] UNMATCHED__001__각 업체별 제품별 현황 및 공인시험성적서 제출 요청 양식.xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_134912_whs00317@gmail.com
+                    [D] attachments
+                        [F] UNMATCHED__001__세우 원료_리스트_260506.xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_140621_saemyi.kwon@bonchon.com
+                    [D] attachments
+                        [F] UNMATCHED__001__image.png
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_142509_hjhan@tkfood.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__전달 이미지
+                        [F] UNMATCHED__002__hjhan@tkfood_637782819212977204.PNG
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_150515_hometaxadmin@hometax.go.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__NTS_eTaxInvoice.html
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_151959_saemyi.kwon@bonchon.com
+                    [D] attachments
+                        [F] UNMATCHED__001__Outlook-55y24fa4.png
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_153918_leehyemin9809@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__간장분말NM 구분유통증명서.pdf
+                        [F] UNMATCHED__002__본양조간장N 구분유통증명서.pdf
+                        [F] UNMATCHED__003__분말고추장2호 구분유통증명서.pdf
+                        [F] UNMATCHED__004__분말김치국물2호NM 구분유통증명서.pdf
+                        [F] UNMATCHED__005__비프엑기스SW-10 구분유통증명서.pdf
+                        [F] UNMATCHED__006__소고기분말TN 구분유통증명서.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260506_163830_hwshin@dhflour.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__세우_수입신고필증 확인증.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-05-07
+                    [D] MAIL-20260507_090543-570308
+                        [D] attachments
+                            ... 깊이 제한
+                [D] 20260507_090543_jinjucom2@daum.net
+                    [D] attachments
+                        [F] UNMATCHED__001__조영본 명함.PNG
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260507_100218_info@martiankorea.com
+                    [D] attachments
+                        [F] UNMATCHED__001__20260507-(주)세우 견적서.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-05-08
+                    [D] MAIL-20260508_101826-546905
+                        [D] attachments
+                            ... 깊이 제한
+                [D] 20260508_101826_pys96@nongshimtk.com
+                    [D] attachments
+                        [F] UNMATCHED__001__농심태경 안성공장_협력업체별 원료 리스트_2026년_전송용_내수원료.xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260508_112744_info@martiankorea.com
+                    [D] attachments
+                        [F] UNMATCHED__001__20260508-세우 박정현 대리님 한길 오토클레이브 견적서.pdf
+                        [F] UNMATCHED__002__한길 오토클레이브 카탈로그.pdf
+                        [F] UNMATCHED__003__20260508-세우 박정현 대리님 비전 오토클레이브 견적서.pdf
+                        [F] UNMATCHED__004__비전 오토클레이브 카탈로그.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260508_140043_djh1788@nongshimtk.com
+                    [D] attachments
+                        [F] UNMATCHED__001__농심태경 대구공장_미국 알레르기물질_확인 요청 List_추가요청(2022~2024년 입고분).xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260508_154659_qc@isaacfood.com
+                    [D] attachments
+                        [F] UNMATCHED__001__(주)팔도_피스타치오_교차오염_확인.xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260508_163058_qc@isaacfood.com
+                    [D] attachments
+                        [F] UNMATCHED__001__피스타치오_함유_및_교차오염_확인표_제품명.xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-05-11
+                    [D] MAIL-20260511_112058-065057
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260511_112058-068374
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260511_112058-385923
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260511_112058-494204
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260511_112058-951816
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260511_112058-988183
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260511_143139-761900
+                        [D] attachments
+                            ... 깊이 제한
+                [D] 20260511_104515_srb_lab@casinbio.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__잔류농약 510종 성적서 2025.09.29 올레오레진 생강.pdf
+                        [F] UNMATCHED__002__잔류농약510종성적서 2025.02.21 파프리카추출색소 (스페인) EVESA.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_110351_jisulog@dhflour.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__260417 자율개선요청서_세우.xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_112058_whfood@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__홍합엑기스NM-2 할랄인증서.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_142213_jung924992@gmail.com
+                    [D] attachments
+                        [F] UNMATCHED__001__설민 명함.jpg
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_143115_jaek_ing@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__sigpdfsnqkpmvqlluji.jpg
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_143129_jaek_ing@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__sigzniozebqonycyflf.jpg
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_143139_jaek_ing@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__sigfgfufbydrhqtgakl.jpg
+                        [F] UNMATCHED__002__세우 특별방제 결과보고서 (26년 04월).pdf
+                        [F] UNMATCHED__003__세우 특별방제 결과보고서 (26년 04월).pptx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260511_173941_tk8560@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__Specificate_sheet_Chilli_Extract_Powder_TK.doc
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-05-12
+                    [D] MAIL-20260512_084140-250879
+                        [D] attachments
+                            ... 깊이 제한
+                    [D] MAIL-20260512_092713-314762
+                        [D] attachments
+                            ... 깊이 제한
+                [D] 20260512_073006_sw200011@daum.net
+                    [D] attachments
+                        [F] UNMATCHED__001__260429_애호박_중금속.pdf
+                        [F] UNMATCHED__002__260429_애호박_510종 잔류농약.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260512_074737_seconz@catchers.co.kr
+                    [D] attachments
+                        [F] UNMATCHED__001__siggzqiwgunxxdfrbfv.jpg
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260512_083058_kdg4m@hanmail.net
+                    [D] attachments
+                        [F] UNMATCHED__001__Specificate_sheet_Chilli_Extract_Powder_TK.doc
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260512_084140_eklee34@dongwon.com
+                    [D] attachments
+                        [F] UNMATCHED__001__동원홈푸드신규원료필요양식(25년8월).xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 20260512_092713_mins3001@naver.com
+                    [D] attachments
+                        [F] UNMATCHED__001__동원홈푸드신규원료필요양식(25년8월).xlsx
+                    [F] body.txt
+                    [F] mail_meta.json
+                [D] 2026-06-01
+                    [D] MAIL-20260601_155903-065849
+                        [D] attachments
+                            ... 깊이 제한
+                        [F] body.txt
+                        [F] mail_meta.json
+            [D] 2026-05-04
+                [D] HALAL-REQ-20260504-61460534
+                    [D] attachments
+                [D] HALAL-REQ-20260504-6EF9F444
+                    [D] attachments
+                [D] HALAL-REQ-20260504-A4244390
+                    [D] attachments
+            [D] 2026-05-05
+                [D] HALAL-REQ-20260504-059852B5
+                    [D] attachments
+            [D] 2026-05-06
+                [D] HALAL-REQ-20260504-0D1E1B8B
+                    [D] attachments
+                [D] HALAL-REQ-20260504-3827036A
+                    [D] attachments
+                [D] HALAL-REQ-20260504-4BFCC05F
+                    [D] attachments
+                [D] HALAL-REQ-20260504-7653D3EE
+                    [D] attachments
+                [D] HALAL-REQ-20260504-798B933F
+                    [D] attachments
+                [D] HALAL-REQ-20260504-9160F2AA
+                    [D] attachments
+                [D] HALAL-REQ-20260504-A5A479FF
+                    [D] attachments
+                [D] HALAL-REQ-20260504-B84B32F4
+                    [D] attachments
+                [D] HALAL-REQ-20260504-BE6E2BFD
+                    [D] attachments
+                [D] HALAL-REQ-20260504-F0C466EC
+                    [D] attachments
+            [D] 2026-05-07
+                [D] HALAL-REQ-20260504-4493D808
+                    [D] attachments
+                [D] HALAL-REQ-20260504-4A0E6AEA
+                    [D] attachments
+                [D] HALAL-REQ-20260504-FF0A6E69
+                    [D] attachments
+            [D] 2026-05-08
+                [D] HALAL-REQ-20260504-096B0407
+                    [D] attachments
+                [D] HALAL-REQ-20260504-40128340
+                    [D] attachments
+                [D] HALAL-REQ-20260504-D9FDDA69
+                    [D] attachments
+            [D] 2026-05-21
+                [D] HALAL-REQ-20260504-73B3120C
+                    [D] attachments
+                        [F] HALAL-REQ-20260504-73B3120C__001__[전분당] KMF HALAL Corn Starch etc. 9 (~27.12.07)_(재)발효미생물산업진흥원(한국미생물).pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+            [D] 2026-05-22
+                [D] HALAL-REQ-20260504-365CEC9A
+                    [D] attachments
+                        [F] HALAL-REQ-20260504-365CEC9A__001__L-글루탐산 HALAL by 28.05.17.pdf
+                        [F] HALAL-REQ-20260504-365CEC9A__002__HALAL Certificate (~2028.12.24).pdf
+                        [F] HALAL-REQ-20260504-365CEC9A__003__NU55_할랄서류.pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+            [D] 2026-05-26
+                [D] HALAL-REQ-20260504-1874ECAD
+                    [D] attachments
+                        [F] HALAL-REQ-20260504-1874ECAD__001__962539 Halal (~'28.05.31).pdf
+                    [F] body.txt
+                    [F] mail_meta.json
+            [D] HALAL-REQ-20260504-0127D0FA
+                [D] attachments
+                    [F] HALAL-REQ-20260504-0127D0FA__001__BPJPH_교차인정기관_안내.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-059852B5
+                [D] attachments
+                    [F] HALAL-REQ-20260504-059852B5__001__신양_할랄인증서(BPJPH)_Seasoning_26.03.12~유효기간없음.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-096B0407
+                [D] attachments
+                    [F] HALAL-REQ-20260504-096B0407__001__image001.png
+                    [F] HALAL-REQ-20260504-096B0407__002__Halal Certificate ZFS 26-27.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-0D1E1B8B
+                [D] attachments
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-1874ECAD
+                [D] attachments
+                    [F] HALAL-REQ-20260504-1874ECAD__001__BPJPH_교차인정기관_안내.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-365CEC9A
+                [D] attachments
+                    [F] HALAL-REQ-20260504-365CEC9A__001__BPJPH_교차인정기관_안내.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-3827036A
+                [D] attachments
+                    [F] HALAL-REQ-20260504-3827036A__001__2025-2026 Halal Certificate Warden, WA.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-40128340
+                [D] attachments
+                    [F] HALAL-REQ-20260504-40128340__001__3023462 Halal Certificate KR EN 20260506.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-4493D808
+                [D] attachments
+                    [F] HALAL-REQ-20260504-4493D808__001__할랄 인증서 갱신 해당 없음 회신(26.05.06).pdf
+                    [F] HALAL-REQ-20260504-4493D808__002__세제 SJM-50WAG (GHS-MSDS).pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-4A0E6AEA
+                [D] attachments
+                    [F] HALAL-REQ-20260504-4A0E6AEA__001__HEBEI HUAYANG BPJPH HALAL 인증서(유효기간 없음).pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-4BFCC05F
+                [D] attachments
+                    [F] HALAL-REQ-20260504-4BFCC05F__001__Ohly GmbH - Halal Certificate valid_2026-10-31_DE_V01.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-61460534
+                [D] attachments
+                    [F] HALAL-REQ-20260504-61460534__001__image_1
+                    [F] HALAL-REQ-20260504-61460534__002__image_2
+                    [F] HALAL-REQ-20260504-61460534__003__[말토덱스트린] Halal Certificate (2028.03.15 만료).pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-6EF9F444
+                [D] attachments
+                    [F] HALAL-REQ-20260504-6EF9F444__001__halal certificate profiles.jpg
+                    [F] HALAL-REQ-20260504-6EF9F444__002__halal certificate profiles(번역본).jpg
+                    [F] HALAL-REQ-20260504-6EF9F444__003__## HALAL STATEMENT(Permanent Certification Status).pdf
+                    [F] HALAL-REQ-20260504-6EF9F444__004__##인도네시아 정부 HALAL CERTIFICATE(BPJPH)(-2026.04.28, 자동 갱신).pdf
+                    [F] HALAL-REQ-20260504-6EF9F444__005__Halal 04 04 2028(JUHF).pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-743C7975
+                [D] attachments
+                    [F] HALAL-REQ-20260504-743C7975__001__BPJPH_교차인정기관_안내.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-7653D3EE
+                [D] attachments
+                    [F] HALAL-REQ-20260504-7653D3EE__001__4.감초엑기스[H](MUI28.12.18).pdf
+                    [F] HALAL-REQ-20260504-7653D3EE__002__11.우스타소스(S)(MUI28.12.18).pdf
+                    [F] HALAL-REQ-20260504-7653D3EE__003__MUI HALAL Certificate (28.12.18).pdf
+                    [F] HALAL-REQ-20260504-7653D3EE__004__하얀설탕(삼양사) - KMF 할랄인증서 (~2028.12.24).pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-798B933F
+                [D] attachments
+                    [F] HALAL-REQ-20260504-798B933F__001__image001.png
+                    [F] HALAL-REQ-20260504-798B933F__002__BPJPH HALAL certi SAJO CPK_Syrup_Icheon.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-9160F2AA
+                [D] attachments
+                    [F] HALAL-REQ-20260504-9160F2AA__001__Halal Certificate-BSP exp31.12.2026.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-A4244390
+                [D] attachments
+                    [F] HALAL-REQ-20260504-A4244390__001__[SMS] KREATION KE8 (Exp. Oct 14, 2026).pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-A5A479FF
+                [D] attachments
+                    [F] HALAL-REQ-20260504-A5A479FF__001__2026 Halal_SI MA France.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-B84B32F4
+                [D] attachments
+                    [F] HALAL-REQ-20260504-B84B32F4__001__Halal(2025-2026) HCA 212 JAKIM NEDSPICE PROCESSING VIETNAM LIMITED.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-BDD7030C
+                [D] attachments
+                    [F] HALAL-REQ-20260504-BDD7030C__001__BPJPH_교차인정기관_안내.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-BE6E2BFD
+                [D] attachments
+                    [F] HALAL-REQ-20260504-BE6E2BFD__001__Kalizea_HCE_GSO_Halal_Certificate_2026.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-D9FDDA69
+                [D] attachments
+                    [F] HALAL-REQ-20260504-D9FDDA69__001__Halal certificate 2026 - 2027.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-F0C466EC
+                [D] attachments
+                    [F] HALAL-REQ-20260504-F0C466EC__001__HALAL HFQ EVESA 2026-2027.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-FE43759C
+                [D] attachments
+                    [F] HALAL-REQ-20260504-FE43759C__001__BPJPH_교차인정기관_안내.pdf
+                [F] body.txt
+                [F] mail_meta.json
+            [D] HALAL-REQ-20260504-FF0A6E69
+                [D] attachments
+                    [F] HALAL-REQ-20260504-FF0A6E69__001__Certificate(MUI)-Chenguang-~270328.pdf
+                    [F] HALAL-REQ-20260504-FF0A6E69__002__Evesa_TK50 제품에 대한 할랄인증서HALAL_HFQ_EVESA_2026-2027.pdf
+                [F] body.txt
+                [F] mail_meta.json
+        [D] ocr_exports
+            [D] ocr_data_export_20260602_132303
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_134447
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_141439
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_142418
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_145411
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_145426
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_150445
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_153727
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_155144
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_160041
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260602_160434
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260603_083850
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260603_092216
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260603_105352
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260604_080645
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260604_081210
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260604_131915
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260605_090136
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260605_114351
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260605_114409
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260605_114435
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260605_114518
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [D] ocr_data_export_20260629_102333
+                [F] combined_ocr_text.md
+                [F] export.jsonl
+                [F] summary.csv
+            [F] classification_ready_20260701_163227.csv
+            [F] combined_ocr_text.md
+            [F] export.jsonl
+            [F] export_meta.json
+            [F] filing_candidates_profile_20260701_171625.prof
+            [F] filing_candidates_profile_20260701_171625.txt
+            [F] filing_candidates_profile_20260701_172656.prof
+            [F] filing_candidates_profile_20260701_172656.txt
+            [F] ocr_data_export_20260602_132303.zip
+            [F] ocr_data_export_20260602_134447.zip
+            [F] ocr_data_export_20260602_141439.zip
+            [F] ocr_data_export_20260602_142418.zip
+            [F] ocr_data_export_20260602_145411.zip
+            [F] ocr_data_export_20260602_145426.zip
+            [F] ocr_data_export_20260602_150445.zip
+            [F] ocr_data_export_20260602_153727.zip
+            [F] ocr_data_export_20260602_155144.zip
+            [F] ocr_data_export_20260602_160041.zip
+            [F] ocr_data_export_20260602_160434.zip
+            [F] ocr_data_export_20260603_083850.zip
+            [F] ocr_data_export_20260603_092216.zip
+            [F] ocr_data_export_20260603_105352.zip
+            [F] ocr_data_export_20260604_080645.zip
+            [F] ocr_data_export_20260604_081210.zip
+            [F] ocr_data_export_20260604_131915.zip
+            [F] ocr_data_export_20260605_090136.zip
+            [F] ocr_data_export_20260605_114351.zip
+            [F] ocr_data_export_20260605_114409.zip
+            [F] ocr_data_export_20260605_114435.zip
+            [F] ocr_data_export_20260605_114518.zip
+            [F] ocr_data_export_20260629_102333.zip
+            [F] ocr_manual_review_20260701_163227.csv
+            [F] ocr_rule_audit_20260701_163227.csv
+            [F] ocr_rule_audit_20260701_163227.json
+            [F] summary.csv
+            [F] tesseract_rerun_batch_20260701_160744.json
+            [F] tesseract_rerun_batch_20260701_162108.json
+            [F] tesseract_rerun_batch_20260701_162718.json
+        [D] ocr_test_uploads
+            [D] 20260518_160434_109270
+                [F] 126. Seafood Seasoning Paste-S(Naturals)[MUI_2028-08-13]내.pdf
+            [D] 20260518_160434_359891
+                [F] 130_7. FIRMTEX(INGREDIO)[IFANCA_2025-09-30]G.pdf
+            [D] 20260518_160434_591334
+                [F] 132. Paprika OLEORSIN-HFCE(2024-10-31).pdf
+            [D] 20260518_160434_985594
+                [F] 110_1_4. Dextrozyme(Novozyme)[HQC_2028-07-01]대.pdf
+            [D] 20260518_160435_330322
+                [F] 117. Non-GMO Soybean Meal(Zeeland)[IFANCA_2026-05-31]타.pdf
+            [D] 20260518_160435_494647
+                [F] 119. Oleoresin Capsicum-HFCE(2024-10-31).pdf
+            [D] 20260518_160435_717429
+                [F] 120. Paprika OLEORSIN(EVESA)[HFQ_2026-04-10]T.pdf
+            [D] 20260518_160435_946128
+                [F] 122. Protease-Promod 278 MDP)(BIOCATAL)[HQC_2026-04-15]B.pdf
+            [D] 20260518_160436_159639
+                [F] 124. Flo-max 8(blend)(NATIONAL)[CICOT_2025-09-19].pdf
+            [D] 20260518_160506_146381
+                [F] 117. Non-GMO Soybean Meal(Zeeland)[IFANCA_2026-05-31]타.pdf
+            [D] 20260518_160506_292921
+                [F] 119. Oleoresin Capsicum-HFCE(2024-10-31).pdf
+            [D] 20260518_160506_419033
+                [F] 120. Paprika OLEORSIN(EVESA)[HFQ_2026-04-10]T.pdf
+            [D] 20260518_160506_591842
+                [F] 122. Protease-Promod 278 MDP)(BIOCATAL)[HQC_2026-04-15]B.pdf
+            [D] 20260518_160506_769692
+                [F] 124. Flo-max 8(blend)(NATIONAL)[CICOT_2025-09-19].pdf
+            [D] 20260518_160507_824190
+                [F] 126. Seafood Seasoning Paste-S(Naturals)[MUI_2028-08-13]내.pdf
+            [D] 20260518_160507_997068
+                [F] 130_7. FIRMTEX(INGREDIO)[IFANCA_2025-09-30]G.pdf
+            [D] 20260518_160508_179336
+                [F] 132. Paprika OLEORSIN-HFCE(2024-10-31).pdf
+            [D] 20260518_160508_360332
+                [F] 135. Flo-max 8(blend)-CICOT(2024-09-19).pdf
+            [D] 20260518_160510_789161
+                [F] 136_1. FATTY ACIDS(lOI)[JAKIM_2029-05-15]비.pdf
+            [D] 20260518_160512_619175
+                [F] 151. KREATIONⓡKE8-CICOT(2023-10-14).pdf
+            [D] 20260518_160514_415165
+                [F] 155. Beef Type Flavor(Givaudan)[IFANCA_2026-05-31]G.pdf
+            [D] 20260518_160514_500181
+                [F] 162-1.Crude Rice Bran Oil,WILMAR AGRO VIETNAM COMPANY LIMITED社-Halal Certification Agency (HCA)(2021-07-31).pdf
+            [D] 20260518_160515_069435
+                [F] 165_8. Potassium sulfate(K+S)[HALAL CONTROL_2026-08-15].pdf
+            [D] 20260518_160515_225641
+                [F] 167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf
+            [D] 20260518_160515_350673
+                [F] 168. Beef Type Flavor-IFANCA(2024-05-31).pdf
+            [D] 20260518_160515_453081
+                [F] 220217 HEBEI HUAYANG BPJPH HALAL 인증서 프롤린 글루타민 메티오닌.pdf
+            [D] 20260518_160515_593314
+                [F] 220908 Dextrin_BPJPH(YISHIU DADI).pdf
+            [D] 20260518_160515_776193
+                [F] 230525 BPJPH_NOVOZYMES(CHINA) 카라멜 하이드롤 하부.pdf
+            [D] 20260518_160515_923768
+                [F] 20250624_150528_2_3023462 halal IFANCA US EN 20250609.pdf
+            [D] 20260518_160516_029868
+                [F] 20250703_072436_16_Halal certificate (HQC)_ Food & Beverage products (Novozymes DK)_2021-08077.pdf
+            [D] 20260518_160516_181570
+                [F] 20250703_072437_23_Halal certificate (HQC)_ Food & Beverage products (Novozymes DK)_2021-08077.pdf
+            [D] 20260518_160516_343845
+                [F] DF - Halal HQC certificate (301125).pdf
+            [D] 20260518_160516_697735
+                [F] TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf
+            [D] 20260518_160516_833039
+                [F] 비타셀L600-HFFIA_2023-09-30.pdf
+            [D] 20260518_160517_633972
+                [F] 슈가시럽-Halal Control - Halal- Zertifikat - Südzucker - gültig bis 13.12.2018 (1).pdf
+            [D] 20260518_160517_806438
+                [F] 슈가시럽-Halal Quality Control - Halal Zertifikat - SÜDZUCKER Karasirup - gültig bis 12.12.2022.pdf
+            [D] 20260518_160518_127030
+                [F] 1-1-7. Disodium Succinate-JMA(2022-08-11).pdf
+            [D] 20260518_160518_819454
+                [F] 9. Dehydrated Potatoes-Flakes(Oregon)[ISA_2025-12-31]W.pdf
+            [D] 20260518_160518_921757
+                [F] 11-1. Propylene Glygol USPEP-CICOT(2023-05-01).pdf
+            [D] 20260518_160521_025317
+                [F] 11-3-3.MM100FK,Mafco Worldwide LLC-ISA(19-12-31).pdf
+            [D] 20260518_160521_639081
+                [F] 11-3-3.MM100FK,Mafco Worldwide LLC社-ISA(2021-12-31).pdf
+            [D] 20260518_160521_758448
+                [F] 16. Ground Cassia-Cinnamon(LONG)[HCA_2025-10-09]M.pdf
+            [D] 20260518_160521_887092
+                [F] 21-1.MCT OIL,DANIDCO MALAYSIA SDN BHD社-JAKIM(2022-09-30).pdf
+            [D] 20260518_160523_806558
+                [F] 117. Non-GMO Soybean Meal(Zeeland)[IFANCA_2026-05-31]타.pdf
+            [D] 20260518_160523_921280
+                [F] 119. Oleoresin Capsicum-HFCE(2024-10-31).pdf
+            [D] 20260518_160524_035811
+                [F] 120. Paprika OLEORSIN(EVESA)[HFQ_2026-04-10]T.pdf
+            [D] 20260518_160524_542350
+                [F] 122. Protease-Promod 278 MDP)(BIOCATAL)[HQC_2026-04-15]B.pdf
+            [D] 20260518_160524_702127
+                [F] 124. Flo-max 8(blend)(NATIONAL)[CICOT_2025-09-19].pdf
+            [D] 20260518_160525_214670
+                [F] 32_1. Non-GMO Crude Soybean oil(Bunge)[HFCE_2026-09-30]롯.pdf
+            [D] 20260518_160525_586780
+                [F] 34. Maltodextrin Glucose syrup solids(SANSOON)[JAKIM_2026-03-15]한.pdf
+            [D] 20260518_160526_659750
+                [F] 126. Seafood Seasoning Paste-S(Naturals)[MUI_2028-08-13]내.pdf
+            [D] 20260518_160526_841981
+                [F] 130_7. FIRMTEX(INGREDIO)[IFANCA_2025-09-30]G.pdf
+            [D] 20260518_160528_170094
+                [F] 132. Paprika OLEORSIN-HFCE(2024-10-31).pdf
+            [D] 20260518_160528_303020
+                [F] 135. Flo-max 8(blend)-CICOT(2024-09-19).pdf
+            [D] 20260518_160529_365477
+                [F] 36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf
+            [D] 20260518_160531_838275
+                [F] 136_1. FATTY ACIDS(lOI)[JAKIM_2029-05-15]비.pdf
+            [D] 20260518_160532_599784
+                [F] 37. Maxarome Select Powder-HFFIA(2023-06-30).pdf
+            [D] 20260518_160534_123413
+                [F] 37.Maxarome Select Powder,DSM FOOD SPECIALTIES CO., LTD社-HFFIA(2021-06-30).pdf
+            [D] 20260518_160534_731054
+                [F] 151. KREATIONⓡKE8-CICOT(2023-10-14).pdf
+            [D] 20260518_160535_774817
+                [F] 37_4. NuCel 743PW(BIO)[HFCE_2025-12-31]락.pdf
+            [D] 20260518_160536_867543
+                [F] 37_4. SPRINGER 020020-PW-L-HFCE(2024-12-31).pdf
+            [D] 20260518_160536_995762
+                [F] 155. Beef Type Flavor(Givaudan)[IFANCA_2026-05-31]G.pdf
+            [D] 20260518_160537_121014
+                [F] 162-1.Crude Rice Bran Oil,WILMAR AGRO VIETNAM COMPANY LIMITED社-Halal Certification Agency (HCA)(2021-07-31).pdf
+            [D] 20260518_160537_138536
+                [F] 38_2. SOY PEPTONE A2 SC-HFCE(2024-03-31).pdf
+            [D] 20260518_160538_483178
+                [F] 165_8. Potassium sulfate(K+S)[HALAL CONTROL_2026-08-15].pdf
+            [D] 20260518_160538_649286
+                [F] 167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf
+            [D] 20260518_160539_051301
+                [F] 168. Beef Type Flavor-IFANCA(2024-05-31).pdf
+            [D] 20260518_160539_156944
+                [F] 220217 HEBEI HUAYANG BPJPH HALAL 인증서 프롤린 글루타민 메티오닌.pdf
+            [D] 20260518_160539_309852
+                [F] 220908 Dextrin_BPJPH(YISHIU DADI).pdf
+            [D] 20260518_160539_459859
+                [F] 40. Maxarome Select Powder(DSM)[HFFIA_2025-12-31]네.pdf
+            [D] 20260518_160539_508365
+                [F] 230525 BPJPH_NOVOZYMES(CHINA) 카라멜 하이드롤 하부.pdf
+            [D] 20260518_160539_611226
+                [F] 42. Maltodextrin(SAJO)[MUI_2025-12-07]사.pdf
+            [D] 20260518_160539_665926
+                [F] 20250624_150528_2_3023462 halal IFANCA US EN 20250609.pdf
+            [D] 20260518_160539_786476
+                [F] 20250703_072436_16_Halal certificate (HQC)_ Food & Beverage products (Novozymes DK)_2021-08077.pdf
+            [D] 20260518_160539_931593
+                [F] 45. SEWOO CO., LTD BPJPH HALAL Certificate_(2025-11-18).pdf
+            [D] 20260518_160539_970116
+                [F] 20250703_072437_23_Halal certificate (HQC)_ Food & Beverage products (Novozymes DK)_2021-08077.pdf
+            [D] 20260518_160540_496212
+                [F] 47. Low DE Corn Syrup(SAJO)[MUI_2026-01-04]사.pdf
+            [D] 20260518_160540_574471
+                [F] DF - Halal HQC certificate (301125).pdf
+            [D] 20260518_160540_867049
+                [F] 48_1. REFINED RICE brand oil(THAI)[CICOT_2026-04-24]농.pdf
+            [D] 20260518_160540_967268
+                [F] TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf
+            [D] 20260518_160541_058272
+                [F] 50. Meat Base Flavour HK-2446K 74916-73(Givaudan)[MUIS_2026-09-30]브.pdf
+            [D] 20260518_160541_501676
+                [F] 비타셀L600-HFFIA_2023-09-30.pdf
+            [D] 20260518_160542_354531
+                [F] 54. FIRMTEX®(INGREDIO)[IFANCA_2027-09-30]사.pdf
+            [D] 20260518_160542_591280
+                [F] 슈가시럽-Halal Control - Halal- Zertifikat - Südzucker - gültig bis 13.12.2018 (1).pdf
+            [D] 20260518_160542_648579
+                [F] 56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf
+            [D] 20260518_160542_754820
+                [F] 슈가시럽-Halal Quality Control - Halal Zertifikat - SÜDZUCKER Karasirup - gültig bis 12.12.2022.pdf
+            [D] 20260518_160542_896493
+                [F] 56. VITACEL Powdered  Cellulose DV type(J.Retten)[HALAL CONTROL_2026-08-12]농.pdf
+            [D] 20260518_160542_997793
+                [F] 1-1-7. Disodium Succinate-JMA(2022-08-11).pdf
+            [D] 20260518_160544_014550
+                [F] 56. VITACEL Powdered  Cellulose DV type(J.Retten)[HFFIA_2025-09-30]농.pdf
+            [D] 20260518_160544_780395
+                [F] 9. Dehydrated Potatoes-Flakes(Oregon)[ISA_2025-12-31]W.pdf
+            [D] 20260518_160544_895115
+                [F] 11-1. Propylene Glygol USPEP-CICOT(2023-05-01).pdf
+            [D] 20260518_160545_651033
+                [F] 57. 158957 vegetable broth flavor(Broth enhancer)(Symrise)[MUIS_2026-05-31]s.pdf
+            [D] 20260518_160547_105123
+                [F] 58. Beef Paste Flavour(Kerry)[JAKIM_2027-05-31]K.pdf
+            [D] 20260518_160548_050077
+                [F] 60. NAT SHALLOT FLAVOR(962539)-MUIS(2022-02-28).pdf
+            [D] 20260518_160548_536905
+                [F] 11-3-3.MM100FK,Mafco Worldwide LLC-ISA(19-12-31).pdf
+            [D] 20260518_160549_147451
+                [F] 62. NAT SHALLOT FLAVOR(962539)(Symrise)[MUIS_2026-05-31]주.PDF
+            [D] 20260518_160549_649835
+                [F] 11-3-3.MM100FK,Mafco Worldwide LLC社-ISA(2021-12-31).pdf
+            [D] 20260518_160549_769023
+                [F] 16. Ground Cassia-Cinnamon(LONG)[HCA_2025-10-09]M.pdf
+            [D] 20260518_160549_865308
+                [F] 90. MAIZE FLOUR(Kalizea)[HCE_2026-01-24]s.pdf
+            [D] 20260518_160549_987882
+                [F] 21-1.MCT OIL,DANIDCO MALAYSIA SDN BHD社-JAKIM(2022-09-30).pdf
+            [D] 20260518_160550_444241
+                [F] 91.Yeast Extract(OHLY),OHLY GmbH社-TQHCC(2021-10-31).pdf
+            [D] 20260518_160552_421704
+                [F] 93.Yeast extract YB (DSM),DSM FOOD SPECIALTIES CO., LTD-HFFIA(DSM19003H001580191,2019-06-30).pdf
+            [D] 20260518_160552_946247
+                [F] 32_1. Non-GMO Crude Soybean oil(Bunge)[HFCE_2026-09-30]롯.pdf
+            [D] 20260518_160553_080348
+                [F] 34. Maltodextrin Glucose syrup solids(SANSOON)[JAKIM_2026-03-15]한.pdf
+            [D] 20260518_160553_163964
+                [F] 95. OHLYⓡSTV Meaty(OHLY)[TQHCC_2025-10-31]등.pdf
+            [D] 20260518_160556_674878
+                [F] 36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf
+            [D] 20260518_160557_216385
+                [F] 98_4_1. NU55-50(Sensient)[LLS-ISA_2025-12-31]비.pdf
+            [D] 20260518_160557_344061
+                [F] 99_4_1. NU55-50(Sensient)[LLS-ISA_2025-12-31]비.pdf
+            [D] 20260518_160558_133701
+                [F] 101.Lactic Acid,PURAC (THAILAND) LTD社-HALAL CONTROL(2020-05-15).pdf
+            [D] 20260518_160559_027775
+                [F] 37. Maxarome Select Powder-HFFIA(2023-06-30).pdf
+            [D] 20260518_160559_474059
+                [F] 103_1. RBDPO-REFIND BLEACHED & DEODORISED PALM OIL(SANDAKAN)[JAKIM_2026-06-15]롯.pdf
+            [D] 20260518_160600_570300
+                [F] 37.Maxarome Select Powder,DSM FOOD SPECIALTIES CO., LTD社-HFFIA(2021-06-30).pdf
+            [D] 20260518_160602_426185
+                [F] 37_4. NuCel 743PW(BIO)[HFCE_2025-12-31]락.pdf
+            [D] 20260518_160602_944237
+                [F] 107. Oleoresin Capsicum-TK50(EVESA)[HFQ_2026-04-10]농.pdf
+            [D] 20260518_160603_157916
+                [F] 108_1. S7468, S2568, S1668, S1568, S4268)(Lanxess)[HQC_2026-10-08]씨.pdf
+            [D] 20260518_160603_458509
+                [F] 37_4. SPRINGER 020020-PW-L-HFCE(2024-12-31).pdf
+            [D] 20260518_160603_574880
+                [F] 109_1_3. TRILITE SAR11(KA-11)(Samyang)[BPJPH_2026-06-18]대.pdf
+            [D] 20260518_160603_873497
+                [F] 38_2. SOY PEPTONE A2 SC-HFCE(2024-03-31).pdf
+            [D] 20260518_160604_298629
+                [F] 109_1_4. Dextrozyme(Novozyme)[BPJPH_2026-05-25]대.pdf
+            [D] 20260518_160604_450059
+                [F] 109_2. Granular Activated Carbon-IFANCA(2024-12-31).pdf
+            [D] 20260518_160604_561277
+                [F] 110_1_4. Dextrozyme(Novozyme)[HQC_2028-07-01]대.pdf
+            [D] 20260518_160606_366144
+                [F] 40. Maxarome Select Powder(DSM)[HFFIA_2025-12-31]네.pdf
+            [D] 20260518_160606_496354
+                [F] 42. Maltodextrin(SAJO)[MUI_2025-12-07]사.pdf
+            [D] 20260518_160606_699843
+                [F] 45. SEWOO CO., LTD BPJPH HALAL Certificate_(2025-11-18).pdf
+            [D] 20260518_160607_329961
+                [F] 47. Low DE Corn Syrup(SAJO)[MUI_2026-01-04]사.pdf
+            [D] 20260518_160607_818771
+                [F] 48_1. REFINED RICE brand oil(THAI)[CICOT_2026-04-24]농.pdf
+            [D] 20260518_160607_943533
+                [F] 50. Meat Base Flavour HK-2446K 74916-73(Givaudan)[MUIS_2026-09-30]브.pdf
+            [D] 20260518_160609_004994
+                [F] 54. FIRMTEX®(INGREDIO)[IFANCA_2027-09-30]사.pdf
+            [D] 20260518_160609_244193
+                [F] 56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf
+            [D] 20260518_160609_386018
+                [F] 56. VITACEL Powdered  Cellulose DV type(J.Retten)[HALAL CONTROL_2026-08-12]농.pdf
+            [D] 20260518_160609_535155
+                [F] 56. VITACEL Powdered  Cellulose DV type(J.Retten)[HFFIA_2025-09-30]농.pdf
+            [D] 20260518_160610_462583
+                [F] 57. 158957 vegetable broth flavor(Broth enhancer)(Symrise)[MUIS_2026-05-31]s.pdf
+            [D] 20260518_160611_318234
+                [F] 58. Beef Paste Flavour(Kerry)[JAKIM_2027-05-31]K.pdf
+            [D] 20260518_160612_243845
+                [F] 60. NAT SHALLOT FLAVOR(962539)-MUIS(2022-02-28).pdf
+            [D] 20260518_160612_859602
+                [F] 62. NAT SHALLOT FLAVOR(962539)(Symrise)[MUIS_2026-05-31]주.PDF
+            [D] 20260518_160613_519903
+                [F] 90. MAIZE FLOUR(Kalizea)[HCE_2026-01-24]s.pdf
+            [D] 20260518_160613_957395
+                [F] 91.Yeast Extract(OHLY),OHLY GmbH社-TQHCC(2021-10-31).pdf
+            [D] 20260518_160615_291339
+                [F] 93.Yeast extract YB (DSM),DSM FOOD SPECIALTIES CO., LTD-HFFIA(DSM19003H001580191,2019-06-30).pdf
+            [D] 20260518_160616_057888
+                [F] 95. OHLYⓡSTV Meaty(OHLY)[TQHCC_2025-10-31]등.pdf
+            [D] 20260518_160618_019286
+                [F] 98_4_1. NU55-50(Sensient)[LLS-ISA_2025-12-31]비.pdf
+            [D] 20260518_160618_115837
+                [F] 99_4_1. NU55-50(Sensient)[LLS-ISA_2025-12-31]비.pdf
+            [D] 20260518_160618_228177
+                [F] 101.Lactic Acid,PURAC (THAILAND) LTD社-HALAL CONTROL(2020-05-15).pdf
+            [D] 20260518_160618_855926
+                [F] 103_1. RBDPO-REFIND BLEACHED & DEODORISED PALM OIL(SANDAKAN)[JAKIM_2026-06-15]롯.pdf
+            [D] 20260518_160620_992913
+                [F] 107. Oleoresin Capsicum-TK50(EVESA)[HFQ_2026-04-10]농.pdf
+            [D] 20260518_160621_134028
+                [F] 108_1. S7468, S2568, S1668, S1568, S4268)(Lanxess)[HQC_2026-10-08]씨.pdf
+            [D] 20260518_160621_301948
+                [F] 109_1_3. TRILITE SAR11(KA-11)(Samyang)[BPJPH_2026-06-18]대.pdf
+            [D] 20260518_160621_599898
+                [F] 109_1_4. Dextrozyme(Novozyme)[BPJPH_2026-05-25]대.pdf
+            [D] 20260518_160621_747936
+                [F] 109_2. Granular Activated Carbon-IFANCA(2024-12-31).pdf
+            [D] 20260518_160621_881460
+                [F] 110_1_4. Dextrozyme(Novozyme)[HQC_2028-07-01]대.pdf
+            [D] 20260518_171901_433600
+                [F] 101.Lactic Acid,PURAC (THAILAND) LTD社-HALAL CONTROL(2020-05-15).pdf
+                [F] 103_1. RBDPO-REFIND BLEACHED & DEODORISED PALM OIL(SANDAKAN)[JAKIM_2026-06-15]롯.pdf
+                [F] 107. Oleoresin Capsicum-TK50(EVESA)[HFQ_2026-04-10]농.pdf
+                [F] 108_1. S7468, S2568, S1668, S1568, S4268)(Lanxess)[HQC_2026-10-08]씨.pdf
+                [F] 109_1_3. TRILITE SAR11(KA-11)(Samyang)[BPJPH_2026-06-18]대.pdf
+                [F] 109_1_4. Dextrozyme(Novozyme)[BPJPH_2026-05-25]대.pdf
+                [F] 109_2. Granular Activated Carbon-IFANCA(2024-12-31).pdf
+                [F] 110_1_4. Dextrozyme(Novozyme)[HQC_2028-07-01]대.pdf
+                [F] 11-1. Propylene Glygol USPEP-CICOT(2023-05-01).pdf
+                [F] 11-3-3.MM100FK,Mafco Worldwide LLC-ISA(19-12-31).pdf
+                [F] 11-3-3.MM100FK,Mafco Worldwide LLC社-ISA(2021-12-31).pdf
+                [F] 1-1-7. Disodium Succinate-JMA(2022-08-11).pdf
+                [F] 117. Non-GMO Soybean Meal(Zeeland)[IFANCA_2026-05-31]타.pdf
+                [F] 119. Oleoresin Capsicum-HFCE(2024-10-31).pdf
+                [F] 122. Protease-Promod 278 MDP)(BIOCATAL)[HQC_2026-04-15]B.pdf
+                [F] 124. Flo-max 8(blend)(NATIONAL)[CICOT_2025-09-19].pdf
+                [F] 126. Seafood Seasoning Paste-S(Naturals)[MUI_2028-08-13]내.pdf
+                [F] 130_7. FIRMTEX(INGREDIO)[IFANCA_2025-09-30]G.pdf
+                [F] 135. Flo-max 8(blend)-CICOT(2024-09-19).pdf
+                [F] 136_1. FATTY ACIDS(lOI)[JAKIM_2029-05-15]비.pdf
+                [F] 151. KREATIONⓡKE8-CICOT(2023-10-14).pdf
+                [F] 155. Beef Type Flavor(Givaudan)[IFANCA_2026-05-31]G.pdf
+                [F] 16. Ground Cassia-Cinnamon(LONG)[HCA_2025-10-09]M.pdf
+                [F] 162-1.Crude Rice Bran Oil,WILMAR AGRO VIETNAM COMPANY LIMITED社-Halal Certification Agency (HCA)(2021-07-31).pdf
+                [F] 165_8. Potassium sulfate(K+S)[HALAL CONTROL_2026-08-15].pdf
+                [F] 167. KRATIONⓡKE8(SIAM)[CICOT_2025-10-14]마.pdf
+                [F] 168. Beef Type Flavor-IFANCA(2024-05-31).pdf
+                [F] 20250703_072436_16_Halal certificate (HQC)_ Food & Beverage products (Novozymes DK)_2021-08077.pdf
+                [F] 21-1.MCT OIL,DANIDCO MALAYSIA SDN BHD社-JAKIM(2022-09-30).pdf
+                [F] 220217 HEBEI HUAYANG BPJPH HALAL 인증서 프롤린 글루타민 메티오닌.pdf
+                [F] 220908 Dextrin_BPJPH(YISHIU DADI).pdf
+                [F] 32_1. Non-GMO Crude Soybean oil(Bunge)[HFCE_2026-09-30]롯.pdf
+                [F] 34. Maltodextrin Glucose syrup solids(SANSOON)[JAKIM_2026-03-15]한.pdf
+                [F] 36_3. TREHA™FOOD GRADE(Nagase)[JMA_2026-02-26]락.pdf
+                [F] 37. Maxarome Select Powder-HFFIA(2023-06-30).pdf
+                [F] 37.Maxarome Select Powder,DSM FOOD SPECIALTIES CO., LTD社-HFFIA(2021-06-30).pdf
+                [F] 37_4. NuCel 743PW(BIO)[HFCE_2025-12-31]락.pdf
+                [F] 37_4. SPRINGER 020020-PW-L-HFCE(2024-12-31).pdf
+                [F] 38_2. SOY PEPTONE A2 SC-HFCE(2024-03-31).pdf
+                [F] 40. Maxarome Select Powder(DSM)[HFFIA_2025-12-31]네.pdf
+                [F] 42. Maltodextrin(SAJO)[MUI_2025-12-07]사.pdf
+                [F] 45. SEWOO CO., LTD BPJPH HALAL Certificate_(2025-11-18).pdf
+                [F] 47. Low DE Corn Syrup(SAJO)[MUI_2026-01-04]사.pdf
+                [F] 48_1. REFINED RICE brand oil(THAI)[CICOT_2026-04-24]농.pdf
+                [F] 50. Meat Base Flavour HK-2446K 74916-73(Givaudan)[MUIS_2026-09-30]브.pdf
+                [F] 54. FIRMTEX®(INGREDIO)[IFANCA_2027-09-30]사.pdf
+                [F] 56. VITACEL Powderec Cellulose(J.Retten)[HFFIA_2026-08-12]농.pdf
+                [F] 56. VITACEL Powdered  Cellulose DV type(J.Retten)[HFFIA_2025-09-30]농.pdf
+                [F] 57. 158957 vegetable broth flavor(Broth enhancer)(Symrise)[MUIS_2026-05-31]s.pdf
+                [F] 58. Beef Paste Flavour(Kerry)[JAKIM_2027-05-31]K.pdf
+                [F] 60. NAT SHALLOT FLAVOR(962539)-MUIS(2022-02-28).pdf
+                [F] 62. NAT SHALLOT FLAVOR(962539)(Symrise)[MUIS_2026-05-31]주.PDF
+                [F] 9. Dehydrated Potatoes-Flakes(Oregon)[ISA_2025-12-31]W.pdf
+                [F] 90. MAIZE FLOUR(Kalizea)[HCE_2026-01-24]s.pdf
+                [F] 91.Yeast Extract(OHLY),OHLY GmbH社-TQHCC(2021-10-31).pdf
+                [F] 93.Yeast extract YB (DSM),DSM FOOD SPECIALTIES CO., LTD-HFFIA(DSM19003H001580191,2019-06-30).pdf
+                [F] 95. OHLYⓡSTV Meaty(OHLY)[TQHCC_2025-10-31]등.pdf
+                [F] 98_4_1. NU55-50(Sensient)[LLS-ISA_2025-12-31]비.pdf
+                [F] DF - Halal HQC certificate (301125).pdf
+                [F] TQHCC-BPJPH 인증서 Sertifikat Akreditasi Halal Correct Germany.pdf
+                [F] 비타셀L600-HFFIA_2023-09-30.pdf
+                [F] 슈가시럽-Halal Control - Halal- Zertifikat - Südzucker - gültig bis 13.12.2018 (1).pdf
+                [F] 슈가시럽-Halal Quality Control - Halal Zertifikat - SÜDZUCKER Karasirup - gültig bis 12.12.2022.pdf
+            [D] 20260518_171918_569426
+            [D] 20260518_182205_524574
+            [D] 20260518_182216_267751
+            [D] 20260518_182503_090952
+            [D] 20260518_182512_589815
+            [D] 20260518_182531_423664
+                [F] 35. Maltodextrin Glucose syrup solids-JAKIM(2024-03-15).pdf
+            [D] 20260518_182607_617125
+            [D] 20260519_081854_540307
+                [F] 씨제이 백설탕 KMF 할랄 인증서(~26.12.17).pdf
+            [D] 20260519_082151_287702
+            [D] 20260519_082251_257030
+                [F] 37_3. TREHA™FOOD GRADE-JMA(2025-02-26).pdf
+            [D] 20260519_082323_476275
+            [D] 20260519_173434_345734
+            [D] 20260519_173810_276850
+            [D] 20260519_174304_675206
+            [D] 20260519_174519_118531
+            [D] 20260519_174746_167433
+            [D] 20260519_174808_394467
+            [D] 20260519_174825_901719
+            [D] 20260519_182009_062197
+            [D] 20260519_182024_853471
+            [D] 20260519_182029_820810
+            [D] 20260519_182039_322773
+                [F] 77-2.Onion Extract Flavor,SYMRISE ASIA PACIFIC PTE LTD社-MUIS(2022-02-28).pdf
+            [D] 20260519_182114_632463
+                [F] 77-2.Onion Extract Flavor,SYMRISE ASIA PACIFIC PTE LTD社-MUIS(2022-02-28).PDF
+            [D] 20260519_182135_086069
+            [D] 20260519_182153_651129
+                [F] 951416_MUIS_2020.pdf
+            [D] 20260519_182313_236738
+                [F] 98_1_2. Salt(Bonsogeum)(HANJUSAL)[KMF_2028-07-31]비.pdf
+                [F] 98_3_3. Refined White Sugar(Samyang)[KMF_2025-12-24]비.pdf
+            [D] 20260629_173249_756768
+                [F] HALAL-REQ-20260504-1874ECAD__001__962539 Halal (~'28.05.31).pdf
+            [D] 20260630_091515_500430
+                [F] HALAL-REQ-20260504-1874ECAD__001__962539 Halal (~'28.05.31).pdf
+            [D] 20260630_091556_562142
+                [F] HALAL-REQ-20260504-1874ECAD__001__962539 Halal (~'28.05.31).pdf
+            [D] 20260630_092019_584844
+                [F] test.pdf
+            [D] 20260630_094651_697530
+                [F] test.pdf
+            [D] 20260630_100519_884162
+                [F] test.pdf
+            [D] 20260630_102655_600568
+                [F] test.pdf
+            [D] 20260630_103014_765931
+                [F] test.pdf
+            [D] 20260630_103613_488000
+                [F] test.pdf
+            [D] 20260630_103639_759478
+                [F] test.pdf
+            [D] 20260630_110226_641314
+                [F] test.pdf
+            [D] 20260630_111532_228046
+            [D] 20260630_111546_848301
+            [D] 20260630_112917_802407
+            [D] 20260630_130444_868126
+            [D] 20260630_135153_996941
+            [D] 20260630_135154_890342
+            [D] 20260630_135155_577559
+            [D] 20260630_135156_063625
+                [F] sample HCA.pdf
+            [D] 20260630_135157_737607
+                [F] sample HCE.pdf
+            [D] 20260630_135200_474523
+                [F] sample HFCE.pdf
+            [D] 20260630_135201_508048
+                [F] sample HFQ.pdf
+            [D] 20260630_135204_262635
+            [D] 20260630_135205_302819
+            [D] 20260630_135205_867963
+                [F] sample ISA.pdf
+            [D] 20260630_135210_658669
+            [D] 20260630_135216_569220
+            [D] 20260630_135222_786239
+                [F] sample KMF.pdf
+            [D] 20260630_135232_302319
+                [F] sample MUI.pdf
+            [D] 20260630_135232_808941
+                [F] sample TQHCC.pdf
+            [D] 20260630_135236_803581
+        [D] rules
+            [D] rule_validation_reports
+                [F] VR_20260605_143421_HFFIA_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_143421_HFFIA_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_144759_HFCE_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_144759_HFCE_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_144813_HFCE_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_144813_HFCE_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_144822_HFFIA_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_144822_HFFIA_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_144839_ARA_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_144839_ARA_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_144843_CICOT_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_144843_CICOT_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_144954_ARA_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_144954_ARA_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_145029_ARA_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_145029_ARA_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_145646_MUIS_manufacturer_address_cleanup_v1.csv
+                [F] VR_20260605_145646_MUIS_manufacturer_address_cleanup_v1.json
+                [F] VR_20260605_145719_MUIS_manufacturer_address_cleanup_v1.csv
+                [F] VR_20260605_145719_MUIS_manufacturer_address_cleanup_v1.json
+                [F] VR_20260605_145731_MUIS_expiry_date_anchor_v1.csv
+                [F] VR_20260605_145731_MUIS_expiry_date_anchor_v1.json
+                [F] VR_20260605_145735_non_certificate_doc_marker_v1.csv
+                [F] VR_20260605_145735_non_certificate_doc_marker_v1.json
+                [F] VR_20260605_145739_cert_no_pattern_arabic_hffia_v1.csv
+                [F] VR_20260605_145739_cert_no_pattern_arabic_hffia_v1.json
+                [F] VR_20260605_145751_date_anchor_MUIS_validuntil_v1.csv
+                [F] VR_20260605_145751_date_anchor_MUIS_validuntil_v1.json
+                [F] VR_20260605_145826_date_anchor_MUIS_validuntil_v1.csv
+                [F] VR_20260605_145826_date_anchor_MUIS_validuntil_v1.json
+                [F] VR_20260605_145840_manufacturer_label_strip_v1.csv
+                [F] VR_20260605_145840_manufacturer_label_strip_v1.json
+                [F] VR_20260605_145917_manufacturer_label_strip_v1.csv
+                [F] VR_20260605_145917_manufacturer_label_strip_v1.json
+                [F] VR_20260605_145922_cert_no_pattern_general_v1.csv
+                [F] VR_20260605_145922_cert_no_pattern_general_v1.json
+                [F] VR_20260605_145927_non_certificate_msds_marker_2024Q2.csv
+                [F] VR_20260605_145927_non_certificate_msds_marker_2024Q2.json
+                [F] VR_20260605_145941_HFCE_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_145941_HFCE_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_145944_HFFIA_cert_no_anchor_regex_v1.csv
+                [F] VR_20260605_145944_HFFIA_cert_no_anchor_regex_v1.json
+                [F] VR_20260605_172430_MUIS_expiry_date_anchor_v1.csv
+                [F] VR_20260605_172430_MUIS_expiry_date_anchor_v1.json
+                [F] VR_20260611_135839_JMA_cert_no_pattern_01.csv
+                [F] VR_20260611_135839_JMA_cert_no_pattern_01.json
+                [F] VR_20260611_135920_CICOT_cert_no_anchor_regex_v1.csv
+                [F] VR_20260611_135920_CICOT_cert_no_anchor_regex_v1.json
+                [F] VR_20260611_135939_ISA_cert_no_pattern_01.csv
+                [F] VR_20260611_135939_ISA_cert_no_pattern_01.json
+                [F] VR_20260611_135944_HFFIA_cert_no_pattern_01.csv
+                [F] VR_20260611_135944_HFFIA_cert_no_pattern_01.json
+                [F] VR_20260611_143146_cert_no_pattern_CICOT_v2_20240611.csv
+                [F] VR_20260611_143146_cert_no_pattern_CICOT_v2_20240611.json
+                [F] VR_20260611_143146_date_anchor_HFCE_v1_20240611.csv
+                [F] VR_20260611_143146_date_anchor_HFCE_v1_20240611.json
+                [F] VR_20260611_143147_cert_no_pattern_HFFIA_v1_20240611.csv
+                [F] VR_20260611_143147_cert_no_pattern_HFFIA_v1_20240611.json
+                [F] VR_20260611_143147_cert_no_pattern_MUIS_v1_20240611.csv
+                [F] VR_20260611_143147_cert_no_pattern_MUIS_v1_20240611.json
+                [F] VR_20260611_143147_CICOT_cert_no_pattern_01.csv
+                [F] VR_20260611_143147_CICOT_cert_no_pattern_01.json
+                [F] VR_20260611_143147_HFFIA_cert_no_pattern_01.csv
+                [F] VR_20260611_143147_HFFIA_cert_no_pattern_01.json
+                [F] VR_20260611_143147_ISA_cert_no_pattern_01.csv
+                [F] VR_20260611_143147_ISA_cert_no_pattern_01.json
+                [F] VR_20260611_143147_JMA_cert_no_pattern_01.csv
+                [F] VR_20260611_143147_JMA_cert_no_pattern_01.json
+                [F] VR_20260611_143148_ARA_cert_no_pattern_01.csv
+                [F] VR_20260611_143148_ARA_cert_no_pattern_01.json
+                [F] VR_20260611_143148_HFCE_cert_no_pattern_01.csv
+                [F] VR_20260611_143148_HFCE_cert_no_pattern_01.json
+                [F] VR_20260611_143148_JUHF_cert_no_pattern_01.csv
+                [F] VR_20260611_143148_JUHF_cert_no_pattern_01.json
+                [F] VR_20260611_143148_MUIS_manufacturer_cleanup_01.csv
+                [F] VR_20260611_143148_MUIS_manufacturer_cleanup_01.json
+                [F] VR_20260611_143148_TQHCC_cert_no_pattern_01.csv
+                [F] VR_20260611_143148_TQHCC_cert_no_pattern_01.json
+                [F] VR_20260611_143149_certno_pattern_ARA_01.csv
+                [F] VR_20260611_143149_certno_pattern_ARA_01.json
+                [F] VR_20260611_143149_certno_pattern_HFCE_01.csv
+                [F] VR_20260611_143149_certno_pattern_HFCE_01.json
+                [F] VR_20260611_143149_certno_pattern_HFFIA_01.csv
+                [F] VR_20260611_143149_certno_pattern_HFFIA_01.json
+                [F] VR_20260611_143149_manufacturer_MUIS_cleanup_01.csv
+                [F] VR_20260611_143149_manufacturer_MUIS_cleanup_01.json
+                [F] VR_20260611_143149_MUIS_cert_no_pattern_01.csv
+                [F] VR_20260611_143149_MUIS_cert_no_pattern_01.json
+                [F] VR_20260611_143150_certno_pattern_CICOT_01.csv
+                [F] VR_20260611_143150_certno_pattern_CICOT_01.json
+                [F] VR_20260611_143150_certno_pattern_JUHF_01.csv
+                [F] VR_20260611_143150_certno_pattern_JUHF_01.json
+                [F] VR_20260611_143150_certno_pattern_MUIS_01.csv
+                [F] VR_20260611_143150_certno_pattern_MUIS_01.json
+                [F] VR_20260611_143150_date_anchor_MUIS_valid_until_01.csv
+                [F] VR_20260611_143150_date_anchor_MUIS_valid_until_01.json
+                [F] VR_20260611_143150_manufacturer_cleanup_MUIS_01.csv
+                [F] VR_20260611_143150_manufacturer_cleanup_MUIS_01.json
+                [F] VR_20260611_143151_cert_no_regex_ARA_01.csv
+                [F] VR_20260611_143151_cert_no_regex_ARA_01.json
+                [F] VR_20260611_143151_cert_no_regex_CICOT_01.csv
+                [F] VR_20260611_143151_cert_no_regex_CICOT_01.json
+                [F] VR_20260611_143151_cert_no_regex_HFFIA_01.csv
+                [F] VR_20260611_143151_cert_no_regex_HFFIA_01.json
+                [F] VR_20260611_143151_cert_no_regex_MUIS_01.csv
+                [F] VR_20260611_143151_cert_no_regex_MUIS_01.json
+                [F] VR_20260611_143151_manufacturer_cleanup_HFFIA_01.csv
+                [F] VR_20260611_143151_manufacturer_cleanup_HFFIA_01.json
+                [F] VR_20260611_143152_cert_no_pattern_arabic_hffia_v1.csv
+                [F] VR_20260611_143152_cert_no_pattern_arabic_hffia_v1.json
+                [F] VR_20260611_143152_CICOT_cert_no_anchor_regex_v1.csv
+                [F] VR_20260611_143152_CICOT_cert_no_anchor_regex_v1.json
+                [F] VR_20260611_143152_HFCE_cert_no_anchor_regex_v1.csv
+                [F] VR_20260611_143152_HFCE_cert_no_anchor_regex_v1.json
+                [F] VR_20260611_143152_MUIS_expiry_date_anchor_v1.csv
+                [F] VR_20260611_143152_MUIS_expiry_date_anchor_v1.json
+                [F] VR_20260611_143152_MUIS_manufacturer_address_cleanup_v1.csv
+                [F] VR_20260611_143152_MUIS_manufacturer_address_cleanup_v1.json
+                [F] VR_20260611_143153_date_anchor_MUIS_validuntil_v1.csv
+                [F] VR_20260611_143153_date_anchor_MUIS_validuntil_v1.json
+                [F] VR_20260611_154236_date_anchor_HFCE_v1_20240611.csv
+                [F] VR_20260611_154236_date_anchor_HFCE_v1_20240611.json
+                [F] VR_20260611_154242_cert_no_pattern_CICOT_v2_20240611.csv
+                [F] VR_20260611_154242_cert_no_pattern_CICOT_v2_20240611.json
+                [F] VR_20260611_154255_cert_no_pattern_HFFIA_v1_20240611.csv
+                [F] VR_20260611_154255_cert_no_pattern_HFFIA_v1_20240611.json
+                [F] VR_20260611_154300_cert_no_pattern_CICOT_v2_20240611.csv
+                [F] VR_20260611_154300_cert_no_pattern_CICOT_v2_20240611.json
+                [F] VR_20260611_154300_cert_no_pattern_HFFIA_v1_20240611.csv
+                [F] VR_20260611_154300_cert_no_pattern_HFFIA_v1_20240611.json
+                [F] VR_20260611_154300_date_anchor_HFCE_v1_20240611.csv
+                [F] VR_20260611_154300_date_anchor_HFCE_v1_20240611.json
+                [F] VR_20260611_154301_cert_no_pattern_MUIS_v1_20240611.csv
+                [F] VR_20260611_154301_cert_no_pattern_MUIS_v1_20240611.json
+                [F] VR_20260611_154301_HFFIA_cert_no_pattern_01.csv
+                [F] VR_20260611_154301_HFFIA_cert_no_pattern_01.json
+                [F] VR_20260611_154301_ISA_cert_no_pattern_01.csv
+                [F] VR_20260611_154301_ISA_cert_no_pattern_01.json
+                [F] VR_20260611_154301_JMA_cert_no_pattern_01.csv
+                [F] VR_20260611_154301_JMA_cert_no_pattern_01.json
+                [F] VR_20260611_154302_CICOT_cert_no_pattern_01.csv
+                [F] VR_20260611_154302_CICOT_cert_no_pattern_01.json
+                [F] VR_20260611_154302_HFCE_cert_no_pattern_01.csv
+                [F] VR_20260611_154302_HFCE_cert_no_pattern_01.json
+                [F] VR_20260611_154302_JUHF_cert_no_pattern_01.csv
+                [F] VR_20260611_154302_JUHF_cert_no_pattern_01.json
+                [F] VR_20260611_154303_ARA_cert_no_pattern_01.csv
+                [F] VR_20260611_154303_ARA_cert_no_pattern_01.json
+                [F] VR_20260611_154303_certno_pattern_HFCE_01.csv
+                [F] VR_20260611_154303_certno_pattern_HFCE_01.json
+                [F] VR_20260611_154303_MUIS_cert_no_pattern_01.csv
+                [F] VR_20260611_154303_MUIS_cert_no_pattern_01.json
+                [F] VR_20260611_154303_MUIS_manufacturer_cleanup_01.csv
+                [F] VR_20260611_154303_MUIS_manufacturer_cleanup_01.json
+                [F] VR_20260611_154303_TQHCC_cert_no_pattern_01.csv
+                [F] VR_20260611_154303_TQHCC_cert_no_pattern_01.json
+                [F] VR_20260611_154304_certno_pattern_ARA_01.csv
+                [F] VR_20260611_154304_certno_pattern_ARA_01.json
+                [F] VR_20260611_154304_certno_pattern_HFFIA_01.csv
+                [F] VR_20260611_154304_certno_pattern_HFFIA_01.json
+                [F] VR_20260611_154304_manufacturer_MUIS_cleanup_01.csv
+                [F] VR_20260611_154304_manufacturer_MUIS_cleanup_01.json
+                [F] VR_20260611_154305_certno_pattern_CICOT_01.csv
+                [F] VR_20260611_154305_certno_pattern_CICOT_01.json
+                [F] VR_20260611_154305_certno_pattern_JUHF_01.csv
+                [F] VR_20260611_154305_certno_pattern_JUHF_01.json
+                [F] VR_20260611_154305_certno_pattern_MUIS_01.csv
+                [F] VR_20260611_154305_certno_pattern_MUIS_01.json
+                [F] VR_20260611_154305_date_anchor_MUIS_valid_until_01.csv
+                [F] VR_20260611_154305_date_anchor_MUIS_valid_until_01.json
+                [F] VR_20260611_154306_cert_no_regex_ARA_01.csv
+                [F] VR_20260611_154306_cert_no_regex_ARA_01.json
+                [F] VR_20260611_154306_manufacturer_cleanup_HFFIA_01.csv
+                [F] VR_20260611_154306_manufacturer_cleanup_HFFIA_01.json
+                [F] VR_20260611_154306_manufacturer_cleanup_MUIS_01.csv
+                [F] VR_20260611_154306_manufacturer_cleanup_MUIS_01.json
+                [F] VR_20260611_154307_cert_no_regex_CICOT_01.csv
+                [F] VR_20260611_154307_cert_no_regex_CICOT_01.json
+                [F] VR_20260611_154307_cert_no_regex_HFFIA_01.csv
+                [F] VR_20260611_154307_cert_no_regex_HFFIA_01.json
+                [F] VR_20260611_154307_cert_no_regex_MUIS_01.csv
+                [F] VR_20260611_154307_cert_no_regex_MUIS_01.json
+                [F] VR_20260611_154307_HFCE_cert_no_anchor_regex_v1.csv
+                [F] VR_20260611_154307_HFCE_cert_no_anchor_regex_v1.json
+                [F] VR_20260611_154308_cert_no_pattern_arabic_hffia_v1.csv
+                [F] VR_20260611_154308_cert_no_pattern_arabic_hffia_v1.json
+                [F] VR_20260611_154308_CICOT_cert_no_anchor_regex_v1.csv
+                [F] VR_20260611_154308_CICOT_cert_no_anchor_regex_v1.json
+                [F] VR_20260611_154308_MUIS_expiry_date_anchor_v1.csv
+                [F] VR_20260611_154308_MUIS_expiry_date_anchor_v1.json
+                [F] VR_20260611_154308_MUIS_manufacturer_address_cleanup_v1.csv
+                [F] VR_20260611_154308_MUIS_manufacturer_address_cleanup_v1.json
+                [F] VR_20260611_154309_date_anchor_MUIS_validuntil_v1.csv
+                [F] VR_20260611_154309_date_anchor_MUIS_validuntil_v1.json
+            [F] approved_rule_history.jsonl
+            [F] certificate_rule_overrides.json
+            [F] rule_candidates.jsonl
+    [D] db
+        [F] cert_template_features.db
+        [F] halal_lhln.db
+        [F] ocr_test.db
+        [F] pmf_app.db
+    [D] output
+        [D] cert_template
+            [D] features
+                [F] 026570533d72e218ab2f7c0974f4c192ff7d8ee24f193269eb3015f7cda91aa9_p1_basic_orb.npy
+                [F] 026570533d72e218ab2f7c0974f4c192ff7d8ee24f193269eb3015f7cda91aa9_p1_enhanced_orb.npy
+                [F] 02767c062e6f6e007dd18c7bafc38b3e8e867b6fa58180abe71554d241c6b002_p1_basic_orb.npy
+                [F] 02767c062e6f6e007dd18c7bafc38b3e8e867b6fa58180abe71554d241c6b002_p1_enhanced_orb.npy
+                [F] 02767c062e6f6e007dd18c7bafc38b3e8e867b6fa58180abe71554d241c6b002_p2_basic_orb.npy
+                [F] 02767c062e6f6e007dd18c7bafc38b3e8e867b6fa58180abe71554d241c6b002_p2_enhanced_orb.npy
+                [F] 043b81245cf3194c0db6b139171a54e457e9633a49851040aa724f28822fbfd8_p1_basic_orb.npy
+                [F] 043b81245cf3194c0db6b139171a54e457e9633a49851040aa724f28822fbfd8_p1_enhanced_orb.npy
+                [F] 05c96512f5fa9486e80796b8b75c0cf08729b98e2bd091e7a69ed284473741e5_p1_basic_orb.npy
+                [F] 05c96512f5fa9486e80796b8b75c0cf08729b98e2bd091e7a69ed284473741e5_p1_enhanced_orb.npy
+                [F] 05dc85008114dc93452cc0207381e63b7b2f9d9c2e65d9ecb4e2d88e0f538a99_p1_basic_orb.npy
+                [F] 05dc85008114dc93452cc0207381e63b7b2f9d9c2e65d9ecb4e2d88e0f538a99_p1_enhanced_orb.npy
+                [F] 09db1c67b71b3d7e1d3e54fe9fe485b11fc3634214f45c7ecf3abb67a04d06f0_p1_basic_orb.npy
+                [F] 09db1c67b71b3d7e1d3e54fe9fe485b11fc3634214f45c7ecf3abb67a04d06f0_p1_enhanced_orb.npy
+                [F] 09db1c67b71b3d7e1d3e54fe9fe485b11fc3634214f45c7ecf3abb67a04d06f0_p2_basic_orb.npy
+                [F] 09db1c67b71b3d7e1d3e54fe9fe485b11fc3634214f45c7ecf3abb67a04d06f0_p2_enhanced_orb.npy
+                [F] 0e8cf427d63aa054785e21c8670647ed1f3aa7bdc29e5b8865088ff39f7a97da_p1_basic_orb.npy
+                [F] 0e8cf427d63aa054785e21c8670647ed1f3aa7bdc29e5b8865088ff39f7a97da_p1_enhanced_orb.npy
+                [F] 0e8cf427d63aa054785e21c8670647ed1f3aa7bdc29e5b8865088ff39f7a97da_p2_basic_orb.npy
+                [F] 0e8cf427d63aa054785e21c8670647ed1f3aa7bdc29e5b8865088ff39f7a97da_p2_enhanced_orb.npy
+                [F] 0ecb8a6bdddd35f49d99da639254882d5c8d79c426e880270b75d103d61c16bc_p1_basic_orb.npy
+                [F] 0ecb8a6bdddd35f49d99da639254882d5c8d79c426e880270b75d103d61c16bc_p1_enhanced_orb.npy
+                [F] 0ecb8a6bdddd35f49d99da639254882d5c8d79c426e880270b75d103d61c16bc_p2_basic_orb.npy
+                [F] 0ecb8a6bdddd35f49d99da639254882d5c8d79c426e880270b75d103d61c16bc_p2_enhanced_orb.npy
+                [F] 14d4d6f201671780d59a90d1dc6057a80eaea6452a06a8401a45aa0f1891c4f0_p1_basic_orb.npy
+                [F] 14d4d6f201671780d59a90d1dc6057a80eaea6452a06a8401a45aa0f1891c4f0_p1_enhanced_orb.npy
+                [F] 14d4d6f201671780d59a90d1dc6057a80eaea6452a06a8401a45aa0f1891c4f0_p2_basic_orb.npy
+                [F] 14d4d6f201671780d59a90d1dc6057a80eaea6452a06a8401a45aa0f1891c4f0_p2_enhanced_orb.npy
+                [F] 14e207ecd508401a8f993a363f085255289bfb77a40de3d42497544979e8c2d1_p1_basic_orb.npy
+                [F] 1a92bef6ff4611f2ed97b48ccc88c7b02c9a9286f635eeb912a340138dd0cda2_p1_basic_orb.npy
+                [F] 1a92bef6ff4611f2ed97b48ccc88c7b02c9a9286f635eeb912a340138dd0cda2_p1_enhanced_orb.npy
+                [F] 1a92bef6ff4611f2ed97b48ccc88c7b02c9a9286f635eeb912a340138dd0cda2_p2_basic_orb.npy
+                [F] 1a92bef6ff4611f2ed97b48ccc88c7b02c9a9286f635eeb912a340138dd0cda2_p2_enhanced_orb.npy
+                [F] 1b06d49671c596c3618b2349948143cb9c814513530b9c5753e353f9b5c9b626_p1_basic_orb.npy
+                [F] 1b06d49671c596c3618b2349948143cb9c814513530b9c5753e353f9b5c9b626_p1_enhanced_orb.npy
+                [F] 1b06d49671c596c3618b2349948143cb9c814513530b9c5753e353f9b5c9b626_p2_basic_orb.npy
+                [F] 1b06d49671c596c3618b2349948143cb9c814513530b9c5753e353f9b5c9b626_p2_enhanced_orb.npy
+                [F] 1bd9f4b138ec1940861e35a50799cbb0575808a6983c624815680c945300b34e_p1_basic_orb.npy
+                [F] 1bd9f4b138ec1940861e35a50799cbb0575808a6983c624815680c945300b34e_p1_enhanced_orb.npy
+                [F] 1bd9f4b138ec1940861e35a50799cbb0575808a6983c624815680c945300b34e_p2_basic_orb.npy
+                [F] 1bd9f4b138ec1940861e35a50799cbb0575808a6983c624815680c945300b34e_p2_enhanced_orb.npy
+                [F] 1fb280f1006cd3b922263239e3382daad4319608fca9460a9223861a9319b247_p1_basic_orb.npy
+                [F] 1fb280f1006cd3b922263239e3382daad4319608fca9460a9223861a9319b247_p1_enhanced_orb.npy
+                [F] 24460f9c9f0567791cde61709b62a7b78939596c02adb5d7f3608d8577a307f9_p1_basic_orb.npy
+                [F] 27226cfbed5c8e84d3974f3986f95a8f6472c7145831e75f76575b82ff52071a_p1_basic_orb.npy
+                [F] 27226cfbed5c8e84d3974f3986f95a8f6472c7145831e75f76575b82ff52071a_p1_enhanced_orb.npy
+                [F] 28d97b26ac30cb36b1504fcab6eec3f1319db810e53ed819610a6ffcfb420a8b_p1_basic_orb.npy
+                [F] 28d97b26ac30cb36b1504fcab6eec3f1319db810e53ed819610a6ffcfb420a8b_p1_enhanced_orb.npy
+                [F] 2a810d3494607b47d780a70217163668a2bf4b8601e8be40a7a59c2486bc859c_p1_basic_orb.npy
+                [F] 2a810d3494607b47d780a70217163668a2bf4b8601e8be40a7a59c2486bc859c_p1_enhanced_orb.npy
+                [F] 2bbb9fe07d9e5e1b28c0cd531fdbd2f21edd8f707651c7e2877779dd1dfc1a3c_p1_basic_orb.npy
+                [F] 2bbb9fe07d9e5e1b28c0cd531fdbd2f21edd8f707651c7e2877779dd1dfc1a3c_p1_enhanced_orb.npy
+                [F] 2bbb9fe07d9e5e1b28c0cd531fdbd2f21edd8f707651c7e2877779dd1dfc1a3c_p2_basic_orb.npy
+                [F] 2bbb9fe07d9e5e1b28c0cd531fdbd2f21edd8f707651c7e2877779dd1dfc1a3c_p2_enhanced_orb.npy
+                [F] 314f5b626ae6dbfd833bb3c8db9e1e9ee5a66d50bf033655c2d415c284230fee_p1_basic_orb.npy
+                [F] 314f5b626ae6dbfd833bb3c8db9e1e9ee5a66d50bf033655c2d415c284230fee_p1_enhanced_orb.npy
+                [F] 398b4c609fc9cb3e1aa3a2d5ad1522a0806d871e872c208a0f514dd8951659c5_p1_basic_orb.npy
+                [F] 398b4c609fc9cb3e1aa3a2d5ad1522a0806d871e872c208a0f514dd8951659c5_p1_enhanced_orb.npy
+                [F] 3c020773018af20e17d1f615474fc8131cbef6dcee48b9eea3649f8af0b1d6e3_p1_basic_orb.npy
+                [F] 3c020773018af20e17d1f615474fc8131cbef6dcee48b9eea3649f8af0b1d6e3_p1_enhanced_orb.npy
+                [F] 3e03f86f1ca158bf052e553da6ae81e5a93adc62b36afeaf3b942c4f2f277d36_p1_basic_orb.npy
+                [F] 3e03f86f1ca158bf052e553da6ae81e5a93adc62b36afeaf3b942c4f2f277d36_p1_enhanced_orb.npy
+                [F] 3ebb84da8b2fcc0da58578aad65a5fc91650bb9bb93b3389576e1eddac5a77a0_p1_basic_orb.npy
+                [F] 3ebb84da8b2fcc0da58578aad65a5fc91650bb9bb93b3389576e1eddac5a77a0_p1_enhanced_orb.npy
+                [F] 41e9268fb6d60bd5189b651ef5f5ef4aeba88ebe37196a8eb8ac710d90cb62fb_p1_basic_orb.npy
+                [F] 453373a30a765550cfbf4be9ba4a898c0a5a239c61328d69dcd292b58376736a_p1_basic_orb.npy
+                [F] 453373a30a765550cfbf4be9ba4a898c0a5a239c61328d69dcd292b58376736a_p1_enhanced_orb.npy
+                [F] 45bb764bb29c89a22b033008b6f54e13ef935ec94ba3891e83cf487e50b2b825_p1_basic_orb.npy
+                [F] 45bb764bb29c89a22b033008b6f54e13ef935ec94ba3891e83cf487e50b2b825_p1_enhanced_orb.npy
+                [F] 45e7c589cd4a5b90f4bddcc348206bc637bd46b765a979131b281ed491bd196b_p1_basic_orb.npy
+                [F] 45e7c589cd4a5b90f4bddcc348206bc637bd46b765a979131b281ed491bd196b_p1_enhanced_orb.npy
+                [F] 48ac2a22af97ed5eabbd117b84238ce1f4a4c4478cea3132303deb8dc4cf1186_p1_basic_orb.npy
+                [F] 4bc40e347337b4fdcee35aea3e4c66e4bc7f84719f37e6d43ad0833b296d3e9b_p1_basic_orb.npy
+                [F] 4c9a1e644d9fc3b7365fb48510aa2c13664f121e68ec63e28fde21b23fd3bb32_p1_basic_orb.npy
+                [F] 4c9a1e644d9fc3b7365fb48510aa2c13664f121e68ec63e28fde21b23fd3bb32_p1_enhanced_orb.npy
+                [F] 4d4624d71b9e4e09eca9501d37ce086d1525208a9be5de2ac0430b33b023db78_p1_basic_orb.npy
+                [F] 4d4624d71b9e4e09eca9501d37ce086d1525208a9be5de2ac0430b33b023db78_p1_enhanced_orb.npy
+                [F] 4d4624d71b9e4e09eca9501d37ce086d1525208a9be5de2ac0430b33b023db78_p2_basic_orb.npy
+                [F] 4d4624d71b9e4e09eca9501d37ce086d1525208a9be5de2ac0430b33b023db78_p2_enhanced_orb.npy
+                [F] 546d36bc5d7496a2a4e1970add605e3624750078dba66a9946742a57f187a2a0_p1_basic_orb.npy
+                [F] 546d36bc5d7496a2a4e1970add605e3624750078dba66a9946742a57f187a2a0_p1_enhanced_orb.npy
+                [F] 546d36bc5d7496a2a4e1970add605e3624750078dba66a9946742a57f187a2a0_p2_basic_orb.npy
+                [F] 546d36bc5d7496a2a4e1970add605e3624750078dba66a9946742a57f187a2a0_p2_enhanced_orb.npy
+                [F] 55bd343442bdfb977dd40fb52b2971708da0ea71c720ec100d9feca72c4cf6c7_p1_basic_orb.npy
+                [F] 55bd343442bdfb977dd40fb52b2971708da0ea71c720ec100d9feca72c4cf6c7_p1_enhanced_orb.npy
+                [F] 55bd343442bdfb977dd40fb52b2971708da0ea71c720ec100d9feca72c4cf6c7_p2_basic_orb.npy
+                [F] 55bd343442bdfb977dd40fb52b2971708da0ea71c720ec100d9feca72c4cf6c7_p2_enhanced_orb.npy
+                [F] 55c8b9fa035698e4520401dae80c428762314100c3a4cd3e1c689c8f64838b95_p1_basic_orb.npy
+                [F] 55c8b9fa035698e4520401dae80c428762314100c3a4cd3e1c689c8f64838b95_p1_enhanced_orb.npy
+                [F] 59cfab548bc3b2b74b2c98396abb84e7d438b28ee20477002d710ab69786c2b8_p1_basic_orb.npy
+                [F] 59cfab548bc3b2b74b2c98396abb84e7d438b28ee20477002d710ab69786c2b8_p1_enhanced_orb.npy
+                [F] 5d1555af0a2a1ffee7f4094bec82e2d3412fca2583eeaceff28eafda6440efa2_p1_basic_orb.npy
+                [F] 5d1555af0a2a1ffee7f4094bec82e2d3412fca2583eeaceff28eafda6440efa2_p1_enhanced_orb.npy
+                [F] 5d1555af0a2a1ffee7f4094bec82e2d3412fca2583eeaceff28eafda6440efa2_p2_basic_orb.npy
+                [F] 5d1555af0a2a1ffee7f4094bec82e2d3412fca2583eeaceff28eafda6440efa2_p2_enhanced_orb.npy
+                [F] 5dc6e42b12fa5fab5785426b76598a4bbf3c525892aa1380c3ae0fdf5ccd423b_p1_basic_orb.npy
+                [F] 5dc6e42b12fa5fab5785426b76598a4bbf3c525892aa1380c3ae0fdf5ccd423b_p1_enhanced_orb.npy
+                [F] 5e516f1eee292dde5e37651de411de08790baf47c6c6dbf93f836fce91807c35_p1_basic_orb.npy
+                [F] 5e516f1eee292dde5e37651de411de08790baf47c6c6dbf93f836fce91807c35_p1_enhanced_orb.npy
+                [F] 5e516f1eee292dde5e37651de411de08790baf47c6c6dbf93f836fce91807c35_p2_basic_orb.npy
+                [F] 5e516f1eee292dde5e37651de411de08790baf47c6c6dbf93f836fce91807c35_p2_enhanced_orb.npy
+                [F] 5e5d8d9a2c536593117329f9999cc5045e71145134f54667585aedbba7d6aa8d_p1_basic_orb.npy
+                [F] 5e5d8d9a2c536593117329f9999cc5045e71145134f54667585aedbba7d6aa8d_p1_enhanced_orb.npy
+                [F] 5e5d8d9a2c536593117329f9999cc5045e71145134f54667585aedbba7d6aa8d_p2_basic_orb.npy
+                [F] 5e5d8d9a2c536593117329f9999cc5045e71145134f54667585aedbba7d6aa8d_p2_enhanced_orb.npy
+                [F] 625782b18e45c211568537a3b09a01fa9bd0e2d81810909cc454f61fb7fbe046_p1_basic_orb.npy
+                [F] 625782b18e45c211568537a3b09a01fa9bd0e2d81810909cc454f61fb7fbe046_p1_enhanced_orb.npy
+                [F] 625782b18e45c211568537a3b09a01fa9bd0e2d81810909cc454f61fb7fbe046_p2_basic_orb.npy
+                [F] 625782b18e45c211568537a3b09a01fa9bd0e2d81810909cc454f61fb7fbe046_p2_enhanced_orb.npy
+                [F] 6308f6c7015b9418017aedbd4b6c0491b71518ea60466d65f8cb0c362faead2c_p1_basic_orb.npy
+                [F] 6308f6c7015b9418017aedbd4b6c0491b71518ea60466d65f8cb0c362faead2c_p1_enhanced_orb.npy
+                [F] 6308f6c7015b9418017aedbd4b6c0491b71518ea60466d65f8cb0c362faead2c_p2_basic_orb.npy
+                [F] 6308f6c7015b9418017aedbd4b6c0491b71518ea60466d65f8cb0c362faead2c_p2_enhanced_orb.npy
+                [F] 64c27c8e4deff4066a5afceb8c59108f20bdb5f95051935f7f3739b16bedbe09_p1_basic_orb.npy
+                [F] 64c27c8e4deff4066a5afceb8c59108f20bdb5f95051935f7f3739b16bedbe09_p1_enhanced_orb.npy
+                [F] 66f1707219769c931ebd6343a384054252194ccf4f4af62d71646778e4fc6fbb_p1_basic_orb.npy
+                [F] 66f1707219769c931ebd6343a384054252194ccf4f4af62d71646778e4fc6fbb_p1_enhanced_orb.npy
+                [F] 6710db504761eee2405ee06638cf426af2fa2196962643aebb1c4796333f3e7b_p1_basic_orb.npy
+                [F] 6710db504761eee2405ee06638cf426af2fa2196962643aebb1c4796333f3e7b_p1_enhanced_orb.npy
+                [F] 6710db504761eee2405ee06638cf426af2fa2196962643aebb1c4796333f3e7b_p2_basic_orb.npy
+                [F] 6710db504761eee2405ee06638cf426af2fa2196962643aebb1c4796333f3e7b_p2_enhanced_orb.npy
+                [F] 671bf8b6aeb2aa992f2ecae81a85c4817fb09be952f9c9c4219029175d83b5a3_p1_basic_orb.npy
+                [F] 671bf8b6aeb2aa992f2ecae81a85c4817fb09be952f9c9c4219029175d83b5a3_p1_enhanced_orb.npy
+                [F] 68205c92f2214890e66f138d416dd064bae52e6693dce2c75bf0443930a08389_p1_basic_orb.npy
+                [F] 6ad575e8855875996af53b844252648ebb9382b850f70c182fb016a204abeb03_p1_basic_orb.npy
+                [F] 6b748e0dfd7bbe9edaef8be757a96d1a89f9266c4c0414c667dd63baee3b9989_p1_basic_orb.npy
+                [F] 6e093d8f797b4d207e6d46d7977fdf66cdda4793d0ea86f56b457f5fa48b7a77_p1_basic_orb.npy
+                [F] 6e093d8f797b4d207e6d46d7977fdf66cdda4793d0ea86f56b457f5fa48b7a77_p1_enhanced_orb.npy
+                [F] 716070cfd8308ff731a90ee89c5af776f452b176e4d3f2807fccf14474714e53_p1_basic_orb.npy
+                [F] 74540e79f279ddc06bd5b4decfde803da607a522a5d1e10de937d72ad3fc36b6_p1_basic_orb.npy
+                [F] 74540e79f279ddc06bd5b4decfde803da607a522a5d1e10de937d72ad3fc36b6_p1_enhanced_orb.npy
+                [F] 74540e79f279ddc06bd5b4decfde803da607a522a5d1e10de937d72ad3fc36b6_p2_basic_orb.npy
+                [F] 74540e79f279ddc06bd5b4decfde803da607a522a5d1e10de937d72ad3fc36b6_p2_enhanced_orb.npy
+                [F] 7459b0569ddfd9b59fb4814d64f6bcb1e9c6e5f84d8d4f2fa4edeff4a7a3e16d_p1_basic_orb.npy
+                [F] 7459b0569ddfd9b59fb4814d64f6bcb1e9c6e5f84d8d4f2fa4edeff4a7a3e16d_p1_enhanced_orb.npy
+                [F] 7459b0569ddfd9b59fb4814d64f6bcb1e9c6e5f84d8d4f2fa4edeff4a7a3e16d_p2_basic_orb.npy
+                [F] 7459b0569ddfd9b59fb4814d64f6bcb1e9c6e5f84d8d4f2fa4edeff4a7a3e16d_p2_enhanced_orb.npy
+                [F] 75c5231ba1eb1f5ac47ca005ac245b32c9dc833a292e523d7b6dfae54ffd5b27_p1_basic_orb.npy
+                [F] 75c5231ba1eb1f5ac47ca005ac245b32c9dc833a292e523d7b6dfae54ffd5b27_p1_enhanced_orb.npy
+                [F] 77787a86aefe4fa6acfd41a4a6162e2bcbcd28409f29309a3832fce3eaa5fd02_p1_basic_orb.npy
+                [F] 777ad40e01f256059037bf1ebc642fbcb527f8c7b96b067ebf16a7e71d40c64c_p1_basic_orb.npy
+                [F] 777ad40e01f256059037bf1ebc642fbcb527f8c7b96b067ebf16a7e71d40c64c_p1_enhanced_orb.npy
+                [F] 777ad40e01f256059037bf1ebc642fbcb527f8c7b96b067ebf16a7e71d40c64c_p2_basic_orb.npy
+                [F] 777ad40e01f256059037bf1ebc642fbcb527f8c7b96b067ebf16a7e71d40c64c_p2_enhanced_orb.npy
+                [F] 7af2b38bde1b3a62ef79c165289b0d45ff46cba1c938d67b6a6a6f0e175f4931_p1_basic_orb.npy
+                [F] 7af2b38bde1b3a62ef79c165289b0d45ff46cba1c938d67b6a6a6f0e175f4931_p1_enhanced_orb.npy
+                [F] 7c172a8aca0a6b1c6dc0b845c5681f4f3391408a1da8997397652141574df879_p1_basic_orb.npy
+                [F] 7c172a8aca0a6b1c6dc0b845c5681f4f3391408a1da8997397652141574df879_p1_enhanced_orb.npy
+                [F] 7d792259d00c07669538549b71c250cb9464576fde9b8a06270c70dee0fbb6f5_p1_basic_orb.npy
+                [F] 7d792259d00c07669538549b71c250cb9464576fde9b8a06270c70dee0fbb6f5_p1_enhanced_orb.npy
+                [F] 7d792259d00c07669538549b71c250cb9464576fde9b8a06270c70dee0fbb6f5_p2_basic_orb.npy
+                [F] 7d792259d00c07669538549b71c250cb9464576fde9b8a06270c70dee0fbb6f5_p2_enhanced_orb.npy
+                [F] 7fdf5f2b8f043f26c7034f384afaa66ee15f4dbcdc9ef8c26141c0d917ba012e_p1_basic_orb.npy
+                [F] 81bbd368a003ccb64a69cb0749cd264dec720ee0ade78d4a0a528b868ad11360_p1_basic_orb.npy
+                [F] 81bbd368a003ccb64a69cb0749cd264dec720ee0ade78d4a0a528b868ad11360_p1_enhanced_orb.npy
+                [F] 82219e51dbd34c32c9cc268230728ed0136b7ab2ca1ff923ad9c96526b89c966_p1_basic_orb.npy
+                [F] 82219e51dbd34c32c9cc268230728ed0136b7ab2ca1ff923ad9c96526b89c966_p1_enhanced_orb.npy
+                [F] 82219e51dbd34c32c9cc268230728ed0136b7ab2ca1ff923ad9c96526b89c966_p2_basic_orb.npy
+                [F] 82219e51dbd34c32c9cc268230728ed0136b7ab2ca1ff923ad9c96526b89c966_p2_enhanced_orb.npy
+                [F] 8348abe532ab3eee29fef6cf62aba521ec2fe02e345715e58e80ecc4eb6f8ef1_p1_basic_orb.npy
+                [F] 8348abe532ab3eee29fef6cf62aba521ec2fe02e345715e58e80ecc4eb6f8ef1_p1_enhanced_orb.npy
+                [F] 8348abe532ab3eee29fef6cf62aba521ec2fe02e345715e58e80ecc4eb6f8ef1_p2_basic_orb.npy
+                [F] 8348abe532ab3eee29fef6cf62aba521ec2fe02e345715e58e80ecc4eb6f8ef1_p2_enhanced_orb.npy
+                [F] 845bcc1ad12090b90eed5ca1a1dfd50db22738daf283b8c8578bbfde39e67b8d_p1_basic_orb.npy
+                [F] 845ee4479be3fae5c489eaeea45120b6ef4450337bde841313ec4e73b3be0460_p1_basic_orb.npy
+                [F] 845ee4479be3fae5c489eaeea45120b6ef4450337bde841313ec4e73b3be0460_p1_enhanced_orb.npy
+                [F] 85ec6dc627daea190b4c3c9baf5eba7f3be44df6f9c7c19d687676c02dc091ee_p1_basic_orb.npy
+                [F] 875ee7c93beefc6f97844482dc817afed2f0a75e348347cab36c0598c1442f5f_p1_basic_orb.npy
+                [F] 875ee7c93beefc6f97844482dc817afed2f0a75e348347cab36c0598c1442f5f_p1_enhanced_orb.npy
+                [F] 88c7cf050e8b33b931f84b3755cc9dab5ebf8b67acafa023777bedf6fa8ffe1f_p1_basic_orb.npy
+                [F] 88c7cf050e8b33b931f84b3755cc9dab5ebf8b67acafa023777bedf6fa8ffe1f_p1_enhanced_orb.npy
+                [F] 88c7cf050e8b33b931f84b3755cc9dab5ebf8b67acafa023777bedf6fa8ffe1f_p2_basic_orb.npy
+                [F] 88c7cf050e8b33b931f84b3755cc9dab5ebf8b67acafa023777bedf6fa8ffe1f_p2_enhanced_orb.npy
+                [F] 8abae90f6636e781c3e9ed9a09786c055d5e6e131777d64fa3e06a8fb0bce544_p1_basic_orb.npy
+                [F] 8abae90f6636e781c3e9ed9a09786c055d5e6e131777d64fa3e06a8fb0bce544_p1_enhanced_orb.npy
+                [F] 8abae90f6636e781c3e9ed9a09786c055d5e6e131777d64fa3e06a8fb0bce544_p2_basic_orb.npy
+                [F] 8abae90f6636e781c3e9ed9a09786c055d5e6e131777d64fa3e06a8fb0bce544_p2_enhanced_orb.npy
+                [F] 8bc027b91a1d9c8d01567d0c728b6ec25682e863d953728fefca0fe25bafb8be_p1_basic_orb.npy
+                [F] 8beaa2a4bd68bd5a4ac75a43371a7ac994ba7dcb0253bad304290f8949f4a2fc_p1_basic_orb.npy
+                [F] 8c9f270fdec49a0500d572552c86786192e6a6f9fe4c039b1529d2a2a3a32eee_p1_basic_orb.npy
+                [F] 8c9f270fdec49a0500d572552c86786192e6a6f9fe4c039b1529d2a2a3a32eee_p1_enhanced_orb.npy
+                [F] 8d7598b26c42472e50329c8b0caf64288471f595acfe44e01f77b57f14e44332_p1_basic_orb.npy
+                [F] 8d7598b26c42472e50329c8b0caf64288471f595acfe44e01f77b57f14e44332_p1_enhanced_orb.npy
+                [F] 8d7598b26c42472e50329c8b0caf64288471f595acfe44e01f77b57f14e44332_p2_basic_orb.npy
+                [F] 8d7598b26c42472e50329c8b0caf64288471f595acfe44e01f77b57f14e44332_p2_enhanced_orb.npy
+                [F] 9150b2552253a7c96230c4f7a5cdcc6e334755985c9b40db44a1233d2ed1962f_p1_basic_orb.npy
+                [F] 9150b2552253a7c96230c4f7a5cdcc6e334755985c9b40db44a1233d2ed1962f_p1_enhanced_orb.npy
+                [F] 925ea24bf2c9235ce168991e6b2cd1ae0a13bf1c7e37e0c68eb3feaa3ff87180_p1_basic_orb.npy
+                [F] 925ea24bf2c9235ce168991e6b2cd1ae0a13bf1c7e37e0c68eb3feaa3ff87180_p1_enhanced_orb.npy
+                [F] 94db281f3733d8eff9c3a122f54e5c41284da66021abe733c0d5fa02e54aa0dd_p1_basic_orb.npy
+                [F] 94db281f3733d8eff9c3a122f54e5c41284da66021abe733c0d5fa02e54aa0dd_p1_enhanced_orb.npy
+                [F] 967cb999bf4be5e0877dd1125b3e599a4fc3d7d7801a1f1ffdd0c58a80afa7d1_p1_basic_orb.npy
+                [F] 967cb999bf4be5e0877dd1125b3e599a4fc3d7d7801a1f1ffdd0c58a80afa7d1_p1_enhanced_orb.npy
+                [F] 967cb999bf4be5e0877dd1125b3e599a4fc3d7d7801a1f1ffdd0c58a80afa7d1_p2_basic_orb.npy
+                [F] 967cb999bf4be5e0877dd1125b3e599a4fc3d7d7801a1f1ffdd0c58a80afa7d1_p2_enhanced_orb.npy
+                [F] 97f7dcb4bb15bb612047b508802a5f70e492969ee16b4fc635bb6e911f9d54e5_p1_basic_orb.npy
+                [F] 97f7dcb4bb15bb612047b508802a5f70e492969ee16b4fc635bb6e911f9d54e5_p1_enhanced_orb.npy
+                [F] 9c2cdf88267c1ff80637d4ed630ade8d58dff1e6e12451b6645c6e5c58c42336_p1_basic_orb.npy
+                [F] 9c2cdf88267c1ff80637d4ed630ade8d58dff1e6e12451b6645c6e5c58c42336_p1_enhanced_orb.npy
+                [F] 9e254471a2aa8677da95fcc8ae8e9a033c6fd4b3e3f91f4c5427d6f71febac68_p1_basic_orb.npy
+                [F] 9ea3594e330ead23de02e3c9f4252800b72047df8de11096a940a3313e9a52d3_p1_basic_orb.npy
+                [F] 9f229e8a1c199fad66a24036d6525b0eccc6b14e6219df8553aea87e4553b1cc_p1_basic_orb.npy
+                [F] 9f229e8a1c199fad66a24036d6525b0eccc6b14e6219df8553aea87e4553b1cc_p1_enhanced_orb.npy
+                [F] a3f2c5263aedba603c9edd33fc1da6b7676d8868619c6eccc10ba93704ac8683_p1_basic_orb.npy
+                [F] a3f2c5263aedba603c9edd33fc1da6b7676d8868619c6eccc10ba93704ac8683_p1_enhanced_orb.npy
+                [F] a48bf373f7a8ecb8b657e5de6cacdab962c1f60787ed437584bf1402d684e52d_p1_basic_orb.npy
+                [F] a48bf373f7a8ecb8b657e5de6cacdab962c1f60787ed437584bf1402d684e52d_p1_enhanced_orb.npy
+                [F] a48bf373f7a8ecb8b657e5de6cacdab962c1f60787ed437584bf1402d684e52d_p2_basic_orb.npy
+                [F] a48bf373f7a8ecb8b657e5de6cacdab962c1f60787ed437584bf1402d684e52d_p2_enhanced_orb.npy
+                [F] a4d2e90da6a10328f03f803caabe65285bb6aa5bb7b6bd63c507c8b3ea3aa84e_p1_basic_orb.npy
+                [F] a4d2e90da6a10328f03f803caabe65285bb6aa5bb7b6bd63c507c8b3ea3aa84e_p1_enhanced_orb.npy
+                [F] a4d2e90da6a10328f03f803caabe65285bb6aa5bb7b6bd63c507c8b3ea3aa84e_p2_basic_orb.npy
+                [F] a4d2e90da6a10328f03f803caabe65285bb6aa5bb7b6bd63c507c8b3ea3aa84e_p2_enhanced_orb.npy
+                [F] a65452b167b61aa18500eb985dc67df48c5cb0c4b8793814837c0761091b6747_p1_basic_orb.npy
+                [F] a65452b167b61aa18500eb985dc67df48c5cb0c4b8793814837c0761091b6747_p1_enhanced_orb.npy
+                [F] a6f9ad4b28104f59b7a4cc80d11be8a01a57c483e0eea75e65a751d0a45769fe_p1_basic_orb.npy
+                [F] a6f9ad4b28104f59b7a4cc80d11be8a01a57c483e0eea75e65a751d0a45769fe_p1_enhanced_orb.npy
+                [F] a6f9ad4b28104f59b7a4cc80d11be8a01a57c483e0eea75e65a751d0a45769fe_p2_basic_orb.npy
+                [F] a6f9ad4b28104f59b7a4cc80d11be8a01a57c483e0eea75e65a751d0a45769fe_p2_enhanced_orb.npy
+                [F] a79a17693a2b45d2635887c5dbb37ebb44b7307619df0a8c5f696b25a96329fe_p1_basic_orb.npy
+                [F] a7d030e9df8ae6e784c623fdac153e57d991c73c490330a163a2414c8b9bfa45_p1_basic_orb.npy
+                [F] a7d030e9df8ae6e784c623fdac153e57d991c73c490330a163a2414c8b9bfa45_p1_enhanced_orb.npy
+                [F] a9a7c595e7afc20a9862f92a26bf3e7877bfc999dd559c35f0238ad763fa463b_p1_basic_orb.npy
+                [F] a9a7c595e7afc20a9862f92a26bf3e7877bfc999dd559c35f0238ad763fa463b_p1_enhanced_orb.npy
+                [F] a9a7c595e7afc20a9862f92a26bf3e7877bfc999dd559c35f0238ad763fa463b_p2_basic_orb.npy
+                [F] a9a7c595e7afc20a9862f92a26bf3e7877bfc999dd559c35f0238ad763fa463b_p2_enhanced_orb.npy
+                [F] aae0661fe8e861f215cddc91fd3c049afc03d4d8740333bbc9dd259c14f2231a_p1_basic_orb.npy
+                [F] aae0661fe8e861f215cddc91fd3c049afc03d4d8740333bbc9dd259c14f2231a_p1_enhanced_orb.npy
+                [F] aae0661fe8e861f215cddc91fd3c049afc03d4d8740333bbc9dd259c14f2231a_p2_basic_orb.npy
+                [F] aae0661fe8e861f215cddc91fd3c049afc03d4d8740333bbc9dd259c14f2231a_p2_enhanced_orb.npy
+                [F] abde2d844f79762d4eee82539d2487c1c72d5c53e4f0e41aa26b06169101c78b_p1_basic_orb.npy
+                [F] acb3b95814fdd3a1d638fcc5b3cc080e014e8373ebd3e814539ac76f1c97a8e2_p1_basic_orb.npy
+                [F] ad29953bbd0eb4fb1cc1488e028ece047c9141c7d3a4dfb602495cc95af673fb_p1_basic_orb.npy
+                [F] ad29953bbd0eb4fb1cc1488e028ece047c9141c7d3a4dfb602495cc95af673fb_p1_enhanced_orb.npy
+                [F] af413935eaa76a4ff63db4174ba12d79fbe7ccca94c524f26a68e78fc7e69794_p1_basic_orb.npy
+                [F] af413935eaa76a4ff63db4174ba12d79fbe7ccca94c524f26a68e78fc7e69794_p1_enhanced_orb.npy
+                [F] af413935eaa76a4ff63db4174ba12d79fbe7ccca94c524f26a68e78fc7e69794_p2_basic_orb.npy
+                [F] af413935eaa76a4ff63db4174ba12d79fbe7ccca94c524f26a68e78fc7e69794_p2_enhanced_orb.npy
+                [F] b1741f7840b291c263dd22813c5959cb46fd6e3ee6168024f7d4744b34399bb5_p1_basic_orb.npy
+                [F] b1741f7840b291c263dd22813c5959cb46fd6e3ee6168024f7d4744b34399bb5_p1_enhanced_orb.npy
+                [F] b1ff96b4d3b906e090dbd6b2db766bb1f977e0e09107b93ad6bd87713efd68bb_p1_basic_orb.npy
+                [F] b1ff96b4d3b906e090dbd6b2db766bb1f977e0e09107b93ad6bd87713efd68bb_p1_enhanced_orb.npy
+                [F] b1ff96b4d3b906e090dbd6b2db766bb1f977e0e09107b93ad6bd87713efd68bb_p2_basic_orb.npy
+                [F] b1ff96b4d3b906e090dbd6b2db766bb1f977e0e09107b93ad6bd87713efd68bb_p2_enhanced_orb.npy
+                [F] b471d53537469f462500551dacf9e6fe11d44623b6565d1f5c00ffba02fdd1bf_p1_basic_orb.npy
+                [F] b64e216f24ed48311608c1f41e708eba8489f1aac84673e17bb363f01215e984_p1_basic_orb.npy
+                [F] b64e216f24ed48311608c1f41e708eba8489f1aac84673e17bb363f01215e984_p1_enhanced_orb.npy
+                [F] b64e216f24ed48311608c1f41e708eba8489f1aac84673e17bb363f01215e984_p2_basic_orb.npy
+                [F] b64e216f24ed48311608c1f41e708eba8489f1aac84673e17bb363f01215e984_p2_enhanced_orb.npy
+                [F] b7361f53b6e7cbe70ff57a15fda8fe0fd980a36a19a56e2589eadb7506ea7051_p1_basic_orb.npy
+                [F] b7361f53b6e7cbe70ff57a15fda8fe0fd980a36a19a56e2589eadb7506ea7051_p1_enhanced_orb.npy
+                [F] b7361f53b6e7cbe70ff57a15fda8fe0fd980a36a19a56e2589eadb7506ea7051_p2_basic_orb.npy
+                [F] b7361f53b6e7cbe70ff57a15fda8fe0fd980a36a19a56e2589eadb7506ea7051_p2_enhanced_orb.npy
+                [F] b8ebd14d3665c1ec4f645ef5e7fb2c544a86496c011cab8aa51b98b95dee4004_p1_basic_orb.npy
+                [F] b93fc8b6c1e15cfe19f522efd5a32ab2bf9d79ed0966808bae40743f8566f059_p1_basic_orb.npy
+                [F] b93fc8b6c1e15cfe19f522efd5a32ab2bf9d79ed0966808bae40743f8566f059_p1_enhanced_orb.npy
+                [F] b94786a4fa0d352e639cb712e6a1628d3931f624c4a52a95e6c9efa2a9e4c23c_p1_basic_orb.npy
+                [F] b94786a4fa0d352e639cb712e6a1628d3931f624c4a52a95e6c9efa2a9e4c23c_p1_enhanced_orb.npy
+                [F] baf62dfe0f173e2afd62f931a52f07f68ffacf1e791277d89114dd0654eba772_p1_basic_orb.npy
+                [F] baf62dfe0f173e2afd62f931a52f07f68ffacf1e791277d89114dd0654eba772_p1_enhanced_orb.npy
+                [F] bb9ff20c61b778864bd6a48481a0ba19bc4f23d5993b2f00e31cb9590053bad9_p1_basic_orb.npy
+                [F] bb9ff20c61b778864bd6a48481a0ba19bc4f23d5993b2f00e31cb9590053bad9_p1_enhanced_orb.npy
+                [F] bb9ff20c61b778864bd6a48481a0ba19bc4f23d5993b2f00e31cb9590053bad9_p2_basic_orb.npy
+                [F] bb9ff20c61b778864bd6a48481a0ba19bc4f23d5993b2f00e31cb9590053bad9_p2_enhanced_orb.npy
+                [F] bea412dc7886cc254d25220595ab2b0dff0a938e91a9cfae6f1e6be896883d93_p1_basic_orb.npy
+                [F] bea412dc7886cc254d25220595ab2b0dff0a938e91a9cfae6f1e6be896883d93_p1_enhanced_orb.npy
+                [F] c5cd2d41b9499ea393dfbdfaccbadded2554d2e921d0922db8fcce66931f7f80_p1_basic_orb.npy
+                [F] c5cd2d41b9499ea393dfbdfaccbadded2554d2e921d0922db8fcce66931f7f80_p1_enhanced_orb.npy
+                [F] c5cd2d41b9499ea393dfbdfaccbadded2554d2e921d0922db8fcce66931f7f80_p2_basic_orb.npy
+                [F] c5cd2d41b9499ea393dfbdfaccbadded2554d2e921d0922db8fcce66931f7f80_p2_enhanced_orb.npy
+                [F] c5dc373a92bda4bc03b96a3a6cc33fc04be1d081538b563dc7d2df7ac62ad29c_p1_basic_orb.npy
+                [F] c5dc373a92bda4bc03b96a3a6cc33fc04be1d081538b563dc7d2df7ac62ad29c_p1_enhanced_orb.npy
+                [F] c62f44a2e455cd466f85d01e5538ae451b5b5a1e00b77e62e9d584f7d1bf4767_p1_basic_orb.npy
+                [F] c62f44a2e455cd466f85d01e5538ae451b5b5a1e00b77e62e9d584f7d1bf4767_p1_enhanced_orb.npy
+                [F] c715c4ee182d1afb6f656b38d448d74ec53a0d7d6d49883f305a0f2cd86443ba_p1_basic_orb.npy
+                [F] c715c4ee182d1afb6f656b38d448d74ec53a0d7d6d49883f305a0f2cd86443ba_p1_enhanced_orb.npy
+                [F] c87bd0dfb24d5264105d0831e570a70724f95e7384d38dbc1df1a215b11ca7b9_p1_basic_orb.npy
+                [F] c87bd0dfb24d5264105d0831e570a70724f95e7384d38dbc1df1a215b11ca7b9_p1_enhanced_orb.npy
+                [F] c8f3133fc1c60512d3a522a7de5325585b214ba6879c2ac5bded6ae834d2c076_p1_basic_orb.npy
+                [F] c8f3133fc1c60512d3a522a7de5325585b214ba6879c2ac5bded6ae834d2c076_p1_enhanced_orb.npy
+                [F] cba90276ade88ae2fdfa83032d7aa686b62e54d81a8d97522aa989c4e748a71b_p1_basic_orb.npy
+                [F] cba90276ade88ae2fdfa83032d7aa686b62e54d81a8d97522aa989c4e748a71b_p1_enhanced_orb.npy
+                [F] cba90276ade88ae2fdfa83032d7aa686b62e54d81a8d97522aa989c4e748a71b_p2_basic_orb.npy
+                [F] cba90276ade88ae2fdfa83032d7aa686b62e54d81a8d97522aa989c4e748a71b_p2_enhanced_orb.npy
+                [F] cebd5b72b2104bf4c196d3b1b6d7c7fc5aad2572c3a5f6158a89df9be053f5cb_p1_basic_orb.npy
+                [F] cebd5b72b2104bf4c196d3b1b6d7c7fc5aad2572c3a5f6158a89df9be053f5cb_p1_enhanced_orb.npy
+                [F] cebd5b72b2104bf4c196d3b1b6d7c7fc5aad2572c3a5f6158a89df9be053f5cb_p2_basic_orb.npy
+                [F] cebd5b72b2104bf4c196d3b1b6d7c7fc5aad2572c3a5f6158a89df9be053f5cb_p2_enhanced_orb.npy
+                [F] cf910b302a047cbe1e0da00afa20c9f70c9ace7ff11d27360bbae5a0891d5720_p1_basic_orb.npy
+                [F] cf910b302a047cbe1e0da00afa20c9f70c9ace7ff11d27360bbae5a0891d5720_p1_enhanced_orb.npy
+                [F] d0e6d00dfbd5d5288b4326d74f5d2b9c173f6e4e766be05e6517c0d8417c13b9_p1_basic_orb.npy
+                [F] d0e6d00dfbd5d5288b4326d74f5d2b9c173f6e4e766be05e6517c0d8417c13b9_p1_enhanced_orb.npy
+                [F] d2e136b29b45f761974677853fcc992383ae2f2acf66480c245625546ef5038f_p1_basic_orb.npy
+                [F] d2e136b29b45f761974677853fcc992383ae2f2acf66480c245625546ef5038f_p1_enhanced_orb.npy
+                [F] d31799b9fedcf81788c07429e8904b4c975e2378aed8eb87384c2c097cd6864c_p1_basic_orb.npy
+                [F] d31799b9fedcf81788c07429e8904b4c975e2378aed8eb87384c2c097cd6864c_p1_enhanced_orb.npy
+                [F] d3be87d17fbabb86d539d30d26f3222a458ea804cbec4ed52272d644272df0d3_p1_basic_orb.npy
+                [F] d3be87d17fbabb86d539d30d26f3222a458ea804cbec4ed52272d644272df0d3_p1_enhanced_orb.npy
+                [F] d675992f7e678457e4bea6325fbd29e369db27621b60960767a896c5fd407490_p1_basic_orb.npy
+                [F] d675992f7e678457e4bea6325fbd29e369db27621b60960767a896c5fd407490_p1_enhanced_orb.npy
+                [F] d675992f7e678457e4bea6325fbd29e369db27621b60960767a896c5fd407490_p2_basic_orb.npy
+                [F] d675992f7e678457e4bea6325fbd29e369db27621b60960767a896c5fd407490_p2_enhanced_orb.npy
+                [F] d7a363451585a222fca0d58f2dd6d312cc36e7c78064e0ebf5f5619dd54361ee_p1_basic_orb.npy
+                [F] da80333c09964689596a5305198aac10c3b969478a92ba023055d97a276aecb5_p1_basic_orb.npy
+                [F] da80333c09964689596a5305198aac10c3b969478a92ba023055d97a276aecb5_p1_enhanced_orb.npy
+                [F] dbce628ad099f661fdd82322d4eff4de211e0995a1e3b57850e2ab8c1060ccda_p1_basic_orb.npy
+                [F] dbdbe7d51c965a6dba5d0169b0d705b0b2d9c398871af10efdebdae2b58d9362_p1_basic_orb.npy
+                [F] dbdbe7d51c965a6dba5d0169b0d705b0b2d9c398871af10efdebdae2b58d9362_p1_enhanced_orb.npy
+                [F] dbdbe7d51c965a6dba5d0169b0d705b0b2d9c398871af10efdebdae2b58d9362_p2_basic_orb.npy
+                [F] dbdbe7d51c965a6dba5d0169b0d705b0b2d9c398871af10efdebdae2b58d9362_p2_enhanced_orb.npy
+                [F] dced2b67699482e94b338c16ba5bd3567e6c51ef8db63595ec55f0a9575b2d65_p1_basic_orb.npy
+                [F] dced2b67699482e94b338c16ba5bd3567e6c51ef8db63595ec55f0a9575b2d65_p1_enhanced_orb.npy
+                [F] ddd557e5f320324a4fef050feabda20e0f3b419370e9d5fd621e92d4f984f575_p1_basic_orb.npy
+                [F] ddd557e5f320324a4fef050feabda20e0f3b419370e9d5fd621e92d4f984f575_p1_enhanced_orb.npy
+                [F] ddd557e5f320324a4fef050feabda20e0f3b419370e9d5fd621e92d4f984f575_p2_basic_orb.npy
+                [F] ddd557e5f320324a4fef050feabda20e0f3b419370e9d5fd621e92d4f984f575_p2_enhanced_orb.npy
+                [F] e288e73c752c2f6d50c860cfec8b7dda5b0b41d5fb20b93400de1d117e59bf24_p1_basic_orb.npy
+                [F] e288e73c752c2f6d50c860cfec8b7dda5b0b41d5fb20b93400de1d117e59bf24_p1_enhanced_orb.npy
+                [F] e288e73c752c2f6d50c860cfec8b7dda5b0b41d5fb20b93400de1d117e59bf24_p2_basic_orb.npy
+                [F] e288e73c752c2f6d50c860cfec8b7dda5b0b41d5fb20b93400de1d117e59bf24_p2_enhanced_orb.npy
+                [F] e45003c95e488c6ba339f34a8be962700958683e9e16fd087b37a0c38460bf0a_p1_basic_orb.npy
+                [F] e484b7ede30568f2f6c95f30b46d713807413c2ee1aca31651495970de21c3ab_p1_basic_orb.npy
+                [F] e484b7ede30568f2f6c95f30b46d713807413c2ee1aca31651495970de21c3ab_p1_enhanced_orb.npy
+                [F] e484b7ede30568f2f6c95f30b46d713807413c2ee1aca31651495970de21c3ab_p2_basic_orb.npy
+                [F] e484b7ede30568f2f6c95f30b46d713807413c2ee1aca31651495970de21c3ab_p2_enhanced_orb.npy
+                [F] e6f2dc5e17ce93f046ba82d75152aeffad6586ac730cf52a4b2121d13933ec2e_p1_basic_orb.npy
+                [F] e6f2dc5e17ce93f046ba82d75152aeffad6586ac730cf52a4b2121d13933ec2e_p1_enhanced_orb.npy
+                [F] e6f2dc5e17ce93f046ba82d75152aeffad6586ac730cf52a4b2121d13933ec2e_p2_basic_orb.npy
+                [F] e6f2dc5e17ce93f046ba82d75152aeffad6586ac730cf52a4b2121d13933ec2e_p2_enhanced_orb.npy
+                [F] e8785e53aa37eb6b873f4ab8c5edbc2fa0da7ddc83fb24dc5df327bfe7a97da4_p1_basic_orb.npy
+                [F] e904528307c0a51235cb481bf665560852f300f683b1e447ad15e7127b228e56_p1_basic_orb.npy
+                [F] e904528307c0a51235cb481bf665560852f300f683b1e447ad15e7127b228e56_p1_enhanced_orb.npy
+                [F] ed7a38e00c5f200564786288295b691cec44f83f6a946244d93340d44ef8600d_p1_basic_orb.npy
+                [F] ee91bf39f406c5b9ba130063e421d307e323963732f872ec31421cf9304c9e83_p1_basic_orb.npy
+                [F] ee91bf39f406c5b9ba130063e421d307e323963732f872ec31421cf9304c9e83_p1_enhanced_orb.npy
+                [F] ee91bf39f406c5b9ba130063e421d307e323963732f872ec31421cf9304c9e83_p2_basic_orb.npy
+                [F] ee91bf39f406c5b9ba130063e421d307e323963732f872ec31421cf9304c9e83_p2_enhanced_orb.npy
+                [F] efd077b35c0691c24264f8c95a18de003523a5071a789a69b52dd1eff2e7b932_p1_basic_orb.npy
+                [F] efd077b35c0691c24264f8c95a18de003523a5071a789a69b52dd1eff2e7b932_p1_enhanced_orb.npy
+                [F] efd077b35c0691c24264f8c95a18de003523a5071a789a69b52dd1eff2e7b932_p2_basic_orb.npy
+                [F] efd077b35c0691c24264f8c95a18de003523a5071a789a69b52dd1eff2e7b932_p2_enhanced_orb.npy
+                [F] f27f6bb55d9361554c9dee775dddb023e40068b606f6c1812e96456e42cf31a7_p1_basic_orb.npy
+                [F] f2906911d258ff1b936e1c623b5b1af9babc4af9756108aa0bee281a5bb8e324_p1_basic_orb.npy
+                [F] f2906911d258ff1b936e1c623b5b1af9babc4af9756108aa0bee281a5bb8e324_p1_enhanced_orb.npy
+                [F] f2906911d258ff1b936e1c623b5b1af9babc4af9756108aa0bee281a5bb8e324_p2_basic_orb.npy
+                [F] f2906911d258ff1b936e1c623b5b1af9babc4af9756108aa0bee281a5bb8e324_p2_enhanced_orb.npy
+                [F] f487d9fca00cea5bd8c59a15b42067f5744e93a1ac0924f223cc9ed36ba0bf1d_p1_basic_orb.npy
+                [F] f73af64c58a33b93fcdf0179db42fd2d9d12e314804499dee1713d6e6d5ec0d8_p1_basic_orb.npy
+                [F] f73af64c58a33b93fcdf0179db42fd2d9d12e314804499dee1713d6e6d5ec0d8_p1_enhanced_orb.npy
+                [F] f73af64c58a33b93fcdf0179db42fd2d9d12e314804499dee1713d6e6d5ec0d8_p2_basic_orb.npy
+                [F] f73af64c58a33b93fcdf0179db42fd2d9d12e314804499dee1713d6e6d5ec0d8_p2_enhanced_orb.npy
+                [F] fbd8c3f36fe31e6e146d0323f3be610f3fcce47e66b18ff61f21c9ad8b174379_p1_basic_orb.npy
+                [F] fce941d304bef2fcae3439cfc08ab4f5e49658e27672cfbf2d7d9260fa593df8_p1_basic_orb.npy
+                [F] fce941d304bef2fcae3439cfc08ab4f5e49658e27672cfbf2d7d9260fa593df8_p1_enhanced_orb.npy
+                [F] feb19422e0a9dedf5c4e253a2f522610046fc113caeb16de5a530aa9aea2a1cf_p1_basic_orb.npy
+                [F] feb19422e0a9dedf5c4e253a2f522610046fc113caeb16de5a530aa9aea2a1cf_p1_enhanced_orb.npy
+                [F] febbe41c6053cb56e45e21db29d8a815bf13e1a3bc167b86a23452ca20a546ca_p1_basic_orb.npy
+                [F] febbe41c6053cb56e45e21db29d8a815bf13e1a3bc167b86a23452ca20a546ca_p1_enhanced_orb.npy
+                [F] fedf412a304960ba578599430ab287ccfc3989151d6c3b47715266a154ad6888_p1_basic_orb.npy
+                [F] fedf412a304960ba578599430ab287ccfc3989151d6c3b47715266a154ad6888_p1_enhanced_orb.npy
+            [D] images
+        [D] lhln
+            [F] BPJPH_교차인정기관_안내.pdf
+        [D] ocr
+        [D] received_certs
+    [D] schema_export
+        [F] cert_template_features_schema.sql
+        [F] halal_lhln_schema.sql
+        [F] ocr_test_schema.sql
+        [F] pmf_app_schema.sql
+    [D] scripts
+        [D] __pycache__
+            ... 제외 폴더
+        [D] ml_certificate_classifier
+            [D] __pycache__
+                ... 제외 폴더
+            [F] 01_audit_dataset.py
+            [F] 02_build_training_text.py
+            [F] 02_train_classifier.py
+        [D] ml_data_augmentation
+            [D] __pycache__
+                ... 제외 폴더
+            [F] 01_make_synthetic_scan_pdfs.py
+            [F] 01_make_synthetic_scan_pdfs.py.bak_20260728_175752
+            [F] 02_evaluate_synthetic_scan_ocr.py
+            [F] 03_evaluate_synthetic_scan_core_fields.py
+            [F] 04_prepare_synthetic_training_pack.py
+        [D] ml_field_extraction
+            [D] __pycache__
+                ... 제외 폴더
+            [F] 01_build_field_label_candidates.py
+            [F] 02_refine_field_label_candidates.py
+            [F] 03_train_field_rankers.py
+            [F] 04_train_field_span_rankers.py
+            [F] 05_build_product_item_labels.py
+            [F] 06_diagnose_product_ocr_bias.py
+        [F] __init__.py
+        [F] audit_storage_paths.ps1
+        [F] diagnose_and_fix_hash_mismatch.ps1
+        [F] diagnose_ocr_500.ps1
+        [F] export_ocr_rule_review_bundle.py
+        [F] migrate_old_mail_logs.py
+        [F] migrate_runtime_to_d.ps1
+        [F] migrate_runtime_to_d_v2.ps1
+        [F] patch_ocr_service_v2.py
+        [F] remove_onedrive_runtime_backups.ps1
+        [F] rollback_runtime_from_d.ps1
+        [F] start_demo_backend.ps1
+        [F] test_certificate_change_service.py
+        [F] test_certificate_filing_phase2.py
+        [F] test_certificate_filing_preview_api.py
+        [F] test_filing_copy.py
+        [F] test_filing_preview.py
+        [F] test_filing_storage.py
+        [F] test_ocr_api.py
+        [F] test_ocr_rule_v2.py
+        [F] test_phase2_1_matching.py
+        [F] verify_and_remove_onedrive_backups.ps1
+        [F] verify_and_remove_onedrive_backups_v2.ps1
+        [F] verify_long_path_backups.py
+        [F] verify_runtime.py
+        [F] verify_runtime_on_d.ps1
+        [F] verify_runtime_on_d_v2.ps1
+    [F] backend_app_current.zip
+    [F] dump_schema.py
+    [F] requirements.txt
+    [F] run_filing_phase1_test.ps1
+    [F] test_filing_copy.py
+[D] docs
+    [F] LOCAL_DEVELOPMENT.md
+[D] frontend
+    [D] dist
+        ... 제외 폴더
+    [D] node_modules
+        ... 제외 폴더
+    [D] public
+        [F] favicon.svg
+        [F] icons.svg
+        [F] sewoo-logo.png
+    [D] src
+        [D] assets
+            [F] hero.png
+            [F] react.svg
+            [F] vite.svg
+        [F] api.js
+        [F] App.css
+        [F] App.jsx
+        [F] FilingPage.css
+        [F] FilingPage.jsx
+        [F] index.css
+        [F] main.jsx
+    [F] .env
+    [F] .gitignore
+    [F] api_ai_rule_review_append.js
+    [F] eslint.config.js
+    [F] frontend.zip
+    [F] index.html
+    [F] package.json
+    [F] package-lock.json
+    [F] README.md
+    [F] vite.config.js
+[D] scripts
+    [F] git_checkpoint.ps1
+    [F] git_log.ps1
+    [F] init_local_git.ps1
+    [F] local_env.ps1
+    [F] local_env.ps1.example
+    [F] refresh_latest_pmf_copy.ps1
+    [F] run_backend.ps1
+    [F] run_ml_classifier_training.ps1
+    [F] run_ml_dataset_audit.ps1
+    [F] run_ml_field_label_builder.ps1
+    [F] run_ml_field_label_refinement.ps1
+    [F] run_ml_field_ranker_training.ps1
+    [F] run_ml_field_span_ranker_training.ps1
+    [F] run_ml_product_item_label_builder.ps1
+    [F] run_ml_product_ocr_bias_diagnostic.ps1
+    [F] run_prepare_synthetic_training_pack.ps1
+    [F] run_synthetic_scan_core_field_evaluation.ps1
+    [F] run_synthetic_scan_ocr_evaluation.ps1
+    [F] setup_venv.ps1
+    [F] setup_venv_v2.ps1
+    [F] test_certificate_filing_preview_api.py
+[F] .gitattributes
+[F] .gitignore
+[F] _audit_ocr_rules.py
+[F] _extract_bpjph_expiry_flow.py
+[F] _extract_filing_performance_functions.py
+[F] _find_filing_wiring.py
+[F] _halal_project_check.txt
+[F] _halal_venv_packages.txt
+[F] _ml_integration_review.zip
+[F] _patch_bpjph_effective_expiry.py
+[F] _patch_change_display_cleanup.py
+[F] _patch_filing_demo_page.py
+[F] _patch_filing_performance.py
+[F] _patch_manufacturer_match.py
+[F] _profile_filing_candidates.py
+[F] apply_ocr_rule_v2.ps1
+[F] apply_phase2.ps1
+[F] baseline_comparison_report.json
+[F] bpjph_expiry_flow.txt
+[F] CHANGELOG.md
+[F] conda_list.txt
+[F] current_conda_packages.txt
+[F] environment_from_history.yml
+[F] environment_full.yml
+[F] filing_performance_functions.txt
+[F] filing_wiring_locations.txt
+[F] ocr_rule_v2_test_report.json
+[F] patch_confirm_history_connection.py
+[F] pip_freeze.txt
+[F] project_tree.txt
+[F] project_tree_full.txt
+[F] README.md
+[F] README_PHASE2.md
+[F] REVIEW_RESULT.md
+[F] test_add_secondary_job521.py
+[F] test_confirm_history_gate.py
+[F] test_confirm_integration_job521.py
+[F] test_confirm_integration_job521_v2.py
+[F] test_confirm_integration_job521_v3.py
+[F] test_output.txt
+[F] test_replace_current_job521.py
+[F] test_rollback_job521.py

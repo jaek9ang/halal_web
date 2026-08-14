@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 from app.services.storage_path_service import resolve_raw_material_root
@@ -29,7 +29,10 @@ PMF_FILE_PREFIX = 'Products and Materials File'
 # 캐시 / 출력 / DB 경로
 CACHE_DIR = BACKEND_DIR / 'cache'
 PMF_CACHE_DIR = CACHE_DIR / 'source_pmf'
-PMF_ACTIVE_PATH = PMF_CACHE_DIR / 'active_pmf.xlsm'
+PMF_ACTIVE_PATH = _env_path(
+    'PMF_ACTIVE_PATH',
+    PMF_CACHE_DIR / 'active_pmf.xlsm',
+)
 PMF_META_PATH = PMF_CACHE_DIR / 'active_pmf_meta.json'
 
 OUTPUT_DIR = BACKEND_DIR / 'output'

@@ -1,0 +1,13 @@
+fastapi==0.136.1
+uvicorn==0.46.0
+pydantic==2.13.3
+python-multipart==0.0.27
+pandas==2.3.3
+openpyxl==3.1.5
+requests==2.33.1
+PyMuPDF==1.27.2.2
+Pillow==12.2.0
+pytesseract==0.3.13
+numpy==2.2.6
+opencv-python==4.13.0.92
+openai==2.32.0

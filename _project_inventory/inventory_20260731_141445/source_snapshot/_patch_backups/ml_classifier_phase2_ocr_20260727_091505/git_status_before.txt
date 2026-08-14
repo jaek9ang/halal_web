@@ -1,0 +1,79 @@
+﻿ M backend/app/routers/certificate_filing.py
+ M backend/app/routers/ocr.py
+ M backend/app/services/certificate_filing_workflow_service.py
+ M backend/app/services/certificate_rule_service.py
+ M backend/app/services/mail_request_item_service.py
+ M backend/app/services/ocr_service.py
+ M backend/app/services/pmf_filing_service.py
+ M backend/app/services/pmf_service.py
+ M backend/requirements.txt
+ M frontend/src/App.css
+ M frontend/src/App.jsx
+ M frontend/src/api.js
+?? .tmp_confirm_integration_test/
+?? _audit_ocr_rules.py
+?? _extract_bpjph_expiry_flow.py
+?? _extract_filing_performance_functions.py
+?? _find_filing_wiring.py
+?? _halal_project_check.txt
+?? _halal_venv_packages.txt
+?? _ml_integration_review/
+?? _patch_backups/css_line_clamp_20260727_085914/
+?? _patch_backups/ml_classifier_phase1_20260727_085122/
+?? _patch_backups/ml_classifier_phase2_ocr_20260727_091505/
+?? _patch_bpjph_effective_expiry.py
+?? _patch_change_display_cleanup.py
+?? _patch_filing_demo_page.py
+?? _patch_filing_performance.py
+?? _patch_manufacturer_match.py
+?? _profile_filing_candidates.py
+?? backend/app/ml/
+?? backend/app/routers/certificate_filing.py.backup_20260701_181712
+?? backend/app/routers/certificate_filing_backup_20260630_170903_415657.py
+?? backend/app/routers/certificate_filing_backup_20260701_112456_081677.py
+?? backend/app/routers/ocr_backup_20260701_152442_725388.py
+?? backend/app/services/certificate_change_service.py
+?? backend/app/services/certificate_change_service.py.backup_20260701_180121
+?? backend/app/services/certificate_change_service.py.backup_20260701_181120
+?? backend/app/services/certificate_change_service_backup_20260630_163235.py
+?? backend/app/services/certificate_filing_workflow_service.py.backup_20260701_172348
+?? backend/app/services/certificate_filing_workflow_service.py.backup_20260701_180617
+?? backend/app/services/certificate_filing_workflow_service.py.backup_20260701_181120
+?? backend/app/services/certificate_filing_workflow_service_backup_20260630_161149.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260630_163235.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260630_170903_415657.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260630_172235_239488.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260630_173152_053434.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260630_173825_551383.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260701_100916_077000.py
+?? backend/app/services/certificate_filing_workflow_service_backup_20260701_104558_642867.py
+?? backend/app/services/certificate_filing_workflow_service_broken_20260630_161327.py
+?? backend/app/services/certificate_rule_profile_service.py
+?? backend/app/services/certificate_rule_service.py.bak_20260630_112826
+?? backend/app/services/certificate_rule_service.py.bak_20260630_112843
+?? backend/app/services/certificate_rule_service.py.bak_20260630_130239
+?? backend/app/services/certificate_rule_service.py.bak_20260630_130254
+?? backend/app/services/certificate_rule_service.py.bak_20260630_130423
+?? backend/app/services/certificate_rule_service_backup_20260701_144029_184472.py
+?? backend/app/services/mail_request_item_service.py.backup_20260701_172348
+?? backend/app/services/mail_request_item_service_backup_20260702_180941.py
+?? backend/app/services/ocr_service_backup_20260701_155912_790134.py
+?? backend/app/services/pmf_filing_service_backup_20260701_092937_601029.py
+?? backend/app/services/pmf_service.py.backup_20260701_172348
+?? backend/scripts/ml_certificate_classifier/
+?? backend/scripts/test_certificate_change_service.py
+?? bpjph_expiry_flow.txt
+?? current_conda_packages.txt
+?? filing_performance_functions.txt
+?? filing_wiring_locations.txt
+?? frontend/src/FilingPage.css
+?? frontend/src/FilingPage.jsx
+?? patch_confirm_history_connection.py
+?? scripts/run_ml_dataset_audit.ps1
+?? test_add_secondary_job521.py
+?? test_confirm_history_gate.py
+?? test_confirm_integration_job521.py
+?? test_confirm_integration_job521_v2.py
+?? test_confirm_integration_job521_v3.py
+?? test_replace_current_job521.py
+?? test_rollback_job521.py
