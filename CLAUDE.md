@@ -1,10 +1,22 @@
 # CLAUDE.md
 
-할랄 인증 관리 자동화 웹앱. 프로젝트 개요·도메인 용어·실행법은 [README.md](README.md),
-데이터 흐름은 [docs/architecture.md](docs/architecture.md).
-사람이 읽을 작업 가이드는 [docs/claude-code-guide.md](docs/claude-code-guide.md).
+할랄 인증 관리 자동화 웹앱. 문서 진입점은 [docs/overview.md](docs/overview.md) —
+어느 문서로 가야 할지는 거기 "문서 지도"를 본다.
+설치·실행법은 [README.md](README.md), 데이터 흐름은 [docs/architecture.md](docs/architecture.md).
 
 **응답은 항상 한국어.**
+
+## 문서화 규칙
+
+**새로 만드는 문서는 전부 `docs/`에 둔다.** 저장소 루트나 `backend/`, `frontend/` 안에
+설명용 마크다운을 흩뿌리지 않는다. 예외는 루트의 `README.md`와 이 `CLAUDE.md` 둘뿐이다.
+
+- 문서를 새로 만들면 [docs/overview.md](docs/overview.md)의 **문서 지도 표에 한 줄 추가**한다.
+  표에 없는 문서는 아무도 찾지 못한다.
+- 파일명은 소문자 케밥케이스(`ocr-rule-v2.md`). 날짜·버전 접미사로 사본을 늘리지 않는다.
+  개정은 같은 파일을 고치고 git 이력에 맡긴다.
+- 현행이 아닌 지난 단계 기록은 지우지 말고 `docs/archive/`로 옮긴다.
+- 실행 결과물(벤치마크 JSON, 검증 리포트)은 `docs/reports/`에 둔다. 서술 문서와 섞지 않는다.
 
 ## 이 저장소의 금지 사항
 
