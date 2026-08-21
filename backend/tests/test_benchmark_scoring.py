@@ -15,6 +15,7 @@ normalized 축의 존재 이유는 Rule이 이미 정규화된 값을 뱉고 LLM
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -179,3 +180,200 @@ def test_template_hint_skips_human_confirmed_decisions(tmp_path, monkeypatch):
     hint, diagnostic = rb.build_template_hint(pdf, "image")
     assert hint == ""
     assert diagnostic == "SKIPPED_MANUAL_DECISION"
+
+
+# ==========================================
+# 에이전트 판독기
+# ==========================================
+# 에이전트는 OpenAI 없이도 배선을 검증할 수 있어야 한다. 아래 스텁은 도구 호출을
+# 각본대로 돌려주고, 루프가 도구를 실제로 실행해 결과를 대화에 되먹이는지 본다.
+
+import agent_reader as ar  # noqa: E402
+
+
+class _StubFunction:
+    def __init__(self, name: str, arguments: str) -> None:
+        self.name = name
+        self.arguments = arguments
+
+
+class _StubToolCall:
+    def __init__(self, call_id: str, name: str, arguments: str) -> None:
+        self.id = call_id
+        self.function = _StubFunction(name, arguments)
+
+
+class _StubMessage:
+    def __init__(self, content=None, tool_calls=None) -> None:
+        self.content = content
+        self.tool_calls = tool_calls
+
+
+class _StubResponse:
+    def __init__(self, message) -> None:
+        self.choices = [type("Choice", (), {"message": message})()]
+
+
+class _StubCompletions:
+    """각본대로 도구를 부르다가 소진되면 최종 답을 낸다."""
+
+    def __init__(self, script, final_payload) -> None:
+        self.script = list(script)
+        self.final_payload = final_payload
+        self.create_calls = 0
+        self.parse_calls = 0
+        self.last_messages = None
+        self.saw_tools = None
+
+    def create(self, *, model, messages, tools=None, **kwargs):
+        self.create_calls += 1
+        self.last_messages = messages
+        self.saw_tools = tools
+        if not self.script:
+            return _StubResponse(_StubMessage(content="확인 끝"))
+        round_calls = self.script.pop(0)
+        return _StubResponse(_StubMessage(tool_calls=[
+            _StubToolCall(f"call_{i}", name, json.dumps(arguments))
+            for i, (name, arguments) in enumerate(round_calls)
+        ]))
+
+    def parse(self, *, model, messages, response_format=None, **kwargs):
+        self.parse_calls += 1
+        self.last_messages = messages
+        return _StubResponse(_StubMessage(content=json.dumps(self.final_payload)))
+
+
+class _StubClient:
+    def __init__(self, script, final_payload) -> None:
+        self.chat = type("Chat", (), {"completions": _StubCompletions(script, final_payload)})()
+
+
+
+FINAL_PAYLOAD = {
+    "cert_org": "JAKIM",
+    "cert_country": "MALAYSIA",
+    "cert_no": "JAKIM/S/14-12345",
+    "expiry_date": "2027-02-28",
+    "manufacturer": "Acme Foods Sdn Bhd",
+    "manufacturing_country": "MALAYSIA",
+}
+
+
+@pytest.fixture()
+def sample_pdf(tmp_path):
+    fitz = pytest.importorskip("fitz")
+    path = tmp_path / "sample.pdf"
+    doc = fitz.open()
+    page = doc.new_page()
+    page.insert_text((72, 100), "HALAL CERTIFICATE - JAKIM", fontsize=14)
+    doc.save(path)
+    doc.close()
+    return path
+
+
+def test_agent_executes_tools_and_feeds_results_back(sample_pdf):
+    script = [
+        [("get_document_overview", {})],
+        [("read_page_text", {"page": 1}), ("list_certification_organizations", {})],
+    ]
+    client = _StubClient(script, FINAL_PAYLOAD)
+
+    result, trace = ar.run_agent(
+        client, "stub-model", sample_pdf, rb.resolve_schema("enum"), max_iterations=6
+    )
+
+    assert result == FINAL_PAYLOAD
+    assert trace["tool_calls"] == 3
+    assert trace["call_sequence"] == [
+        "get_document_overview", "read_page_text", "list_certification_organizations"
+    ]
+    assert trace["budget_exhausted"] is False
+
+    # 도구 결과가 실제로 대화에 들어갔는지 — 껍데기만 도는 루프가 아님을 확인한다.
+    tool_messages = [m for m in client.chat.completions.last_messages if m.get("role") == "tool"]
+    assert len(tool_messages) == 3
+    assert "HALAL CERTIFICATE - JAKIM" in " ".join(m["content"] for m in tool_messages)
+
+
+def test_agent_stops_when_model_returns_no_tool_calls(sample_pdf):
+    client = _StubClient([], FINAL_PAYLOAD)
+
+    _result, trace = ar.run_agent(client, "stub-model", sample_pdf, rb.resolve_schema("enum"))
+
+    assert trace["tool_calls"] == 0
+    assert trace["iterations"] == 1
+    assert client.chat.completions.parse_calls == 1
+
+
+def test_agent_respects_tool_call_budget(sample_pdf):
+    script = [[("get_document_overview", {})] * 5 for _ in range(4)]
+    client = _StubClient(script, FINAL_PAYLOAD)
+
+    _result, trace = ar.run_agent(
+        client, "stub-model", sample_pdf, rb.resolve_schema("enum"),
+        max_iterations=6, max_tool_calls=3,
+    )
+
+    assert trace["tool_calls"] == 3
+    assert trace["budget_exhausted"] is True
+
+
+def test_agent_respects_iteration_budget(sample_pdf):
+    script = [[("get_document_overview", {})] for _ in range(20)]
+    client = _StubClient(script, FINAL_PAYLOAD)
+
+    _result, trace = ar.run_agent(
+        client, "stub-model", sample_pdf, rb.resolve_schema("enum"),
+        max_iterations=2, max_tool_calls=99,
+    )
+
+    assert trace["iterations"] == 2
+    assert client.chat.completions.create_calls == 2
+
+
+def test_agent_attaches_requested_page_images(sample_pdf):
+    client = _StubClient([[("view_page_image", {"page": 1})]], FINAL_PAYLOAD)
+
+    ar.run_agent(client, "stub-model", sample_pdf, rb.resolve_schema("enum"))
+
+    user_messages = [
+        m for m in client.chat.completions.last_messages
+        if m.get("role") == "user" and isinstance(m.get("content"), list)
+    ]
+    image_parts = [
+        part for m in user_messages for part in m["content"] if part.get("type") == "image_url"
+    ]
+    # 첫 페이지 사전 제공 1장 + 모델이 요청한 1장
+    assert len(image_parts) == 2
+
+
+def test_agent_survives_failing_tools(sample_pdf):
+    client = _StubClient([[("read_page_text", {"page": 999})]], FINAL_PAYLOAD)
+
+    result, trace = ar.run_agent(client, "stub-model", sample_pdf, rb.resolve_schema("enum"))
+
+    assert result == FINAL_PAYLOAD
+    assert trace["tool_calls"] == 1
+    tool_messages = [m for m in client.chat.completions.last_messages if m.get("role") == "tool"]
+    assert "범위 밖" in tool_messages[0]["content"]
+
+
+def test_agent_has_no_tool_exposing_existing_pmf_values():
+    """PMF 기존값을 보여주면 모델이 베껴 써서 미갱신 인증서를 놓친다.
+
+    이 성질은 도구 목록이 늘어날 때 조용히 깨지기 쉬워서 테스트로 박아둔다.
+    """
+    names = {spec["function"]["name"] for spec in ar.TOOL_SPECS}
+    forbidden = {"get_pmf_row", "get_existing_certificate", "get_current_values", "lookup_pmf"}
+    assert names & forbidden == set()
+
+    blob = " ".join(
+        spec["function"]["name"] + spec["function"]["description"] for spec in ar.TOOL_SPECS
+    )
+    assert "PMF" not in blob
+
+
+def test_agent_tools_are_all_read_only():
+    names = {spec["function"]["name"] for spec in ar.TOOL_SPECS}
+    write_prefixes = ("save_", "write_", "update_", "delete_", "confirm_", "apply_", "send_")
+    assert not any(name.startswith(write_prefixes) for name in names)

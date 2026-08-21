@@ -69,6 +69,8 @@ from app.services.rules.organizations import (  # noqa: E402
 )
 from app.services.rules.text import norm_key  # noqa: E402
 
+from agent_reader import run_agent  # noqa: E402
+
 
 UNKNOWN = "UNKNOWN"
 
@@ -501,10 +503,12 @@ HTML_TEMPLATE = """<!doctype html>
   <div class="content">
     <div class="runcfg">
       모델 <code>{MODEL}</code> ·
+      방식 <code>{MODE}</code> ·
       스키마 <code>{SCHEMA}</code> ·
       양식힌트 <code>{HINT_MODE}</code> ·
       렌더배율 <code>{ZOOM}x</code>
       <br>양식힌트 진단: {HINT_DIAG}
+      <br>도구 사용: {TOOL_USAGE}
     </div>
     {WARN_BLOCK}
 
@@ -615,11 +619,17 @@ def render_report(
     stats_by_axis: dict[str, dict[str, int]],
     config: dict[str, Any],
     hint_diagnostics: dict[str, int],
+    tool_usage: dict[str, int] | None = None,
 ) -> str:
     strict_summary = summarize(stats_by_axis["strict"])
     norm_summary = summarize(stats_by_axis["normalized"])
 
     diag = ", ".join(f"{k} {v}건" for k, v in sorted(hint_diagnostics.items())) or "없음"
+
+    tools = ", ".join(
+        f"{name} {count}회"
+        for name, count in sorted((tool_usage or {}).items(), key=lambda kv: -kv[1])
+    ) or "없음"
 
     warn_block = ""
     leaked = hint_diagnostics.get("SKIPPED_MANUAL_DECISION", 0)
@@ -638,10 +648,12 @@ def render_report(
     replacements = {
         "{DOCS}": str(strict_summary["docs"]),
         "{MODEL}": config["model"],
+        "{MODE}": config["mode"],
         "{SCHEMA}": config["schema"],
         "{HINT_MODE}": config["hint_mode"],
         "{ZOOM}": str(config["zoom"]),
         "{HINT_DIAG}": diag,
+        "{TOOL_USAGE}": tools,
         "{WARN_BLOCK}": warn_block,
         "{STRICT_CARDS}": render_cards(strict_summary, None),
         "{NORM_CARDS}": render_cards(norm_summary, strict_summary),
@@ -688,6 +700,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--max-retries", type=int, default=5, help="429 재시도 횟수.")
     parser.add_argument("--offline", action="store_true",
                         help="OpenAI를 호출하지 않는다. 배선 점검용이며 LLM 수치는 무의미하다.")
+    parser.add_argument("--mode", choices=("single", "agent"), default="single",
+                        help="single=이미지 한 장 단발 호출, agent=도구를 쓰며 스스로 탐색.")
+    parser.add_argument("--max-iterations", type=int, default=6,
+                        help="agent 모드에서 도구 호출 라운드 상한.")
+    parser.add_argument("--max-tool-calls", type=int, default=12,
+                        help="agent 모드에서 문서당 도구 호출 총량 상한.")
     return parser.parse_args(argv)
 
 
@@ -728,6 +746,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.schema == "enum":
         print(f"폐쇄집합: 기관 {len(ORG_CHOICES)}개, 국가 {len(COUNTRY_CHOICES)}개")
 
+    # agent 모드에서는 양식 분류가 도구(classify_document_template)로 열려 있다.
+    # 프롬프트에 미리 밀어 넣으면 같은 정보를 두 경로로 주는 셈이라 끈다.
+    hint_mode = args.template_hint
+    if args.mode == "agent" and hint_mode != "off":
+        print("!! agent 모드에서는 --template-hint를 끕니다. 모델이 도구로 직접 조회합니다.")
+        hint_mode = "off"
+
+    if args.mode == "agent":
+        print(f"agent 모드: 라운드 최대 {args.max_iterations}, 문서당 도구 최대 {args.max_tool_calls}회")
+
     pdf_files = sorted(f for f in os.listdir(pdf_dir) if f.lower().endswith(".pdf"))
     if args.limit > 0:
         pdf_files = pdf_files[: args.limit]
@@ -735,6 +763,7 @@ def main(argv: list[str] | None = None) -> int:
     results: list[dict[str, Any]] = []
     stats_by_axis = {axis: blank_stats() for axis in AXES}
     hint_diagnostics: dict[str, int] = {}
+    tool_usage: dict[str, int] = {}
 
     for index, filename in enumerate(pdf_files, 1):
         gt_row = find_gt_row(filename, gt_data)
@@ -746,19 +775,38 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[{index}/{len(pdf_files)}] {filename}")
 
         try:
-            hint, diagnostic = build_template_hint(pdf_path, args.template_hint)
+            hint, diagnostic = build_template_hint(pdf_path, hint_mode)
             diagnostic_key = diagnostic.split(":", 1)[0]
             hint_diagnostics[diagnostic_key] = hint_diagnostics.get(diagnostic_key, 0) + 1
+
+            trace: dict[str, Any] = {}
 
             if args.offline:
                 llm_result: dict[str, Any] = {}
                 elapsed = 0.0
+            elif args.mode == "agent":
+                assert client is not None
+                started = time.time()
+                llm_result, trace = run_agent(
+                    client,
+                    args.model,
+                    pdf_path,
+                    schema,
+                    zoom=args.zoom,
+                    max_iterations=args.max_iterations,
+                    max_tool_calls=args.max_tool_calls,
+                )
+                elapsed = time.time() - started
+                print(f"  도구 {trace['tool_calls']}회: {', '.join(trace['call_sequence']) or '없음'}")
             else:
                 assert client is not None
                 base64_image = pdf_to_base64_image(pdf_path, args.zoom)
                 llm_result, elapsed = call_llm(
                     client, args.model, schema, base64_image, hint, args.max_retries
                 )
+
+            for tool_name in trace.get("call_sequence", []):
+                tool_usage[tool_name] = tool_usage.get(tool_name, 0) + 1
 
             fields = score_document(gt_row, llm_result, is_low_confidence(gt_row))
 
@@ -771,6 +819,7 @@ def main(argv: list[str] | None = None) -> int:
                 "conf": gt_row.get("시스템CONFIDENCE", "UNKNOWN"),
                 "time": round(elapsed, 2),
                 "hint": diagnostic,
+                "trace": trace,
                 "fields": fields,
             })
 
@@ -792,11 +841,13 @@ def main(argv: list[str] | None = None) -> int:
             stats_by_axis,
             {
                 "model": args.model if not args.offline else f"{args.model} (offline)",
+                "mode": args.mode,
                 "schema": args.schema,
-                "hint_mode": args.template_hint,
+                "hint_mode": hint_mode,
                 "zoom": args.zoom,
             },
             hint_diagnostics,
+            tool_usage,
         ),
         encoding="utf-8",
     )
@@ -811,6 +862,13 @@ def main(argv: list[str] | None = None) -> int:
             f"of {summary['docs']})"
         )
     print("=" * 58)
+
+    if tool_usage:
+        total_calls = sum(tool_usage.values())
+        print(f"도구 호출 {total_calls}회 / 문서당 평균 {total_calls / len(results):.1f}회")
+        for name, count in sorted(tool_usage.items(), key=lambda kv: -kv[1]):
+            print(f"  {name:34} {count:4}회")
+
     print(f"리포트: {out_path.resolve()}")
     return 0
 
