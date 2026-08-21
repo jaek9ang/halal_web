@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from typing import Any
 import re
+from difflib import SequenceMatcher
 
 from app.services.rules.text import (
     clean_ocr_text,
