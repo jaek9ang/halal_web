@@ -50,6 +50,7 @@ ORM·마이그레이션은 없다. 스키마는 각 서비스의 `CREATE TABLE I
 | 로컬(macOS/Windows) 개발 환경 설정 | [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md) |
 | 이 저장소에서 Claude Code로 작업하는 법 | [claude-code-guide.md](claude-code-guide.md) |
 | OCR 규칙 V2 + 메일/PMF 문맥 보강 내역 | [ocr-rule-v2.md](ocr-rule-v2.md) |
+| Rule vs LLM 판독 벤치마크, 채점 방법, 에이전트 판독 | [ocr-llm-benchmark.md](ocr-llm-benchmark.md) |
 | 코드 수정 시 어느 파일을 보나, 금지 사항 | [../CLAUDE.md](../CLAUDE.md) |
 | 벤치마크·검증 결과 (JSON) | [reports/](reports/) |
 | 지난 단계 기록 (현행 아님, 참고용) | [archive/](archive/) |
