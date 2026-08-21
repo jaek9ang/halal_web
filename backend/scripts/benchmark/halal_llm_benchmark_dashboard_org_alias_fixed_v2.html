@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halal OCR Benchmark · Rule / Hybrid / LLM</title>
+<style>
+:root{
+  --blue:#1a73e8; --blue2:#4285f4; --blue-soft:#e8f0fe;
+  --green:#188038; --green-soft:#e6f4ea;
+  --red:#d93025; --red-soft:#fce8e6;
+  --orange:#e37400; --orange-soft:#fef7e0;
+  --purple:#7e57c2; --purple-soft:#f2ecfb;
+  --ink:#202124; --muted:#5f6368; --muted2:#80868b;
+  --line:#dadce0; --line-soft:#eef0f2; --surface:#fff; --canvas:#f8fafd;
+  --shadow:0 1px 2px rgba(60,64,67,.08),0 2px 8px rgba(60,64,67,.06);
+  --shadow-lg:0 8px 32px rgba(60,64,67,.14);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:Roboto,Inter,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+.topbar{
+  position:sticky;top:0;z-index:50;height:72px;display:flex;align-items:center;gap:16px;
+  padding:0 22px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft)
+}
+.brand{display:flex;align-items:center;gap:11px;min-width:280px}
+.brandmark{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#1a73e8,#5b9cf6);color:#fff;font-weight:800;box-shadow:0 3px 10px rgba(26,115,232,.24)}
+.brand-title{font-size:17px;font-weight:700;letter-spacing:-.25px}
+.brand-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn{
+  height:36px;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#3c4043;
+  font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;white-space:nowrap
+}
+.btn:hover{background:#f8fafd;border-color:#c8ccd1}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:white}
+.btn.primary:hover{background:#185abc}
+.btn.danger{color:var(--red);border-color:#f3c3be;background:#fff}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700;background:var(--green-soft);color:var(--green)}
+.badge.blue{background:var(--blue-soft);color:#185abc}
+.badge.gray{background:#f1f3f4;color:#5f6368}
+.layout{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:calc(100vh - 72px)}
+.sidebar{
+  position:sticky;top:72px;height:calc(100vh - 72px);overflow:auto;padding:16px 12px 24px;background:#fff;border-right:1px solid var(--line-soft)
+}
+.navgroup-title{font-size:10px;color:#9aa0a6;font-weight:800;letter-spacing:.8px;padding:13px 14px 7px}
+.navitem{
+  width:100%;border:0;background:transparent;border-radius:0 22px 22px 0;display:flex;align-items:center;gap:11px;
+  padding:10px 14px;margin:2px 0;color:#3c4043;text-align:left;font-size:13px;font-weight:600
+}
+.navitem:hover{background:#f1f3f4}
+.navitem.active{background:var(--blue-soft);color:#185abc;font-weight:750}
+.navicon{width:20px;text-align:center;font-size:15px}
+.sidebar-note{margin:18px 8px 0;padding:12px;border-radius:12px;background:#f8fafd;border:1px solid var(--line-soft);font-size:11px;line-height:1.55;color:var(--muted)}
+.content{padding:26px 30px 54px;min-width:0}
+.view{display:none}
+.view.active{display:block}
+.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:20px}
+.page-title{font-size:27px;font-weight:700;letter-spacing:-.7px;margin:0}
+.page-desc{color:var(--muted);font-size:13px;line-height:1.65;margin-top:6px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.card{background:var(--surface);border:1px solid #e6e8eb;border-radius:16px;box-shadow:var(--shadow);padding:20px;min-width:0}
+.card.tight{padding:15px}
+.kpi-title{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px}
+.kpi-value{font-size:34px;font-weight:800;letter-spacing:-1.2px;line-height:1.05;margin-bottom:8px}
+.kpi-sub{font-size:12px;color:var(--muted2);line-height:1.45}
+.rule-accent{border-top:4px solid #6b7280}
+.hybrid-accent{border-top:4px solid var(--blue)}
+.llm-accent{border-top:4px solid var(--green)}
+.best-accent{border-top:4px solid var(--purple)}
+.section-title{font-size:16px;font-weight:750;margin:0 0 13px}
+.section-sub{font-size:12px;color:var(--muted);line-height:1.55;margin:-6px 0 14px}
+.callout{border-radius:13px;padding:13px 15px;font-size:12px;line-height:1.65;border:1px solid #d2e3fc;background:#f6f9ff;color:#3c4043}
+.callout.warn{border-color:#f8d99f;background:#fffaf0}
+.callout.red{border-color:#f2b8b5;background:#fff7f6}
+.metric-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:7px 0;font-size:12px}
+.bar-track{height:8px;background:#edf0f3;border-radius:999px;overflow:hidden;flex:1}
+.bar-fill{height:100%;border-radius:999px}
+.bar-rule{background:#8a94a3}.bar-hybrid{background:var(--blue)}.bar-llm{background:var(--green)}.bar-error{background:var(--red)}
+.field-compare{display:grid;grid-template-columns:120px 1fr 46px;gap:10px;align-items:center;margin:11px 0}
+.field-name{font-size:12px;font-weight:700}
+.mini-bars{display:grid;gap:5px}
+.mini-line{display:grid;grid-template-columns:58px 1fr 44px;gap:8px;align-items:center;font-size:10px;color:var(--muted)}
+.filters{
+  display:flex;gap:9px;flex-wrap:wrap;align-items:flex-end;padding:13px;background:#fff;border:1px solid #e5e8ed;
+  border-radius:14px;box-shadow:var(--shadow);margin-bottom:14px
+}
+.control label{display:block;font-size:10px;color:var(--muted);margin:0 0 5px 3px;font-weight:800}
+.control select,.control input{
+  height:38px;border:1px solid var(--line);border-radius:9px;padding:0 10px;background:white;color:var(--ink);font-size:12px
+}
+.control input{min-width:230px}
+.table-card{padding:0;overflow:hidden}
+.table-scroll{overflow:auto;max-height:650px}
+.data-table{border-collapse:separate;border-spacing:0;width:100%;min-width:1080px}
+.data-table th,.data-table td{padding:11px 13px;border-bottom:1px solid #eef0f2;font-size:12px;vertical-align:middle}
+.data-table th{position:sticky;top:0;background:#fafbfc;color:#5f6368;text-align:left;font-weight:750;z-index:3;white-space:nowrap}
+.data-table tbody tr:hover td{background:#fafcff}
+.data-table tbody tr.row-error td{background:#fffafa}
+.data-table tbody tr.row-error:hover td{background:#fff5f4}
+.pill{display:inline-flex;padding:4px 7px;border-radius:6px;font-size:10px;font-weight:800;white-space:nowrap}
+.pill.ok{background:var(--green-soft);color:var(--green)}
+.pill.bad{background:var(--red-soft);color:var(--red)}
+.pill.blue{background:var(--blue-soft);color:#185abc}
+.pill.gray{background:#f1f3f4;color:#5f6368}
+.pill.orange{background:var(--orange-soft);color:var(--orange)}
+.pill.purple{background:var(--purple-soft);color:#6741a5}
+.val{max-width:260px;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+.text-gt{color:#137333;font-weight:700}
+.text-bad{color:#b3261e;font-weight:650}
+.filename{max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;vertical-align:middle}
+.linkbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:4px 7px;font-size:10px;font-weight:800;color:#3c4043;margin-right:6px}
+.linkbtn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+.strategy-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.strategy-dot{width:12px;height:12px;border-radius:999px}
+.stat-list{display:grid;gap:8px}
+.stat-item{display:grid;grid-template-columns:minmax(110px,1fr) 90px 60px;align-items:center;gap:10px;font-size:11px}
+.error-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.error-chip{padding:12px;border:1px solid var(--line-soft);border-radius:12px;background:#fff}
+.error-chip .n{font-size:23px;font-weight:800;margin-top:5px}
+.review-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.dropzone{border:2px dashed #c6dafc;border-radius:14px;padding:26px;text-align:center;background:#f8fbff;cursor:pointer;transition:.15s}
+.dropzone:hover{border-color:var(--blue);background:#f3f8ff}
+.dropzone strong{display:block;margin-bottom:5px}
+.log{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;line-height:1.55;background:#111827;color:#d1d5db;padding:13px;border-radius:12px;max-height:190px;overflow:auto;white-space:pre-wrap}
+.modal-backdrop{position:fixed;inset:0;background:rgba(32,33,36,.48);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(1050px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:var(--shadow-lg)}
+.modal-head{position:sticky;top:0;background:#fff;z-index:2;padding:18px 20px;border-bottom:1px solid var(--line-soft);display:flex;gap:12px;align-items:flex-start}
+.modal-body{padding:18px 20px 24px}
+.modal-close{margin-left:auto;border:0;background:#f1f3f4;width:34px;height:34px;border-radius:50%;font-size:18px}
+.source-badge{font-size:10px;font-weight:800;color:#5f6368;background:#f1f3f4;border-radius:6px;padding:3px 6px}
+.empty{padding:36px;text-align:center;color:var(--muted);font-size:12px}
+.small{font-size:11px;color:var(--muted)}
+.divider{height:1px;background:var(--line-soft);margin:14px 0}
+@media(max-width:1150px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.error-grid{grid-template-columns:1fr}}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}.sidebar{position:relative;top:auto;height:auto;display:flex;gap:5px;overflow:auto;border-right:0;border-bottom:1px solid var(--line-soft);padding:8px}.navgroup-title,.sidebar-note{display:none}.navitem{min-width:max-content;border-radius:18px;padding:9px 12px}.content{padding:20px 14px}.topbar{height:auto;min-height:72px;padding:10px 12px}.brand{min-width:0}.brand-sub{display:none}.top-actions .badge{display:none}.grid-4{grid-template-columns:1fr 1fr}.control input{min-width:180px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand">
+    <div class="brandmark">H</div>
+    <div>
+      <div class="brand-title">Halal OCR Benchmark</div>
+      <div class="brand-sub">100건 API 완료 데이터 · Rule / Hybrid / LLM 재검토</div>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="badge" id="topDocBadge">검증 100건</span>
+    <span class="badge blue">API 재호출 없음</span>
+    <button class="btn" onclick="exportAllCSV()">전체 CSV</button>
+    <button class="btn" onclick="exportCurrentErrorCSV()">현재 오류 CSV</button>
+    <label class="btn primary" for="csvFileTop">수정 CSV 업로드</label>
+    <input type="file" id="csvFileTop" accept=".csv,text/csv" hidden onchange="handleCSVUpload(event)">
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="navgroup-title">ANALYTICS</div>
+  <button class="navitem active" data-view="overview"><span class="navicon">⌂</span><span>요약 대시보드</span></button>
+  <button class="navitem" data-view="compare"><span class="navicon">≋</span><span>3방식 전체 비교</span></button>
+
+  <div class="navgroup-title">DETAIL</div>
+  <button class="navitem" data-view="rule"><span class="navicon">R</span><span>Rule 상세보기</span></button>
+  <button class="navitem" data-view="hybrid"><span class="navicon">H</span><span>Hybrid 상세보기</span></button>
+  <button class="navitem" data-view="llm"><span class="navicon">L</span><span>LLM 상세보기</span></button>
+
+  <div class="navgroup-title">REVIEW</div>
+  <button class="navitem" data-view="errors"><span class="navicon">!</span><span>오류 분석</span></button>
+  <button class="navitem" data-view="review"><span class="navicon">⇄</span><span>CSV 검토 / 재평가</span></button>
+
+  <div class="sidebar-note">
+    <b>원본 데이터는 보존됩니다.</b><br>
+    CSV로 수정한 값만 브라우저 로컬 저장소에 기록합니다. 필요하면 검토 초기화로 원본 100건 상태로 되돌릴 수 있습니다.
+  </div>
+</aside>
+
+<main class="content">
+
+<section class="view active" id="view-overview">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">성능 비교 요약</h1>
+      <div class="page-desc">기존 <b>llm_comparison_report</b>의 100건 판정 데이터를 그대로 불러와 계산합니다. API는 호출하지 않습니다.</div>
+    </div>
+    <span class="badge gray">원본 match 판정값 기준</span>
+  </div>
+  <div class="grid-4">
+    <div class="card rule-accent">
+      <div class="kpi-title">기존 Rule 방식</div>
+      <div class="kpi-value" id="ovRuleAcc">-</div>
+      <div class="kpi-sub" id="ovRuleSub">-</div>
+    </div>
+    <div class="card hybrid-accent">
+      <div class="kpi-title">Hybrid 방식</div>
+      <div class="kpi-value" id="ovHybridAcc" style="color:var(--blue)">-</div>
+      <div class="kpi-sub" id="ovHybridSub">-</div>
+    </div>
+    <div class="card llm-accent">
+      <div class="kpi-title">Full LLM</div>
+      <div class="kpi-value" id="ovLlmAcc" style="color:var(--green)">-</div>
+      <div class="kpi-sub" id="ovLlmSub">-</div>
+    </div>
+    <div class="card best-accent">
+      <div class="kpi-title">현재 데이터 최고 방식</div>
+      <div class="kpi-value" id="ovBest" style="font-size:27px;color:#6741a5">-</div>
+      <div class="kpi-sub" id="ovBestSub">-</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="section-title">항목별 정확도 비교</h3>
+      <div class="section-sub">6개 추출 항목별 Rule / Hybrid / LLM 정확도입니다.</div>
+      <div id="fieldCompareBars"></div>
+    </div>
+    <div class="card">
+      <h3 class="section-title">문서 Confidence 구성</h3>
+      <div class="section-sub">현재 100건 데이터의 Confidence 분포와 방식별 오류 집중도를 확인합니다.</div>
+      <div id="confSummary"></div>
+      <div class="divider"></div>
+      <div id="overviewInsight" class="callout"></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-compare">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">3방식 전체 비교</h1>
+      <div class="page-desc">하나의 화면에서 Ground Truth, Rule, Hybrid, LLM 값을 동시에 확인합니다. 파일별 전체 6필드 상세창도 열 수 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="control"><label>항목</label><select id="cmpField" onchange="renderCompareTable()"></select></div>
+    <div class="control"><label>Confidence</label><select id="cmpConf" onchange="renderCompareTable()"><option value="">전체</option><option>HIGH</option><option>MEDIUM</option><option>LOW</option></select></div>
+    <div class="control"><label>기관</label><select id="cmpOrg" onchange="renderCompareTable()"><option value="">전체</option></select></div>
+    <div class="control"><label>오류 필터</label><select id="cmpStatus" onchange="renderCompareTable()"><option value="">전체</option><option value="rule">Rule 오류</option><option value="hybrid">Hybrid 오류</option><option value="llm">LLM 오류</option><option value="any">하나라도 오류</option></select></div>
+    <div class="control"><label>검색</label><input id="cmpSearch" placeholder="파일명 / 기관 / 값 검색" oninput="renderCompareTable()"></div>
+  </div>
+  <div class="card table-card">
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr>
+          <th style="min-width:330px">원본 / 파일명</th><th>기관</th><th>Conf</th><th>Ground Truth</th>
+          <th>Rule</th><th>Hybrid</th><th>LLM</th><th>R/H/L</th>
+        </tr></thead>
+        <tbody id="compareBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-rule">
+  <div id="strategyRule"></div>
+</section>
+<section class="view" id="view-hybrid">
+  <div id="strategyHybrid"></div>
+</section>
+<section class="view" id="view-llm">
+  <div id="strategyLlm"></div>
+</section>
+
+<section class="view" id="view-errors">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">오류 분석</h1>
+      <div class="page-desc">방식별로 어떤 필드·기관·Confidence에서 오류가 집중되는지 분해합니다.</div>
+    </div>
+  </div>
+  <div class="filters">
+    <div class="control"><label>분석 방식</label><select id="errMode" onchange="renderErrorAnalysis()"><option value="rule">Rule</option><option value="hybrid">Hybrid</option><option value="llm">LLM</option></select></div>
+  </div>
+  <div class="grid-3" id="errorConfidenceCards"></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="section-title">필드별 오류 수</h3>
+      <div id="errorFieldBars"></div>
+    </div>
+    <div class="card">
+      <h3 class="section-title">기관별 오류 Top 15</h3>
+      <div id="errorOrgList" class="stat-list"></div>
+    </div>
+  </div>
+  <div class="card table-card">
+    <div style="padding:16px 18px 6px">
+      <h3 class="section-title">오류가 많은 문서</h3>
+      <div class="section-sub">선택한 방식에서 6필드 중 오류 개수가 많은 순서입니다.</div>
+    </div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr><th>순위</th><th style="min-width:400px">파일명</th><th>기관</th><th>Conf</th><th>오류 필드 수</th><th>오류 필드</th><th>상세</th></tr></thead>
+        <tbody id="errorDocsBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-review">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">CSV 검토 / 재평가</h1>
+      <div class="page-desc">오류 데이터만 CSV로 내려받아 <b>수정값</b> 열을 채운 뒤 다시 업로드하면, 해당 방식의 값과 정확도를 즉시 재계산합니다.</div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="section-title">1. 검토 데이터 내보내기</h3>
+      <div class="section-sub">엑셀에서 열 수 있도록 UTF-8 BOM CSV로 저장됩니다.</div>
+      <div class="review-actions">
+        <button class="btn" onclick="exportErrorCSV('rule')">Rule 오류 CSV</button>
+        <button class="btn" onclick="exportErrorCSV('hybrid')">Hybrid 오류 CSV</button>
+        <button class="btn" onclick="exportErrorCSV('llm')">LLM 오류 CSV</button>
+        <button class="btn" onclick="exportAllCSV()">전체 비교 CSV</button>
+      </div>
+      <div class="callout warn">
+        오류 CSV의 <b>수정값</b> 열만 입력하세요. <b>대상방식·파일명·항목</b>은 업로드 시 매칭키로 사용하므로 바꾸지 않는 것이 안전합니다.
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="section-title">2. 수정 CSV 다시 업로드</h3>
+      <div class="section-sub">수정한 값은 브라우저 로컬에 저장되며 새로고침 후에도 유지됩니다.</div>
+      <label class="dropzone" for="csvFileReview">
+        <strong>수정 완료 CSV를 클릭해서 업로드</strong>
+        <span class="small">.csv 파일 · 여러 방식이 섞여 있어도 대상방식 열로 자동 구분</span>
+      </label>
+      <input type="file" id="csvFileReview" accept=".csv,text/csv" hidden onchange="handleCSVUpload(event)">
+      <div class="review-actions">
+        <button class="btn" onclick="downloadOfflinePython()">오프라인 검토 Python 다운로드</button>
+        <button class="btn danger" onclick="resetCorrections()">검토 수정값 초기화</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card rule-accent"><div class="kpi-title">현재 Rule</div><div class="kpi-value" id="reviewRule">-</div><div class="kpi-sub" id="reviewRuleSub">-</div></div>
+    <div class="card hybrid-accent"><div class="kpi-title">현재 Hybrid</div><div class="kpi-value" id="reviewHybrid" style="color:var(--blue)">-</div><div class="kpi-sub" id="reviewHybridSub">-</div></div>
+    <div class="card llm-accent"><div class="kpi-title">현재 LLM</div><div class="kpi-value" id="reviewLlm" style="color:var(--green)">-</div><div class="kpi-sub" id="reviewLlmSub">-</div></div>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title">업로드 / 수정 로그</h3>
+    <div class="log" id="reviewLog">대기 중. 아직 수정 CSV가 업로드되지 않았습니다.</div>
+  </div>
+
+  <div class="card table-card" style="margin-top:14px">
+    <div style="padding:16px 18px 6px"><h3 class="section-title">적용된 수정 내역</h3></div>
+    <div class="table-scroll" style="max-height:350px">
+      <table class="data-table">
+        <thead><tr><th>시간</th><th>방식</th><th style="min-width:330px">파일명</th><th>항목</th><th>이전값</th><th>수정값</th><th>정답</th><th>재판정</th></tr></thead>
+        <tbody id="correctionBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="modal-backdrop" id="docModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div style="font-size:16px;font-weight:800" id="modalTitle">문서 상세</div>
+        <div class="small" id="modalSub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const ORIGINAL_DATA = [{"filename":"001__1651C731667A__1651C731667A__94. Yeast Extract YB(ICFOOD)[MUI_2028-04-23]아.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00060212920523","rule":"LPPOM-00060212920523","llm":"LPPOM-00060212920523","hybrid":"LPPOM-00060212920523","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2028-04-23","rule":"2028-04-23","llm":"2028-04-23","hybrid":"2028-04-23","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"ICFOOD CO., LTD","rule":"ICFOOD CO., LTD","llm":"IC FOOD CO., LTD.","hybrid":"ICFOOD CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Indonesia","hybrid":"KOREA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"002__8D1AA0057011__8D1AA0057011__87. Squid Base(ROGWON)[BPJPH_2026-12-29]녹.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410013666591223","rule":"ID00410013666591223","llm":"ID00410013666591223","hybrid":"ID00410013666591223","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2023-12-28","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"ROGWON COMPANY LTD","rule":"ROGWON COMPANY LTD","llm":"ROGwon COMPANY LTD.","hybrid":"ROGWON COMPANY LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"KOREA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"003__FCE941D304BE__FCE941D304BE__162-1.Crude Rice Bran Oil,WILMAR AGRO VIETNAM COMPANY LIMITED社-Halal Certification Agency (HCA)(2021-07-31).pdf","org":"HCA","conf":"MEDIUM","fields":{"인증기관":{"gt":"HCA","rule":"HCA","llm":"JAKIM","hybrid":"JAKIM","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HCA 355-1/JAKIM","rule":"HCA 355-1/JAKIM","llm":"HCA 355-1/JAKIM","hybrid":"HCA 355-1/JAKIM","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2021-07-31","rule":"2021-07-31","llm":"2021-07-31","hybrid":"2021-07-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"WILMAR AGRO VIETNAM COMPANY LIMITED","rule":"WILMAR AGRO VIETNAM COMPANY LIMITED","llm":"WILMAR AGRO VIETNAM COMPANY LIMITED","hybrid":"WILMAR AGRO VIETNAM COMPANY LIMITED","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true}}},{"filename":"004__9C2CDF88267C__9C2CDF88267C__37. Maxarome Select Powder-HFFIA(2023-06-30).pdf","org":"HFFIA","conf":"LOW","fields":{"인증기관":{"gt":"HFFIA","rule":"HFFIA","llm":"HFFIA","hybrid":"HFFIA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"1004/H00158/0223","rule":"004/H00158/0223","llm":"DSM/22004/H00158/0223","hybrid":"DSM/22004/H00158/0223","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2023-04-30","rule":"2023-06-30","llm":"2023-06-30","hybrid":"2023-06-30","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"DSM Food Specialties BV","rule":"DSM Food Specialties BV","llm":"DSM Food Specialties BV","hybrid":"DSM Food Specialties BV","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false}}},{"filename":"005__3DCC81957E7F__3DCC81957E7F__halal-rvb-wa-exp-31-05-2026 hffia.pdf","org":"HFFIA","conf":"LOW","fields":{"인증기관":{"gt":"HFFIA","rule":"HFFIA","llm":"HFFIA","hybrid":"HFFIA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"RVBWA/25001/H00179/027","rule":"","llm":"RVBW/A/25001/H00179/027","hybrid":"RVBW/A/25001/H00179/027","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2026-05-31","rule":"2025-05-31","llm":"2025-05-31","hybrid":"2025-05-31","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"Koninklijke VIV Buisman B.V.","rule":"HJ. Wijsman & Zonen B.V","llm":"Koninklijke VIV Buisman B.V.","hybrid":"Koninklijke VIV Buisman B.V.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false}}},{"filename":"006__747F7EB2A847__747F7EB2A847__Halal_Zertifikat_2025__gültig_bis_17.01.2027 halal control.pdf","org":"HALAL CONTROL","conf":"MEDIUM","fields":{"인증기관":{"gt":"HALAL CONTROL","rule":"HALAL CONTROL","llm":"HALAL CONTROL","hybrid":"HALAL CONTROL","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-INL561","rule":"HC-INL561","llm":"HC-JNL561","hybrid":"HC-JNL561","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2027-01-17","rule":"2027-01-17","llm":"2027-01-17","hybrid":"2027-01-17","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Bergpracht Milchwerk GmbH & Co. KG","rule":"Bergpracht Milchwerk GmbH & Co. KG","llm":"Bergpracht Milchwerk GmbH & Co. KG","hybrid":"Bergpracht Milchwerk GmbH & Co. KG","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true}}},{"filename":"007__777AD40E01F2__777AD40E01F2__sample HFQ HALAL-CC_HFQ-7.7-F02-CERTIFICADO-HALAL_GAP-2025.pdf","org":"HFQ","conf":"MEDIUM","fields":{"인증기관":{"gt":"HFQ","rule":"HFQ","llm":"HFQ","hybrid":"HFQ","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HFQ-86/16/AB","rule":"HFQ-86/16/AB","llm":"HFQ-86/16/AB","hybrid":"HFQ-86/16/AB","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-07-18","rule":"2026-07-18","llm":"2026-07-18","hybrid":"2026-07-18","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"GAP PROCESS IN THE WORLD S.L","rule":"GAP PROCESS IN THE WORLD S.L","llm":"GAP PROCESS IN THE WORLD S.L.","hybrid":"GAP PROCESS IN THE WORLD S.L.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true}}},{"filename":"008__51B9005BA48F__51B9005BA48F__132. YEAST EXTRACT LA600(ANGEL)[MUI_2027-05-16]J.pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"China","hybrid":"China","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"LPPOM-00310075261215","rule":"","llm":"LPPOM- 0031007526215","hybrid":"LPPOM- 0031007526215","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2027-05-16","rule":"2027-05-16","llm":"2027-05-16","hybrid":"2027-05-16","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"ANGEL YEAST(JINING) CO.,LTD","rule":"ANGEL YEAST(JINING) CO.,LTD","llm":"ANGEL YEAST(JINING) CO.,LTD.","hybrid":"ANGEL YEAST(JINING) CO.,LTD.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"China","hybrid":"China","r_match":false,"l_match":true,"h_match":true}}},{"filename":"009__BEA412DC7886__BEA412DC7886__48_1. REFINED RICE brand oil(THAI)[CICOT_2026-04-24]농.pdf","org":"CICOT","conf":"MEDIUM","fields":{"인증기관":{"gt":"CICOT","rule":"CICOT","llm":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","hybrid":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"THAILAND","rule":"THAILAND","llm":"THAILAND","hybrid":"THAILAND","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"267/1999","rule":"267/1999","llm":"CICOT.HL : 267/1999","hybrid":"CICOT.HL : 267/1999","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2026-04-24","rule":"2026-04-24","llm":"2026-04-24","hybrid":"2026-04-24","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"THAI EDIBLE OIL CO.,LTD","rule":"THAI EDIBLE OIL CO.,LTD","llm":"THAI EDIBLE OIL CO.,LTD.","hybrid":"THAI EDIBLE OIL CO.,LTD.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"THAILAND","rule":"THAILAND","llm":"THAILAND","hybrid":"THAILAND","r_match":true,"l_match":true,"h_match":true}}},{"filename":"010__DBE4CAFF1F52__DBE4CAFF1F52__170_2. Xanthan Gum(NEIMENGG)[MUI_2027-02-28]주.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MUI","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00260059611111","rule":"LPPOM-00260059611111","llm":"LPPOM-00260059611111","hybrid":"LPPOM-00260059611111","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2027-02-28","rule":"2027-02-28","llm":"2027-02-28","hybrid":"2027-02-28","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NEIMENGGU FUFENG BIOTECHNOLOGIES CO LTD","rule":"NEIMENGGU FUFENG BIOTECHNOLOGIES CO LTD","llm":"NEIMENGGU FUFENG BIOTECHNOLOGIES CO LTD","hybrid":"NEIMENGGU FUFENG BIOTECHNOLOGIES CO LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":false,"l_match":false,"h_match":false}}},{"filename":"011__2BFE50619DF1__2BFE50619DF1__125. Edible Dextrose(DONGXIAO)[BPJPH_2026-11-24]제.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410000740760622","rule":"ID00410000740760622","llm":"ID00410000740760622","hybrid":"ID00410000740760622","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2022-11-23","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"DONGXIAO BIOTECHNOLOGY CO.,LTD","rule":"DONGXIAO BIOTECHNOLOGY CO.,LTD","llm":"DONGXIAO BIOTECHNOLOGY CO.,LTD","hybrid":"DONGXIAO BIOTECHNOLOGY CO.,LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"China","hybrid":"CHINA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"012__A43DB442DF08__A43DB442DF08__167_6. TREHA™(Nagase)[JMA_2026-02-26]한.pdf","org":"JMA","conf":"LOW","fields":{"인증기관":{"gt":"JMA","rule":"JMA","llm":"JAPAN MUSLIM ASSOCIATION","hybrid":"JAPAN MUSLIM ASSOCIATION","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"JAPAN","rule":"JAPAN","llm":"Japan","hybrid":"Japan","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"284-TSRI/24","rule":"284-TSRI/24","llm":"284-TSRI/24","hybrid":"284-TSRI/24","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-02-26","rule":"2026-02-26","llm":"2026-02-26","hybrid":"2026-02-26","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Nagase Viita Co., Ltd.","rule":"@Okayama Functional Saccharide Plant @Okayama Plant I j","llm":"Nagase Viita Co., Ltd.","hybrid":"Nagase Viita Co., Ltd.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"JAPAN","rule":"JAPAN","llm":"Japan","hybrid":"Japan","r_match":true,"l_match":true,"h_match":true}}},{"filename":"013__CBF46C055377__CBF46C055377__103. lactic acid(HeNam)[MUI_2027-07-19]에.pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MAJELIS ULAMA INDONESIA (MUI)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00310070871114","rule":"","llm":"LPPOM- 00310070871114","hybrid":"LPPOM- 00310070871114","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2027-07-19","rule":"2027-07-19","llm":"2027-07-19","hybrid":"2027-07-19","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD","rule":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD","llm":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD.","hybrid":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"CHINA","hybrid":"CHINA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"014__66F170721976__66F170721976__60. NAT SHALLOT FLAVOR(962539)-MUIS(2022-02-28).pdf","org":"MUIS","conf":"LOW","fields":{"인증기관":{"gt":"MUIS","rule":"MUIS","llm":"MAJLIS UGAMA ISLAM SINGAPURA","hybrid":"MAJLIS UGAMA ISLAM SINGAPURA","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"PRN22020011873","rule":"PRN22020011873","llm":"PRN22020011873","hybrid":"PRN22020011873","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2024-05-31","rule":"2022-02-28","llm":"2024-05-31","hybrid":"2024-05-31","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"SYMRISE ASIA PACIFIC PTE LTD","rule":"","llm":"SYMRISE ASIA PACIFIC PTE LTD","hybrid":"SYMRISE ASIA PACIFIC PTE LTD","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true}}},{"filename":"015__9E8007152ED7__9E8007152ED7__86. Thiamine Hydrochloride(HUAZHONG)[MUI_2026-08-17]테.pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"Majelis Ulama Indonesia (MUI)","hybrid":"Majelis Ulama Indonesia (MUI)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00180082060417","rule":"LPPOM-00180082060417","llm":"LPPOM-0018008260417","hybrid":"LPPOM-0018008260417","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2026-08-17","rule":"2026-08-17","llm":"2026-08-17","hybrid":"2026-08-17","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"HUAZHONG PHARMACEUTICAL CO.,LTD","rule":"HUAZHONG PHARMACEUTICAL CO.,LTD","llm":"HUAZHONG PHARMACEUTICAL CO.,LTD","hybrid":"HUAZHONG PHARMACEUTICAL CO.,LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":false,"l_match":false,"h_match":false}}},{"filename":"016__410F51A9887F__410F51A9887F__155. Monosodium Glutamate(TONGLIAO)[BPJPH_2026-02-23]보.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"LPPOM","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410001338411122","rule":"ID00410001338411122","llm":"ID00410001338411122","hybrid":"ID00410001338411122","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2027-02-23","rule":"","llm":"2027-02-23","hybrid":"","r_match":false,"l_match":true,"h_match":false},"제조사":{"gt":"TONGLIAO MEIHUA BIOLOGICAL SCI-TECH CO., LTD","rule":"TONGLIAO MEIHUA BIOLOGICAL SCI-TECH CO., LTD","llm":"TONGLAO MEIHUA BIOLOGICAL SCI-TECH CO., LTD.","hybrid":"TONGLIAO MEIHUA BIOLOGICAL SCI-TECH CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"China","hybrid":"CHINA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"017__4D4624D71B9E__4D4624D71B9E__sample HCA HALAL-2025.pdf","org":"HCA","conf":"LOW","fields":{"인증기관":{"gt":"HCA","rule":"HCA","llm":"JAKIM","hybrid":"JAKIM","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HCA 807/JAKIM","rule":"HCA 807/JAKIM","llm":"HCA 807/JAKIM","hybrid":"HCA 807/JAKIM","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-09-19","rule":"","llm":"2026-09-19","hybrid":"2026-09-19","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"MC AGRI GROUP","rule":"MC AGRI GROUP","llm":"MC AGRI GROUP","hybrid":"MC AGRI GROUP","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true}}},{"filename":"018__7BABB4271050__7BABB4271050__140_2. CItric Acid Monohydrate(WEIFANG)[BPJPH_2026-09-22]S.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410000413250822","rule":"ID00410000413250822","llm":"ID00410000413250822","hybrid":"ID00410000413250822","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2022-09-21","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"SHANDONG ENSIGN INDUSTRY CO., LTD","rule":"SHANDONG ENSIGN INDUSTRY CO., LTD","llm":"SHANDONG ENSIGN INDUSTRY CO., LTD.","hybrid":"SHANDONG ENSIGN INDUSTRY CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"P.R. CHINA","hybrid":"CHINA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"019__EEFF27613BB6__EEFF27613BB6__109_1_2. Activated Carbon(NANPING)[MUI_2025-11-11]대.pdf","org":"MUI","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MAJELIS ULAMA INDONESIA (MUI)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00170060180112","rule":"LPPOM-00170060180112","llm":"LPPOM-00170060180112","hybrid":"LPPOM-00170060180112","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2025-11-11","rule":"2025-11-11","llm":"2025-11-11","hybrid":"2025-11-11","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NANPING YUANLI ACTIVE CARBON COMPANY","rule":"NANPING YUANLI ACTIVE CARBON COMPANY","llm":"NANPING YUANLI ACTIVE CARBON COMPANY","hybrid":"NANPING YUANLI ACTIVE CARBON COMPANY","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"OTHERS (LAIN-LAIN)","hybrid":"OTHERS (LAIN-LAIN)","r_match":false,"l_match":false,"h_match":false}}},{"filename":"020__A7D030E9DF8A__A7D030E9DF8A__sample HCA halal_certificate.pdf","org":"HCA","conf":"LOW","fields":{"인증기관":{"gt":"HCA","rule":"HCA","llm":"JAKIM","hybrid":"JAKIM","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HCA 368/JAKIM","rule":"HCA 368/JAKIM","llm":"HCA 368/ JAKIM","hybrid":"HCA 368/ JAKIM","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2027-02-08","rule":"","llm":"2027-02-08","hybrid":"2027-02-08","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"(PDF 미기재)","rule":"Has been assessed and found to be in accordance with Islamic Law and Halal Standard MS 1500: 2019. The","llm":"Not specified","hybrid":"Not specified","r_match":false,"l_match":false,"h_match":false},"제조국":{"gt":"(PDF 미기재)","rule":"VIETNAM","llm":"Not specified","hybrid":"Not specified","r_match":false,"l_match":false,"h_match":false}}},{"filename":"021__A3C57C44923C__A3C57C44923C__HALAL CICOT.pdf","org":"CICOT","conf":"LOW","fields":{"인증기관":{"gt":"CICOT","rule":"CICOT","llm":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","hybrid":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"THAILAND","rule":"THAILAND","llm":"Thailand","hybrid":"Thailand","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"710/2020","rule":"710/2020","llm":"K710/2020","hybrid":"K710/2020","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-02-26","rule":"2025-02-26","llm":"2025-02-26","hybrid":"2025-02-26","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Thai Union Ingredients Co.,Ltd","rule":"Thai Union Ingredients Co.,Ltd","llm":"Thai Union Ingredients Co.,Ltd","hybrid":"Thai Union Ingredients Co.,Ltd","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"THAILAND","rule":"THAILAND","llm":"Thailand","hybrid":"Thailand","r_match":true,"l_match":true,"h_match":true}}},{"filename":"022__F98912C51A07__F98912C51A07__halal juhf 2.pdf","org":"JUHF","conf":"LOW","fields":{"인증기관":{"gt":"JUHF","rule":"JUHF","llm":"JUHF CERTIFICATION PVT. LTD.","hybrid":"JUHF CERTIFICATION PVT. LTD.","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JUHF-1983-1774","rule":"","llm":"JUHF-I-CAS-0984-0641","hybrid":"JUHF-I-CAS-0984-0641","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2027-07-01","rule":"2027-07-01","llm":"2027-07-01","hybrid":"2027-07-01","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"MASH AGRO FOODS LIMITED","rule":"MASH AGRO FOODS LIMITED","llm":"MASH AGRO FOODS LIMITED","hybrid":"MASH AGRO FOODS LIMITED","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true}}},{"filename":"023__7D458CA5574E__7D458CA5574E__46_4. PURAC HS(Purac(Th)[MUI_2026-01-18]신.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MUI","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00310053091209","rule":"LPPOM-00310053091209","llm":"LPPOM-00310053091209","hybrid":"LPPOM-00310053091209","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-01-18","rule":"2026-01-18","llm":"2026-01-18","hybrid":"2026-01-18","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"PURAC (THAILAND) LTD","rule":"PURAC (THAILAND) LTD","llm":"PURAC (THAILAND) LTD.","hybrid":"PURAC (THAILAND) LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"THAILAND","rule":"INDONESIA","llm":"THAILAND","hybrid":"INDONESIA","r_match":false,"l_match":true,"h_match":false}}},{"filename":"024__E904528307C0__E904528307C0__123-6.Vitapherol T-70 Non GMO,Vitae Caps, S.A.(Vitae Naturals)社-HFCE(2021-06-30).pdf","org":"HFCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"HFCE","hybrid":"HFCE","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Belgium","hybrid":"Belgium","r_match":false,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-20VIPRSS","rule":"HC-20VINV41","llm":"B77891","hybrid":"B77891","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2021-06-30","rule":"2021-06-30","llm":"2021-06-30","hybrid":"2021-06-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Vitae Caps, S.A","rule":"Vitae Caps, S.A","llm":"Vitae Caps, S.A. (Vitae Naturals)","hybrid":"Vitae Caps, S.A. (Vitae Naturals)","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true}}},{"filename":"025__B1741F7840B2__B1741F7840B2__37.Maxarome Select Powder,DSM FOOD SPECIALTIES CO., LTD社-HFFIA(2021-06-30).pdf","org":"HFFIA","conf":"LOW","fields":{"인증기관":{"gt":"HFFIA","rule":"HFFIA","llm":"HFFIA","hybrid":"HFFIA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"10004700158/0203","rule":"","llm":"DSM 20004/H00158/0203","hybrid":"DSM 20004/H00158/0203","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2021-06-30","rule":"2021-06-30","llm":"2021-06-30","hybrid":"2021-06-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"DSM Food Specialties BV","rule":"DSM Food Specialties BV","llm":"DSM Food Specialties BV","hybrid":"DSM Food Specialties BV","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false}}},{"filename":"026__7FDF5F2B8F04__7FDF5F2B8F04__sample ISA 79sAuM2HdzQk6gMLdKLD4Sh1SrGZGF8B.pdf","org":"ISA","conf":"MEDIUM","fields":{"인증기관":{"gt":"ISA","rule":"ISA","llm":"Islamic Services of America (ISA)","hybrid":"Islamic Services of America (ISA)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"1024-22-37430","rule":"1024-22-37430","llm":"1024-22-37430","hybrid":"1024-22-37430","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2023-12-31","rule":"2023-12-31","llm":"2023-12-31","hybrid":"2023-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Western Foods","rule":"and its product categories and products","llm":"Western Foods","hybrid":"Western Foods","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"INDONESIA","llm":"USA","hybrid":"USA","r_match":false,"l_match":true,"h_match":true}}},{"filename":"027__59CFAB548BC3__59CFAB548BC3__sample ISA E106980C-E0DF-E0E2-567459C443B70C08-document.pdf","org":"ISA","conf":"MEDIUM","fields":{"인증기관":{"gt":"ISA","rule":"ISA","llm":"Islamic Services of America","hybrid":"Islamic Services of America","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"0107-20-35039","rule":"0107-20-35039","llm":"0107-20-35039","hybrid":"0107-20-35039","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2020-12-31","rule":"2020-12-31","llm":"2020-12-31","hybrid":"2020-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"The Morning Star Packing Company","rule":"The Morning Star Packing Company","llm":"The Morning Star Packing Company","hybrid":"The Morning Star Packing Company","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"028__E68B854A4679__E68B854A4679__25. Kimchi flavor oil(S)(Naturals)[MUI_2028-12-18]내.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Republic of Korea","hybrid":"INDONESIA","r_match":true,"l_match":false,"h_match":true},"인증번호":{"gt":"LPPOM-00060093550119","rule":"LPPOM-00060093550119","llm":"LPPOM-00060093550119","hybrid":"LPPOM-00060093550119","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2028-12-18","rule":"2028-12-18","llm":"2028-12-18","hybrid":"2028-12-18","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NATURALS FOOD CO.LTD","rule":"NATURALS FOOD CO.LTD","llm":"NATURALS FOOD CO.LTD.,KOREA","hybrid":"NATURALS FOOD CO.LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"KOREA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"029__A6C4420FF3FB__A6C4420FF3FB__42. Maltodextrin(SAJO)[BPJPH_2026-12-09]사.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410000235521121","rule":"ID00410000235521121","llm":"ID00410000235521121","hybrid":"ID00410000235521121","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2026-12-08","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"SAJOCPK LTD","rule":"SAJOCPK LTD","llm":"SAJOCKP LTD.","hybrid":"SAJOCPK LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"KOREA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"030__6CEEF59C0DDB__6CEEF59C0DDB__CA-Chicken jakim scan bw.pdf","org":"JAKIM","conf":"LOW","fields":{"인증기관":{"gt":"JAKIM","rule":"JAKIM","llm":"JABATAN AGAMA ISLAM PERAK","hybrid":"JABATAN AGAMA ISLAM PERAK","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"MALAYSIA","hybrid":"MALAYSIA","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"JAKIM/(S)/(22.00)/492/2/1 031-09/2004","rule":"JAKIMI(S)(22.00)/492/2/ 1 062-12/2008 6","llm":"JAKIM/(S) 922.00/492/2 031-09/2004","hybrid":"JAKIM/(S) 922.00/492/2 031-09/2004","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2021-05-31","rule":"","llm":"2021-05-31","hybrid":"2021-05-31","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"DINDINGS POULTRY PROCESSING SDN BHD","rule":"HLRB PROCESSING SDN BHD","llm":"DINDINGS POULTRY PROCESSING SDN BHD","hybrid":"DINDINGS POULTRY PROCESSING SDN BHD","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"MALAYSIA","hybrid":"MALAYSIA","r_match":true,"l_match":false,"h_match":false}}},{"filename":"031__31566204AB52__31566204AB52__157. Monosodium glutamate-MSG(COFCO)[BPJPH_2027-03-09]보.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410001350480323","rule":"ID00410001350480323","llm":"ID00410001350480323","hybrid":"ID00410001350480323","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2027-03-09","rule":"","llm":"2027-03-09","hybrid":"","r_match":false,"l_match":true,"h_match":false},"제조사":{"gt":"COFCO Bio-chemical Energy (Longjiang) CO.,Ltd","rule":"COFCO Bio-chemical Energy (Longjiang) CO.,Ltd","llm":"COFCO Bio-chemical Energy (Longjiang) CO.,Ltd.","hybrid":"COFCO Bio-chemical Energy (Longjiang) CO.,Ltd","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"P.R. China","hybrid":"CHINA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"032__CF910B302A04__CF910B302A04__117. Non-GMO Soybean Meal(Zeeland)[IFANCA_2026-05-31]타.pdf","org":"IFANCA","conf":"HIGH","fields":{"인증기관":{"gt":"IFANCA","rule":"IFANCA","llm":"IFANCA","hybrid":"IFANCA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-25ZES391","rule":"HC-25ZES391","llm":"4047.12930.I250031","hybrid":"HC-25ZES391","r_match":true,"l_match":false,"h_match":true},"유효기간":{"gt":"2026-05-31","rule":"2026-05-31","llm":"2026-05-31","hybrid":"2026-05-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Zeeland Farm Services","rule":"Zeeland Farm Services","llm":"Zeeland Farm Services","hybrid":"Zeeland Farm Services","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"033__A6F9AD4B2810__A6F9AD4B2810__sample IRIMAR-2018-ING HFQ.pdf","org":"HFQ","conf":"LOW","fields":{"인증기관":{"gt":"HFQ","rule":"HFQ","llm":"Halal Food & Quality","hybrid":"Halal Food & Quality","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HFQ-INC-214/2018-21-04/V","rule":"","llm":"HFQ-INC-214/2018-21-04/V","hybrid":"HFQ-INC-214/2018-21-04/V","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2019-07-15","rule":"2019-07-15","llm":"2019-07-15","hybrid":"2019-07-15","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"IRIMAR, S.L","rule":"IRIMAR, S.L","llm":"IRIMAR, S.L.","hybrid":"IRIMAR, S.L.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true}}},{"filename":"034__6E093D8F797B__6E093D8F797B__56. VITACEL Powdered  Cellulose DV type(J.Retten)[HFFIA_2025-09-30]농.pdf","org":"HFFIA","conf":"LOW","fields":{"인증기관":{"gt":"HFFIA","rule":"HFFIA","llm":"HFFIA","hybrid":"HFFIA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"JRSRS/24006/H00249/115","rule":"H00249-01928","llm":"JRSRS/24006/H00249/115","hybrid":"JRSRS/24006/H00249/115","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2025-09-30","rule":"2025-09-30","llm":"2024-09-27","hybrid":"2024-09-27","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"Rettenmaier & Séhne GmbH + Co. KG","rule":"Rettenmaier & Séhne GmbH + Co. KG","llm":"J. Rettenmaier & Söhne GmbH + Co. KG","hybrid":"J. Rettenmaier & Söhne GmbH + Co. KG","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"GERMANY","rule":"NETHERLANDS","llm":"Germany","hybrid":"Germany","r_match":false,"l_match":true,"h_match":true}}},{"filename":"035__9BFBCB1E6699__9BFBCB1E6699__HALAL_certificate KMF.pdf","org":"KMF","conf":"LOW","fields":{"인증기관":{"gt":"KMF","rule":"KMF","llm":"Korea Muslim Federation","hybrid":"Korea Muslim Federation","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"KOREA","rule":"KOREA","llm":"Korea","hybrid":"Korea","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"KMFHC25-611","rule":"KMFHC25-611","llm":"KMFH25-611","hybrid":"KMFH25-611","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2026-12-08","rule":"","llm":"2026-12-08","hybrid":"2026-12-08","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"Adhome Co., Ltd","rule":"Adhome Co., Ltd","llm":"Adhome Co., Ltd.","hybrid":"Adhome Co., Ltd.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Korea","hybrid":"Korea","r_match":true,"l_match":true,"h_match":true}}},{"filename":"036__EE0E150A3059__EE0E150A3059__3_ CERT - VAVA PACK - HALAL Eng - EXP 26 SEP 2026 CICOT.pdf","org":"CICOT","conf":"MEDIUM","fields":{"인증기관":{"gt":"CICOT","rule":"CICOT","llm":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","hybrid":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"THAILAND","rule":"THAILAND","llm":"Thailand","hybrid":"Thailand","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"F339/2016","rule":"939/2016","llm":"F339/2016","hybrid":"F339/2016","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-09-26","rule":"2026-09-26","llm":"2026-09-26","hybrid":"2026-09-26","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"VAVA PACK CO.,LTD.","rule":"VAVA PACK CO.,LTD.","llm":"VAVA PACK CO.,LTD.","hybrid":"VAVA PACK CO.,LTD.","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"THAILAND","rule":"THAILAND","llm":"THAILAND","hybrid":"THAILAND","r_match":true,"l_match":true,"h_match":true}}},{"filename":"037__D0E6D00DFBD5__D0E6D00DFBD5__sample HFCE Halal-ZertifikatNVdilimler2016.pdf","org":"HFCE","conf":"LOW","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"Halal Food Council of Europe (HFCE)","hybrid":"Halal Food Council of Europe (HFCE)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Belgium","hybrid":"Belgium","r_match":false,"l_match":true,"h_match":true},"인증번호":{"gt":"827964482","rule":"","llm":"VOL.5771.160001.BE","hybrid":"VOL.5771.160001.BE","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2017-01-31","rule":"2017-01-31","llm":"2017-01-31","hybrid":"2017-01-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Volys Star N.V.","rule":"The turkey slaughtered by the Company","llm":"Volys Star N.V.","hybrid":"Volys Star N.V.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"BELGIUM","rule":"","llm":"Belgium","hybrid":"Belgium","r_match":false,"l_match":true,"h_match":true}}},{"filename":"038__94DB281F3733__94DB281F3733__32-04.SPRINGER 020020-PW-L,BIOSPRIGER S.A社-HFCE(2021-12-31).pdf","org":"HFCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"HFCE","hybrid":"HFCE","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Belgium","hybrid":"Belgium","r_match":false,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-20BIO426","rule":"HC-20BIO426","llm":"D160129302HCP1E","hybrid":"D160129302HCP1E","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2021-12-31","rule":"2021-12-31","llm":"2021-12-31","hybrid":"2021-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Bio Springer S.A","rule":"Bio Springer S.A","llm":"Bio Springer S.A.","hybrid":"Bio Springer S.A.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"FRANCE","rule":"FRANCE","llm":"France","hybrid":"France","r_match":true,"l_match":true,"h_match":true}}},{"filename":"039__2B84867EA557__2B84867EA557__98_3_2. L-Glutamic Acid(HEBEIHUA)[MUI_2026-02-22]비.pdf","org":"MUI","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00270021310802","rule":"LPPOM-00270021310802","llm":"LPPOM-00270021310802","hybrid":"LPPOM-00270021310802","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-02-22","rule":"2026-02-22","llm":"2026-02-22","hybrid":"2026-02-22","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"HEBEI HUAYANG BIOLOGICAL TECHNOLOGY CO.,LTD","rule":"HEBEI HUAYANG BIOLOGICAL TECHNOLOGY CO.,LTD","llm":"HEBEI HUAYANG BIOLOGICAL TECHNOLOGY CO.,LTD","hybrid":"HEBEI HUAYANG BIOLOGICAL TECHNOLOGY CO.,LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"China","hybrid":"China","r_match":false,"l_match":true,"h_match":true}}},{"filename":"040__9C3ED3788964__9C3ED3788964__129_3. AJITIDE I+G(PT.)[MUI_2025-11-23]G.pdf","org":"MUI","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MAJELIS ULAMA INDONESIA (MUI)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00060006931297","rule":"LPPOM-00060006931","llm":"LPPOM-00060006931-297","hybrid":"LPPOM-00060006931-297","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-11-23","rule":"2025-11-23","llm":"2025-11-23","hybrid":"2025-11-23","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"PT. CHEIL JEDANG INDONESIA","rule":"that product stated beiow as","llm":"PT. CHIEL, JEBRANG INDONESIA","hybrid":"PT. CHIEL, JEBRANG INDONESIA","r_match":false,"l_match":false,"h_match":false},"제조국":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true}}},{"filename":"041__981F2243BF68__981F2243BF68__102_2. TONSIL OPTIMUM 230LM(CLARIANT)[BPJPH_2026-09-23]롯.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Badan Sertifikasi Elektronik, BSSN","hybrid":"Badan Sertifikasi Elektronik, BSSN","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410000197690421","rule":"ID00410000197690421","llm":"ID00410000197690421","hybrid":"ID00410000197690421","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"N/A","hybrid":"N/A","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"PT. Clariant Adsorbents Indonesia","rule":"Name of Company","llm":"PT. Clariant Adsorbents Indonesia","hybrid":"PT. Clariant Adsorbents Indonesia","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true}}},{"filename":"042__97F7DCB4BB15__97F7DCB4BB15__109_2. Granular Activated Carbon-IFANCA(2024-12-31).pdf","org":"IFANCA","conf":"HIGH","fields":{"인증기관":{"gt":"IFANCA","rule":"IFANCA","llm":"Islamic Food and Nutrition Council of America (IFANCA)","hybrid":"IFANCA","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-23CAED82","rule":"HC-23CAED82","llm":"1073.1072.I230025","hybrid":"HC-23CAED82","r_match":true,"l_match":false,"h_match":true},"유효기간":{"gt":"2024-12-31","rule":"2024-12-31","llm":"2024-12-31","hybrid":"2024-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Calgon Carbon Corporation","rule":"Calgon Carbon Corporation","llm":"Calgon Carbon Corporation","hybrid":"Calgon Carbon Corporation","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"043__453373A30A76__453373A30A76__sample HCE Halal-Certificate-25-26.pdf","org":"HCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HCE","rule":"HCE","llm":"Halal Certification Europe (HCE)","hybrid":"Halal Certification Europe (HCE)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"UK","rule":"UK","llm":"United Kingdom","hybrid":"United Kingdom","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"21624-2/1/1/Y1","rule":"21624-2/1/1/Y1","llm":"21624-2/1/1/Y1","hybrid":"21624-2/1/1/Y1","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-07-16","rule":"2026-07-16","llm":"2026-07-16","hybrid":"2026-07-16","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Vickers Oils","rule":"Vickers Oils","llm":"Vickers Oils","hybrid":"Vickers Oils","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"UK","rule":"UK","llm":"United Kingdom","hybrid":"United Kingdom","r_match":true,"l_match":false,"h_match":false}}},{"filename":"044__BF6999BB87A5__BF6999BB87A5__C-16-60078-01-12 halal control.pdf","org":"HALAL CONTROL","conf":"MEDIUM","fields":{"인증기관":{"gt":"HALAL CONTROL","rule":"HALAL CONTROL","llm":"HALAL CONTROL","hybrid":"HALAL CONTROL","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"C-16-60078-01-12","rule":"C-16-60078-01-12","llm":"C-16-60078-01-12","hybrid":"C-16-60078-01-12","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2024-02-05","rule":"2024-02-05","llm":"2024-02-05","hybrid":"2024-02-05","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Höhere Bundeslehr- und Forschungsanstalt für Landwirtschaft und Ernährung sowie Lebensmittel- und Biotechnologie in Tirol","rule":"ﻓﻲ Höhere Bundeslehr- und Forschungsanstalt für Landwirtschaft und","llm":"Höhere Bundeslehr- und Forschungsanstalt für Landwirtschaft und Ernährung sowie Lebensmittel- und Biotechnologie in Tirol","hybrid":"Höhere Bundeslehr- und Forschungsanstalt für Landwirtschaft und Ernährung sowie Lebensmittel- und Biotechnologie in Tirol","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"AUSTRIA","rule":"INDONESIA","llm":"Austria","hybrid":"Austria","r_match":false,"l_match":true,"h_match":true}}},{"filename":"045__74DB10FA60A5__74DB10FA60A5__0tNFMCyIf0ACA0Yo2fiKrYW2s37EfLtiHGC9BIpp jakim.pdf","org":"JAKIM","conf":"LOW","fields":{"인증기관":{"gt":"JAKIM","rule":"JAKIM","llm":"JABATAN AGAMA ISLAM SELANGOR","hybrid":"JABATAN AGAMA ISLAM SELANGOR","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"Malaysia","hybrid":"Malaysia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JAKIM.700-2/3/1 004-09/2022","rule":"JAKIM.700-2/3/1 004-09/2022","llm":"JAKIM.700-2/31 004-09/2022","hybrid":"JAKIM.700-2/31 004-09/2022","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-02-15","rule":"","llm":"2025-02-15","hybrid":"2025-02-15","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"RINBEST TRADING","rule":"RINBEST TRADING","llm":"RINBEST TRADING","hybrid":"RINBEST TRADING","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"Malaysia","hybrid":"Malaysia","r_match":true,"l_match":true,"h_match":true}}},{"filename":"046__589C3C666B86__589C3C666B86__170_3. DEXTROSE ANHYDROUS(XIWANG)[MUI_2026-10-25]주.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"Majelis Ulama Indonesia (MUI)","hybrid":"MUI","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00230076340316","rule":"LPPOM-00230076340316","llm":"LPPOM-00230076340316","hybrid":"LPPOM-00230076340316","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-10-25","rule":"2026-10-25","llm":"2026-10-25","hybrid":"2026-10-25","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"XIWANG GROUP CO., LTD","rule":"XIWANG GROUP CO., LTD","llm":"XIWANG GROUP CO., LTD","hybrid":"XIWANG GROUP CO., LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"Indonesia","hybrid":"CHINA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"047__A9A7C595E7AF__A9A7C595E7AF__122. Protease-Promod 278 MDP)(BIOCATAL)[HQC_2026-04-15]B.pdf","org":"HQC","conf":"MEDIUM","fields":{"인증기관":{"gt":"HQC","rule":"HQC","llm":"Halal Quality Control BV Netherlands","hybrid":"Halal Quality Control BV Netherlands","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"United Kingdom","hybrid":"United Kingdom","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"NL10510501763","rule":"NL10510501763","llm":"NL10510501763","hybrid":"NL10510501763","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-04-15","rule":"2026-04-15","llm":"2026-04-15","hybrid":"2026-04-15","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Biocatalysts","rule":"Biocatalysts","llm":"Biocatalysts","hybrid":"Biocatalysts","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"UK","rule":"UK","llm":"United Kingdom","hybrid":"United Kingdom","r_match":true,"l_match":false,"h_match":false}}},{"filename":"048__925EA24BF2C9__925EA24BF2C9__90. MAIZE FLOUR(Kalizea)[HCE_2026-01-24]s.pdf","org":"HCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HCE","rule":"HCE","llm":"Halal Certification Europe (HCE)","hybrid":"Halal Certification Europe (HCE)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"UK","rule":"UK","llm":"France","hybrid":"France","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"21559-1/1/1/Y1","rule":"21559-1/1/1/Y1","llm":"21559-1/1/1/Y1","hybrid":"21559-1/1/1/Y1","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-01-24","rule":"2026-01-24","llm":"2026-01-24","hybrid":"2026-01-24","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Kalizea","rule":"Kalizea","llm":"Kalizea","hybrid":"Kalizea","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"FRANCE","rule":"FRANCE","llm":"France","hybrid":"France","r_match":true,"l_match":true,"h_match":true}}},{"filename":"049__57225DDB8924__57225DDB8924__71. Vegetable flavor powder-NSMF(Nongshim)[MUI_2028-01-30]농.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":false,"h_match":true},"인증번호":{"gt":"LPPOM-00070097960819","rule":"LPPOM-00070097960819","llm":"LPPOM-0007097960819","hybrid":"LPPOM-00070097960819","r_match":true,"l_match":false,"h_match":true},"유효기간":{"gt":"2028-01-30","rule":"2028-01-30","llm":"2028-01-30","hybrid":"2028-01-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NONGSHIM TAEKYUNG CO., LTD","rule":"NONGSHIM TAEKYUNG CO., LTD","llm":"NONGSHIM TAEKYUNG CO., LTD (DAEGU FACTORY)","hybrid":"NONGSHIM TAEKYUNG CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"KOREA","hybrid":"KOREA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"050__24460F9C9F05__24460F9C9F05__sample TQHCC Certificateannex-2024.pdf","org":"TQHCC","conf":"MEDIUM","fields":{"인증기관":{"gt":"TQHCC","rule":"TQHCC","llm":"Total Quality Halal Correct Certification (TQHCC)","hybrid":"Total Quality Halal Correct Certification (TQHCC)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Netherlands","hybrid":"Netherlands","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HCC03344348-GFG2024","rule":"HCC03344348-GFG2024","llm":"HCC033434348-GFC2024","hybrid":"HCC033434348-GFC2024","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-10-31","rule":"2025-10-31","llm":"2025-10-31","hybrid":"2025-10-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Global Food Group B.V.","rule":"Global Food Group B.V.","llm":"Global Food Group B.V.","hybrid":"Global Food Group B.V.","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Netherlands","hybrid":"Netherlands","r_match":true,"l_match":true,"h_match":true}}},{"filename":"051__8C5E6EC43C04__8C5E6EC43C04__129_1. Maltodextrin(INGREDIO)[MUI_2025-12-07]G.pdf","org":"MUI","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"Indonesia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00220065960713","rule":"LPPOM-00220065960713","llm":"LPPOM-0022065069713","hybrid":"LPPOM-0022065069713","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-12-07","rule":"2025-12-07","llm":"2025-12-07","hybrid":"2025-12-07","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"INGREDION KOREA INCORPORATED","rule":"‘Alamat Perusahaan","llm":"INGREDION KOREA INCORPORATED-KOREA","hybrid":"INGREDION KOREA INCORPORATED-KOREA","r_match":false,"l_match":false,"h_match":false},"제조국":{"gt":"KOREA","rule":"INDONESIA","llm":"Korea","hybrid":"Korea","r_match":false,"l_match":true,"h_match":true}}},{"filename":"052__3A3070F4ECA7__3A3070F4ECA7__Hai+Leng+Halal+CertificatePDF_240116_213841 jakim.pdf","org":"JAKIM","conf":"LOW","fields":{"인증기관":{"gt":"JAKIM","rule":"JAKIM","llm":"MAJLIS UGAMA ISLAM SABAH","hybrid":"MAJLIS UGAMA ISLAM SABAH","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"Malaysia","hybrid":"Malaysia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JAKIM.700-2/3/1 140-12/2005","rule":"JAKIM.700-2 T3T 1 1 40 -1212005","llm":"JAkim.700-2/3 140-12/2005","hybrid":"JAkim.700-2/3 140-12/2005","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-01-31","rule":"","llm":"2025-01-31","hybrid":"2025-01-31","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"HAI LENG ENTERPRISE SDN. BHD","rule":"HAI LENG ENTERPRISE SDN. BHD","llm":"HAI LENG ENTERPRISE SDN. BHD.","hybrid":"HAI LENG ENTERPRISE SDN. BHD.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"Malaysia","hybrid":"Malaysia","r_match":true,"l_match":true,"h_match":true}}},{"filename":"053__4C9A1E644D9F__4C9A1E644D9F__sample HCE Halal-2022-2023-NTL.pdf","org":"HCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HCE","rule":"HCE","llm":"Halal Certification Europe (HCE)","hybrid":"Halal Certification Europe (HCE)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"UK","rule":"UK","llm":"United Kingdom","hybrid":"United Kingdom","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"21114-1/1/2/Y1","rule":"21114-1/1/2/Y1","llm":"21114-1/1/2/Y1","hybrid":"21114-1/1/2/Y1","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2023-10-23","rule":"2023-10-23","llm":"2023-10-23","hybrid":"2023-10-23","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"New Tech Lubes","rule":"New Tech Lubes","llm":"New Tech Lubes","hybrid":"New Tech Lubes","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"UK","rule":"UK","llm":"United Kingdom","hybrid":"United Kingdom","r_match":true,"l_match":false,"h_match":false}}},{"filename":"054__B94786A4FA0D__B94786A4FA0D__85.Thiamine Hydrochloride -HFCE(2021-11-30).pdf","org":"HFCE","conf":"LOW","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"HFCE","hybrid":"HFCE","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Switzerland","hybrid":"Switzerland","r_match":false,"l_match":false,"h_match":false},"인증번호":{"gt":"HC-20DS3C32","rule":"","llm":"HC-20DSC12","hybrid":"HC-20DSC12","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2021-11-30","rule":"2021-11-30","llm":"2021-11-30","hybrid":"2021-11-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"DSM Nutritional Products, Ltd.","rule":"","llm":"DSN1 Nutritional Products, Ltd. PO Box 2676 (Visp), Basel-City CH - 4002 Switzerland","hybrid":"DSN1 Nutritional Products, Ltd. PO Box 2676 (Visp), Basel-City CH - 4002 Switzerland","r_match":false,"l_match":false,"h_match":false},"제조국":{"gt":"GERMANY","rule":"","llm":"Germany","hybrid":"Germany","r_match":false,"l_match":true,"h_match":true}}},{"filename":"055__D2E136B29B45__D2E136B29B45__106.Paprika Oleoresin-HFCE(2022-10-31).pdf","org":"HFCE","conf":"LOW","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"HFCE","hybrid":"HFCE","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Spain","hybrid":"Spain","r_match":false,"l_match":false,"h_match":false},"인증번호":{"gt":"HC-21EV9V21","rule":"","llm":"B31557","hybrid":"B31557","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2022-10-31","rule":"2022-10-31","llm":"2022-10-31","hybrid":"2022-10-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Evesa (Extractos Vegetales, S.A.)","rule":"","llm":"Ejesa (Extractos Vegetales, S.A.)","hybrid":"Ejesa (Extractos Vegetales, S.A.)","r_match":false,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"","llm":"Spain","hybrid":"Spain","r_match":false,"l_match":true,"h_match":true}}},{"filename":"056__28AD26C335DF__28AD26C335DF__TRZ halal cert - 30 Sep 2026 MUIS.pdf","org":"MUIS","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUIS","rule":"MUIS","llm":"Majlis Ugama Islam Singapura (MUIS)","hybrid":"Majlis Ugama Islam Singapura (MUIS)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"PRN21070011043","rule":"PRN21070011043","llm":"PRN21070011043","hybrid":"PRN21070011043","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-09-30","rule":"2026-09-30","llm":"2026-09-30","hybrid":"2026-09-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"TIAN RAN ZHONG COOLING TEA","rule":"TIAN RAN ZHONG COOLING TEA","llm":"Tian Ran Zhong Cooling Tea","hybrid":"Tian Ran Zhong Cooling Tea","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true}}},{"filename":"057__E288E73C752C__E288E73C752C__110_1_4. Dextrozyme(Novozyme)[HQC_2028-07-01]대.pdf","org":"HQC","conf":"HIGH","fields":{"인증기관":{"gt":"HQC","rule":"HQC","llm":"Halal Quality Control","hybrid":"HQC","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Denmark","hybrid":"GERMANY","r_match":true,"l_match":false,"h_match":true},"인증번호":{"gt":"DE10310301848","rule":"DE10310301848","llm":"DE10310301848","hybrid":"DE10310301848","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2028-07-01","rule":"2028-07-01","llm":"2028-01-01","hybrid":"2028-07-01","r_match":true,"l_match":false,"h_match":true},"제조사":{"gt":"Novozymes A/S","rule":"Novozymes A/S","llm":"Novozymes A/S","hybrid":"Novozymes A/S","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"Denmark, China","hybrid":"CHINA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"058__95B363D76A62__95B363D76A62__Halal-Cert-Grofresh-Agro-1148-14_03_2026 juhf.pdf","org":"JUHF","conf":"MEDIUM","fields":{"인증기관":{"gt":"JUHF","rule":"JUHF","llm":"JUHF CERTIFICATION PVT. LTD.","hybrid":"JUHF CERTIFICATION PVT. LTD.","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JUHF-1148-0949","rule":"JUHF-1148-0949","llm":"JUHF-1148-0949","hybrid":"JUHF-1148-0949","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-03-14","rule":"2026-03-14","llm":"2025-12-14","hybrid":"2025-12-14","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"GROFRESH AGROFOODS PRIVATE LIMITED","rule":"GROFRESH AGROFOODS PRIVATE LIMITED","llm":"GROFRESH AGROFOODS PRIVATE LIMITED","hybrid":"GROFRESH AGROFOODS PRIVATE LIMITED","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true}}},{"filename":"059__546D36BC5D74__546D36BC5D74__107.Oleoresin Capsicum-HFCE(2021-10-31).pdf","org":"HFCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"HFCE","hybrid":"HFCE","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Belgium","hybrid":"Belgium","r_match":false,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-20EVB110","rule":"HC-20EV3204","llm":"827964482","hybrid":"827964482","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2021-10-31","rule":"2021-10-31","llm":"2021-10-31","hybrid":"2021-10-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Evesa (Extractos Vegetales, S.A.)","rule":"Evesa (Extractos Vegetales, S.A.)","llm":"Evesa (Extractos Vegetales, S.A.)","hybrid":"Evesa (Extractos Vegetales, S.A.)","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true}}},{"filename":"060__82219E51DBD3__82219E51DBD3__sample HCA Halal-certificate.pdf","org":"HCA","conf":"LOW","fields":{"인증기관":{"gt":"HCA","rule":"HCA","llm":"JAKIM","hybrid":"JAKIM","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HCA 212/JAKIM","rule":"HCA 212/JAKIM 3","llm":"HCA 212/ JAKIM","hybrid":"HCA 212/ JAKIM","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2022-10-21","rule":"","llm":"2022-10-21","hybrid":"2022-10-21","r_match":false,"l_match":true,"h_match":true},"제조사":{"gt":"NEDSPICE PROCESSING VIETNAM LIMITED","rule":"NEDSPICE PROCESSING VIETNAM LIMITED","llm":"NEDSPICE PROCESSING VIETNAM LIMITED","hybrid":"NEDSPICE PROCESSING VIETNAM LIMITED","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"VIETNAM","rule":"VIETNAM","llm":"Vietnam","hybrid":"Vietnam","r_match":true,"l_match":true,"h_match":true}}},{"filename":"061__EE91BF39F406__EE91BF39F406__45. SEWOO CO., LTD BPJPH HALAL Certificate_(2025-11-18).pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410034344481125","rule":"ID00410034344481125","llm":"ID0041003434481125","hybrid":"ID00410034344481125","r_match":true,"l_match":false,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2025-11-18","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"SEWOO CO., LTD","rule":"SEWOO CO., LTD","llm":"SEWOO CO., LTD-KOREA","hybrid":"SEWOO CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"KOREA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"062__02767C062E6F__02767C062E6F__34. Maltodextrin Glucose syrup solids(SANSOON)[JAKIM_2026-03-15]한.pdf","org":"JAKIM","conf":"MEDIUM","fields":{"인증기관":{"gt":"JAKIM","rule":"JAKIM","llm":"JAKIM","hybrid":"JAKIM","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"MALAYSIA","hybrid":"MALAYSIA","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"JAKIM.700-2/3/1 005-10/2004","rule":"JAKIM.700-2/3/1 005-10/2004","llm":"JAKIM.700-2/3/1 005-10/2004","hybrid":"JAKIM.700-2/3/1 005-10/2004","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-03-15","rule":"2026-03-15","llm":"2026-03-15","hybrid":"2026-03-15","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"SAN SOON SENG FOOD INDUSTRIES SDN BHD","rule":"SAN SOON SENG FOOD INDUSTRIES SDN BHD","llm":"SAN SOON SENG FOOD INDUSTRIES SDN BHD","hybrid":"SAN SOON SENG FOOD INDUSTRIES SDN BHD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"MALAYSIA","hybrid":"MALAYSIA","r_match":true,"l_match":false,"h_match":false}}},{"filename":"063__5AC956AAEED2__5AC956AAEED2__54. Modified starch FIRM-TEX(INGREDIO)[IFANCA_2025-09-30]인.pdf","org":"IFANCA","conf":"MEDIUM","fields":{"인증기관":{"gt":"IFANCA","rule":"IFANCA","llm":"IFANCA","hybrid":"IFANCA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-23INDP57","rule":"HC-23INL290","llm":"1341.1344.II230198","hybrid":"1341.1344.II230198","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2024-09-30","rule":"2024-09-30","llm":"2024-09-30","hybrid":"2024-09-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Ingredion Incorporated","rule":"Ingredion Incorporated","llm":"Ingredion Incorporated","hybrid":"Ingredion Incorporated","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"064__EB1AE14E8CB1__EB1AE14E8CB1__H1Y22Halal-Certificate HQC.pdf","org":"HQC","conf":"MEDIUM","fields":{"인증기관":{"gt":"HQC","rule":"HQC","llm":"Halal Quality Control","hybrid":"Halal Quality Control","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"NETHERLANDS","rule":"GERMANY","llm":"Netherlands","hybrid":"Netherlands","r_match":false,"l_match":true,"h_match":true},"인증번호":{"gt":"DE10410400608","rule":"DE10410400608","llm":"DE1041040608","hybrid":"DE1041040608","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2022-09-22","rule":"2022-09-22","llm":"2022-09-22","hybrid":"2022-09-22","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Quality Chemicals S.L","rule":"Quality Chemicals S.L","llm":"Quality Chemicals S.L.","hybrid":"Quality Chemicals S.L.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true}}},{"filename":"065__285018A4FEAD__285018A4FEAD__4. Natural Vitamin E Mixed Tocopherols(Liquid)(JIANGSU)[MUI_2026-10-11]우.pdf","org":"MUI","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MAJELIS ULAMA INDONESIA (MUI)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00180166911022","rule":"LPPOM-00180166911022","llm":"LPPOM-00180166911022","hybrid":"LPPOM-00180166911022","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-10-11","rule":"2026-10-11","llm":"2026-10-11","hybrid":"2026-10-11","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"JIANGSU CONAT BIOLOGICAL PRODUCTS CO.,LTD","rule":"JIANGSU CONAT BIOLOGICAL PRODUCTS CO.,LTD","llm":"JIANGSU CONAT BIOLOGICAL PRODUCTS CO.,LTD","hybrid":"JIANGSU CONAT BIOLOGICAL PRODUCTS CO.,LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":false,"l_match":false,"h_match":false}}},{"filename":"066__4A02A904B1EC__4A02A904B1EC__106. Paprika Oleoresin(Chenguan)[MUI_2027-03-28]농.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00190048020508","rule":"LPPOM-00190048020508","llm":"LPPOM-001-9004802508","hybrid":"LPPOM-00190048020508","r_match":true,"l_match":false,"h_match":true},"유효기간":{"gt":"2027-03-28","rule":"2027-03-28","llm":"2027-03-28","hybrid":"2027-03-28","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"CHENGUANG BIOTECH GROUP CO.,LTD","rule":"CHENGUANG BIOTECH GROUP CO.,LTD","llm":"CHENGUANG BIOTECH GROUP CO.,LTD.","hybrid":"CHENGUANG BIOTECH GROUP CO.,LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"P.R. CHINA","hybrid":"CHINA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"067__A9E601A32746__A9E601A32746__102_2. TONSIL OPTIMUM 230LM(CLARIANT)[MUI_2025-09-21]롯.pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA (MUI)","hybrid":"MAJELIS ULAMA INDONESIA (MUI)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00170059551111","rule":"","llm":"I0722821","hybrid":"I0722821","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-09-21","rule":"2025-09-21","llm":"2025-09-21","hybrid":"2025-09-21","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"PT. CLARIANT ADSORBENTS INDONESIA","rule":"* : Sa","llm":"PT. CLARIANT ADSORBENTS INDONESIA","hybrid":"PT. CLARIANT ADSORBENTS INDONESIA","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"068__38954BFD243E__38954BFD243E__Halal_certificate_PQAA_greases_2021 halal control.pdf","org":"HALAL CONTROL","conf":"MEDIUM","fields":{"인증기관":{"gt":"HALAL CONTROL","rule":"HALAL CONTROL","llm":"HALAL CONTROL","hybrid":"HALAL CONTROL","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"C-17-60089-01-05","rule":"C-17-60089-01-05","llm":"C-17-60089-01-05","hybrid":"C-17-60089-01-05","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2021-12-16","rule":"2021-12-16","llm":"2021-12-16","hybrid":"2021-12-16","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Anderol BV","rule":"Anderol BV","llm":"Anderol BV","hybrid":"Anderol BV","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false}}},{"filename":"069__9F229E8A1C19__9F229E8A1C19__sample TQHCC Halal-Certificate_EuropaCuisson2021.pdf","org":"TQHCC","conf":"MEDIUM","fields":{"인증기관":{"gt":"TQHCC","rule":"TQHCC","llm":"Halal Correct Certification (TQHCC)","hybrid":"Halal Correct Certification (TQHCC)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Belgium","hybrid":"Belgium","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"HCC2765660-EC2021","rule":"HCC2765660","llm":"HCC2765660-EC2021","hybrid":"HCC2765660-EC2021","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2022-10-14","rule":"2022-10-14","llm":"2022-10-14","hybrid":"2022-10-14","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"EUROPA CUISSON S.A.","rule":"D Company","llm":"EUROPA CUISSON S.A.","hybrid":"EUROPA CUISSON S.A.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"BELGIUM","rule":"NETHERLANDS","llm":"Belgium","hybrid":"Belgium","r_match":false,"l_match":true,"h_match":true}}},{"filename":"070__83C4060284C4__83C4060284C4__43. Anchovy Extract NF(Naturals)[MUI_2028-08-13]내.pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"LPOM MUI","hybrid":"LPOM MUI","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00060093550119","rule":"LPPOM-00060093550119","llm":"LPPOM-00060093550119","hybrid":"LPPOM-00060093550119","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2028-08-13","rule":"2028-08-13","llm":"2028-08-13","hybrid":"2028-08-13","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NATURALS FOOD CO.LTD","rule":"NATURALS FOOD CO.LTD","llm":"NATURALS FOOD CO.LTD.,KOREA","hybrid":"NATURALS FOOD CO.LTD.,KOREA","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"REPUBLIC OF KOREA","hybrid":"REPUBLIC OF KOREA","r_match":true,"l_match":false,"h_match":false}}},{"filename":"071__D3BE87D17FBA__D3BE87D17FBA__40. Maxarome Select Powder(DSM)[HFFIA_2025-12-31]네.pdf","org":"HFFIA","conf":"LOW","fields":{"인증기관":{"gt":"HFFIA","rule":"HFFIA","llm":"HFFIA","hybrid":"HFFIA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"DSM/24004B/H00158/0233B","rule":"H00158-01701","llm":"H00158-0170/II A0152-ANL","hybrid":"H00158-0170/II A0152-ANL","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2025-12-31","rule":"2025-12-31","llm":"2025-12-31","hybrid":"2025-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"DSM Food Specialties BV","rule":"DSM Food Specialties BV","llm":"DSM Food Specialties BV","hybrid":"DSM Food Specialties BV","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"The Netherlands","hybrid":"The Netherlands","r_match":true,"l_match":false,"h_match":false}}},{"filename":"072__8F8D29FC357F__8F8D29FC357F__117. DEFATTED SOYA FLAKES(SIMRAN)(JUHF_2026-11-12]올.pdf","org":"JUHF","conf":"LOW","fields":{"인증기관":{"gt":"JUHF","rule":"JUHF","llm":"JUHF Certification Pvt. Ltd.","hybrid":"JUHF Certification Pvt. Ltd.","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JUHF-1983-1774","rule":"","llm":"JUHF-1983-1774","hybrid":"JUHF-1983-1774","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-11-12","rule":"2026-11-12","llm":"2024-11-12","hybrid":"2024-11-12","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"SIMRAN AGRITECH PRIVATE LIMITED","rule":"∴ら∴ 章二言 いNÅ)AS","llm":"Simran Agritech Private Limited","hybrid":"Simran Agritech Private Limited","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"INDIA","rule":"","llm":"India","hybrid":"India","r_match":false,"l_match":true,"h_match":true}}},{"filename":"073__C32B076D9BC5__C32B076D9BC5__KMFHC25-168 도레이첨단 인증서.pdf","org":"KMF","conf":"MEDIUM","fields":{"인증기관":{"gt":"KMF","rule":"KMF","llm":"Korea Muslim Federation","hybrid":"Korea Muslim Federation","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"KOREA","rule":"KOREA","llm":"South Korea","hybrid":"South Korea","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"KMFHC25-168","rule":"KMFHC25-168","llm":"KMFHC25-168","hybrid":"KMFHC25-168","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-05-08","rule":"2026-05-08","llm":"2026-05-08","hybrid":"2026-05-08","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Toray Advanced Materials Korea Inc","rule":"Toray Advanced Materials Korea Inc","llm":"Toray Advanced Materials Korea Inc.","hybrid":"Toray Advanced Materials Korea Inc.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"Republic of Korea","r_match":true,"l_match":false,"h_match":false}}},{"filename":"074__AD29953BBD0E__AD29953BBD0E__sample MUIS fusion spoon 30.4.27.pdf","org":"MUIS","conf":"LOW","fields":{"인증기관":{"gt":"MUIS","rule":"MUIS","llm":"MUIS","hybrid":"MUIS","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"FPCA20220001025","rule":"","llm":"FPCA20220001025","hybrid":"FPCA20220001025","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"2030-04-27","llm":"N/A","hybrid":"N/A","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"FUSION SPOON","rule":"","llm":"FUSION SPOON","hybrid":"FUSION SPOON","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true}}},{"filename":"075__2A810D349460__2A810D349460__32_1. Non-GMO Crude Soybean oil(Bunge)[HFCE_2026-09-30]롯.pdf","org":"HFCE","conf":"MEDIUM","fields":{"인증기관":{"gt":"HFCE","rule":"HFCE","llm":"HFCE","hybrid":"HFCE","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"BELGIUM","rule":"","llm":"Netherlands","hybrid":"Netherlands","r_match":false,"l_match":false,"h_match":false},"인증번호":{"gt":"HC-25BUZK93","rule":"HC-25BU2888","llm":"827964482","hybrid":"827964482","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2026-09-30","rule":"2026-09-30","llm":"2026-09-30","hybrid":"2026-09-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Bunge Netherlands B.V","rule":"Bunge Netherlands B.V","llm":"Bunge Netherlands B.V.","hybrid":"Bunge Netherlands B.V.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Netherlands","hybrid":"Netherlands","r_match":true,"l_match":true,"h_match":true}}},{"filename":"076__11806B425187__11806B425187__92. Worcester sauce(Naturals)[MUI_2026-01-25]내.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Korea","hybrid":"INDONESIA","r_match":true,"l_match":false,"h_match":true},"인증번호":{"gt":"LPPOM-00060093550119","rule":"LPPOM-00060093550119","llm":"LPPOM-00060093550119","hybrid":"LPPOM-00060093550119","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-01-25","rule":"2026-01-25","llm":"2026-01-25","hybrid":"2026-01-25","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NATURALS FOOD CO.LTD","rule":"NATURALS FOOD CO.LTD","llm":"NATURALS FOOD CO.,LTD","hybrid":"NATURALS FOOD CO.LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Korea","hybrid":"KOREA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"077__27226CFBED5C__27226CFBED5C__1-1-7. Disodium Succinate-JMA(2022-08-11).pdf","org":"JMA","conf":"LOW","fields":{"인증기관":{"gt":"JMA","rule":"JMA","llm":"JAPAN MUSLIM ASSOCIATION","hybrid":"JAPAN MUSLIM ASSOCIATION","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"JAPAN","rule":"JAPAN","llm":"Japan","hybrid":"Japan","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"233-TSRI/21","rule":"233-TSRI/21","llm":"233 - TSRI/21","hybrid":"233 - TSRI/21","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2022-08-11","rule":"2022-08-11","llm":"2022-08-11","hybrid":"2022-08-11","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NIPPON SHOKUBAI CO., LTD.","rule":"OKUBAI CO., LTD","llm":"NIPPON SHOKUBAI CO., LTD.","hybrid":"NIPPON SHOKUBAI CO., LTD.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"JAPAN","rule":"JAPAN","llm":"Japan","hybrid":"Japan","r_match":true,"l_match":true,"h_match":true}}},{"filename":"078__BD0A920546F6__BD0A920546F6__6.+KMF+할랄+인증서.pdf","org":"KMF","conf":"MEDIUM","fields":{"인증기관":{"gt":"KMF","rule":"KMF","llm":"Korea Muslim Federation","hybrid":"Korea Muslim Federation","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"KOREA","rule":"KOREA","llm":"South Korea","hybrid":"South Korea","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"KMFHC22-179","rule":"KMFHC22-179","llm":"KMFHC22-179","hybrid":"KMFHC22-179","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2025-07-26","rule":"2025-07-26","llm":"2025-07-26","hybrid":"2025-07-26","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Namyang Dairy Products CO., LTD.","rule":"Namyang Dairy Products CO., LTD.","llm":"Namyang Dairy Products CO., LTD.","hybrid":"Namyang Dairy Products CO., LTD.","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"Republic of Korea","r_match":true,"l_match":false,"h_match":false}}},{"filename":"079__5E5D8D9A2C53__5E5D8D9A2C53__130_7. FIRMTEX(INGREDIO)[IFANCA_2025-09-30]G.pdf","org":"IFANCA","conf":"HIGH","fields":{"인증기관":{"gt":"IFANCA","rule":"IFANCA","llm":"IFANCA","hybrid":"IFANCA","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HC-24INKC33","rule":"HC-24INKC33","llm":"1341.1344.II240207","hybrid":"HC-24INKC33","r_match":true,"l_match":false,"h_match":true},"유효기간":{"gt":"2025-09-30","rule":"2025-09-30","llm":"2025-09-30","hybrid":"2025-09-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Ingredion Incorporated","rule":"Ingredion Incorporated","llm":"Ingredion Incorporated","hybrid":"Ingredion Incorporated","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"080__FD881546AB04__FD881546AB04__38. Jem Soya Lecithin Liquid Standard(SONIC)[BPJPH_2026-04-29]하.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410000242641221","rule":"ID00410000242641221","llm":"ID00410000242641221","hybrid":"ID00410000242641221","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2026-04-28","hybrid":"","r_match":false,"l_match":true,"h_match":false},"제조사":{"gt":"Sonic Biochem Extractions Private Ltd","rule":"Sonic Biochem Extractions Private Ltd","llm":"Sonic Biochem Extractions Private Ltd","hybrid":"Sonic Biochem Extractions Private Ltd","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"INDIA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"081__FEB19422E0A9__FEB19422E0A9__56. VITACEL Powdered  Cellulose DV type(J.Retten)[HALAL CONTROL_2026-08-12]농.pdf","org":"HALAL CONTROL","conf":"MEDIUM","fields":{"인증기관":{"gt":"HALAL CONTROL","rule":"HALAL CONTROL","llm":"HALAL CONTROL","hybrid":"HALAL CONTROL","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"C-23-60400-01-01","rule":"C-23-60400-01-01","llm":"C-23-60400-01-01","hybrid":"C-23-60400-01-01","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-08-12","rule":"2026-08-12","llm":"2023-08-12","hybrid":"2023-08-12","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"J. Rettenmaier & Söhne GmbH & Co. KG","rule":"J. Rettenmaier & Söhne GmbH & Co. KG","llm":"J. Rettenmaier & Söhne GmbH & Co. KG","hybrid":"J. Rettenmaier & Söhne GmbH & Co. KG","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true}}},{"filename":"082__ABDE2D844F79__ABDE2D844F79__sample TQHCC.pdf","org":"TQHCC","conf":"MEDIUM","fields":{"인증기관":{"gt":"TQHCC","rule":"TQHCC","llm":"Total Quality Halal Correct Certification (TQHCC)","hybrid":"Total Quality Halal Correct Certification (TQHCC)","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Netherlands","hybrid":"Netherlands","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HCC2897128961-SU2019","rule":"HCC2897028961-SU2019","llm":"HCC2897028961-SU2019","hybrid":"HCC2897028961-SU2019","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2020-10-01","rule":"2020-10-01","llm":"2020-01-01","hybrid":"2020-01-01","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"SUIKER UNIE","rule":"SUIKER UNIE iabeal! au!","llm":"SUIKER UNIE","hybrid":"SUIKER UNIE","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"NETHERLANDS","rule":"NETHERLANDS","llm":"Netherlands","hybrid":"Netherlands","r_match":true,"l_match":true,"h_match":true}}},{"filename":"083__618EBC74EE51__618EBC74EE51__HALAL_IRIMAR_Ing HFQ.pdf","org":"HFQ","conf":"LOW","fields":{"인증기관":{"gt":"HFQ","rule":"HFQ","llm":"Halal Food & Quality","hybrid":"Halal Food & Quality","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HFQ-INC-214/2018-21-04/V","rule":"","llm":"HFQ-INC-214/2018-21-04/V","hybrid":"HFQ-INC-214/2018-21-04/V","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2021-07-15","rule":"2021-07-15","llm":"2021-07-15","hybrid":"2021-07-15","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"IRIMAR, S.L","rule":"IRIMAR, S.L","llm":"IRIMAR, S.L.","hybrid":"IRIMAR, S.L.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true}}},{"filename":"084__5E3B7FA6CD6D__5E3B7FA6CD6D__96-3-1.CJ TIDE I+G,Cheil Jedang Indonesia社-MUI(2020-10-16).pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA","hybrid":"MAJELIS ULAMA INDONESIA","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"00060006931297","rule":"","llm":"000600006931297","hybrid":"000600006931297","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2020-10-16","rule":"2020-10-16","llm":"2020-10-16","hybrid":"2020-10-16","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"PT. CHEIL JEDANG INDONESIA","rule":"ducts as","llm":"PT. CHEIL JEDANG INDONESIA","hybrid":"PT. CHEIL JEDANG INDONESIA","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":false,"h_match":false}}},{"filename":"085__DA80333C0996__DA80333C0996__62. NAT SHALLOT FLAVOR(962539)(Symrise)[MUIS_2026-05-31]주.PDF","org":"MUIS","conf":"MEDIUM","fields":{"인증기관":{"gt":"MUIS","rule":"MUIS","llm":"MAJLIS UGAMA ISLAM SINGAPURA","hybrid":"MAJLIS UGAMA ISLAM SINGAPURA","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"PRN22020011873","rule":"PRN22020011873","llm":"PRN22020011873","hybrid":"PRN22020011873","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-05-31","rule":"2026-05-31","llm":"2026-05-31","hybrid":"2026-05-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"SYMRISE ASIA PACIFIC PTE LTD","rule":"SYMRISE ASIA PACIFIC PTE LTD","llm":"SYMRISE ASIA PACIFIC PTE LTD","hybrid":"SYMRISE ASIA PACIFIC PTE LTD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"SINGAPORE","rule":"SINGAPORE","llm":"Singapore","hybrid":"Singapore","r_match":true,"l_match":true,"h_match":true}}},{"filename":"086__9918684C821B__9918684C821B__172. BH05(INNER)[MUI_2027-02-28]주.pdf","org":"MUI","conf":"LOW","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MAJELIS ULAMA INDONESIA","hybrid":"MAJELIS ULAMA INDONESIA","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"INDONESIA","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"LPPOM-00310092901218","rule":"","llm":"LPPOM- 0031007992118","hybrid":"LPPOM- 0031007992118","r_match":false,"l_match":false,"h_match":false},"유효기간":{"gt":"2027-02-28","rule":"2027-02-28","llm":"2027-02-28","hybrid":"2027-02-28","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"INNER MONGOLIA BIOHYMN BIOTECHNOLOGY CO.,LTD.","rule":"Alamat Perusahaan =) NANMENWAT INDUSTRIAL PARK, LINNI TOWN, LINXT COUNTY, CHIFENG CITY","llm":"INNER MONGOLIA BIOHYMN BIOTECHNOLOGY CO.,LTD.","hybrid":"INNER MONGOLIA BIOHYMN BIOTECHNOLOGY CO.,LTD.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"CHINA","rule":"INDONESIA","llm":"INNER MONGOLIA, P.R. CHINA","hybrid":"INNER MONGOLIA, P.R. CHINA","r_match":false,"l_match":false,"h_match":false}}},{"filename":"087__48DC33EA36A8__48DC33EA36A8__108_2. LpHera(Novozyme)[BPJPH_2026-05-25]씨.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410003063330423","rule":"ID00410003063330423","llm":"ID00410003063330423","hybrid":"ID00410003063330423","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2028-05-24","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"NOVOZYMES (CHINA) BIOTECHNOLOGY CO.,LTD","rule":"NOVOZYMES (CHINA) BIOTECHNOLOGY CO.,LTD","llm":"NOVOZYMES (CHINA) BIOTECHNOLOGY CO.,LTD.","hybrid":"NOVOZYMES (CHINA) BIOTECHNOLOGY CO.,LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"China","hybrid":"CHINA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"088__C5CD2D41B949__C5CD2D41B949__151. KREATIONⓡKE8-CICOT(2023-10-14).pdf","org":"CICOT","conf":"MEDIUM","fields":{"인증기관":{"gt":"CICOT","rule":"CICOT","llm":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","hybrid":"THE CENTRAL ISLAMIC COUNCIL OF THAILAND","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"THAILAND","rule":"THAILAND","llm":"THAILAND","hybrid":"THAILAND","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"051/1998","rule":"051/1998","llm":"CICOT HL: 051/1998","hybrid":"CICOT HL: 051/1998","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2023-10-14","rule":"2023-10-14","llm":"2023-10-14","hybrid":"2023-10-14","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"“+ SIAM MODIFIED STARCH CO., LTD.","rule":"“+ SIAM MODIFIED STARCH CO., LTD.","llm":"SIAM MODIFIED STARCH CO., LTD.","hybrid":"SIAM MODIFIED STARCH CO., LTD.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"THAILAND","rule":"THAILAND","llm":"THAILAND","hybrid":"THAILAND","r_match":true,"l_match":true,"h_match":true}}},{"filename":"089__F6691EAC53F7__F6691EAC53F7__Harmony-Organics-1317 juhf.pdf","org":"JUHF","conf":"LOW","fields":{"인증기관":{"gt":"JUHF","rule":"JUHF","llm":"JUHF CERTIFICATION PVT. LTD.","hybrid":"JUHF CERTIFICATION PVT. LTD.","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JUHF-1317-1114","rule":"","llm":"JUHF-1317-1114","hybrid":"JUHF-1317-1114","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2027-01-04","rule":"2027-01-04","llm":"2027-01-01","hybrid":"2027-01-01","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"HARMONY ORGANICS PRIVATE LIMITED","rule":"HARMONY ORGANICS PRIVATE LIMITED","llm":"HARMONY ORGANICS PRIVATE LIMITED","hybrid":"HARMONY ORGANICS PRIVATE LIMITED","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true}}},{"filename":"090__9428C43607D0__9428C43607D0__1901291046320000002 JMA.pdf","org":"JMA","conf":"MEDIUM","fields":{"인증기관":{"gt":"JMA","rule":"JMA","llm":"JAPAN MUSLIM ASSOCIATION","hybrid":"JAPAN MUSLIM ASSOCIATION","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"JAPAN","rule":"JAPAN","llm":"Japan","hybrid":"Japan","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"230-TSRI/17","rule":"230-TSRI/17","llm":"230 - TSRI/17","hybrid":"230 - TSRI/17","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2018-11-16","rule":"2018-11-16","llm":"2018-11-16","hybrid":"2018-11-16","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Tsuno Rice Fine Chemicals Co., Ltd.","rule":"jue Tsuno Rice Fine Chemicals Co., Ltd","llm":"Tsuno Rice Fine Chemicals Co., Ltd.","hybrid":"Tsuno Rice Fine Chemicals Co., Ltd.","r_match":false,"l_match":true,"h_match":true},"제조국":{"gt":"JAPAN","rule":"JAPAN","llm":"Japan","hybrid":"Japan","r_match":true,"l_match":true,"h_match":true}}},{"filename":"091__47302D8D1574__47302D8D1574__103. lactic acid(HeNan)[BPJPH_2026-07-21]에.pdf","org":"BPJPH","conf":"MEDIUM","fields":{"인증기관":{"gt":"BPJPH","rule":"BPJPH","llm":"Majelis Ulama Indonesia","hybrid":"BPJPH","r_match":true,"l_match":false,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"Indonesia","hybrid":"INDONESIA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"ID00410006286150623","rule":"ID00410006286150623","llm":"ID00410006286150623","hybrid":"ID00410006286150623","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"(PDF 미기재)","rule":"","llm":"2023-07-21","hybrid":"","r_match":false,"l_match":false,"h_match":false},"제조사":{"gt":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD","rule":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD","llm":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD.","hybrid":"HENAN JINDAN LACTIC ACID TECHNOLOGY CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"CHINA","rule":"CHINA","llm":"P.R. CHINA","hybrid":"CHINA","r_match":true,"l_match":false,"h_match":true}}},{"filename":"092__52768DA9A487__52768DA9A487__halal_india_certificate_-_unit_1_2026 juhf.pdf","org":"JUHF","conf":"MEDIUM","fields":{"인증기관":{"gt":"JUHF","rule":"JUHF","llm":"JUHF CERTIFICATION PVT. LTD.","hybrid":"JUHF CERTIFICATION PVT. LTD.","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JUHF-0318-0162","rule":"JUHF-0318-0162","llm":"JUHF-0318-0162","hybrid":"JUHF-0318-0162","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2027-12-23","rule":"2027-12-23","llm":"2025-01-20","hybrid":"2025-01-20","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"YASHO INDUSTRIES LIMITED","rule":"YASHO INDUSTRIES LIMITED","llm":"YASHO INDUSTRIES LIMITED","hybrid":"YASHO INDUSTRIES LIMITED","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"INDIA","rule":"INDIA","llm":"India","hybrid":"India","r_match":true,"l_match":true,"h_match":true}}},{"filename":"093__78A2F36B770E__78A2F36B770E__160. Chicken Flavor Extract MF(NONGSHIM)[MUI_2028-01-02]농.pdf","org":"MUI","conf":"HIGH","fields":{"인증기관":{"gt":"MUI","rule":"MUI","llm":"MUI","hybrid":"MUI","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"INDONESIA","rule":"INDONESIA","llm":"KOREA","hybrid":"INDONESIA","r_match":true,"l_match":false,"h_match":true},"인증번호":{"gt":"LPPOM-00070140340122","rule":"LPPOM-00070140340122","llm":"LPPOM-00070140340122","hybrid":"LPPOM-00070140340122","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2028-01-02","rule":"2028-01-02","llm":"2028-01-02","hybrid":"2028-01-02","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"NONGSHIM TAEKYUNG CO., LTD","rule":"NONGSHIM TAEKYUNG CO., LTD","llm":"NONGSHIM TAEKYUNG CO., LTD (ANSUNG FACTORY)","hybrid":"NONGSHIM TAEKYUNG CO., LTD","r_match":true,"l_match":false,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"KOREA","hybrid":"KOREA","r_match":true,"l_match":true,"h_match":true}}},{"filename":"094__A4D2E90DA6A1__A4D2E90DA6A1__20250703_072436_16_Halal certificate (HQC)_ Food & Beverage products (Novozymes DK)_2021-08077.pdf","org":"HQC","conf":"MEDIUM","fields":{"인증기관":{"gt":"HQC","rule":"HQC","llm":"Halal Quality Control (HQC) Denmark","hybrid":"Halal Quality Control (HQC) Denmark","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Denmark","hybrid":"Denmark","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"DE10310301843","rule":"DE10310301843","llm":"DE10310304957","hybrid":"DE10310304957","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2028-07-01","rule":"2028-07-01","llm":"2028-01-01","hybrid":"2028-01-01","r_match":true,"l_match":false,"h_match":false},"제조사":{"gt":"Novozymes A/S","rule":"Novozymes A/S","llm":"Novozymes A/S","hybrid":"Novozymes A/S","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"DENMARK","rule":"DENMARK","llm":"Denmark","hybrid":"Denmark","r_match":true,"l_match":true,"h_match":true}}},{"filename":"095__85EC6DC627DA__85EC6DC627DA__sample HFQ CERTIFICADO-HALAL-SEKISUI-2025_Signed-1.pdf","org":"HFQ","conf":"LOW","fields":{"인증기관":{"gt":"HFQ","rule":"HFQ","llm":"Halal Food & Quality","hybrid":"Halal Food & Quality","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"SPAIN","rule":"SPAIN","llm":"Spain","hybrid":"Spain","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"HFQ-165/17/T","rule":"","llm":"HFQ-165/17/T","hybrid":"HFQ-165/17/T","r_match":false,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-01-16","rule":"2026-01-16","llm":"2026-01-16","hybrid":"2026-01-16","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"SEKISUI SPECIALTY CHEMICALS EUROPE, S.L","rule":"SEKISUI SPECIALTY CHEMICALS EUROPE, S.L","llm":"SEKISUI SPECIALTY CHEMICALS EUROPE, S.L.","hybrid":"SEKISUI SPECIALTY CHEMICALS EUROPE, S.L.","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"SPAIN","rule":"","llm":"Spain","hybrid":"Spain","r_match":false,"l_match":true,"h_match":true}}},{"filename":"096__F2906911D258__F2906911D258__11-3-3.MM100FK,Mafco Worldwide LLC社-ISA(2021-12-31).pdf","org":"ISA","conf":"MEDIUM","fields":{"인증기관":{"gt":"ISA","rule":"ISA","llm":"Islamic Services of America","hybrid":"Islamic Services of America","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"USA","rule":"USA","llm":"United States","hybrid":"United States","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"1029-20-35688","rule":"1029-20-35688","llm":"1029-20-35688","hybrid":"1029-20-35688","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2021-12-31","rule":"2021-12-31","llm":"2021-12-31","hybrid":"2021-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Mafco Worldwide LLC","rule":"Mafco Worldwide LLC","llm":"Mafco Worldwide LLC","hybrid":"Mafco Worldwide LLC","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"United States","hybrid":"United States","r_match":true,"l_match":false,"h_match":false}}},{"filename":"097__3E880E6A4814__3E880E6A4814__2024 LVE HALAL Certificate_EN KMF.pdf","org":"KMF","conf":"MEDIUM","fields":{"인증기관":{"gt":"KMF","rule":"KMF","llm":"Korea Muslim Federation","hybrid":"Korea Muslim Federation","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"Republic of Korea","r_match":true,"l_match":false,"h_match":false},"인증번호":{"gt":"KMFHC24-198","rule":"KMFHC24-198","llm":"KMFHC24-198","hybrid":"KMFHC24-198","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2025-07-20","rule":"2025-07-20","llm":"2025-07-20","hybrid":"2025-07-20","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"LOTTEVERSALIS Elastomers","rule":"LOTTEVERSALIS Elastomers","llm":"LOTTEVERSALIS Elastomers","hybrid":"LOTTEVERSALIS Elastomers","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"KOREA","rule":"KOREA","llm":"Republic of Korea","hybrid":"Republic of Korea","r_match":true,"l_match":false,"h_match":false}}},{"filename":"098__3EBB84DA8B2F__3EBB84DA8B2F__슈가시럽-Halal Control - Halal- Zertifikat - Südzucker - gültig bis 13.12.2018 (1).pdf","org":"HALAL CONTROL","conf":"MEDIUM","fields":{"인증기관":{"gt":"HALAL CONTROL","rule":"HALAL CONTROL","llm":"HALAL CONTROL","hybrid":"HALAL CONTROL","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"C-17-09-783-3241","rule":"C-17-09-783-3241","llm":"C-17-09-783-3241","hybrid":"C-17-09-783-3241","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2018-12-13","rule":"2018-12-13","llm":"2018-12-13","hybrid":"2018-12-13","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Südzucker AG","rule":"Südzucker AG","llm":"Südzucker AG Mannheim","hybrid":"Südzucker AG Mannheim","r_match":true,"l_match":false,"h_match":false},"제조국":{"gt":"GERMANY","rule":"GERMANY","llm":"Germany","hybrid":"Germany","r_match":true,"l_match":true,"h_match":true}}},{"filename":"099__EFD077B35C06__EFD077B35C06__21-1.MCT OIL,DANIDCO MALAYSIA SDN BHD社-JAKIM(2022-09-30).pdf","org":"JAKIM","conf":"MEDIUM","fields":{"인증기관":{"gt":"JAKIM","rule":"JAKIM","llm":"JAKIM","hybrid":"JAKIM","r_match":true,"l_match":true,"h_match":true},"인증국가":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"Malaysia","hybrid":"Malaysia","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"JAKIM/(S)/(22.00)/492/2/ 1 086-02/2004 JLD.3","rule":"JAKIM/(S)/(22.00)/492/2/ 1 086-02/2004 JLD.3","llm":"JAKIM(S)(22.00)492/2 0186-02/2004 JLD.3","hybrid":"JAKIM(S)(22.00)492/2 0186-02/2004 JLD.3","r_match":true,"l_match":false,"h_match":false},"유효기간":{"gt":"2022-09-30","rule":"2022-09-30","llm":"2022-09-30","hybrid":"2022-09-30","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"DANISCO MALAYSIA SDN BHD","rule":"DANISCO MALAYSIA SDN BHD","llm":"DANISCO MALAYSIA SDN BHD","hybrid":"DANISCO MALAYSIA SDN BHD","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"MALAYSIA","rule":"MALAYSIA","llm":"Malaysia","hybrid":"Malaysia","r_match":true,"l_match":true,"h_match":true}}},{"filename":"100__6BB4C2526841__6BB4C2526841__Halal-Certificate-Exp-2027 ISA.pdf","org":"ISA","conf":"MEDIUM","fields":{"인증기관":{"gt":"ISA","rule":"ISA","llm":"Islamic Services of America","hybrid":"Islamic Services of America","r_match":true,"l_match":false,"h_match":false},"인증국가":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true},"인증번호":{"gt":"1206-25-39564","rule":"1206-25-39564","llm":"1206-25-39564","hybrid":"1206-25-39564","r_match":true,"l_match":true,"h_match":true},"유효기간":{"gt":"2026-12-31","rule":"2026-12-31","llm":"2026-12-31","hybrid":"2026-12-31","r_match":true,"l_match":true,"h_match":true},"제조사":{"gt":"Plant Science","rule":"Plant Science","llm":"Plant Science","hybrid":"Plant Science","r_match":true,"l_match":true,"h_match":true},"제조국":{"gt":"USA","rule":"USA","llm":"USA","hybrid":"USA","r_match":true,"l_match":true,"h_match":true}}}];
+const FIELDS = ["인증기관","인증국가","인증번호","유효기간","제조사","제조국"];
+const MODE = {
+  rule:{label:"Rule", valueKey:"rule", matchKey:"r_match", color:"#6b7280"},
+  hybrid:{label:"Hybrid", valueKey:"hybrid", matchKey:"h_match", color:"#1a73e8"},
+  llm:{label:"LLM", valueKey:"llm", matchKey:"l_match", color:"#188038"}
+};
+const STORAGE_KEY = "halalBenchmarkCorrectionsV5OrgAliasComplete";
+const PDF_PATH_KEY = "halalBenchmarkPdfFolderV2";
+let rawData = JSON.parse(JSON.stringify(ORIGINAL_DATA));
+let corrections = [];
+let activeView = "overview";
+function storageGet(k){ try{return localStorage.getItem(k)}catch(e){return null} }
+function storageSet(k,v){ try{localStorage.setItem(k,v);return true}catch(e){return false} }
+function storageRemove(k){ try{localStorage.removeItem(k)}catch(e){} }
+
+function esc(v){
+  return String(v ?? "").replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s]));
+}
+function norm(v){
+  return String(v ?? "").normalize("NFKC").trim().toUpperCase().replace(/[^0-9A-Z가-힣]/g,"");
+}
+
+// 의미가 같은 표기들을 동일값으로 채점하기 위한 보수적 alias 목록.
+// 공백/대소문자/점/쉼표/괄호/하이픈/슬래시는 norm()에서 자동 무시됩니다.
+const ORG_ALIAS_GROUPS = {
+  MUI:[
+    "MUI",
+    "MAJELIS ULAMA INDONESIA",
+    "MAJELIS ULAMA INDONESIA MUI",
+    "LPPOM MUI",
+    "LPOM MUI"
+  ],
+  ISA:[
+    "ISA",
+    "ISLAMIC SERVICES OF AMERICA",
+    "ISLAMIC SERVICES OF AMERICA ISA"
+  ],
+  HFCE:[
+    "HFCE",
+    "HALAL FOOD COUNCIL OF EUROPE",
+    "HALAL FOOD COUNCIL OF EUROPE HFCE"
+  ],
+  IFANCA:[
+    "IFANCA",
+    "ISLAMIC FOOD AND NUTRITION COUNCIL OF AMERICA",
+    "ISLAMIC FOOD AND NUTRITION COUNCIL OF AMERICA IFANCA"
+  ],
+  HCE:[
+    "HCE",
+    "HALAL CERTIFICATION EUROPE",
+    "HALAL CERTIFICATION EUROPE HCE"
+  ],
+  TQHCC:[
+    "TQHCC",
+    "TOTAL QUALITY HALAL CORRECT CERTIFICATION",
+    "TOTAL QUALITY HALAL CORRECT CERTIFICATION TQHCC",
+    "HALAL CORRECT CERTIFICATION",
+    "HALAL CORRECT CERTIFICATION TQHCC"
+  ],
+  MUIS:[
+    "MUIS",
+    "MAJLIS UGAMA ISLAM SINGAPURA",
+    "MAJLIS UGAMA ISLAM SINGAPURA MUIS",
+    "ISLAMIC RELIGIOUS COUNCIL OF SINGAPORE",
+    "ISLAMIC RELIGIOUS COUNCIL OF SINGAPORE MUIS"
+  ],
+  HQC:[
+    "HQC",
+    "HALAL QUALITY CONTROL",
+    "HALAL QUALITY CONTROL HQC",
+    "HALAL QUALITY CONTROL HQC DENMARK",
+    "HALAL QUALITY CONTROL DENMARK",
+    "HALAL QUALITY CONTROL BV NETHERLANDS",
+    "HALAL QUALITY CONTROL B.V. NETHERLANDS"
+  ],
+  KMF:[
+    "KMF",
+    "KOREA MUSLIM FEDERATION",
+    "KOREA MUSLIM FEDERATION KMF"
+  ],
+  CICOT:[
+    "CICOT",
+    "CENTRAL ISLAMIC COUNCIL OF THAILAND",
+    "THE CENTRAL ISLAMIC COUNCIL OF THAILAND",
+    "CENTRAL ISLAMIC COUNCIL OF THAILAND CICOT",
+    "THE CENTRAL ISLAMIC COUNCIL OF THAILAND CICOT"
+  ],
+  HFQ:[
+    "HFQ",
+    "HALAL FOOD & QUALITY",
+    "HALAL FOOD AND QUALITY",
+    "HALAL FOOD & QUALITY HFQ",
+    "HALAL FOOD AND QUALITY HFQ"
+  ],
+  HFFIA:[
+    "HFFIA"
+  ],
+  HCA:[
+    "HCA",
+    "HALAL CERTIFICATION AGENCY",
+    "HALAL CERTIFICATION AGENCY HCA"
+  ],
+  BPJPH:[
+    "BPJPH",
+    "BADAN PENYELENGGARA JAMINAN PRODUK HALAL",
+    "BADAN PENYELENGGARA JAMINAN PRODUK HALAL BPJPH",
+    "HALAL PRODUCT ASSURANCE ORGANIZING AGENCY",
+    "HALAL PRODUCT ASSURANCE ORGANIZING AGENCY BPJPH"
+  ],
+  JAKIM:[
+    "JAKIM",
+    "JABATAN KEMAJUAN ISLAM MALAYSIA",
+    "JABATAN KEMAJUAN ISLAM MALAYSIA JAKIM",
+    "DEPARTMENT OF ISLAMIC DEVELOPMENT MALAYSIA",
+    "DEPARTMENT OF ISLAMIC DEVELOPMENT MALAYSIA JAKIM"
+  ],
+  JUHF:[
+    "JUHF",
+    "JUHF CERTIFICATION PVT LTD",
+    "JUHF CERTIFICATION PVT. LTD.",
+    "JUHF CERTIFICATION PRIVATE LIMITED"
+  ],
+  JMA:[
+    "JMA",
+    "JAPAN MUSLIM ASSOCIATION",
+    "JAPAN MUSLIM ASSOCIATION JMA"
+  ],
+  HALALCONTROL:[
+    "HALAL CONTROL",
+    "HALALCONTROL"
+  ]
+};
+const COUNTRY_ALIAS_GROUPS = {
+  KOREA:["KOREA","REPUBLIC OF KOREA","SOUTH KOREA","KOREA REPUBLIC OF"],
+  INDONESIA:["INDONESIA","REPUBLIC OF INDONESIA"],
+  CHINA:["CHINA","PEOPLES REPUBLIC OF CHINA","PEOPLE'S REPUBLIC OF CHINA","PR CHINA","P.R. CHINA","INNER MONGOLIA, P.R. CHINA"],
+  MALAYSIA:["MALAYSIA"],
+  THAILAND:["THAILAND","KINGDOM OF THAILAND"],
+  VIETNAM:["VIETNAM","VIET NAM","SOCIALIST REPUBLIC OF VIETNAM"],
+  JAPAN:["JAPAN"],
+  USA:["USA","US","UNITED STATES","UNITED STATES OF AMERICA","U.S.A","U.S."],
+  NETHERLANDS:["NETHERLANDS","THE NETHERLANDS","NETHERLAND"],
+  GERMANY:["GERMANY","FEDERAL REPUBLIC OF GERMANY"],
+  SPAIN:["SPAIN"],
+  FRANCE:["FRANCE"],
+  BELGIUM:["BELGIUM"],
+  AUSTRIA:["AUSTRIA"],
+  DENMARK:["DENMARK"],
+  INDIA:["INDIA","REPUBLIC OF INDIA"],
+  SINGAPORE:["SINGAPORE","REPUBLIC OF SINGAPORE"],
+  UK:["UK","UNITED KINGDOM","GREAT BRITAIN","UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND"],
+  SWITZERLAND:["SWITZERLAND","SWISS CONFEDERATION"]
+};
+function aliasKey(v,groups){
+  const n=norm(v);
+  for(const [canonical,aliases] of Object.entries(groups)){
+    if(aliases.some(a=>norm(a)===n)) return canonical;
+  }
+  return n;
+}
+function normalizeDate(v){
+  const s=String(v ?? "").normalize("NFKC").trim();
+  let m=s.match(/^(\d{4})\D+(\d{1,2})\D+(\d{1,2})$/);
+  if(m){
+    const y=+m[1], mo=+m[2], d=+m[3];
+    const dt=new Date(Date.UTC(y,mo-1,d));
+    if(dt.getUTCFullYear()===y && dt.getUTCMonth()===mo-1 && dt.getUTCDate()===d)
+      return `${String(y).padStart(4,"0")}${String(mo).padStart(2,"0")}${String(d).padStart(2,"0")}`;
+  }
+  m=s.match(/^(\d{1,2})\D+(\d{1,2})\D+(\d{4})$/);
+  if(m){
+    const d=+m[1], mo=+m[2], y=+m[3];
+    const dt=new Date(Date.UTC(y,mo-1,d));
+    if(dt.getUTCFullYear()===y && dt.getUTCMonth()===mo-1 && dt.getUTCDate()===d)
+      return `${String(y).padStart(4,"0")}${String(mo).padStart(2,"0")}${String(d).padStart(2,"0")}`;
+  }
+  return norm(s);
+}
+
+function certNumberMatch(gt,val){
+  const g=norm(gt), v=norm(val);
+  if(g===v) return true;
+  if(!g || !v) return false;
+
+  // 인증번호 자체가 아니라 화면/문서의 라벨이 앞에 붙은 경우만 제거.
+  // 숫자/문자 한 글자 차이(K710/2020 등)는 자동 일치시키지 않는다.
+  const safePrefixes = [
+    "CICOTHL",
+    "CICOTHALAL",
+    "HALALCERTIFICATENO",
+    "HALALCERTIFICATENUMBER",
+    "CERTIFICATENO",
+    "CERTIFICATENUMBER",
+    "CERTNO",
+    "CERTNUMBER",
+    "REGISTRATIONNO",
+    "REGISTRATIONNUMBER"
+  ];
+  return safePrefixes.some(prefix => v === prefix + g);
+}
+
+
+function canonicalOrg(v){
+  const n = norm(v);
+  if(!n) return "";
+  for(const [canonical, aliases] of Object.entries(ORG_ALIAS_GROUPS)){
+    if(aliases.some(a => norm(a) === n)) return canonical;
+  }
+  return n;
+}
+
+function smartMatch(field,gt,val){
+  if(field==="인증기관") return canonicalOrg(gt)===canonicalOrg(val);
+  if(field==="인증국가" || field==="제조국") return aliasKey(gt,COUNTRY_ALIAS_GROUPS)===aliasKey(val,COUNTRY_ALIAS_GROUPS);
+  if(field==="유효기간") return normalizeDate(gt)===normalizeDate(val);
+  if(field==="인증번호") return certNumberMatch(gt,val);
+  return norm(gt)===norm(val);
+}
+function sameValue(a,b){ return norm(a)===norm(b); }
+function recalculateMatches(dataset=rawData){
+  dataset.forEach(doc=>FIELDS.forEach(field=>{
+    const d=doc.fields[field]; if(!d) return;
+    d.r_match=smartMatch(field,d.gt,d.rule);
+    d.h_match=smartMatch(field,d.gt,d.hybrid);
+    d.l_match=smartMatch(field,d.gt,d.llm);
+  }));
+}
+function pct(n,d){ return d ? (n/d*100).toFixed(1) : "0.0"; }
+function modeVal(doc,field,mode){ return doc.fields[field]?.[MODE[mode].valueKey] ?? ""; }
+function modeMatch(doc,field,mode){ return !!doc.fields[field]?.[MODE[mode].matchKey]; }
+function csvCell(v){ const s=String(v ?? ""); return '"' + s.replace(/"/g,'""') + '"'; }
+function downloadBlob(filename, content, mime="text/plain;charset=utf-8"){
+  const blob = new Blob([content], {type:mime});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=filename;
+  document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},300);
+}
+function errorType(field, gt, val){
+  if(!String(val??"").trim()) return "미추출";
+  if(smartMatch(field,gt,val)) return "표기 차이(동일값)";
+  if(field==="유효기간") return "날짜 불일치";
+  if(field==="인증번호") return "인증번호 불일치";
+  if(field==="인증기관") return "기관 불일치";
+  if(field==="인증국가" || field==="제조국") return "국가 불일치";
+  if(field==="제조사") return "제조사명 불일치";
+  return "값 불일치";
+}
+function stats(mode, dataset=rawData){
+  let total=0, correct=0, full=0;
+  const byField={}; FIELDS.forEach(f=>byField[f]={total:0,correct:0});
+  dataset.forEach(doc=>{
+    let e=0;
+    FIELDS.forEach(f=>{
+      total++; byField[f].total++;
+      if(modeMatch(doc,f,mode)){correct++;byField[f].correct++} else e++;
+    });
+    if(e===0) full++;
+  });
+  return {total,correct,acc:+pct(correct,total),full,errors:total-correct,byField};
+}
+function docErrors(doc,mode){ return FIELDS.filter(f=>!modeMatch(doc,f,mode)); }
+function getOrgs(){ return [...new Set(rawData.map(r=>r.org))].sort((a,b)=>String(a).localeCompare(String(b),"ko")); }
+function confidenceCounts(){
+  const c={HIGH:0,MEDIUM:0,LOW:0,UNKNOWN:0};
+  rawData.forEach(r=>{ const k=c[r.conf]===undefined?"UNKNOWN":r.conf; c[k]++ }); return c;
+}
+function currentModeFromView(){
+  if(activeView==="rule") return "rule";
+  if(activeView==="hybrid") return "hybrid";
+  if(activeView==="llm") return "llm";
+  const s=document.getElementById("errMode"); return s ? s.value : "hybrid";
+}
+function renderAll(){
+  document.getElementById("topDocBadge").textContent=`검증 ${rawData.length}건`;
+  renderOverview(); renderCompareTable(); renderAllStrategyViews(); renderErrorAnalysis(); renderReviewKPIs(); renderCorrectionTable();
+}
+function renderOverview(){
+  const rs=stats("rule"), hs=stats("hybrid"), ls=stats("llm");
+  const setCard=(id,sub,st)=>{
+    document.getElementById(id).textContent=st.acc.toFixed(1)+"%";
+    document.getElementById(sub).textContent=`완전일치 ${st.full}/${rawData.length}건 · 오류 ${st.errors}/${st.total}필드`;
+  };
+  setCard("ovRuleAcc","ovRuleSub",rs); setCard("ovHybridAcc","ovHybridSub",hs); setCard("ovLlmAcc","ovLlmSub",ls);
+  const arr=[["Rule",rs.acc],["Hybrid",hs.acc],["LLM",ls.acc]].sort((a,b)=>b[1]-a[1]);
+  document.getElementById("ovBest").textContent=arr[0][0];
+  document.getElementById("ovBestSub").textContent=`${arr[0][1].toFixed(1)}% · 2위 대비 ${(arr[0][1]-arr[1][1]).toFixed(1)}%p`;
+  const bars=document.getElementById("fieldCompareBars"); bars.innerHTML="";
+  FIELDS.forEach(f=>{
+    const r=+pct(rs.byField[f].correct,rs.byField[f].total), h=+pct(hs.byField[f].correct,hs.byField[f].total), l=+pct(ls.byField[f].correct,ls.byField[f].total);
+    bars.insertAdjacentHTML("beforeend",`
+      <div class="field-compare">
+        <div class="field-name">${esc(f)}</div>
+        <div class="mini-bars">
+          ${miniBar("Rule",r,"bar-rule")}
+          ${miniBar("Hybrid",h,"bar-hybrid")}
+          ${miniBar("LLM",l,"bar-llm")}
+        </div>
+        <div style="font-size:10px;color:var(--muted)">100건</div>
+      </div>`);
+  });
+  const cc=confidenceCounts(), total=rawData.length;
+  const conf=document.getElementById("confSummary");
+  conf.innerHTML=["HIGH","MEDIUM","LOW"].map(k=>`
+    <div class="metric-row"><b style="width:66px">${k}</b>
+      <div class="bar-track"><div class="bar-fill ${k==="LOW"?"bar-error":k==="HIGH"?"bar-llm":"bar-hybrid"}" style="width:${pct(cc[k],total)}%"></div></div>
+      <span style="width:72px;text-align:right">${cc[k]}건 (${pct(cc[k],total)}%)</span>
+    </div>`).join("");
+  const deltaH=hs.acc-rs.acc, deltaL=ls.acc-rs.acc;
+  document.getElementById("overviewInsight").innerHTML=
+    `현재 저장된 판정값 기준으로 <b>Rule ${rs.acc.toFixed(1)}%</b>, Hybrid ${hs.acc.toFixed(1)}%, LLM ${ls.acc.toFixed(1)}%입니다.
+     Hybrid는 Rule 대비 <b>${deltaH>=0?"+":""}${deltaH.toFixed(1)}%p</b>, LLM은 <b>${deltaL>=0?"+":""}${deltaL.toFixed(1)}%p</b>입니다.
+     채점에는 <b>공백·대소문자·점/쉼표/괄호/하이픈 등의 기호 차이</b>, 명확한 <b>인증기관 약어↔정식명칭</b>,
+     그리고 <b>KOREA↔Republic of Korea↔대한민국</b>, <b>INDONESIA↔인도네시아</b>처럼
+     국가명은 <b>영문 출력값</b>을 기준으로 채점합니다. 인증기관은 MUI↔Majelis Ulama Indonesia처럼
+     <b>동일 기관의 약어/정식명칭만</b> 같은 값으로 인정하며, BPJPH↔MUI·HCA↔JAKIM처럼 실제 기관이 다르면 X로 유지합니다.
+     인증번호는 CICOT.HL : 267/1999처럼 명확한 라벨이 앞에 붙은 경우만 번호 본문과 분리해 채점합니다.`;
+}
+function miniBar(label,val,cls){
+  return `<div class="mini-line"><span>${label}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${Math.max(0,Math.min(100,val))}%"></div></div><b>${val.toFixed(1)}%</b></div>`;
+}
+function fillSelectors(){
+  const fieldOptions=FIELDS.map(f=>`<option value="${esc(f)}">${esc(f)}</option>`).join("");
+  document.getElementById("cmpField").innerHTML=fieldOptions;
+  document.getElementById("cmpOrg").innerHTML='<option value="">전체</option>'+getOrgs().map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join("");
+}
+function renderCompareTable(){
+  const body=document.getElementById("compareBody"); if(!body) return;
+  const field=document.getElementById("cmpField")?.value || FIELDS[0];
+  const conf=document.getElementById("cmpConf")?.value || "";
+  const org=document.getElementById("cmpOrg")?.value || "";
+  const status=document.getElementById("cmpStatus")?.value || "";
+  const q=(document.getElementById("cmpSearch")?.value || "").toLowerCase().trim();
+  body.innerHTML="";
+  let shown=0;
+  rawData.forEach((r,idx)=>{
+    const d=r.fields[field];
+    if(conf && r.conf!==conf) return;
+    if(org && r.org!==org) return;
+    if(status==="rule" && d.r_match) return;
+    if(status==="hybrid" && d.h_match) return;
+    if(status==="llm" && d.l_match) return;
+    if(status==="any" && d.r_match && d.h_match && d.l_match) return;
+    if(q){
+      const hay=[r.filename,r.org,r.conf,d.gt,d.rule,d.hybrid,d.llm].join(" ").toLowerCase();
+      if(!hay.includes(q)) return;
+    }
+    const anyErr=!(d.r_match&&d.h_match&&d.l_match);
+    body.insertAdjacentHTML("beforeend",`
+      <tr class="${anyErr?"row-error":""}">
+        <td><button class="linkbtn" onclick="openDocModal(${idx})">상세</button><a class="linkbtn" href="${esc(pdfUrl(r.filename))}" target="_blank">PDF</a><span class="filename" title="${esc(r.filename)}">${esc(r.filename)}</span></td>
+        <td><b>${esc(r.org)}</b></td><td>${confPill(r.conf)}</td><td class="text-gt"><span class="val" title="${esc(d.gt)}">${esc(d.gt||"-")}</span></td>
+        <td>${valueStatus(d.rule,d.r_match)}</td><td>${valueStatus(d.hybrid,d.h_match)}</td><td>${valueStatus(d.llm,d.l_match)}</td>
+        <td>${statusPill(d.r_match)} ${statusPill(d.h_match)} ${statusPill(d.l_match)}</td>
+      </tr>`); shown++;
+  });
+  if(!shown) body.innerHTML=`<tr><td colspan="8" class="empty">조건에 맞는 데이터가 없습니다.</td></tr>`;
+}
+function valueStatus(v,match){
+  return `<div style="display:flex;gap:6px;align-items:center"><span class="val ${match?"":"text-bad"}" title="${esc(v)}">${esc(v||"미추출")}</span>${statusPill(match)}</div>`;
+}
+function statusPill(ok){ return `<span class="pill ${ok?"ok":"bad"}">${ok?"O":"X"}</span>`; }
+function confPill(c){ return `<span class="pill ${c==="HIGH"?"ok":c==="LOW"?"bad":"blue"}">${esc(c)}</span>`; }
+function pdfUrl(filename){
+  let folder=storageGet(PDF_PATH_KEY) || "D:\\halal_baseline_review_100";
+  folder=folder.replace(/\\/g,"/").replace(/^([A-Za-z]):/, "file:///$1:");
+  if(!folder.startsWith("file:///")) folder="file:///"+folder.replace(/^\/+/,"");
+  return encodeURI(folder.replace(/\/$/,"")+"/"+filename);
+}
+function strategyTemplate(mode){
+  const cfg=MODE[mode], st=stats(mode), rs=stats("rule");
+  const delta=st.acc-rs.acc;
+  const id=mode[0].toUpperCase()+mode.slice(1);
+  return `
+    <div class="page-head">
+      <div><h1 class="page-title">${cfg.label} 상세보기</h1>
+      <div class="page-desc">문서·필드 단위로 ${cfg.label} 결과만 집중 검토합니다. 오류만 필터링해 바로 CSV로 내보낼 수 있습니다.</div></div>
+      <button class="btn" onclick="exportErrorCSV('${mode}')">${cfg.label} 오류 CSV</button>
+    </div>
+    <div class="grid-4">
+      <div class="card"><div class="kpi-title">필드 정확도</div><div class="kpi-value" style="color:${cfg.color}">${st.acc.toFixed(1)}%</div><div class="kpi-sub">${st.correct}/${st.total} 필드 일치</div></div>
+      <div class="card"><div class="kpi-title">완전일치 문서</div><div class="kpi-value">${st.full}</div><div class="kpi-sub">${rawData.length}건 중 6필드 모두 일치</div></div>
+      <div class="card"><div class="kpi-title">오류 필드</div><div class="kpi-value" style="color:var(--red)">${st.errors}</div><div class="kpi-sub">총 ${st.total}개 필드 기준</div></div>
+      <div class="card"><div class="kpi-title">Rule 대비</div><div class="kpi-value" style="font-size:27px;color:${delta>=0?"var(--green)":"var(--red)"}">${delta>=0?"+":""}${delta.toFixed(1)}%p</div><div class="kpi-sub">${mode==="rule"?"기준 방식":delta>=0?"Rule보다 높음":"Rule보다 낮음"}</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3 class="section-title">필드별 정확도</h3><div id="${mode}FieldStats"></div></div>
+      <div class="card"><h3 class="section-title">PDF 폴더 설정</h3>
+        <div class="section-sub">원본 PDF 버튼이 열리지 않으면 실제 100개 PDF가 있는 폴더를 지정하세요.</div>
+        <div style="display:flex;gap:8px"><input id="${mode}PdfPath" style="flex:1;height:38px;border:1px solid var(--line);border-radius:9px;padding:0 10px;font-size:12px" value="${esc(storageGet(PDF_PATH_KEY)||"D:\\halal_baseline_review_100")}"><button class="btn" onclick="savePdfFolder('${mode}')">저장</button></div>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="control"><label>항목</label><select id="${mode}Field" onchange="renderStrategyTable('${mode}')"><option value="">전체 필드</option>${FIELDS.map(f=>`<option>${esc(f)}</option>`).join("")}</select></div>
+      <div class="control"><label>Confidence</label><select id="${mode}Conf" onchange="renderStrategyTable('${mode}')"><option value="">전체</option><option>HIGH</option><option>MEDIUM</option><option>LOW</option></select></div>
+      <div class="control"><label>상태</label><select id="${mode}Status" onchange="renderStrategyTable('${mode}')"><option value="">전체</option><option value="error">오류만</option><option value="ok">일치만</option></select></div>
+      <div class="control"><label>검색</label><input id="${mode}Search" placeholder="파일명 / 값" oninput="renderStrategyTable('${mode}')"></div>
+    </div>
+    <div class="card table-card">
+      <div class="table-scroll"><table class="data-table">
+        <thead><tr><th style="min-width:350px">원본 / 파일명</th><th>기관</th><th>Conf</th><th>항목</th><th>Ground Truth</th><th>${cfg.label} 값</th><th>판정</th><th>오류유형</th></tr></thead>
+        <tbody id="${mode}Body"></tbody>
+      </table></div>
+    </div>`;
+}
+function renderAllStrategyViews(){
+  document.getElementById("strategyRule").innerHTML=strategyTemplate("rule");
+  document.getElementById("strategyHybrid").innerHTML=strategyTemplate("hybrid");
+  document.getElementById("strategyLlm").innerHTML=strategyTemplate("llm");
+  ["rule","hybrid","llm"].forEach(mode=>{
+    const st=stats(mode); const div=document.getElementById(mode+"FieldStats");
+    div.innerHTML=FIELDS.map(f=>{
+      const v=+pct(st.byField[f].correct,st.byField[f].total);
+      return `<div class="metric-row"><b style="width:80px">${esc(f)}</b><div class="bar-track"><div class="bar-fill" style="width:${v}%;background:${MODE[mode].color}"></div></div><span style="width:62px;text-align:right">${v.toFixed(1)}%</span></div>`;
+    }).join("");
+    renderStrategyTable(mode);
+  });
+}
+function renderStrategyTable(mode){
+  const body=document.getElementById(mode+"Body"); if(!body) return;
+  const fsel=document.getElementById(mode+"Field")?.value || "";
+  const conf=document.getElementById(mode+"Conf")?.value || "";
+  const status=document.getElementById(mode+"Status")?.value || "";
+  const q=(document.getElementById(mode+"Search")?.value || "").toLowerCase().trim();
+  body.innerHTML=""; let count=0;
+  rawData.forEach((doc,idx)=>{
+    if(conf && doc.conf!==conf) return;
+    const flist=fsel?[fsel]:FIELDS;
+    flist.forEach(f=>{
+      const ok=modeMatch(doc,f,mode), val=modeVal(doc,f,mode), gt=doc.fields[f].gt;
+      if(status==="error" && ok) return;
+      if(status==="ok" && !ok) return;
+      if(q && ![doc.filename,doc.org,f,gt,val].join(" ").toLowerCase().includes(q)) return;
+      body.insertAdjacentHTML("beforeend",`
+        <tr class="${ok?"":"row-error"}">
+          <td><button class="linkbtn" onclick="openDocModal(${idx})">상세</button><a class="linkbtn" href="${esc(pdfUrl(doc.filename))}" target="_blank">PDF</a><span class="filename" title="${esc(doc.filename)}">${esc(doc.filename)}</span></td>
+          <td><b>${esc(doc.org)}</b></td><td>${confPill(doc.conf)}</td><td><b>${esc(f)}</b></td>
+          <td class="text-gt"><span class="val" title="${esc(gt)}">${esc(gt||"-")}</span></td>
+          <td>${valueStatus(val,ok)}</td><td>${statusPill(ok)}</td><td><span class="pill ${ok?"gray":"orange"}">${ok?"-":esc(errorType(f,gt,val))}</span></td>
+        </tr>`); count++;
+    });
+  });
+  if(!count) body.innerHTML=`<tr><td colspan="8" class="empty">조건에 맞는 데이터가 없습니다.</td></tr>`;
+}
+function savePdfFolder(mode){
+  const el=document.getElementById(mode+"PdfPath"); if(!el) return;
+  storageSet(PDF_PATH_KEY,el.value.trim());
+  ["rule","hybrid","llm"].forEach(m=>{const x=document.getElementById(m+"PdfPath");if(x)x.value=el.value.trim()});
+  alert("PDF 폴더 경로를 저장했습니다.");
+  renderCompareTable(); ["rule","hybrid","llm"].forEach(renderStrategyTable);
+}
+function renderErrorAnalysis(){
+  const mode=document.getElementById("errMode")?.value || "rule";
+  const cards=document.getElementById("errorConfidenceCards"); if(!cards) return;
+  cards.innerHTML="";
+  ["HIGH","MEDIUM","LOW"].forEach(conf=>{
+    const subset=rawData.filter(r=>r.conf===conf); let t=0,e=0;
+    subset.forEach(doc=>FIELDS.forEach(f=>{t++;if(!modeMatch(doc,f,mode))e++}));
+    cards.insertAdjacentHTML("beforeend",`<div class="card"><div class="kpi-title">${conf} Confidence</div><div class="kpi-value" style="color:${e?"var(--red)":"var(--green)"}">${pct(e,t)}%</div><div class="kpi-sub">오류율 · ${e}/${t}필드 · ${subset.length}문서</div></div>`);
+  });
+  const perField={};FIELDS.forEach(f=>perField[f]=0);
+  rawData.forEach(d=>FIELDS.forEach(f=>{if(!modeMatch(d,f,mode))perField[f]++}));
+  const maxF=Math.max(1,...Object.values(perField));
+  document.getElementById("errorFieldBars").innerHTML=FIELDS.map(f=>`
+    <div class="metric-row"><b style="width:80px">${esc(f)}</b><div class="bar-track"><div class="bar-fill bar-error" style="width:${perField[f]/maxF*100}%"></div></div><span style="width:48px;text-align:right">${perField[f]}건</span></div>`).join("");
+  const orgMap={};
+  rawData.forEach(d=>{if(!orgMap[d.org])orgMap[d.org]={docs:0,errors:0,total:0};orgMap[d.org].docs++;FIELDS.forEach(f=>{orgMap[d.org].total++;if(!modeMatch(d,f,mode))orgMap[d.org].errors++})});
+  const orgs=Object.entries(orgMap).sort((a,b)=>b[1].errors-a[1].errors).slice(0,15), maxO=Math.max(1,...orgs.map(x=>x[1].errors));
+  document.getElementById("errorOrgList").innerHTML=orgs.map(([o,s])=>`
+    <div class="stat-item"><b title="${esc(o)}">${esc(o)}</b><div class="bar-track"><div class="bar-fill bar-error" style="width:${s.errors/maxO*100}%"></div></div><span style="text-align:right">${s.errors}건</span></div>`).join("");
+  const docs=rawData.map((d,idx)=>({d,idx,errs:docErrors(d,mode)})).filter(x=>x.errs.length).sort((a,b)=>b.errs.length-a.errs.length);
+  const body=document.getElementById("errorDocsBody"); body.innerHTML=docs.slice(0,30).map((x,i)=>`
+    <tr><td>${i+1}</td><td><span class="filename" style="max-width:440px" title="${esc(x.d.filename)}">${esc(x.d.filename)}</span></td><td><b>${esc(x.d.org)}</b></td><td>${confPill(x.d.conf)}</td><td><span class="pill bad">${x.errs.length}/6</span></td><td>${x.errs.map(f=>`<span class="pill orange">${esc(f)}</span>`).join(" ")}</td><td><button class="linkbtn" onclick="openDocModal(${x.idx})">상세</button></td></tr>`).join("");
+  if(!docs.length) body.innerHTML=`<tr><td colspan="7" class="empty">오류 문서가 없습니다.</td></tr>`;
+}
+function openDocModal(idx){
+  const doc=rawData[idx]; if(!doc) return;
+  document.getElementById("modalTitle").textContent=doc.filename;
+  document.getElementById("modalSub").innerHTML=`${esc(doc.org)} · ${confPill(doc.conf)} · <a class="linkbtn" href="${esc(pdfUrl(doc.filename))}" target="_blank">원본 PDF 열기</a>`;
+  let rows=FIELDS.map(f=>{
+    const d=doc.fields[f];
+    return `<tr>
+      <td><b>${esc(f)}</b></td><td class="text-gt">${esc(d.gt||"-")}</td>
+      <td>${valueStatus(d.rule,d.r_match)}</td><td>${valueStatus(d.hybrid,d.h_match)}</td><td>${valueStatus(d.llm,d.l_match)}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("modalBody").innerHTML=`
+    <table class="data-table" style="min-width:850px"><thead><tr><th>항목</th><th>Ground Truth</th><th>Rule</th><th>Hybrid</th><th>LLM</th></tr></thead><tbody>${rows}</tbody></table>`;
+  document.getElementById("docModal").classList.add("open");
+}
+function closeModal(){ document.getElementById("docModal").classList.remove("open"); }
+
+function exportAllCSV(){
+  const headers=["파일명","기관","Confidence","항목","정답(GT)","Rule","Rule일치","Hybrid","Hybrid일치","LLM","LLM일치","Rule오류유형","Hybrid오류유형","LLM오류유형"];
+  const rows=[headers];
+  rawData.forEach(doc=>FIELDS.forEach(f=>{
+    const d=doc.fields[f];
+    rows.push([doc.filename,doc.org,doc.conf,f,d.gt,d.rule,d.r_match?"O":"X",d.hybrid,d.h_match?"O":"X",d.llm,d.l_match?"O":"X",
+      d.r_match?"":errorType(f,d.gt,d.rule), d.h_match?"":errorType(f,d.gt,d.hybrid), d.l_match?"":errorType(f,d.gt,d.llm)]);
+  }));
+  const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n");
+  downloadBlob("halal_benchmark_all_100docs.csv",csv,"text/csv;charset=utf-8");
+}
+function exportErrorCSV(mode){
+  const cfg=MODE[mode]; const rows=[["대상방식","파일명","기관","Confidence","항목","정답(GT)","현재값","일치여부","수정값","오류유형"]];
+  rawData.forEach(doc=>FIELDS.forEach(f=>{
+    if(!modeMatch(doc,f,mode)){
+      const gt=doc.fields[f].gt, val=modeVal(doc,f,mode);
+      rows.push([cfg.label.toUpperCase(),doc.filename,doc.org,doc.conf,f,gt,val,"X","",errorType(f,gt,val)]);
+    }
+  }));
+  const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n");
+  downloadBlob(`halal_${mode}_errors_${rows.length-1}items.csv`,csv,"text/csv;charset=utf-8");
+}
+function exportCurrentErrorCSV(){ exportErrorCSV(currentModeFromView()); }
+function parseCSV(text){
+  text=text.replace(/^\uFEFF/,""); const rows=[]; let row=[],cell="",q=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(q){
+      if(ch==='"' && text[i+1]==='"'){cell+='"';i++}
+      else if(ch==='"'){q=false}
+      else cell+=ch;
+    }else{
+      if(ch==='"') q=true;
+      else if(ch===','){row.push(cell);cell=""}
+      else if(ch==='\n'){row.push(cell.replace(/\r$/,""));rows.push(row);row=[];cell=""}
+      else cell+=ch;
+    }
+  }
+  if(cell.length||row.length){row.push(cell.replace(/\r$/,""));rows.push(row)}
+  return rows;
+}
+function normalizeModeLabel(v){
+  const s=String(v||"").trim().toUpperCase();
+  if(s==="RULE"||s==="R") return "rule";
+  if(s==="HYBRID"||s==="H") return "hybrid";
+  if(s==="LLM"||s==="L"||s==="OPENAI") return "llm";
+  return null;
+}
+function handleCSVUpload(event){
+  const file=event.target.files?.[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>applyCorrectionCSV(reader.result,file.name);
+  reader.readAsText(file,"utf-8");
+  event.target.value="";
+}
+function applyCorrectionCSV(text,fileName){
+  const rows=parseCSV(text); if(rows.length<2){alert("CSV 데이터가 없습니다.");return}
+  const headers=rows[0].map(x=>x.trim());
+  const idx={}; headers.forEach((h,i)=>idx[h]=i);
+  const need=["대상방식","파일명","항목","수정값"];
+  const missing=need.filter(k=>idx[k]===undefined);
+  if(missing.length){alert("필수 열이 없습니다: "+missing.join(", "));return}
+  let applied=0, skipped=0, notFound=0; const logs=[];
+  rows.slice(1).forEach(cols=>{
+    if(!cols.some(x=>String(x).trim())) return;
+    const mode=normalizeModeLabel(cols[idx["대상방식"]]);
+    const filename=cols[idx["파일명"]];
+    const field=cols[idx["항목"]];
+    const newValue=cols[idx["수정값"]];
+    if(!mode || !filename || !FIELDS.includes(field) || !String(newValue??"").trim()){skipped++;return}
+    const doc=rawData.find(r=>r.filename===filename);
+    if(!doc){notFound++;return}
+    const d=doc.fields[field], key=MODE[mode].valueKey, mkey=MODE[mode].matchKey;
+    const oldValue=d[key], oldHybridSource = sameValue(d.hybrid,d.llm)?"llm":sameValue(d.hybrid,d.rule)?"rule":"custom";
+    d[key]=newValue; d[mkey]=smartMatch(field,d.gt,newValue);
+    // Hybrid가 수정 전 해당 소스를 그대로 채택 중이었다면 동기화
+    if(mode!=="hybrid" && oldHybridSource===mode){
+      d.hybrid=newValue; d.h_match=smartMatch(field,d.gt,newValue);
+    }
+    const item={ts:new Date().toLocaleString("ko-KR"),mode,filename,field,oldValue,newValue,gt:d.gt,match:d[mkey]};
+    corrections.unshift(item); logs.push(`${MODE[mode].label} | ${field} | ${filename}\n  ${oldValue||"(빈값)"}  ->  ${newValue}  [${d[mkey]?"O":"X"}]`);
+    applied++;
+  });
+  saveCorrections();
+  document.getElementById("reviewLog").textContent=
+    `[${new Date().toLocaleString("ko-KR")}] ${fileName}\n적용 ${applied}건 / 빈 수정값 등 스킵 ${skipped}건 / 파일명 미매칭 ${notFound}건\n\n`+
+    (logs.slice(0,30).join("\n") || "적용된 수정값이 없습니다.");
+  renderAll();
+  alert(`수정 CSV 적용 완료: ${applied}건`);
+}
+function saveCorrections(){ storageSet(STORAGE_KEY,JSON.stringify(corrections)); }
+function loadCorrections(){
+  let saved=[]; try{saved=JSON.parse(storageGet(STORAGE_KEY)||"[]")}catch(e){saved=[]}
+  if(!Array.isArray(saved)) saved=[];
+  // 오래된 순서부터 재적용
+  saved.slice().reverse().forEach(item=>{
+    const doc=rawData.find(r=>r.filename===item.filename);
+    if(!doc||!FIELDS.includes(item.field)||!MODE[item.mode]) return;
+    const d=doc.fields[item.field], key=MODE[item.mode].valueKey, mkey=MODE[item.mode].matchKey;
+    const oldHybridSource=sameValue(d.hybrid,d.llm)?"llm":sameValue(d.hybrid,d.rule)?"rule":"custom";
+    d[key]=item.newValue; d[mkey]=smartMatch(item.field,d.gt,item.newValue);
+    if(item.mode!=="hybrid"&&oldHybridSource===item.mode){d.hybrid=item.newValue;d.h_match=smartMatch(item.field,d.gt,item.newValue)}
+    item.match=d[mkey];
+  });
+  corrections=saved;
+}
+function resetCorrections(){
+  if(!confirm("CSV로 적용한 수정값을 모두 지우고 최초 100건 데이터로 되돌릴까요?")) return;
+  storageRemove(STORAGE_KEY); corrections=[]; rawData=JSON.parse(JSON.stringify(ORIGINAL_DATA));
+  recalculateMatches(rawData);
+  document.getElementById("reviewLog").textContent="수정값을 초기화했습니다. 원본 100건 데이터를 영문 출력·기관명 alias·보수적 인증번호 정규화 기준으로 다시 채점했습니다.";
+  fillSelectors(); renderAll();
+}
+function renderReviewKPIs(){
+  [["rule","reviewRule","reviewRuleSub"],["hybrid","reviewHybrid","reviewHybridSub"],["llm","reviewLlm","reviewLlmSub"]].forEach(([m,id,sub])=>{
+    const s=stats(m); document.getElementById(id).textContent=s.acc.toFixed(1)+"%"; document.getElementById(sub).textContent=`완전일치 ${s.full}/${rawData.length}건 · 오류 ${s.errors}필드`;
+  });
+}
+function renderCorrectionTable(){
+  const body=document.getElementById("correctionBody"); if(!body) return;
+  if(!corrections.length){body.innerHTML=`<tr><td colspan="8" class="empty">아직 적용된 수정 내역이 없습니다.</td></tr>`;return}
+  body.innerHTML=corrections.slice(0,200).map(c=>`<tr>
+    <td>${esc(c.ts)}</td><td><span class="pill blue">${esc(MODE[c.mode]?.label||c.mode)}</span></td><td><span class="filename" title="${esc(c.filename)}">${esc(c.filename)}</span></td><td><b>${esc(c.field)}</b></td>
+    <td><span class="val">${esc(c.oldValue||"")}</span></td><td><span class="val">${esc(c.newValue)}</span></td><td class="text-gt"><span class="val">${esc(c.gt)}</span></td><td>${statusPill(smartMatch(c.field,c.gt,c.newValue))}</td></tr>`).join("");
+}
+function downloadOfflinePython(){
+  const py=`# halal_benchmark_offline_review.py
+# API 호출 없이 HTML CSV를 동일한 정규화 기준으로 재채점
+import csv, sys, unicodedata, re
+from collections import defaultdict
+
+path = sys.argv[1] if len(sys.argv) > 1 else "halal_benchmark_all_100docs.csv"
+
+def norm(v):
+    v = unicodedata.normalize("NFKC", str(v or "")).strip().upper()
+    return re.sub(r"[^0-9A-Z가-힣]", "", v)
+
+ORG = {
+    "MUI":["MUI","MAJELIS ULAMA INDONESIA","MAJELIS ULAMA INDONESIA MUI","LPPOM MUI","LPOM MUI"],
+    "ISA":["ISA","ISLAMIC SERVICES OF AMERICA","ISLAMIC SERVICES OF AMERICA ISA"],
+    "HFCE":["HFCE","HALAL FOOD COUNCIL OF EUROPE","HALAL FOOD COUNCIL OF EUROPE HFCE"],
+    "IFANCA":["IFANCA","ISLAMIC FOOD AND NUTRITION COUNCIL OF AMERICA","ISLAMIC FOOD AND NUTRITION COUNCIL OF AMERICA IFANCA"],
+    "HCE":["HCE","HALAL CERTIFICATION EUROPE","HALAL CERTIFICATION EUROPE HCE"],
+    "TQHCC":["TQHCC","TOTAL QUALITY HALAL CORRECT CERTIFICATION","TOTAL QUALITY HALAL CORRECT CERTIFICATION TQHCC","HALAL CORRECT CERTIFICATION","HALAL CORRECT CERTIFICATION TQHCC"],
+    "MUIS":["MUIS","MAJLIS UGAMA ISLAM SINGAPURA","MAJLIS UGAMA ISLAM SINGAPURA MUIS","ISLAMIC RELIGIOUS COUNCIL OF SINGAPORE","ISLAMIC RELIGIOUS COUNCIL OF SINGAPORE MUIS"],
+    "HQC":["HQC","HALAL QUALITY CONTROL","HALAL QUALITY CONTROL HQC","HALAL QUALITY CONTROL HQC DENMARK","HALAL QUALITY CONTROL DENMARK","HALAL QUALITY CONTROL BV NETHERLANDS","HALAL QUALITY CONTROL B.V. NETHERLANDS"],
+    "KMF":["KMF","KOREA MUSLIM FEDERATION","KOREA MUSLIM FEDERATION KMF"],
+    "CICOT":["CICOT","CENTRAL ISLAMIC COUNCIL OF THAILAND","THE CENTRAL ISLAMIC COUNCIL OF THAILAND","CENTRAL ISLAMIC COUNCIL OF THAILAND CICOT","THE CENTRAL ISLAMIC COUNCIL OF THAILAND CICOT"],
+    "HCA":["HCA","HALAL CERTIFICATION AGENCY","HALAL CERTIFICATION AGENCY HCA"],
+    "BPJPH":["BPJPH","BADAN PENYELENGGARA JAMINAN PRODUK HALAL","BADAN PENYELENGGARA JAMINAN PRODUK HALAL BPJPH","HALAL PRODUCT ASSURANCE ORGANIZING AGENCY","HALAL PRODUCT ASSURANCE ORGANIZING AGENCY BPJPH"],
+    "JAKIM":["JAKIM","JABATAN KEMAJUAN ISLAM MALAYSIA","JABATAN KEMAJUAN ISLAM MALAYSIA JAKIM","DEPARTMENT OF ISLAMIC DEVELOPMENT MALAYSIA","DEPARTMENT OF ISLAMIC DEVELOPMENT MALAYSIA JAKIM"],
+    "JUHF":["JUHF","JUHF CERTIFICATION PVT LTD","JUHF CERTIFICATION PVT. LTD.","JUHF CERTIFICATION PRIVATE LIMITED"],
+    "JMA":["JMA","JAPAN MUSLIM ASSOCIATION","JAPAN MUSLIM ASSOCIATION JMA"],
+    "HFQ":["HFQ","HALAL FOOD & QUALITY","HALAL FOOD AND QUALITY","HALAL FOOD & QUALITY HFQ","HALAL FOOD AND QUALITY HFQ"],
+}
+COUNTRY = {
+    "KOREA":["KOREA","REPUBLIC OF KOREA","SOUTH KOREA","KOREA REPUBLIC OF"],
+    "INDONESIA":["INDONESIA","REPUBLIC OF INDONESIA"],
+    "CHINA":["CHINA","PEOPLES REPUBLIC OF CHINA","PEOPLE'S REPUBLIC OF CHINA","PR CHINA","P.R. CHINA","INNER MONGOLIA, P.R. CHINA"],
+    "MALAYSIA":["MALAYSIA"],
+    "THAILAND":["THAILAND","KINGDOM OF THAILAND"],
+    "VIETNAM":["VIETNAM","VIET NAM","SOCIALIST REPUBLIC OF VIETNAM"],
+    "JAPAN":["JAPAN"],
+    "USA":["USA","US","UNITED STATES","UNITED STATES OF AMERICA","U.S.A","U.S."],
+    "NETHERLANDS":["NETHERLANDS","THE NETHERLANDS","NETHERLAND"],
+    "GERMANY":["GERMANY","FEDERAL REPUBLIC OF GERMANY"],
+    "SPAIN":["SPAIN"],
+    "FRANCE":["FRANCE"],
+    "BELGIUM":["BELGIUM"],
+    "AUSTRIA":["AUSTRIA"],
+    "DENMARK":["DENMARK"],
+    "INDIA":["INDIA","REPUBLIC OF INDIA"],
+    "SINGAPORE":["SINGAPORE","REPUBLIC OF SINGAPORE"],
+    "UK":["UK","UNITED KINGDOM","GREAT BRITAIN","UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND"],
+    "SWITZERLAND":["SWITZERLAND","SWISS CONFEDERATION"],
+}
+
+def alias_key(v, groups):
+    n=norm(v)
+    for canonical, aliases in groups.items():
+        if n in {norm(x) for x in aliases}:
+            return canonical
+    return n
+
+def date_key(v):
+    s=str(v or "").strip()
+    m=re.fullmatch(r"(\\d{4})\\D+(\\d{1,2})\\D+(\\d{1,2})",s)
+    if m: return f"{int(m.group(1)):04d}{int(m.group(2)):02d}{int(m.group(3)):02d}"
+    m=re.fullmatch(r"(\\d{1,2})\\D+(\\d{1,2})\\D+(\\d{4})",s)
+    if m: return f"{int(m.group(3)):04d}{int(m.group(2)):02d}{int(m.group(1)):02d}"
+    return norm(s)
+
+
+def cert_no_same(gt, val):
+    g, v = norm(gt), norm(val)
+    if g == v:
+        return True
+    if not g or not v:
+        return False
+    safe_prefixes = (
+        "CICOTHL","CICOTHALAL",
+        "HALALCERTIFICATENO","HALALCERTIFICATENUMBER",
+        "CERTIFICATENO","CERTIFICATENUMBER",
+        "CERTNO","CERTNUMBER",
+        "REGISTRATIONNO","REGISTRATIONNUMBER",
+    )
+    return any(v == p + g for p in safe_prefixes)
+
+
+def org_key(v):
+    n = norm(v)
+    for canonical, aliases in ORG.items():
+        if any(norm(a) == n for a in aliases):
+            return canonical
+    return n
+
+def same(field, gt, val):
+    if field == "인증기관": return alias_key(gt,ORG)==alias_key(val,ORG)
+    if field in ("인증국가","제조국"): return alias_key(gt,COUNTRY)==alias_key(val,COUNTRY)
+    if field == "유효기간": return date_key(gt)==date_key(val)
+    if field == "인증번호": return cert_no_same(gt,val)
+    return norm(gt)==norm(val)
+
+stats = defaultdict(lambda: [0,0])
+with open(path, "r", encoding="utf-8-sig", newline="") as f:
+    rows = csv.DictReader(f)
+    for r in rows:
+        field=r.get("항목","")
+        gt = r.get("정답(GT)", "")
+        for mode, col in [("Rule","Rule"),("Hybrid","Hybrid"),("LLM","LLM")]:
+            stats[mode][1] += 1
+            if same(field,gt,r.get(col,"")):
+                stats[mode][0] += 1
+
+for mode, (ok,total) in stats.items():
+    print(f"{mode}: {ok}/{total} = {ok/total*100:.1f}%")
+`;
+  downloadBlob("halal_benchmark_offline_review.py",py,"text/x-python;charset=utf-8");
+}
+function setView(view){
+  activeView=view;
+  document.querySelectorAll(".navitem").forEach(b=>b.classList.toggle("active",b.dataset.view===view));
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id==="view-"+view));
+  if(view==="compare") renderCompareTable();
+  if(["rule","hybrid","llm"].includes(view)) renderStrategyTable(view);
+  if(view==="errors") renderErrorAnalysis();
+}
+document.querySelectorAll(".navitem").forEach(btn=>btn.addEventListener("click",()=>setView(btn.dataset.view)));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+rawData=JSON.parse(JSON.stringify(ORIGINAL_DATA));
+recalculateMatches(rawData);
+loadCorrections();
+fillSelectors();
+renderAll();
+</script>
+</body>
+</html>
